@@ -26,3 +26,19 @@ javascript:
     body.removeChild(textarea);
 })();
 ```
+
+## Chromeなどクリップボードを直接扱える場合
+
+```javascript
+(function () {
+  function listener(e) {
+    var [, title=document.title, text=""] = document.title.match(/.*(#\d+)(:.*) - .*? - Redmine for .*/) || [];
+    e.clipboardData.setData("text/html", "<a href='" + document.URL + "'>" + title + "</a>" + text);
+    e.clipboardData.setData("text/plain", title + text);
+    e.preventDefault();
+  }
+  document.addEventListener("copy", listener);
+  document.execCommand("copy");
+  document.removeEventListener("copy", listener);
+})();
+```
