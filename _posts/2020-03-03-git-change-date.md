@@ -5,7 +5,15 @@ date:   2020/03/03 09:48:04 +0900
 tags:   git
 ---
 
-Gitで過去のコミットを改変した場合、コミットの作成日時とコミット日時がずれてしまう。そこで下記コマンドを実行することでコミット日時を作成日時に書き換えることで修正の痕跡を消し去ることができる。
+Gitで過去のコミットを改変した場合、コミットの作成日時とコミット日時がずれてしまう。
+
+```bash
+diff \
+<(cat <(git log --oneline --pretty=format:'%cd' --date=format:'%Y-%m-%d %H:%M:%S') <(echo '')) \
+<(cat <(git log --oneline --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S') <(echo ''))
+```
+
+下記コマンドを実行することでコミット日時を作成日時に書き換えることで修正の痕跡を消し去ることができる。
 
 ```bash
 git rebase --committer-date-is-author-date HEAD^
