@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  PHPStormでDocker+XDebugを使用する
+title:  PhpStorm+DockerでXDebugを使用する
 date:   2020/12/29 16:08:49 +0900
-tags:   phpstorm docker
+tags:   php phpstorm docker
 ---
 
-PHPStormのXDebug設定はプロジェクト毎に保存されるため書くプロジェクトで設定が必要。
+PhpStormのXDebug設定はプロジェクト毎に保存されるため書くプロジェクトで設定が必要。
 
 ## Preferences | Build, Execution, Deployment | Docker
 
