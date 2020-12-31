@@ -42,3 +42,16 @@ git filter-branch --index-filter \
 ```
 
 `--index-filter`はコミットをチェックアウトせずにインデックスを書き換える。
+
+## 書き換える範囲を指定する
+
+`filter-branch`で書き換える範囲は`HEAD`やハッシュでの指定ができず、ブランチで指定する。
+
+変更を適用したい直前のコミットに対してブランチを作成し、ブランチ間のコミットを指定する。
+
+以下は`origin/master`以降で`master`の最新まで、すなわち、プッシュされていないコミットに対して書き換えを実施する。
+
+```sh
+git filter-branch --index-filter \
+"git rm --cached --ignore-unmatch password.txt" origin/master..master
+```
