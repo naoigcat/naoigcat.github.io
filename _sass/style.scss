@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+$brand-color:           #0288d1;
+$brand-color-light:     #fff8e1;
+$brand-color-dark:      #455a64;
+$site-title-color:      $brand-color-dark;
+$text-color:            $brand-color-dark;
+$background-color:      $brand-color-light;
+$code-background-color: mix($brand-color-light, $brand-color, 80%);
+$link-base-color:       $brand-color;
+$link-visited-color:    $link-base-color;
+$link-hover-color:      $text-color;
+$border-color-01:       $brand-color-dark;
+$border-color-02:       $brand-color-light;
+$border-color-03:       $brand-color;
+$table-text-color:      $text-color;
+$table-zebra-color:     lighten($background-color, 4%);
+$table-header-bg-color: lighten($background-color, 10%);
+$table-header-border:   lighten($background-color, 21%);
+$table-border-color:    $border-color-01;
+$on-medium:             600px;
+$on-large:              800px;
+
+@import "minima";
+
+.footer-col-1 {
+  display: none;
+}
+
+.footer-col-2 {
+  width: calc(50% - (#{$spacing-unit} / 2));
+}
+
+.footer-col-3 {
+  width: calc(50% - (#{$spacing-unit} / 2));
+}
+
+@media screen and (min-width: $on-large) {
+  .footer-col-2 {
+    width: calc(35% - (#{$spacing-unit} / 2));
+  }
+
+  .footer-col-3 {
+    width: calc(65% - (#{$spacing-unit} / 2));
+  }
+}
+
+@media screen and (min-width: $on-medium) {
+  .footer-col-wrapper {
+    display: flex
+  }
+
+  .footer-col {
+    width: calc(100% - (#{$spacing-unit} / 2));
+    padding: 0 ($spacing-unit / 2);
+
+    &:first-child {
+      padding-right: $spacing-unit / 2;
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+      padding-left: $spacing-unit / 2;
+    }
+  }
+}
