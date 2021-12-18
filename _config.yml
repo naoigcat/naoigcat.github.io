@@ -1,27 +1,10 @@
 title: Leathanaigh de naoigcat
-email: naoigcat@gmail.com
+url: https://naoigcat.github.io/
+author: naoigcat
+github_username: naoigcat
 description: >-
   It takes all the running you can do, to keep in the same place.
-baseurl: ""
-url: ""
-github_username: naoigcat
-
-# Build settings
-markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
-
 google_analytics: UA-158986608-1
-
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
