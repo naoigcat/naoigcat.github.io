@@ -23,6 +23,14 @@ $on-large:              800px;
 
 @import "minima";
 
+a {
+  &:visited {
+    blockquote, pre, code {
+      border: 1px solid #e8e8e8 !important;
+    }
+  }
+}
+
 .footer-col-1 {
   display: none;
 }
