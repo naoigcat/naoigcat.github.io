@@ -2,7 +2,7 @@
 layout: post
 title:  Swiftで想定外のレスポンスを変換可能なEnumを作る
 date:   2022/01/21 08:58:59 +0900
-tags:   swift, ios
+tags:   swift ios
 ---
 
 Enumを持つオブジェクトをCodableにすると、未定義の値が渡されたときに`nil`になったりエラーになって全体の変換が失敗したりする。
