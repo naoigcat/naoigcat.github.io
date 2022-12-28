@@ -2,7 +2,7 @@
 layout: post
 title:  RubyでGoogle Driveからファイルをダウンロードする
 date:   2017-09-17 22:11:00 +0900
-tags:   ruby, google-drive
+tags:   ruby google-drive
 ---
 
 RubyでGoogle Driveからファイルをダウンロードする方法はいくつかあるがOAuthを使用する場合は以下のようなコードになる。
