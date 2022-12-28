@@ -2,7 +2,7 @@
 layout: post
 title:  SafariでタイトルをコピーするBookmarkletを作成する
 date:   2020-02-05 14:45:11 +0900
-tags:   macos, safari, bookmarklet
+tags:   macos safari bookmarklet
 ---
 
 SafariではJavaScriptでクリップボードにテキストをコピーしようとすると一度`textarea`に貼り付けてからコピーコマンドを実行する必要がある。

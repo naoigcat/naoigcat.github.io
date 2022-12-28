@@ -2,7 +2,7 @@
 layout: post
 title:  MacのFusion Driveを再構成する
 date:   2020/03/04 11:21:44 +0900
-tags:   mac
+tags:   macos
 ---
 
 Fusion Driveを使用しているMacをクリーンインストールしようとしてインターネットリカバリからディスクユーティリティを起動するとAPPLE SSDとAPPLE HDDの2つのディスクが認識される場合がある。

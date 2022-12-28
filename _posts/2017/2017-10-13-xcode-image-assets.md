@@ -2,7 +2,7 @@
 layout: post
 title:  XcodeでImages.xcassetsに存在しないリンク・使用されていないファイルを探す
 date:   2017-10-13 17:26:00 +0900
-tags:   mac, xcode
+tags:   macos xcode
 ---
 
 ```ruby
