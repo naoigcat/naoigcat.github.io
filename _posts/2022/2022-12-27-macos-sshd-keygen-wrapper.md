@@ -2,7 +2,7 @@
 layout: post
 title:  macOSでSSH接続時にDocumentsディレクトリやDesktopディレクトリにアクセスする
 date:   2022/12/27 12:03:01 +0900
-tags:   macOS, ssh
+tags:   macos ssh
 ---
 
 ## 現象

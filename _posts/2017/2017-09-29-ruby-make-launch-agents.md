@@ -2,7 +2,7 @@
 layout: post
 title:  RubyでLaunchAgentsタスクを作成する
 date:   2017-09-29 11:58:00 +0900
-tags:   ruby, launchd
+tags:   ruby launchd
 ---
 
 LaunchAgentsでタスクを登録する場合、PropertyList形式のファイルを作成するが、XMLのため作成しづらい。

@@ -2,7 +2,7 @@
 layout: post
 title:  iOSで使用可能なストレージサイズを取得する
 date:   2022/01/17 10:41:39 +0900
-tags:   swift, ios
+tags:   swift ios
 ---
 
 設定アプリの情報>使用可能に表示されているストレージサイズを取得したい場合がある。

@@ -2,7 +2,7 @@
 layout: post
 title:  MacのSpotlightのインデックスを再構築する
 date:   2020/03/06 12:06:11 +0900
-tags:   mac
+tags:   macos
 ---
 
 Rubyの`xcode-install` gemでインストール済みのXcodeのバージョンを取得する場合、内部的には
