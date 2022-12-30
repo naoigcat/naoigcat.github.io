@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  アルファベットの出現率
+title:  アルファベットの出現率をまとめる
 date:   2022/02/20 02:53:20 +0900
 tags:   knowledge
 ---
@@ -28,3 +28,7 @@ AR, TE, SE, HI, OF
 THE, ING, AND, HER, ERE,
 ENT, THA, NTH, WAS, ETH,
 FOR, DTH
+
+## 参考文献
+
+-   Stinson, Douglas R. (1995). *Cryptography: Theory and Practice*. CRC Press, Boca Raton.
