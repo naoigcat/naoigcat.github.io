@@ -6,6 +6,7 @@ github_username: naoigcat
 description: >-
   It takes all the running you can do, to keep in the same place.
 exclude:
+  - LICENSE.md
   - Makefile
   - README.md
 theme: minima
