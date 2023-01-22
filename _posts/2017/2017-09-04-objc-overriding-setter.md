@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Objective-Cでプロパティのセッターをオーバーライドする
-date:   2017-09-04 16:15:00 +0900
+date:   2017/09/04 16:15:00 +0900
 tags:   objective-c
 ---
 

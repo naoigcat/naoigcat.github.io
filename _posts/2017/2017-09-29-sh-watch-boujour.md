@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Bonjourを監視する
-date:   2017-09-29 09:55:00 +0900
+date:   2017/09/29 09:55:00 +0900
 tags:   sh
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  RubyでvMessage形式のメールをGmailにアップロードする
-date:   2020-03-25 00:11:12 +0900
+date:   2020/03/25 00:11:12 +0900
 tags:   ruby
 ---
 
