@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Objective-Cのテキストフィールドの自動補正を無効にする
-date:   2017-09-02 12:26:00 +0900
+date:   2017/09/02 12:26:00 +0900
 tags:   objective-c
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  iOSシミュレーターのUserDefaultsをリセットする
-date:   2017-07-26 13:50:00 +0900
+date:   2017/07/26 13:50:00 +0900
 tags:   macos ios
 ---
 

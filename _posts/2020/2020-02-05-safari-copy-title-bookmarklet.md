@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  SafariでタイトルをコピーするBookmarkletを作成する
-date:   2020-02-05 14:45:11 +0900
+date:   2020/02/05 14:45:11 +0900
 tags:   macos safari bookmarklet
 ---
 
