@@ -5,7 +5,7 @@ date:   2021/12/18 13:39:52 +0900
 tags:   sh docker
 ---
 
-## コンテナ一覧の絞り込み
+## コンテナ一覧を絞り込む
 
 `docker ps`コマンドは[`--filter`オプション](https://docs.docker.jp/engine/reference/commandline/ps.html#ps-filtering)で絞り込みができる。
 
@@ -15,7 +15,7 @@ tags:   sh docker
 docker ps --filter ancestor=ubuntu:latest
 ```
 
-## コンテナ一覧出力時の整形
+## コンテナ一覧の出力結果を整形する
 
 [`--format`オプション](https://docs.docker.jp/engine/reference/commandline/ps.html#ps-formatting)で整形できる。
 

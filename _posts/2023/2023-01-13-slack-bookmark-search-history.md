@@ -5,13 +5,13 @@ date:   2023/01/13 12:05:19 +0900
 tags:   slack
 ---
 
-## 目的
+## 検索履歴には残るがピン留めや共有は行えない
 
 Slackでは履歴から過去に検索した文言で再検索が行えるがピン留め等は行えず、ほかの人に共有することもできない。
 
 リンクにしてチャンネルのブックマークに追加できれば便利になる。
 
-## 方法
+## ブラウザでアクセスしてリンクを生成する
 
 1.  ブラウザでSlackを開く
 1.  デスクトップアプリへのリダイレクトをキャンセルし、`use Slack in your browser`をクリックする
@@ -21,7 +21,7 @@ Slackでは履歴から過去に検索した文言で再検索が行えるがピ
 
     ```diff
     - https://app.slack.com/client/XXXXXXXXXXX/search/search-eyxxxx
-    + https://workspace.slack.com/search/search-eyxxxx
+    + https://{workspace}.slack.com/search/search-eyxxxx
     ```
 
 1.  デスクトップアプリでリンクを開く

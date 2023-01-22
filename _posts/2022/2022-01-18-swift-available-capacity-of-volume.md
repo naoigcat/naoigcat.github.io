@@ -5,7 +5,11 @@ date:   2022/01/18 10:41:39 +0900
 tags:   swift ios
 ---
 
+## ストレージサイズを取得する
+
 設定アプリの情報>使用可能に表示されているストレージサイズを取得したい場合がある。
+
+## 以前は実際より小さい値しか取得できなかった
 
 Swift 3.0の時代には下記のようなコードが紹介されていたが、設定アプリの表示されている値よりも小さい値が返却される。
 
@@ -23,6 +27,8 @@ var systemFreeSize: NSNumber? {
     return NSNumber(value: round(systemFreeSize.doubleValue / Double(1000 * 1000 * 1000) * 100) / 100)
 }
 ```
+
+## iOS 11以降では正しい値が取得できる
 
 iOS 11以降で`URLResourceKey`に追加された`volumeAvailableCapacityForImportantUsageKey`を使用すると設定アプリと一致する値が取得できる。
 

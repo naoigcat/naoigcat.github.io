@@ -5,6 +5,8 @@ date:   2020/05/23 22:10:12 +0900
 tags:   ruby
 ---
 
+## トップレベルでRefinementを使用できない
+
 IRBを起動し、
 
 ```sh
@@ -25,7 +27,11 @@ end
 using Double
 ```
 
-`RuntimeError (main.using is permitted only at toplevel)`というエラーになる。このエラーはIRBの起動オプションで回避できる。
+`RuntimeError (main.using is permitted only at toplevel)`というエラーになる。
+
+## 起動オプションでエラーを抑制する
+
+このエラーはIRBの起動オプションで回避できる。
 
 ```sh
 irb --context-mode=1

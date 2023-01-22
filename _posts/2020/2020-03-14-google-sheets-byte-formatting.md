@@ -5,6 +5,8 @@ date:   2020/03/14 13:37:28 +0900
 tags:   git
 ---
 
+## 数字フォーマットで単位を付ける
+
 Google SheetsでCustom number formatsに以下を入れることでバイトサイズに単位を付けることができる。
 
 ```text

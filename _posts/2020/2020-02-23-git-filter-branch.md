@@ -11,13 +11,13 @@ tags:   git
 git rebase --interactive HEAD
 ```
 
-## コミット日時をコミットの作成日時に合わせる
+## コミットの適用日時を作成日時に合わせる
 
 ```sh
 git rebase --committer-date-is-author-date HEAD
 ```
 
-## コミット作成者・コミッターの名前とメールアドレスを変更する
+## 名前とメールアドレスを変更する
 
 ```sh
 git filter-branch --force --env-filter \

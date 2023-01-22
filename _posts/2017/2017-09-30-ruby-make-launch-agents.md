@@ -5,6 +5,8 @@ date:   2017/09/30 11:58:00 +0900
 tags:   ruby launchd
 ---
 
+## 辞書形式のデータをXMLに変換する
+
 LaunchAgentsでタスクを登録する場合、PropertyList形式のファイルを作成するが、XMLのため作成しづらい。
 
 Rubyでは`plist`を使用することで`Hash`をPropertyList形式に変換できる。

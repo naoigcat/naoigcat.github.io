@@ -1,11 +1,15 @@
 ---
 layout: post
-title:  Swiftで配列を一定数ずつ分割する
+title:  Swiftで配列を一定数毎に分割する
 date:   2022/01/06 09:04:13 +0900
 tags:   swift
 ---
 
+## 配列を一定数毎に分割して返す
+
 一定数刻みで数値のコレクションを返してくれる`stride`関数を利用して配列を一定数毎に分割する`Extension`を作成できる。
+
+Rubyの`Enumerable#each_slice`に相当する。
 
 ```swift
 import Foundation

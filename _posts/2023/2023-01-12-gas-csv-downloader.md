@@ -1,23 +1,21 @@
 ---
 layout: post
-title:  Google Sheetで文字コードをShift JISにしたCSVをダウンロードできるようにする
+title:  Google Sheetで文字コードをShift JISにしたCSVをダウンロードする
 date:   2023/01/12 12:10:28 +0900
 tags:   google gas
 ---
 
-## 課題
+## CSV形式でダウンロードするとUTF-8になる
 
 Google SheetでシートをCSV形式でダウンロードするとき文字コードはUTF-8固定になる。
 
 Windowsアプリケーションで利用する場合などでShift JISでエンコードされている必要がある場合がある。
 
-## 方法
+## GASで文字コードを変換してダウンロードする
 
 下記のコードをGoogle App Scriptに実装することでシートを開いたときにDownloadメニューが追加される。
 
 メニューをクリックするとモーダルが表示されてDownloadリンクからシート名がファイル名になったCSVファイルがダウンロードできる。
-
-## コード
 
 ```js
 // download.gs

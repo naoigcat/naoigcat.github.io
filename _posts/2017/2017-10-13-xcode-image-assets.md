@@ -1,14 +1,16 @@
 ---
 layout: post
-title:  XcodeでImages.xcassetsに存在しないリンク・使用されていないファイルを探す
+title:  XcodeでImages.xcassets内のリンク切れをチェックする
 date:   2017/10/13 17:26:00 +0900
 tags:   macos xcode
 ---
 
+## リンクされていないアセットを抽出する
+
 ```ruby
 Pathname.glob("Images.xcassets/**/*.imageset/").each do |path|
   Pathname.glob("**/*").select do |file|
-    file.file? && %w(.h .m .storyboard .xib .pbxproj .c .mm ).include?(file.extname)
+    file.file? && %w(.h .m .storyboard .xib .pbxproj .c .mm).include?(file.extname)
   end.select do |file|
     file.read.match(/#{path.basename(".imageset").to_path}("|\.)/) rescue nil
   end.tap do |files|
@@ -19,9 +21,11 @@ end.tap do
 end
 ```
 
+## 存在しないアセットへのリンクを抽出する
+
 ```ruby
 Pathname.glob("**/*").select do |file|
-  file.file? && %w(.h .m .storyboard .xib .pbxproj .c .mm ).include?(file.extname)
+  file.file? && %w(.h .m .storyboard .xib .pbxproj .c .mm).include?(file.extname)
 end.map do |file|
   begin
     content = file.read
