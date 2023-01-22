@@ -5,7 +5,9 @@ date:   2020/03/24 23:50:11 +0900
 tags:   ruby
 ---
 
-macOSの連絡先からvCard形式のファイルを生成するRubyスクリプト。過去に使用していたもの。
+## 連絡先からvCard形式のファイルを生成する
+
+macOSの連絡先はSQLiteファイルに保存されているためコマンドで取り出してvCard形式に変換する。
 
 ```ruby
 class String

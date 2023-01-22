@@ -5,6 +5,8 @@ date:   2021/12/28 12:08:37 +0900
 tags:   swift
 ---
 
+## 文字列からデータに変換するときオプショナルになる
+
 `StringProtocol`に
 
 ```swift
@@ -12,6 +14,8 @@ func data(using encoding: String.Encoding, allowLossyConversion: Bool = false) -
 ```
 
 というメソッドが定義されており、`String`から`Data`に変換できるようになっている。この変換は第一引数で指定したエンコーディングで行われ、変換できない文字が含まれている場合に`nil`が返される。
+
+## UTF8で変換すればオプショナルにならない
 
 Swift 5 以降では、[Stringは内部データをUTF8で保持](https://swift.org/blog/utf8-string/)していて、`var utf8: Self.UTF8View { get }`で参照できる。
 

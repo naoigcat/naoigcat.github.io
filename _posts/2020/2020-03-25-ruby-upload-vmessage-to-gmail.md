@@ -5,7 +5,9 @@ date:   2020/03/25 00:11:12 +0900
 tags:   ruby
 ---
 
-vMessage形式のメールをGmailにアップロードするスクリプト。過去に使っていたもの。
+## vMessage形式のメールをアップロードする
+
+vMessage形式のメールをIMAPでGmailにアップロードする。
 
 ```ruby
 class String

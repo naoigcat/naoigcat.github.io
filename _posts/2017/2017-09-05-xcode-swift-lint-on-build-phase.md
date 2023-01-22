@@ -5,7 +5,7 @@ date:   2017/09/05 19:30:00 +0900
 tags:   xcode
 ---
 
-SwiftLintの実行忘れが発生しないようビルド時に実行する。
+## ビルド時にSwiftLintを実行する
 
 1.  SwiftLintをHomebrewを使用してインストールする。
 
