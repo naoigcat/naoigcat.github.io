@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  RubyでLaunchAgentsタスクを作成する
-date:   2017-09-29 11:58:00 +0900
+date:   2017-09-30 11:58:00 +0900
 tags:   ruby launchd
 ---
 
