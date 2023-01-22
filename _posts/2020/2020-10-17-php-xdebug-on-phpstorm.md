@@ -5,13 +5,7 @@ date:   2020/10/17 05:30:30 +0900
 tags:   php phpstorm docker
 ---
 
-## 概要
-
-PhpStormとDockerを使用していてXDebugによるデバッグ実行を行えるようにする。
-
-## 手順
-
-### XDebugをDockerコンテナにインストールする
+## XDebugをDockerコンテナにインストールする
 
 DockerfileにXDebugをインストールするコマンドを追加する。
 
@@ -21,7 +15,7 @@ RUN pecl install xdebug && \
     docker-php-ext-enable xdebug
 ```
 
-### php.iniにXDebug用の設定を追加する
+## php.iniにXDebug用の設定を追加する
 
 Dockerコンテナにコピーするphp.iniにXDebug用の設定を追加する。
 
@@ -35,13 +29,13 @@ xdebug.remote_host = host.docker.internal
 xdebug.remote_port = 9000
 ```
 
-### Dockerコンテナを起動する
+## Dockerコンテナを起動する
 
 ```sh
 docker-compose up -d
 ```
 
-### PhpStormの設定を変更する
+## PhpStormの設定を変更する
 
 1.  PhpStorm > Preferences...から設定画面を開く。
 2.  Languages & Frameworks > PHP > Debug > Pre-configuration > 3. Enable listening for PHP Debug ConnectionsのStar Listeningを押下する。
@@ -56,6 +50,6 @@ docker-compose up -d
 7.  Serverに上記で設定したサーバーを選択する。
 8.  IDE Key (session id)に`www-data`を入力する。
 
-### デバッグ実行する
+## デバッグ実行する
 
 Configurationsから上記で設定したものを選択し、Run > Debugを実行する。

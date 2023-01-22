@@ -5,11 +5,15 @@ date:   2020/02/05 14:45:11 +0900
 tags:   macos safari bookmarklet
 ---
 
+## Redmineのタイトルをコピーする
+
+Redmineのチケットタイトルをコピーしたい場合BookmarkletでJavaScriptを実行することで実現できる。
+
+## Safariでクリップボードにコピーする
+
 SafariではJavaScriptでクリップボードにテキストをコピーしようとすると一度`textarea`に貼り付けてからコピーコマンドを実行する必要がある。
 
 `textarea`のテキストをコピーするため、リンク付きのテキストでコピーできず、プレーンテキストになる。
-
-## Redmineでタイトルからチケットタイトルを取得するスクリプト
 
 ```js
 javascript:
@@ -27,7 +31,7 @@ javascript:
 })();
 ```
 
-## Chromeなどクリップボードを直接扱える場合
+## Chromeなどほかのブラウザでコピーする
 
 ```javascript
 (function () {

@@ -5,9 +5,13 @@ date:   2017/09/07 02:33:00 +0900
 tags:   xcode
 ---
 
+## Interface Builderファイルにはバージョンが含まれる
+
 Interface Builderで編集するXib/StoryboardファイルにはXcodeのバージョンが含まれているため、Xcodeをアップデートして開くと差分が出てしまう。
 
 こうした差分はレビューの邪魔になるのでビルド時に全ファイルをXcode付属のibtoolで更新するようにしてみる。
+
+## ビルド時に全更新するコマンドを実行する
 
 1.  Homebrewでxmlstarletをインストールしておく。XMLファイルの内容を読み取るのに使用する。
 
