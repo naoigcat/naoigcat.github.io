@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  Swiftのプロトコルエクステンションによるメソッド実装はデフォルト実装かどうかで挙動が異なる
+title:  Swiftのプロトコルにメソッド宣言があるかどうかで挙動が異なる
 date:   2023/01/11 12:48:56 +0900
 tags:   swift
 ---
 
-## プロトコルでメソッドを宣言した場合
+## メソッド宣言があるとクラス側の実装が使用される
 
 ```swift
 protocol Customizable {
@@ -33,7 +33,7 @@ example.customMessage()                   // "Example Message"
 
 キャストしたとしても**動的ディスパッチ**となり、クラス側の実装が適用される。
 
-## プロトコルでメソッドを宣言しなかった場合
+## メソッド宣言がないとプロトコル側の実装が使用される
 
 ```swift
 protocol Customizable {

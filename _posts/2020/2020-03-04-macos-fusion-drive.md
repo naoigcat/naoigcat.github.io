@@ -1,15 +1,21 @@
 ---
 layout: post
-title:  MacのFusion Driveを再構成する
+title:  macOSのFusion Driveを再構成する
 date:   2020/03/04 11:21:44 +0900
 tags:   macos
 ---
 
-Fusion Driveを使用しているMacをクリーンインストールしようとしてインターネットリカバリからディスクユーティリティを起動するとAPPLE SSDとAPPLE HDDの2つのディスクが認識される場合がある。
+## 一部のmacOS端末で採用されていた
+
+Fusion DriveはHDDとSSDを組み合わせたドライブで2012年から2019年に発売されたiMacやMac miniで採用されている。
+
+## 再構成が必要になる場合がある
+
+Fusion Driveを使用しているmacOSをクリーンインストールしようとしてインターネットリカバリからディスクユーティリティを起動するとAPPLE SSDとAPPLE HDDの2つのディスクが認識される場合がある。
 
 Fusion Driveが解除されてしまっているため再度Fusion Driveを構成し直す必要がある。
 
-## Fusion Driveの解除
+## 必要に応じてFusion Driveを解除する
 
 Fusion Driveが構成されている場合でも調子が悪い時は先に解除する。
 
@@ -26,7 +32,7 @@ Fusion Driveが構成されている場合でも調子が悪い時は先に解�
     diskutil cs delete ****
     ```
 
-## Fusion Driveの再構成
+## Fusion Driveを再構成する
 
 1.  ディスクユーティリティからAPPLE SSDとAPPLE HDDそれぞれの情報を確認して`BSD装置ノード`の値を確認する。通常はdisk0とdisk1になっている。
 2.  メニューバーのユーティリティからターミナルを起動する。
@@ -47,3 +53,7 @@ Fusion Driveが構成されている場合でも調子が悪い時は先に解�
     ```sh
     diskutil cs createVolume **** jhfs+ "Macintosh HD" 100%
     ```
+
+## Appleも修復方法を公開している
+
+-   ref. [Fusion Drive が分割された場合の修復方法](https://support.apple.com/ja-jp/HT207584)

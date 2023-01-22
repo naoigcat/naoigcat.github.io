@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  Fastlane経由でFirebase App Distributionによる配信時に`the server responded with status 404`が発生する
+title:  Firebase App Distributionによる配信時にエラーが発生する
 date:   2022/12/30 12:10:20 +0900
 tags:   fastlane firebase
 ---
 
-## 現象
+## コマンド実行時にエラーになる場合がある
 
-FastlaneのプラグインででFirebase App Distributionによる配信を行うため下記のコマンドを呼び出すと404エラーになる場合がある。
+FastlaneのプラグインでFirebase App Distributionによる配信を行うため下記のコマンドを呼び出すと`the server responded with status 404`になる場合がある。
 
 ```sh
 $ export FIREBASEAPPDISTRO_APP=...
@@ -26,11 +26,9 @@ $ fastlane run firebase_app_distribution
 [12:10:20]: the server responded with status 404
 ```
 
-## 原因
+## 初期化されていないために発生する
 
 Firebase App Distributionが初期化されていないため発生している。
-
-## 解決方法
 
 1.  Firebaseのコンソールにログインする
 2.  プロジェクトを開く

@@ -5,16 +5,18 @@ date:   2020/12/29 16:08:49 +0900
 tags:   php phpstorm docker
 ---
 
-PhpStormのXDebug設定はプロジェクト毎に保存されるため書くプロジェクトで設定が必要。
+## プロジェクト毎に設定する
 
-## Preferences | Build, Execution, Deployment | Docker
+PhpStormのXDebug設定はプロジェクト毎に保存されるため各プロジェクトで設定が必要になる。
+
+### Preferences | Build, Execution, Deployment | Docker
 
 下記は全プロジェクト共通のため一度だけ設定する。
 
 1.  `+`ボタンをクリックして、Docker実行環境を追加する
 2.  `Connect to Docker daemon with:`は`Docker for Mac`を選択する
 
-## Preferences | Languages & Frameworks | PHP
+### Preferences | Languages & Frameworks | PHP
 
 1.  `PHP language level`で使用しているPHPのバージョンを指定する
 2.  `CLI Interpreter`の`...`をクリックする
@@ -28,14 +30,14 @@ PhpStormのXDebug設定はプロジェクト毎に保存されるため書くプ
 4.  `Sync Extensions with Interpreter`をクリックする
 5.  `Apply`をクリックする
 
-## Preferences | Languages & Frameworks | PHP | Debug
+### Preferences | Languages & Frameworks | PHP | Debug
 
 1.  `Debug port`をPHP-FPMの設定で指定したポート番号に合わせる
 2.  `Ignore external connections through unregistered server configurations`をチェックする
     -   外部からのデバッグ接続がサーバー構成に未登録の構成なら無視する
 3.  `Break at first lien in PHP scripts`をチェックする（設定に問題ないことが確認できてらチェックを外す）
 
-## Preferences | Languages & Frameworks | PHP | Servers
+### Preferences | Languages & Frameworks | PHP | Servers
 
 1.  `+`ボタンをクリックする
 2.  `Name`に好きな名前を入れる
@@ -43,7 +45,7 @@ PhpStormのXDebug設定はプロジェクト毎に保存されるため書くプ
 4.  `Use path mappings`にチェックを入れ、Dockerコンテナにマウントされるローカルディレクトリの`Absolute path on the server`にマウント先のパスを入れる
 5.  `Apply`をクリックする
 
-## Configuration
+### Configuration
 
 1.  右上`Add Configuration...`をクリックする
 2.  `+`ボタンをクリックしてから`PHP Remote Debug`を選択する

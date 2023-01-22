@@ -1,11 +1,13 @@
 ---
 layout: post
-title:  別のリポジトリにあるRakeタスクを実行する
+title:  別ディレクトリにあるRakeタスクを実行する
 date:   2020/02/25 21:32:40 +0900
 tags:   ruby
 ---
 
-現在いるディレクトリ以外にRakefileを置きたい場合、特にgit管理のためにリポジトリを分けたい場合は以下のようなRakefileを用意することで別ディレクトリのRakeタスクを呼び出すことができる。
+## Rakeタスクを実行するタスクを定義する
+
+カレントディレクトリ以外にRakefileを置きたい場合、特にgit管理のためにリポジトリを分けたい場合は以下のようなRakefileを用意することで別ディレクトリのRakeタスクを呼び出すことができる。
 
 ```ruby
 class << Rake.application
@@ -22,17 +24,17 @@ class << Rake.application
 end
 
 desc "Run task"
-task :default, [:name] do |_, arguments|
-  raise "missing required arguments 'name'" unless arguments.name
+task :default, [:paths, :name] do |_, arguments|
+  raise "missing required arguments 'paths'" unless arguments.paths
 
   require "pathname"
   require "shellwords"
-  %w[Desktop Developer Documents].each do |directory|
-    path = Pathname.new(ENV["HOME"]).join(directory).join("rake-tasks")
+  arguments.with_defaults(name: "default")
+  arguments.paths.split(",").map(&Pathname.method(:new)).each do |path|
     next unless path.exist?
 
     cd path do
-      sh "source ~/.bash_profile && rbenv shell $(cat .ruby-version) && rake #{Shellwords.escape(arguments.name)} || :"
+      sh "source ~/.bash_profile && rake #{Shellwords.escape(arguments.name)} || :"
     end
   end
 end

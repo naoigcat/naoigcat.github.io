@@ -5,6 +5,8 @@ date:   2017/09/21 09:12:00 +0900
 tags:   macos
 ---
 
+## レイアウトを変更する
+
 LaunchPadに表示されているアイコンの数は7x5などがデフォルトになっているが下記のコマンドで変更できる。
 
 ```sh
@@ -19,7 +21,11 @@ defaults write com.apple.dock ResetLaunchPad -bool TRUE
 killall Dock
 ```
 
-上記コマンドを実行するとアイコンの並び順がリセットされるため注意する。また、数を変更せずに並び順をリセットするには下記コマンドのみを実行する。
+上記コマンドを実行するとアイコンの並び順がリセットされるため注意する。
+
+## 並び順をリセットする
+
+数を変更せずに並び順をリセットするには下記コマンドのみを実行する。
 
 ```sh
 defaults write com.apple.dock ResetLaunchPad -bool TRUE

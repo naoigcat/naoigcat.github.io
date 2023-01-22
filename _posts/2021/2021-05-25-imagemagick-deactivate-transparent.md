@@ -5,13 +5,13 @@ date:   2021/05/25 08:06:09 +0900
 tags:   imagemagick
 ---
 
-## 半透明を無視する場合
+## 半透明を無視して変換する
 
 ```sh
 convert SOURCE.PNG -background white -alpha deactivate -flatten TARGET.PNG
 ```
 
-## 半透明を考慮する場合
+## 半透明を考慮して変換する
 
 ```sh
 convert SOURCE.PNG \

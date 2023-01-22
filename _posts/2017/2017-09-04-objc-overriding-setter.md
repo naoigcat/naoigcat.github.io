@@ -5,14 +5,16 @@ date:   2017/09/04 16:15:00 +0900
 tags:   objective-c
 ---
 
+## プロパティのセッターとゲッターは自動生成される
+
 Objective-Cで`@property`ディレクティブを用いるとセッターとゲッターが自動生成されるため、
 セッターをオーバーライドする場合は自動生成されている処理を実装する必要がある。
 
 自動生成されるセッターは以下のようになる。
 
-## MRC
+### MRC
 
-### retain (MRC)
+#### retain (MRC)
 
 ```objc
 - (void)setObject:(Object *)object {
@@ -23,7 +25,7 @@ Objective-Cで`@property`ディレクティブを用いるとセッターとゲ�
 }
 ```
 
-### copy (MRC)
+#### copy (MRC)
 
 ```objc
 - (void)setObject:(Object *)object {
@@ -32,7 +34,7 @@ Objective-Cで`@property`ディレクティブを用いるとセッターとゲ�
 }
 ```
 
-### assign (MRC)
+#### assign (MRC)
 
 ```objc
 - (void)setInteger:(NSInteger)integer {
@@ -40,9 +42,9 @@ Objective-Cで`@property`ディレクティブを用いるとセッターとゲ�
 }
 ```
 
-## ARC
+### ARC
 
-### strong/weak/assign (ARC)
+#### strong/weak/assign (ARC)
 
 ```objc
 - (void)setObject:(Object *)object {
@@ -50,7 +52,7 @@ Objective-Cで`@property`ディレクティブを用いるとセッターとゲ�
 }
 ```
 
-### copy (ARC)
+#### copy (ARC)
 
 ```objc
 - (void)setObject:(Object *)object {
