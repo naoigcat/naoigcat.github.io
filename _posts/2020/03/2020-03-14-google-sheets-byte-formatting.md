@@ -2,7 +2,7 @@
 layout: post
 title:  Google Sheetsでバイトサイズに単位を付ける
 date:   2020/03/14 13:37:28 +0900
-tags:   git
+tags:   google
 ---
 
 ## 数字フォーマットで単位を付ける
