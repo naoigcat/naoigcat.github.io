@@ -2,7 +2,7 @@
 layout: post
 title:  RubyでGoogle Driveからファイルをダウンロードする
 date:   2017/09/17 22:11:00 +0900
-tags:   ruby google-drive
+tags:   ruby google
 ---
 
 ## Google Driveからファイルをダウンロードする
