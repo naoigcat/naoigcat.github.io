@@ -7,7 +7,7 @@ tags:   macos
 
 ## [初期搭載されていたバージョンを再インストールする](https://support.apple.com/ja-jp/HT204904)
 
-Intel搭載のMacでは、起動時に`shift + option + command + R`キーを押下しているとmacOS復旧画面が起動し、Macに当初搭載されいたmacOSか、それに一番近い現在も提供されているバージョンが再インストールできる。
+Intel搭載のMacでは、起動時に`shift + option + command + R`キーを押下しているとmacOS復旧画面が起動し、Macに当初搭載されていたmacOSか、それに一番近い現在も提供されているバージョンが再インストールできる。
 
 上記を`option + command + R`キーで行うとそのMacと互換性のある最新のmacOSがインストールされる。
 
