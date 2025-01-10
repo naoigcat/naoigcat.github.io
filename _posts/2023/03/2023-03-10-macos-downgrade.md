@@ -13,11 +13,24 @@ Intel搭載のMacでは、起動時に`shift + option + command + R`キーを押
 
 ## [古いバージョンをダウンロードする](https://support.apple.com/ja-jp/HT211683)
 
-macOS 10.13 High Sierra以降はAppleの[サポートページ](https://support.apple.com/ja-jp/HT211683)のリンクからApp Storeを開き、インストールすることができる。
+macOS 10.13 High Sierra以降はAppleの[サポートページ](https://support.apple.com/ja-jp/102662)のリンクからApp Storeを開き、インストールすることができる。
 
-macOS 10.12 Sierra以前はAppleの[サポートページ](https://support.apple.com/ja-jp/HT211683)からディスクイメージをダウンロードする。.dmgファイルをマウントして.pkgファイルを実行すると/Applicationsディレクトリにインストーラーがインストールされる。
+-   [Sequoia 15](macappstores://apps.apple.com/app/macos-sequoia/id6596773750?mt=12)
+-   [Sonoma 14](macappstores://apps.apple.com/app/macos-sonoma/id6450717509?mt=12)
+-   [Ventura 13](macappstores://apps.apple.com/jp/app/macos-ventura/id1638787999?mt=12)
+-   [Monterey 12](macappstores://apps.apple.com/jp/app/macos-monterey/id1576738294?mt=12)
+-   [Big Sur 11](macappstores://apps.apple.com/jp/app/macos-big-sur/id1526878132?mt=12)
+-   [Catalina 10.15](macappstores://apps.apple.com/jp/app/macos-catalina/id1466841314?mt=12)
+-   [Mojave 10.14](macappstores://apps.apple.com/jp/app/macos-mojave/id1398502828?mt=12)
+-   [High Sierra 10.13](macappstores://apps.apple.com/jp/app/macos-high-sierra/id1246284741?mt=12)
 
-インストーラーを実行することで古いmacOSを上書きインストールできる。
+macOS 10.12 Sierra以前はAppleの[サポートページ](https://support.apple.com/ja-jp/102662)からディスクイメージをダウンロードする。.dmgファイルをマウントして.pkgファイルを実行すると/Applicationsディレクトリにインストーラーがインストールされる。インストーラーを実行することで古いmacOSを上書きインストールできる。
+
+-   [Sierra 10.12](http://updates-http.cdn-apple.com/2019/cert/061-39476-20191023-48f365f4-0015-4c41-9f44-39d3d2aca067/InstallOS.dmg)
+-   [El Capitan 10.11](http://updates-http.cdn-apple.com/2019/cert/061-41424-20191024-218af9ec-cf50-4516-9011-228c78eda3d2/InstallMacOSX.dmg)
+-   [Yosemite 10.10](http://updates-http.cdn-apple.com/2019/cert/061-41343-20191023-02465f92-3ab5-4c92-bfe2-b725447a070d/InstallMacOSX.dmg)
+-   [Mountain Lion 10.8](https://updates.cdn-apple.com/2021/macos/031-0627-20210614-90D11F33-1A65-42DD-BBEA-E1D9F43A6B3F/InstallMacOSX.dmg)
+-   [Lion 10.7](https://updates.cdn-apple.com/2021/macos/041-7683-20210614-E610947E-C7CE-46EB-8860-D26D71F0D3EA/InstallMacOSX.dmg)
 
 ## [起動可能なインストーラの作成も行える](https://support.apple.com/ja-jp/HT201372)
 
