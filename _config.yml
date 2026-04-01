@@ -12,4 +12,4 @@ exclude:
 theme: minima
 plugins:
   - jekyll-feed
-google_analytics: UA-158986608-1
+google_analytics: G-RY1YXQLG9M
