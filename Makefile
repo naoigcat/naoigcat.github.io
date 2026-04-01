@@ -2,12 +2,16 @@ SHELL = /bin/zsh
 
 .PHONY: serve
 serve:
-	for port in $$(jot -r 100 $$(sysctl net.inet.ip.portrange.first | awk '{print $$2}') $$(sysctl net.inet.ip.portrange.last | awk '{print $$2}')) ; \
-	do \
-		netstat -a -n | grep "\*\.$$port.*LISTEN" > /dev/null || break ; \
+	container_id="$$(docker run --rm --init -d -v $$(pwd):/src/site -p 127.0.0.1::4000 naoigcat/github-pages)" || { echo 'Failed to start container' >&2 ; exit 1 ; } ; \
+	[[ -n $$container_id ]] || { echo 'Failed to get container ID' >&2 ; exit 1 ; } ; \
+	trap 'docker stop '$$container_id' >/dev/null 2>&1 || :' EXIT INT TERM ; \
+	timeout=30 ; elapsed=0 ; \
+	until docker logs "$$container_id" 2>&1 | grep -q 'Server running' ; do \
+		sleep 1 ; \
+		elapsed=$$((elapsed + 1)) ; \
+		[[ $$elapsed -lt $$timeout ]] || { docker logs "$$container_id" ; echo 'Timeout waiting for server' >&2 ; exit 1 ; } ; \
 	done ; \
-	exec {fd}< <( \
-		until docker logs "$$(docker ps -qf 'ancestor=naoigcat/github-pages')" 2>/dev/null | grep 'Server running' ; do sleep 1 ; done ; \
-		open http://localhost:$$port ; \
-	) ; \
-	docker run --rm --init -itv $$(pwd):/src/site -p $$port:4000 naoigcat/github-pages || :
+	port="$$(docker port "$$container_id" 4000/tcp | awk -F: 'NR == 1 { print $$NF }')" ; \
+	[[ -n $$port ]] || { echo 'Failed to resolve host port' >&2 ; exit 1 ; } ; \
+	open http://localhost:$$port ; \
+	docker attach "$$container_id"
