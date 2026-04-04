@@ -8,7 +8,10 @@ serve:
 	[[ -n $$container_id ]] || { echo 'Failed to get container ID' >&2 ; exit 1 ; } ; \
 	trap 'docker stop '$$container_id' >/dev/null 2>&1 || :' EXIT INT TERM ; \
 	timeout=300 ; elapsed=0 ; \
-	until docker logs "$$container_id" 2>&1 | grep -q 'Server running' ; do \
+	while true ; do \
+		logs="$$(docker logs "$$container_id" 2>&1)" ; \
+		echo "$$logs" | grep -q 'Error response from daemon' && { echo "$$logs" >&2 ; echo 'Docker daemon error while waiting for server' >&2 ; exit 1 ; } ; \
+		echo "$$logs" | grep -q 'Server running' && break ; \
 		sleep 1 ; \
 		elapsed=$$((elapsed + 1)) ; \
 		[[ $$elapsed -lt $$timeout ]] || { docker logs "$$container_id" ; echo 'Timeout waiting for server' >&2 ; exit 1 ; } ; \
