@@ -16,4 +16,4 @@ serve:
 	port="$$(docker port "$$container_id" 4000/tcp | awk -F: 'NR == 1 { print $$NF }')" ; \
 	[[ -n $$port ]] || { echo 'Failed to resolve host port' >&2 ; exit 1 ; } ; \
 	open http://localhost:$$port ; \
-	docker attach "$$container_id"
+	docker attach "$$container_id" || :
