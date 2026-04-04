@@ -4,7 +4,7 @@ SHELL = /bin/zsh
 
 .PHONY: serve
 serve:
-	container_id="$$(docker run --rm --init -d -v $$(pwd):/src/site -p 127.0.0.1::4000 naoigcat/github-pages)" || { echo 'Failed to start container' >&2 ; exit 1 ; } ; \
+	container_id="$$(docker run --rm --init -d -v $$(pwd):/src/site -p 127.0.0.1::4000 naoigcat/github-pages jekyll serve -w --force_polling -H 0.0.0.0 -P 4000)" || { echo 'Failed to start container' >&2 ; exit 1 ; } ; \
 	[[ -n $$container_id ]] || { echo 'Failed to get container ID' >&2 ; exit 1 ; } ; \
 	trap 'docker stop '$$container_id' >/dev/null 2>&1 || :' EXIT INT TERM ; \
 	timeout=300 ; elapsed=0 ; \
