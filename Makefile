@@ -1,5 +1,7 @@
 SHELL = /bin/zsh
 
+.SILENT:
+
 .PHONY: serve
 serve:
 	container_id="$$(docker run --rm --init -d -v $$(pwd):/src/site -p 127.0.0.1::4000 naoigcat/github-pages)" || { echo 'Failed to start container' >&2 ; exit 1 ; } ; \
