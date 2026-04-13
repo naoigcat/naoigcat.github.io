@@ -37,18 +37,50 @@ docker-compose up -d
 
 ## PhpStormの設定を変更する
 
-1.  PhpStorm > Preferences...から設定画面を開く。
-2.  Languages & Frameworks > PHP > Debug > Pre-configuration > 3. Enable listening for PHP Debug ConnectionsのStar Listeningを押下する。
-3.  Languages & Frameworks > PHP > Serversからサーバーを追加する。
-    1.  Nameは任意の値を入力する。
-    2.  Hostに`localhost`、Portに`8000`を入力し、Debuggerに`Xdebug`を選択する。
-    3.  Use path mappingsにチェックを入れる。
-    4.  Docker上にマウントされるディレクトリのAbsolute path on the serverにマウント先のパスを入力する。
-4.  設定画面を閉じ、ツールバーのEdit Configurations...を押下する。
-5.  PHP Remote Debugの設定を追加する。
-6.  Configuration > Filter debug connection by IDE keyにチェックを入れる。
-7.  Serverに上記で設定したサーバーを選択する。
-8.  IDE Key (session id)に`www-data`を入力する。
+PhpStormのXDebug設定はプロジェクト毎に保存されるため各プロジェクトで設定が必要になる。
+
+### Preferences | Build, Execution, Deployment | Docker
+
+下記は全プロジェクト共通のため一度だけ設定する。
+
+1.  `+`ボタンをクリックして、Docker実行環境を追加する
+2.  `Connect to Docker daemon with:`は`Docker for Mac`を選択する
+
+### Preferences | Languages & Frameworks | PHP
+
+1.  `PHP language level`で使用しているPHPのバージョンを指定する
+2.  `CLI Interpreter`の`...`をクリックする
+    1.  `+`ボタンをクリックしてから`From Docker, Vagrant, VM, WSL, Remote...`をクリックする
+    2.  `Docker Compose`を選択する
+    3.  `Service:`からPHP-FPMが実行されているサービスを選択する
+    4.  `OK`をクリックする
+    5.  `Lifecycle`の`Connect to existing container`を選択する
+    6.  `OK`をクリックする
+3.  `PHP Runtime`タブを選択する
+4.  `Sync Extensions with Interpreter`をクリックする
+5.  `Apply`をクリックする
+
+### Preferences | Languages & Frameworks | PHP | Debug
+
+1.  `Debug port`をPHP-FPMの設定で指定したポート番号に合わせる
+2.  `Ignore external connections through unregistered server configurations`をチェックする
+    -   外部からのデバッグ接続がサーバー構成に未登録の構成なら無視する
+3.  `Break at first lien in PHP scripts`をチェックする（設定に問題ないことが確認できてらチェックを外す）
+
+### Preferences | Languages & Frameworks | PHP | Servers
+
+1.  `+`ボタンをクリックする
+2.  `Name`に好きな名前を入れる
+3.  `Host`と`Port`はこのプロジェクトで起動したページにアクセスする時のホスト名とポート番号を入れる
+4.  `Use path mappings`にチェックを入れ、Dockerコンテナにマウントされるローカルディレクトリの`Absolute path on the server`にマウント先のパスを入れる
+5.  `Apply`をクリックする
+
+### Configuration
+
+1.  右上`Add Configuration...`をクリックする
+2.  `+`ボタンをクリックしてから`PHP Remote Debug`を選択する
+3.  `Name`に好きな名前を入れる
+4.  `OK`をクリックする
 
 ## デバッグ実行する
 
