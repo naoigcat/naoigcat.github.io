@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Bashのシェル関数の定義を読む
+title:  シェルのシェル関数の定義を読む
 date:   2026-04-18 20:03:47 +0900
 tags:   bash
 ---
