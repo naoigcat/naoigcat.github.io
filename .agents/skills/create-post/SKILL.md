@@ -1,6 +1,7 @@
 ---
 name: create-post
-description: タイトルを指定して、所定のフォーマットとフロントマターを持つ新しいブログの投稿ファイルを作成します。
+description: Creates a new post file with the given title, using the prescribed format and front matter.
+disable-model-invocation: true
 ---
 
 ユーザーがこのSkillを実行してタイトル（例：`bash-random-number`）を指定した場合、以下の手順に従ってファイルの作成を行なってください。
