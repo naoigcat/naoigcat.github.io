@@ -10,6 +10,12 @@ disable-model-invocation: true
 When the user runs this skill and provides a title (for example: `bash-random-number`), follow the steps below to create
 the file.
 
+## Language
+
+-   **Display title and body**: Write the front matter `title` value (`{display_title}`) and all article body content (the
+    Markdown after the closing front matter `---`) **in Japanese**. The user may still supply an ASCII/kebab-style slug for
+    `{filename_slug}`; only the human-facing title and prose must be Japanese.
+
 ## 1. Obtain date and time
 
 Get the current time and always derive the following values from the instant converted to **Asia/Tokyo** (Japan Standard
@@ -48,8 +54,9 @@ Create the new Markdown file at:
 
 ## 3. Prepare fields
 
--   **Display title**: Use a separate variable `{display_title}` for front matter and display. Put the original user input
-    `{title}` in `{display_title}` as-is, or, when needed, store an explicit translation or natural phrasing (for example Japanese: `bash-random-number` → `Bashでの乱数生成`).
+-   **Display title**: Use a separate variable `{display_title}` for front matter and display. It must be **Japanese**
+    phrasing appropriate for the post (if the user gives an ASCII slug like `bash-random-number`, expand it to a natural
+    Japanese title such as `Bashでの乱数生成`).
 -   **Tags**: Extract the first segment when `{filename_slug}` is split on hyphens (`-`) and use that as the tag. (Example:
     `bash-random-number` → `bash`)
 
@@ -66,9 +73,16 @@ tags:   {tag}
 ---
 ```
 
-Set `title` to `{display_title}` and `tags` to `{tag}` (the first segment of `{filename_slug}`).
+Set `title` to `{display_title}` and `tags` to `{tag}` (the first segment of `{filename_slug}`). Write the **article body
+in Japanese**.
 
-## 5. Commit
+## 5. Run markdownlint
+
+When creation or editing of the `.md` file is complete, **read and follow**
+`.agents/skills/run-markdownlint/SKILL.md` (the **run-markdownlint** skill): run `markdownlint-cli2` on the file, fix issues,
+and re-run until lint passes. Do not treat the post as finished while markdownlint still reports errors.
+
+## 6. Commit
 
 Before committing the new file, run `git rev-parse --is-inside-work-tree` to verify you are inside a Git repository. If
 not, stop and tell the user to run `git init` or work in an existing repository.
@@ -83,6 +97,6 @@ git add _posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md
 git commit -m "Add post \`{year}-{month}-{day}-{filename_slug}\`"
 ```
 
-## 6. Report completion
+## 7. Report completion
 
 Report the path and contents of the created file to the user.
