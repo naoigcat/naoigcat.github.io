@@ -1,62 +1,88 @@
 ---
 name: create-post
-description: Creates a new post file with the given title, using the prescribed format and front matter.
+description: >-
+    Creates a new post file with the given title, using the prescribed format and front matter.
 disable-model-invocation: true
 ---
 
-ユーザーがこのSkillを実行してタイトル（例：`bash-random-number`）を指定した場合、以下の手順に従ってファイルの作成を行なってください。
+# create-post
 
-1. **日時の取得**: 現在時刻を取得し、必ずAsia/Tokyo（日本標準時、JST）に変換した値から以下の値を生成してください。環境差異が出ないように、タイムゾーン対応のAPIやライブラリを使って変換・整形してください（例: `Intl.DateTimeFormat` の `timeZone: 'Asia/Tokyo'`、`date-fns-tz`、`moment-timezone`）。
-   - `{year}`: JSTに変換した現在時刻から取り出した4桁の西暦 (`YYYY`。例: 2026)
-   - `{month}`: JSTに変換した現在時刻から取り出した2桁の月 (`MM`。例: 04)
-   - `{day}`: JSTに変換した現在時刻から取り出した2桁の日 (`DD`。例: 10)
-   - `{date}`: 同じJST値を `yyyy-mm-dd HH:MM:SS +0900` 形式に整形した文字列 (例: `2026-04-10 12:00:00 +0900`)
+When the user runs this skill and provides a title (for example: `bash-random-number`), follow the steps below to create
+the file.
 
-2. **ファイルパスの決定**: ユーザー入力のタイトルは `{title}` として保持したまま、ファイル名用の別変数 `{filename_slug}` を用意してください。
-   `{filename_slug}` には、ユーザー入力をファイル名に適したASCIIのケバブケースへ変換した値を格納します。生成時は次の規則に従ってください。
-   - まず `{title}` をUnicode正規化NFKCで正規化します。
-   - 日本語やその他の非ASCII文字は、ローマ字転写や対象言語向けの音訳ライブラリを使って、できるだけASCIIの文字列へ変換します。
-   - 空白や連続する区切り文字はハイフン(`-`)に置換します。
-   - 英大文字は英小文字に変換します。
-   - 英小文字、数字、ハイフン以外の文字は削除します。
-   - 連続するハイフンは単一のハイフンにまとめ、先頭と末尾のハイフンは取り除きます。
-   - 最終的な `{filename_slug}` は正規表現 `^[a-z0-9-]+$` に一致する必要があります。
-   - 変換結果が空文字になった場合はエラーとして扱い、タイトルの再入力を促してください。代替方針を採る場合は、短いランダムIDを付与して `{filename_slug}` を生成することを明示してください。
+## 1. Obtain date and time
 
-   新しいMarkdownファイルは以下のパスに作成します。
-   `_posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md`
-   ※ 親ディレクトリが存在しない場合は作成してください。
-   ※ 対象パスに既存ファイルがある場合は上書きせず、上書きしてよいか確認するか、別のファイル名を選ぶよう促してください。
+Get the current time and always derive the following values from the instant converted to **Asia/Tokyo** (Japan Standard
+Time, JST). Use a timezone-aware API or library so results are consistent across environments (for example:
+`Intl.DateTimeFormat` with `timeZone: 'Asia/Tokyo'`, `date-fns-tz`, or `moment-timezone`).
 
-3. **項目の準備**:
-   - `表示用タイトル`: フロントマターや表示用には別変数 `{display_title}` を使ってください。 `{display_title}` には元のユーザー入力 `{title}` をそのまま使うか、必要に応じて自然な日本語へ明示的に翻訳・変換した値を格納します。（例: `bash-random-number` -> `Bashでの乱数生成`）
-   - `タグ`: `{filename_slug}` をハイフン(`-`)で区切った際の先頭の単語を抽出して使ってください。（例: `bash-random-number` -> `bash`）
+-   `{year}`: Four-digit Gregorian year from the JST instant (`YYYY`; example: 2026)
+-   `{month}`: Two-digit month from the JST instant (`MM`; example: 04)
+-   `{day}`: Two-digit day from the JST instant (`DD`; example: 10)
+-   `{date}`: The same JST instant formatted as `yyyy-mm-dd HH:MM:SS +0900` (example: `2026-04-10 12:00:00 +0900`)
 
-4. **ファイルへの書き込み**:
-   作成したファイルに以下のフロントマターを記述します。
+## 2. Determine the file path
+
+Keep the user-provided title as `{title}` and introduce a separate variable `{filename_slug}` for the file name. Store a
+value in `{filename_slug}` by converting the user input to ASCII kebab-case suitable for file names. Apply these rules
+when generating it:
+
+-   First normalize `{title}` with Unicode normalization NFKC.
+-   Convert Japanese and other non-ASCII characters to ASCII as far as possible, using romanization or a transliteration
+    library appropriate to the source language.
+-   Replace whitespace and runs of delimiter characters with a hyphen (`-`).
+-   Convert uppercase Latin letters to lowercase.
+-   Remove any character that is not a lowercase Latin letter, digit, or hyphen.
+-   Collapse consecutive hyphens into one, and trim leading and trailing hyphens.
+-   The final `{filename_slug}` must match the regular expression `^[a-z0-9-]+$`.
+-   If the conversion yields an empty string, treat it as an error and ask the user to re-enter the title. If you adopt a
+    fallback, state explicitly that you are appending a short random ID to produce `{filename_slug}`.
+
+Create the new Markdown file at:
+
+`_posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md`
+
+-   Create parent directories if they do not exist.
+-   If a file already exists at that path, do not overwrite it without confirmation, or prompt the user to choose a different
+    file name.
+
+## 3. Prepare fields
+
+-   **Display title**: Use a separate variable `{display_title}` for front matter and display. Put the original user input
+    `{title}` in `{display_title}` as-is, or, when needed, store an explicit translation or natural phrasing (for example Japanese: `bash-random-number` → `Bashでの乱数生成`).
+-   **Tags**: Extract the first segment when `{filename_slug}` is split on hyphens (`-`) and use that as the tag. (Example:
+    `bash-random-number` → `bash`)
+
+## 4. Write the file
+
+Write the following front matter in the created file:
 
 ```markdown
 ---
 layout: post
 title:  {display_title}
 date:   {date}
-tags:   {filename_slugの先頭要素}
+tags:   {tag}
 ---
 ```
 
-   ここで `title` には `{display_title}` を、`tags` には `{filename_slug}` の先頭要素から抽出した値を設定してください。
+Set `title` to `{display_title}` and `tags` to `{tag}` (the first segment of `{filename_slug}`).
 
-5. **コミット**:
-   作成したファイルをコミットする前に、まず `git rev-parse --is-inside-work-tree` でGitリポジトリ内かどうかを確認してください。Gitリポジトリではない場合は処理を中断し、`git init` を実行するか既存のリポジトリで作業するよう案内してください。
+## 5. Commit
 
-   `git add` と `git commit` の実行時は標準エラー出力を取得し、失敗した場合は終了コードとエラー内容をそのまま報告してください。そのうえで、再試行する、`git status` で状態を確認する、または必要に応じて `git init` を実行する、といった対処案を案内してください。
+Before committing the new file, run `git rev-parse --is-inside-work-tree` to verify you are inside a Git repository. If
+not, stop and tell the user to run `git init` or work in an existing repository.
 
-   問題がなければ、以下のコマンドを実行してコミットしてください。
+When running `git add` and `git commit`, capture standard error. On failure, report the exit code and error output as-is,
+then suggest next steps such as retrying, checking with `git status`, or running `git init` if appropriate.
 
-   ```bash
-   git add _posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md
-   git commit -m "Add post \`{year}-{month}-{day}-{filename_slug}\`"
-   ```
+If everything is fine, commit with:
 
-6. **完了の報告**:
-   作成したファイルのパスと内容をユーザーに報告してください。
+```bash
+git add _posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md
+git commit -m "Add post \`{year}-{month}-{day}-{filename_slug}\`"
+```
+
+## 6. Report completion
+
+Report the path and contents of the created file to the user.
