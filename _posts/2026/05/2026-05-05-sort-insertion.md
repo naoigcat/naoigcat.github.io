@@ -245,7 +245,7 @@ procedure insertion_sort(A)
   var btnPause = root.querySelector('[data-is="pause"]');
   var btnStep = root.querySelector('[data-is="step"]');
 
-  var values = [5, 2, 8, 1, 9, 3, 6];
+  var values = [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15];
   var steps = [];
   var idx = 0;
   var playing = false;
