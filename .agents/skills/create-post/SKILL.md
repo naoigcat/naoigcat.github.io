@@ -2,7 +2,6 @@
 name: create-post
 description: >-
     Creates a new post file with the given title, using the prescribed format and front matter.
-disable-model-invocation: true
 ---
 
 # create-post
