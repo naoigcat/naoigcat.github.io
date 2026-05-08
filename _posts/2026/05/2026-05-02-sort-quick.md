@@ -276,7 +276,7 @@ procedure partition(A, lo, hi)
   var btnPause = root.querySelector('[data-qs="pause"]');
   var btnStep = root.querySelector('[data-qs="step"]');
 
-  var values = [5, 2, 8, 1, 9, 3, 6];
+  var values = [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15];
   var steps = [];
   var idx = 0;
   var playing = false;
