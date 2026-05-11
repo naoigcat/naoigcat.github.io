@@ -7,6 +7,7 @@ github_username: naoigcat
 description: >-
   It takes all the running you can do, to keep in the same place.
 exclude:
+  - AGENTS.md
   - LICENSE.md
   - Makefile
   - README.md
