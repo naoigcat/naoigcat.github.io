@@ -9,6 +9,10 @@ Jekyll and gem versions follow GitHub’s Pages release line; this repository do
 
 For the versions GitHub uses in production, see [Dependency versions](https://pages.github.com/versions/).
 
+Pushing to the publishing branch runs **Jekyll on GitHub Pages**; that is the canonical hosted build.
+Automated tools and contributors should follow [AGENTS.md](./AGENTS.md),
+including the policy of **not** suggesting an extra CI job just to duplicate that Jekyll build.
+
 ## Local preview
 
 For development, `make serve` runs Jekyll in Docker using an image (`naoigcat/github-pages`) that mirrors GitHub’s published Pages dependency set.
