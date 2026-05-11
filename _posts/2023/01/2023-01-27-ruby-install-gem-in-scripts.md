@@ -36,7 +36,7 @@ end
 ```rb
 begin
   gem "bundler", "2.4.5"
-rescue Gem:::MissingSpecError
+rescue Gem::MissingSpecError
   sh "gem", "install", "--no-document", "bundler", "-v", "2.4.5"
   Gem.clear_paths
   retry
