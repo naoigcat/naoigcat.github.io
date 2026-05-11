@@ -2,7 +2,7 @@
 layout: post
 title:  CocoaPodsでフレームワークとライブラリを混ぜる
 date:   2023/01/30 12:14:32 +0900
-tags:   swift
+tags:   xcode
 ---
 
 ## フレームワークとしてビルドするかどうかを設定できる
