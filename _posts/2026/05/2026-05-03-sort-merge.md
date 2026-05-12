@@ -40,88 +40,7 @@ procedure merge(A, lo, mid, hi)
 
 時間計算量は常に **O(n log n)**。マージ用に **O(n)** の追加記憶領域が必要で、多くの実装は **安定ソート**（等しいキーの相対順序を保つ）である。インプレース志向のクイックソートと比べて余分なメモリは要するが、最悪時の挙動が予測しやすいため外部ソートの基礎にも使われる。
 
-<!-- markdownlint-disable MD046 -->
-<div id="merge-sort-demo" class="merge-sort-demo">
-<style>
-.merge-sort-demo {
-  margin: 1.25rem 0;
-  padding: 1rem;
-  border: 1px solid rgba(128,128,128,.35);
-  border-radius: 8px;
-  background: var(--minima-brand-color-lightest, #f9f9f9);
-}
-.merge-sort-demo__toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-}
-.merge-sort-demo__toolbar button {
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  border: 1px solid rgba(0,0,0,.2);
-  background: #fff;
-  cursor: pointer;
-  font: inherit;
-}
-.merge-sort-demo__toolbar button:hover {
-  border-color: rgba(0,0,0,.45);
-}
-.merge-sort-demo__toolbar button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-.merge-sort-demo__bars {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 6px;
-  min-height: 140px;
-  padding: 0.5rem;
-}
-.merge-sort-demo__bar {
-  flex: 1 1 0;
-  max-width: 48px;
-  min-width: 28px;
-  border-radius: 4px 4px 2px 2px;
-  background: linear-gradient(180deg, #5b9bd5 0%, #2e75b6 100%);
-  box-shadow: 0 2px 4px rgba(0,0,0,.12);
-  transition: box-shadow 0.15s ease, outline-color 0.15s ease;
-  transform: translateX(0);
-}
-.merge-sort-demo__bar[data-role="range"] {
-  outline: 3px solid #3498db;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(52,152,219,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.merge-sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.merge-sort-demo__bar[data-role="write"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(39,174,96,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.merge-sort-demo__caption { margin-top: 0.5rem; font-size: 0.85rem; color: #555; text-align: center; min-height: 1.25em; }
-@media (prefers-color-scheme: dark) {
-  .merge-sort-demo { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
-  .merge-sort-demo__toolbar button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: inherit; }
-  .merge-sort-demo__caption { color: #bbb; }
-}
-</style>
-<div class="merge-sort-demo__toolbar">
-  <button type="button" data-ms="shuffle">シャッフル</button>
-  <button type="button" data-ms="play">自動再生</button>
-  <button type="button" data-ms="pause" disabled>一時停止</button>
-  <button type="button" data-ms="step">1ステップ</button>
-</div>
-<div class="merge-sort-demo__bars" data-ms="bars" aria-live="polite"></div>
-<p class="merge-sort-demo__caption" data-ms="caption"></p>
-<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
+{% capture sort_demo_js %}
 <script>
 (function () {
   var root = document.getElementById('merge-sort-demo');
@@ -249,7 +168,7 @@ procedure merge(A, lo, mid, hi)
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'マージソートのデモ（分割・マージ対象は青、比較はオレンジ、確定書き込みは緑）',
-    barClass: 'merge-sort-demo__bar',
+    barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
       var barsEl = api.barsEl;
@@ -307,7 +226,13 @@ procedure merge(A, lo, mid, hi)
   });
 })();
 </script>
-</div>
-<!-- markdownlint-enable MD046 -->
+{% endcapture %}
+
+{% include sort-demo/wrapper.html
+  id="merge-sort-demo"
+  preset="merge"
+  data_prefix="ms"
+  script=sort_demo_js
+%}
 
 バブルソートの O(n²) と比べてデータが大きい場面では有利になりやすく、クイックソートの最悪 O(n²) と比べて時間計算量のわるい入力がない反面、補助配列など **余計なメモリ** を使うトレードオフがある。

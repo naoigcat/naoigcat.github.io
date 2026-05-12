@@ -41,98 +41,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
 
 以下のデモでは **閾値・深さ計算を実装と揃えたうえで**、オレンジは比較、緑は交換、紫は確定したピボット、青系は挿入ソート中の強調、ヒープフェーズ開始時はキャプションで明示する。**昇順に近いデータ**ではクイックソートの分割が偏りやすく、**ヒープソートへの切り替え** が現れやすい。
 
-<!-- markdownlint-disable MD046 -->
-<div id="intro-sort-demo" class="intro-sort-demo">
-<style>
-.intro-sort-demo {
-  margin: 1.25rem 0;
-  padding: 1rem;
-  border: 1px solid rgba(128,128,128,.35);
-  border-radius: 8px;
-  background: var(--minima-brand-color-lightest, #f9f9f9);
-}
-.intro-sort-demo__toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-}
-.intro-sort-demo__toolbar button {
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  border: 1px solid rgba(0,0,0,.2);
-  background: #fff;
-  cursor: pointer;
-  font: inherit;
-}
-.intro-sort-demo__toolbar button:hover {
-  border-color: rgba(0,0,0,.45);
-}
-.intro-sort-demo__toolbar button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-.intro-sort-demo__bars {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 6px;
-  min-height: 140px;
-  padding: 0.5rem;
-}
-.intro-sort-demo__bar {
-  flex: 1 1 0;
-  max-width: 48px;
-  min-width: 28px;
-  border-radius: 4px 4px 2px 2px;
-  background: linear-gradient(180deg, #5b9bd5 0%, #2e75b6 100%);
-  box-shadow: 0 2px 4px rgba(0,0,0,.12);
-  transition: box-shadow 0.15s ease, outline-color 0.15s ease;
-  transform: translateX(0);
-}
-.intro-sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.intro-sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
-.intro-sort-demo__bar[data-role="pivot"] {
-  outline: 3px solid #9b59b6;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(155,89,182,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.intro-sort-demo__bar[data-role="insert"] {
-  outline: 3px solid #2980b9;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(41,128,185,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.intro-sort-demo__bar[data-role="heap"] {
-  outline: 3px solid #16a085;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(22,160,133,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.intro-sort-demo__caption { margin-top: 0.5rem; font-size: 0.85rem; color: #555; text-align: center; min-height: 1.25em; }
-@media (prefers-color-scheme: dark) {
-  .intro-sort-demo { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
-  .intro-sort-demo__toolbar button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: inherit; }
-  .intro-sort-demo__caption { color: #bbb; }
-}
-</style>
-<div class="intro-sort-demo__toolbar">
-  <button type="button" data-is="shuffle">シャッフル</button>
-  <button type="button" data-is="sorted">昇順データ（ヒープ切替が出やすい）</button>
-  <button type="button" data-is="play">自動再生</button>
-  <button type="button" data-is="pause" disabled>一時停止</button>
-  <button type="button" data-is="step">1ステップ</button>
-</div>
-<div class="intro-sort-demo__bars" data-is="bars" aria-live="polite"></div>
-<p class="intro-sort-demo__caption" data-is="caption"></p>
-<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
+{% capture sort_demo_js %}
 <script>
 (function () {
   var root = document.getElementById('intro-sort-demo');
@@ -298,7 +207,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'イントロソートのデモ（クイック／挿入／ヒープのハイブリッド。実線はフェーズに応じて色分け）',
-    barClass: 'intro-sort-demo__bar',
+    barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     onSyncButtons: function (ui, st) {
       if (ui.sorted) ui.sorted.disabled = st.playing;
@@ -402,7 +311,14 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
   });
 })();
 </script>
-</div>
-<!-- markdownlint-enable MD046 -->
+{% endcapture %}
+
+{% include sort-demo/wrapper.html
+  id="intro-sort-demo"
+  preset="intro"
+  data_prefix="is"
+  toolbar_variant="intro"
+  script=sort_demo_js
+%}
 
 ピボット選択や閾値、切片アルゴリズムは実装ごとに異なるが、「**高速な平均ケース**としてのクイックソート」と「**保証された最悪効率**としてのヒープソート」を組み合わせるという発想は、整列アルゴリズムを実務レベルへ押し上げる典型的な一手である。

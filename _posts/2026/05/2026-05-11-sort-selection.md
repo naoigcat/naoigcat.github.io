@@ -30,87 +30,7 @@ procedure selection_sort(A)
 
 [クイックソート](/2026/05/02/sort-quick.html) やマージソートと比べると漸近的な効率は劣るが、実装が短く、動きの説明に向く。
 
-<!-- markdownlint-disable MD046 -->
-<div id="selection-sort-demo" class="selection-sort-demo">
-<style>
-.selection-sort-demo {
-  margin: 1.25rem 0;
-  padding: 1rem;
-  border: 1px solid rgba(128,128,128,.35);
-  border-radius: 8px;
-  background: var(--minima-brand-color-lightest, #f9f9f9);
-}
-.selection-sort-demo__toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-}
-.selection-sort-demo__toolbar button {
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  border: 1px solid rgba(0,0,0,.2);
-  background: #fff;
-  cursor: pointer;
-  font: inherit;
-}
-.selection-sort-demo__toolbar button:hover {
-  border-color: rgba(0,0,0,.45);
-}
-.selection-sort-demo__toolbar button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-.selection-sort-demo__bars {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 6px;
-  min-height: 140px;
-  padding: 0.5rem;
-}
-.selection-sort-demo__bar {
-  flex: 1 1 0;
-  max-width: 48px;
-  min-width: 28px;
-  border-radius: 4px 4px 2px 2px;
-  background: linear-gradient(180deg, #5b9bd5 0%, #2e75b6 100%);
-  box-shadow: 0 2px 4px rgba(0,0,0,.12);
-  transition: box-shadow 0.15s ease, outline-color 0.15s ease;
-  transform: translateX(0);
-}
-.selection-sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.selection-sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
-.selection-sort-demo__bar[data-role="sorted"] {
-  outline: 3px solid #9b59b6;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(155,89,182,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.selection-sort-demo__caption { margin-top: 0.5rem; font-size: 0.85rem; color: #555; text-align: center; min-height: 1.25em; }
-@media (prefers-color-scheme: dark) {
-  .selection-sort-demo { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
-  .selection-sort-demo__toolbar button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: inherit; }
-  .selection-sort-demo__caption { color: #bbb; }
-}
-</style>
-<div class="selection-sort-demo__toolbar">
-  <button type="button" data-ssel="shuffle">シャッフル</button>
-  <button type="button" data-ssel="play">自動再生</button>
-  <button type="button" data-ssel="pause" disabled>一時停止</button>
-  <button type="button" data-ssel="step">1ステップ</button>
-</div>
-<div class="selection-sort-demo__bars" data-ssel="bars" aria-live="polite"></div>
-<p class="selection-sort-demo__caption" data-ssel="caption"></p>
-<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
+{% capture sort_demo_js %}
 <script>
 (function () {
   var root = document.getElementById('selection-sort-demo');
@@ -179,7 +99,7 @@ procedure selection_sort(A)
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       '選択ソートのデモ（確定済みは紫、比較はオレンジ、交換は緑）',
-    barClass: 'selection-sort-demo__bar',
+    barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
       var barsEl = api.barsEl;
@@ -219,7 +139,13 @@ procedure selection_sort(A)
   });
 })();
 </script>
-</div>
-<!-- markdownlint-enable MD046 -->
+{% endcapture %}
+
+{% include sort-demo/wrapper.html
+  id="selection-sort-demo"
+  preset="selection"
+  data_prefix="ssel"
+  script=sort_demo_js
+%}
 
 実装が単純な分、入力サイズが大きい場面では標準ライブラリのソートやより漸近的に有利なアルゴリズムに任せるのが現実的である。
