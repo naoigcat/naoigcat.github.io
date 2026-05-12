@@ -19,7 +19,7 @@ Unless the maintainer asks about them explicitly, **do not** raise them as revie
 
 ### Third-party JavaScript (Mermaid)
 
-Production loads the Mermaid script from a CDN **only on pages that contain Mermaid** in Markdown. That conditional loading is deliberate.
+Production loads the Mermaid script from a CDN **only on posts whose front matter sets `mermaid: true`**. That opt-in loading is deliberate.
 Do not suggest vendoring the same version under `assets` for offline verification or CDN resilience unless the maintainer asks;
 it is an optional future trade-off against maintenance cost, not an outstanding gap.
 

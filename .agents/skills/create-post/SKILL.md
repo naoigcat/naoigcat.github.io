@@ -88,6 +88,11 @@ tags:   {tag}
 ---
 ```
 
+Optional front matter keys (add only when the post needs them):
+
+-   **`mermaid: true`** — `head.html` loads the Mermaid CDN script so Mermaid fenced code blocks render.
+-   **`sort_demo: true`** — `head.html` loads sort-demo CSS and `demo-sort.js` when using `{% include sort-demo/wrapper.html %}`.
+
 Set `title` to `{display_title}` and `tags` to `{tag}` (the space-separated list resolved in step 3, always starting with
 the first segment of `{filename_slug}`). Write the **article body in Japanese**.
 

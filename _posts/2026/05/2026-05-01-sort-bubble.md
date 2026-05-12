@@ -3,6 +3,7 @@ layout: post
 title:  バブルソートで配列を並び替える
 date:   2026-05-01 00:56:20 +0900
 tags:   sort
+sort_demo: true
 ---
 
 ## バブルソートを使用する
