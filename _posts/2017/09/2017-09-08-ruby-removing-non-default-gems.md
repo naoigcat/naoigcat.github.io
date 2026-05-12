@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Rubyでデフォルト以外のGemをアンインストールする
 date:      2017-09-08 07:45:00 +0900
 tags:      ruby

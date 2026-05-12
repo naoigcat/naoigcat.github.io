@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     シェルスクリプトで配列を結合する
 date:      2023-03-24 12:51:58 +0900
 tags:      bash

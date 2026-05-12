@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     シェルソートで配列を並び替える
 date:      2026-05-06 07:48:33 +0900
 tags:      sort

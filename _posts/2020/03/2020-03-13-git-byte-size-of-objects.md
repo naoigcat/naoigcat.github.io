@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Gitリポジトリ内の大容量ファイルを特定する
 date:      2020-03-13 12:08:35 +0900
 tags:      git

@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     JavaScriptで文字列を整数値に変換する
 date:      2023-03-03 12:44:27 +0900
 tags:      javascript

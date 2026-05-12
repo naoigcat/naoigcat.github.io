@@ -12,6 +12,12 @@ exclude:
   - Makefile
   - README.md
 theme: minima
+defaults:
+  - scope:
+      path: "_posts"
+      type: posts
+    values:
+      layout: post
 plugins:
   - jekyll-feed
 google_analytics: G-RY1YXQLG9M

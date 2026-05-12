@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     ImageMagickの最小構成で使用できるフォーマットを出力する
 date:      2023-04-05 12:25:24 +0900
 tags:      imagemagick

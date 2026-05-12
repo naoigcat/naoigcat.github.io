@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     エージェントのスキルを管理する
 date:      2026-04-30 06:56:16 +0900
 tags:      agent

@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     スプレッドシートのセルへのリンクを作成する
 date:      2023-02-16 12:23:50 +0900
 tags:      google

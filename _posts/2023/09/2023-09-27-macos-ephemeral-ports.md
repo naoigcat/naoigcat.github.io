@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     一時的に使用可能なポートの範囲を取得する
 date:      2023-09-27 12:14:47 +0900
 tags:      macos

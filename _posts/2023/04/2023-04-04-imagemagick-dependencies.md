@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     ImageMagickが依存しているライブラリを調べる
 date:      2023-04-04 12:19:55 +0900
 tags:      imagemagick

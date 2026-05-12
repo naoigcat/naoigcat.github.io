@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     シェルスクリプトを直接実行させない
 date:      2024-02-22 16:25:46 +0900
 tags:      bash

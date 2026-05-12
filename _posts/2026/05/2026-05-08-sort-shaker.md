@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     シェーカーソートで配列を並び替える
 date:      2026-05-08 06:16:01 +0900
 tags:      sort

@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     GitHub Actionsの実行条件でコンテキストを参照する
 date:      2023-09-06 22:57:14 +0900
 tags:      github

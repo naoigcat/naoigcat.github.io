@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     makeコマンドは引数に指定した変数が優先される
 date:      2023-02-10 12:37:41 +0900
 tags:      bash

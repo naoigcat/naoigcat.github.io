@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Xcodeでのビルド時にSwiftLintを実行する
 date:      2017-09-05 19:30:00 +0900
 tags:      xcode

@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     macOSに付属しているmakeコマンドは古い
 date:      2023-02-08 13:20:57 +0900
 tags:      bash

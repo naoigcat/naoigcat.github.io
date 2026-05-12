@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Xcodeで新規ファイルに挿入されるヘッダーのローカライズを英語にする
 date:      2017-04-10 10:46:53 +0900
 tags:      xcode

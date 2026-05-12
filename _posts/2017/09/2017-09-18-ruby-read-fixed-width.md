@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Rubyで固定幅のファイルをCSVとして読み込む
 date:      2017-09-18 15:25:00 +0900
 tags:      ruby

@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     macOSで期限切れのSSL証明書を更新する
 date:      2023-02-07 12:35:19 +0900
 tags:      macos ssl

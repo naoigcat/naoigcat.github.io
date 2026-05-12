@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Java製ソフトウェアを逆コンパイルする
 date:      2024-04-16 16:40:55 +0900
 tags:      java

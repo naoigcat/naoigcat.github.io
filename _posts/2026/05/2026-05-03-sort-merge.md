@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     マージソートで配列を並び替える
 date:      2026-05-03 08:31:07 +0900
 tags:      sort

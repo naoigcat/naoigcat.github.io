@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     コマンドの存在確認の可否を比較する
 date:      2026-04-26 00:32:34 +0900
 tags:      bash

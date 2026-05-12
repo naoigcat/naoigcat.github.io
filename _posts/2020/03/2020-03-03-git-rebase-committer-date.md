@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Gitで過去のコミットの作成日時を修正する
 date:      2020-03-03 09:48:04 +0900
 tags:      git

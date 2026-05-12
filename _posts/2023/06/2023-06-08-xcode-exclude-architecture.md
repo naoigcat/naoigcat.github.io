@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Xcode 12でシミュレーター向けにビルドする
 date:      2023-06-08 14:08:39 +0900
 tags:      xcode

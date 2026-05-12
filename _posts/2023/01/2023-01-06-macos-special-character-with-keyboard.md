@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     macOSのキーボードで特殊記号を入力する
 date:      2023-01-06 12:03:10 +0900
 tags:      macos

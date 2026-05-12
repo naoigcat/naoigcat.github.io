@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     空きポートを検索する
 date:      2026-04-09 00:37:06 +0900
 tags:      bash

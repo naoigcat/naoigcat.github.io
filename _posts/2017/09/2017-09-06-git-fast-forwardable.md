@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Gitでファストフォワード可能かどうかを判定する
 date:      2017-09-06 02:56:00 +0900
 tags:      git
