@@ -26,7 +26,7 @@
     });
   }
 
-  var DemoSort = {};
+  const DemoSort = {};
 
   DemoSort.wait = function (ms) {
     return new Promise(function (resolve) {
@@ -38,9 +38,9 @@
 
   DemoSort.swapDomIndices = function (parent, i, j) {
     if (i === j) return;
-    var el1 = parent.children[i];
-    var el2 = parent.children[j];
-    var marker = document.createTextNode('');
+    const el1 = parent.children[i];
+    const el2 = parent.children[j];
+    const marker = document.createTextNode('');
     parent.insertBefore(marker, el1);
     parent.insertBefore(el1, el2.nextSibling);
     parent.insertBefore(el2, marker);
@@ -50,13 +50,13 @@
   DemoSort.mountBars = function (container, values, barClass) {
     container.innerHTML = '';
     if (!values.length) return;
-    var max = Math.max.apply(null, values);
-    var min = Math.min.apply(null, values);
-    var span = Math.max(max - min, 1);
+    const max = Math.max.apply(null, values);
+    const min = Math.min.apply(null, values);
+    const span = Math.max(max - min, 1);
     values.forEach(function (v) {
-      var bar = document.createElement('div');
+      const bar = document.createElement('div');
       bar.className = barClass;
-      var h = 28 + ((v - min) / span) * 92;
+      const h = 28 + ((v - min) / span) * 92;
       bar.style.height = h + 'px';
       bar.setAttribute('title', String(v));
       container.appendChild(bar);
@@ -64,11 +64,11 @@
   };
 
   DemoSort.shuffleCopy = function (arr) {
-    var copy = arr.slice();
-    var i;
+    const copy = arr.slice();
+    let i;
     for (i = copy.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = copy[i];
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = copy[i];
       copy[i] = copy[j];
       copy[j] = t;
     }
@@ -76,21 +76,21 @@
   };
 
   DemoSort.flipAdjacentSwap = async function (container, lo) {
-    var children = container.children;
-    var first = children[lo];
-    var second = children[lo + 1];
+    const children = container.children;
+    const first = children[lo];
+    const second = children[lo + 1];
     if (!first || !second) return;
 
-    var b1 = first.getBoundingClientRect();
-    var b2 = second.getBoundingClientRect();
+    const b1 = first.getBoundingClientRect();
+    const b2 = second.getBoundingClientRect();
 
     container.insertBefore(second, first);
 
-    var a1 = first.getBoundingClientRect();
-    var a2 = second.getBoundingClientRect();
+    const a1 = first.getBoundingClientRect();
+    const a2 = second.getBoundingClientRect();
 
-    var dx1 = b1.left - a1.left;
-    var dx2 = b2.left - a2.left;
+    const dx1 = b1.left - a1.left;
+    const dx2 = b2.left - a2.left;
     first.style.transition = 'none';
     second.style.transition = 'none';
     first.style.transform = 'translateX(' + dx1 + 'px)';
@@ -102,7 +102,7 @@
       });
     });
 
-    var dur = '0.32s';
+    const dur = '0.32s';
     first.style.transition = 'transform ' + dur + ' ease';
     second.style.transition = 'transform ' + dur + ' ease';
     first.style.transform = '';
@@ -122,24 +122,24 @@
   DemoSort.flipSwap = async function (container, i, j) {
     if (i === j) return;
     if (i > j) {
-      var tmp = i;
+      const tmp = i;
       i = j;
       j = tmp;
     }
-    var elI = container.children[i];
-    var elJ = container.children[j];
+    const elI = container.children[i];
+    const elJ = container.children[j];
     if (!elI || !elJ) return;
 
-    var bI = elI.getBoundingClientRect();
-    var bJ = elJ.getBoundingClientRect();
+    const bI = elI.getBoundingClientRect();
+    const bJ = elJ.getBoundingClientRect();
 
     DemoSort.swapDomIndices(container, i, j);
 
-    var aI = elI.getBoundingClientRect();
-    var aJ = elJ.getBoundingClientRect();
+    const aI = elI.getBoundingClientRect();
+    const aJ = elJ.getBoundingClientRect();
 
-    var dxI = bI.left - aI.left;
-    var dxJ = bJ.left - aJ.left;
+    const dxI = bI.left - aI.left;
+    const dxJ = bJ.left - aJ.left;
     elI.style.transition = 'none';
     elJ.style.transition = 'none';
     elI.style.transform = 'translateX(' + dxI + 'px)';
@@ -151,7 +151,7 @@
       });
     });
 
-    var dur = '0.32s';
+    const dur = '0.32s';
     elI.style.transition = 'transform ' + dur + ' ease';
     elJ.style.transition = 'transform ' + dur + ' ease';
     elI.style.transform = '';
@@ -174,8 +174,8 @@
    */
   DemoSort.clearRoles = function (container) {
     if (!container) return;
-    var nodes = container.children;
-    var i;
+    const nodes = container.children;
+    let i;
     for (i = 0; i < nodes.length; i++) {
       nodes[i].removeAttribute('data-role');
     }
@@ -192,12 +192,12 @@
    */
   DemoSort.assignRoles = function (container, pairs, opts) {
     if (!container) return;
-    opts = opts || {};
-    var preserve = opts.preserve;
-    var nodes = container.children;
-    var i;
+    const options = opts || {};
+    const preserve = options.preserve;
+    const nodes = container.children;
+    let i;
     for (i = 0; i < nodes.length; i++) {
-      var current = nodes[i].getAttribute('data-role');
+      const current = nodes[i].getAttribute('data-role');
       if (current == null) continue;
       if (!preserve || preserve.indexOf(current) === -1) {
         nodes[i].removeAttribute('data-role');
@@ -205,9 +205,9 @@
     }
     if (!pairs) return;
     for (i = 0; i < pairs.length; i++) {
-      var idx = pairs[i][0];
+      const idx = pairs[i][0];
       if (idx == null) continue;
-      var node = nodes[idx];
+      const node = nodes[idx];
       if (node) node.setAttribute('data-role', pairs[i][1]);
     }
   };
@@ -222,7 +222,7 @@
   DemoSort.boot = function (rootId, fn) {
     if (typeof document === 'undefined') return;
     if (typeof DemoSort.attachPlayback !== 'function') return;
-    var root = document.getElementById(rootId);
+    const root = document.getElementById(rootId);
     if (!root) return;
     fn(root);
   };
@@ -236,7 +236,7 @@
     function sel(role) {
       return '[' + dataAttr + '="' + role + '"]';
     }
-    var ui = {
+    const ui = {
       bars: root.querySelector(sel('bars')),
       caption: root.querySelector(sel('caption')),
       shuffle: root.querySelector(sel('shuffle')),
@@ -244,10 +244,9 @@
       pause: root.querySelector(sel('pause')),
       step: root.querySelector(sel('step')),
     };
-    var i;
-    extraRoles = extraRoles || [];
-    for (i = 0; i < extraRoles.length; i++) {
-      ui[extraRoles[i]] = root.querySelector(sel(extraRoles[i]));
+    const roles = extraRoles || [];
+    for (let i = 0; i < roles.length; i++) {
+      ui[roles[i]] = root.querySelector(sel(roles[i]));
     }
     return ui;
   };
@@ -279,23 +278,23 @@
     if (!o || !o.root || !o.dataAttr) return;
     if (!o.rebuild && typeof o.generateSteps !== 'function') return;
 
-    var ui = DemoSort.queryToolbar(o.root, o.dataAttr, o.extraRoles);
-    var barsEl = ui.bars;
-    var capEl = ui.caption;
+    const ui = DemoSort.queryToolbar(o.root, o.dataAttr, o.extraRoles);
+    const barsEl = ui.bars;
+    const capEl = ui.caption;
     if (!barsEl || !capEl || !ui.shuffle || !ui.play || !ui.pause || !ui.step) {
       return;
     }
 
-    var barClass = o.barClass || '';
+    const barClass = o.barClass || '';
 
-    var values = (o.initialValues || []).slice();
-    var steps = [];
-    var idx = 0;
-    var playing = false;
-    var cancelled = false;
-    var busy = false;
+    let values = (o.initialValues || []).slice();
+    let steps = [];
+    let idx = 0;
+    let playing = false;
+    let cancelled = false;
+    let busy = false;
 
-    var api = {
+    const api = {
       ui: ui,
       barsEl: barsEl,
       mountBars: function (container, vals) {
@@ -350,11 +349,11 @@
     }
 
     function syncButtons() {
-      var atEnd = idx >= steps.length;
+      const atEnd = idx >= steps.length;
       ui.play.disabled = playing || atEnd || busy;
       ui.pause.disabled = !playing;
       ui.step.disabled = playing || atEnd || busy;
-      var shuffleOk =
+      const shuffleOk =
         o.shuffleWhen != null
           ? o.shuffleWhen({ playing: playing, busy: busy })
           : !playing && !busy;
@@ -389,7 +388,7 @@
       busy = true;
       syncButtons();
       try {
-        var s = steps[idx];
+        const s = steps[idx];
         idx++;
         await o.applyStep(api, s);
       } catch (err) {
@@ -404,7 +403,7 @@
     api.applyStepForward = applyStepForward;
 
     ui.shuffle.addEventListener('click', function () {
-      var st = { playing: playing, busy: busy };
+      const st = { playing: playing, busy: busy };
       if (o.shuffleWhen != null && !o.shuffleWhen(st)) return;
       if (o.shuffleWhen == null && (playing || busy)) return;
       rebuild(DemoSort.shuffleCopy(values));
@@ -420,7 +419,7 @@
       syncButtons();
       while (!cancelled && idx < steps.length) {
         await applyStepForward();
-        var ms =
+        let ms =
           typeof o.stepPauseMs === 'function'
             ? o.stepPauseMs(api)
             : o.stepPauseMs;
@@ -439,8 +438,8 @@
 
     if (o.extraBindings) {
       Object.keys(o.extraBindings).forEach(function (key) {
-        var btn = ui[key];
-        var fn = o.extraBindings[key];
+        const btn = ui[key];
+        const fn = o.extraBindings[key];
         if (btn && typeof fn === 'function') {
           btn.addEventListener('click', function () {
             fn(api);
