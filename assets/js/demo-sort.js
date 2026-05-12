@@ -1,7 +1,10 @@
 /**
- * Sort bar demos: animation helpers, toolbar query, and shared playback wiring.
- * Depends on nothing; attaches DemoSort to window.
+ * Sort bar demos: animation helpers, toolbar query, role markers, and shared
+ * playback wiring. Depends on nothing; attaches DemoSort to window.
  *
+ * DemoSort.boot(rootId, fn)
+ * DemoSort.clearRoles(container)
+ * DemoSort.assignRoles(container, pairs, opts?)
  * DemoSort.queryToolbar(root, dataAttr, extraRoles?)
  * DemoSort.attachPlayback(options) — see implementation for option shape.
  */
@@ -163,6 +166,65 @@
     elJ.style.transition = '';
     elI.style.transform = '';
     elJ.style.transform = '';
+  };
+
+  /**
+   * Removes data-role from every immediate child of container.
+   * @param {HTMLElement} container
+   */
+  DemoSort.clearRoles = function (container) {
+    if (!container) return;
+    var nodes = container.children;
+    var i;
+    for (i = 0; i < nodes.length; i++) {
+      nodes[i].removeAttribute('data-role');
+    }
+  };
+
+  /**
+   * Clears existing data-role attributes (optionally preserving some), then
+   * applies a list of [index, role] assignments to immediate children.
+   *
+   * @param {HTMLElement} container
+   * @param {Array<[number, string]>} [pairs] Indices to mark; entries with a null index are skipped.
+   * @param {object} [opts]
+   * @param {string[]} [opts.preserve] Existing role values to keep (e.g. ['sorted']).
+   */
+  DemoSort.assignRoles = function (container, pairs, opts) {
+    if (!container) return;
+    opts = opts || {};
+    var preserve = opts.preserve;
+    var nodes = container.children;
+    var i;
+    for (i = 0; i < nodes.length; i++) {
+      var current = nodes[i].getAttribute('data-role');
+      if (current == null) continue;
+      if (!preserve || preserve.indexOf(current) === -1) {
+        nodes[i].removeAttribute('data-role');
+      }
+    }
+    if (!pairs) return;
+    for (i = 0; i < pairs.length; i++) {
+      var idx = pairs[i][0];
+      if (idx == null) continue;
+      var node = nodes[idx];
+      if (node) node.setAttribute('data-role', pairs[i][1]);
+    }
+  };
+
+  /**
+   * Boots a demo by id once DemoSort is ready.
+   * Returns silently if the root element does not exist or attachPlayback is missing.
+   *
+   * @param {string} rootId
+   * @param {function(HTMLElement):void} fn
+   */
+  DemoSort.boot = function (rootId, fn) {
+    if (typeof document === 'undefined') return;
+    if (typeof DemoSort.attachPlayback !== 'function') return;
+    var root = document.getElementById(rootId);
+    if (!root) return;
+    fn(root);
   };
 
   /**

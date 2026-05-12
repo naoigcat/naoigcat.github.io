@@ -32,12 +32,7 @@ procedure selection_sort(A)
 
 {% capture sort_demo_js %}
 <script>
-(function () {
-  var root = document.getElementById('selection-sort-demo');
-  if (!root) return;
-  var DemoSort = window.DemoSort;
-  if (!DemoSort || !DemoSort.attachPlayback) return;
-
+window.DemoSort && DemoSort.boot('selection-sort-demo', function (root) {
   function generateSteps(initial) {
     var a = initial.slice();
     var steps = [];
@@ -79,18 +74,16 @@ procedure selection_sort(A)
   }
 
   function paintBarStates(container, sortedCount, compareLo, compareHi, role) {
-    var nodes = container.children;
+    var pairs = [];
     var k;
-    for (k = 0; k < nodes.length; k++) {
-      nodes[k].removeAttribute('data-role');
+    for (k = 0; k < sortedCount; k++) {
+      pairs.push([k, 'sorted']);
     }
-    for (k = 0; k < sortedCount && k < nodes.length; k++) {
-      nodes[k].setAttribute('data-role', 'sorted');
+    if (compareLo != null && compareHi != null) {
+      var r = role === 'swap' ? 'swap' : 'compare';
+      pairs.push([compareLo, r], [compareHi, r]);
     }
-    if (compareLo == null || compareHi == null) return;
-    var r = role === 'swap' ? 'swap' : 'compare';
-    if (nodes[compareLo]) nodes[compareLo].setAttribute('data-role', r);
-    if (nodes[compareHi]) nodes[compareHi].setAttribute('data-role', r);
+    DemoSort.assignRoles(container, pairs);
   }
 
   DemoSort.attachPlayback({
@@ -137,7 +130,7 @@ procedure selection_sort(A)
     },
     stepPauseMs: 280,
   });
-})();
+});
 </script>
 {% endcapture %}
 
