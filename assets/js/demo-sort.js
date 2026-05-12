@@ -295,7 +295,7 @@
       var shuffleOk =
         o.shuffleWhen != null
           ? o.shuffleWhen({ playing: playing, busy: busy })
-          : !playing;
+          : !playing && !busy;
       ui.shuffle.disabled = !shuffleOk;
       if (o.onSyncButtons) {
         o.onSyncButtons(ui, {
@@ -344,7 +344,7 @@
     ui.shuffle.addEventListener('click', function () {
       var st = { playing: playing, busy: busy };
       if (o.shuffleWhen != null && !o.shuffleWhen(st)) return;
-      if (o.shuffleWhen == null && playing) return;
+      if (o.shuffleWhen == null && (playing || busy)) return;
       rebuild(DemoSort.shuffleCopy(values));
     });
 
