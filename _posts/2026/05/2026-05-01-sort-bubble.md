@@ -72,14 +72,12 @@ window.DemoSort && DemoSort.boot('bubble-sort-demo', function (root) {
         return;
       }
       if (s.kind === 'swap') {
-        var prev = api.steps[api.idx - 2];
-        var lo = prev && prev.kind === 'compare' ? prev.lo : s.lo;
-        DemoSort.assignRoles(barsEl, [[lo, 'swap'], [lo + 1, 'swap']]);
+        DemoSort.assignRoles(barsEl, [[s.lo, 'swap'], [s.lo + 1, 'swap']]);
         api.setCaption('交換しています…');
-        await DemoSort.flipAdjacentSwap(barsEl, lo);
+        await DemoSort.flipAdjacentSwap(barsEl, s.lo);
         DemoSort.clearRoles(barsEl);
         api.setCaption(
-          '交換しました（位置 ' + lo + ' と ' + (lo + 1) + '）'
+          '交換しました（位置 ' + s.lo + ' と ' + (s.lo + 1) + '）'
         );
         return;
       }
