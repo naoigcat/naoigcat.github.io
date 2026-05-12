@@ -33,17 +33,17 @@ procedure gnome_sort(A)
 <script>
 window.DemoSort && DemoSort.boot('gnome-sort-demo', function (root) {
   function generateSteps(initial) {
-    var a = initial.slice();
-    var steps = [];
-    var pos = 0;
-    var n = a.length;
+    const a = initial.slice();
+    const steps = [];
+    let pos = 0;
+    const n = a.length;
     while (pos < n) {
       if (pos === 0 || a[pos] >= a[pos - 1]) {
         steps.push({ kind: 'advance', pos: pos, arr: a.slice() });
         pos++;
       } else {
         steps.push({ kind: 'compare', lo: pos - 1, hi: pos, arr: a.slice() });
-        var t = a[pos];
+        const t = a[pos];
         a[pos] = a[pos - 1];
         a[pos - 1] = t;
         steps.push({ kind: 'swap', lo: pos - 1, hi: pos, arr: a.slice() });
@@ -63,7 +63,7 @@ window.DemoSort && DemoSort.boot('gnome-sort-demo', function (root) {
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
-      var barsEl = api.barsEl;
+      const barsEl = api.barsEl;
       if (s.kind === 'advance') {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, s.pos == null ? [] : [[s.pos, 'cursor']]);

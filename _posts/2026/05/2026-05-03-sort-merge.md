@@ -44,22 +44,22 @@ procedure merge(A, lo, mid, hi)
 <script>
 window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
   function buildDisplay(a, lo, tmp) {
-    var d = a.slice();
-    for (var t = 0; t < tmp.length; t++) {
+    const d = a.slice();
+    for (let t = 0; t < tmp.length; t++) {
       d[lo + t] = tmp[t];
     }
     return d;
   }
 
   function generateSteps(initial) {
-    var a = initial.slice();
-    var steps = [];
+    const a = initial.slice();
+    const steps = [];
 
     function merge(lo, mid, hi) {
       steps.push({ kind: 'merge_start', lo: lo, mid: mid, hi: hi, arr: a.slice() });
-      var tmp = [];
-      var i = lo;
-      var j = mid + 1;
+      const tmp = [];
+      let i = lo;
+      let j = mid + 1;
       while (i <= mid && j <= hi) {
         steps.push({
           kind: 'merge_compare',
@@ -107,7 +107,7 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
           arr: buildDisplay(a, lo, tmp),
         });
       }
-      for (var t = 0; t < tmp.length; t++) {
+      for (let t = 0; t < tmp.length; t++) {
         a[lo + t] = tmp[t];
       }
       steps.push({ kind: 'merge_done', lo: lo, hi: hi, arr: a.slice() });
@@ -115,7 +115,7 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
 
     function mergeSort(lo, hi) {
       if (lo >= hi) return;
-      var mid = Math.floor((lo + hi) / 2);
+      const mid = Math.floor((lo + hi) / 2);
       steps.push({ kind: 'split', lo: lo, hi: hi, mid: mid, arr: a.slice() });
       mergeSort(lo, mid);
       mergeSort(mid + 1, hi);
@@ -130,8 +130,8 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
   }
 
   function rangePairs(lo, hi, role) {
-    var pairs = [];
-    for (var k = lo; k <= hi; k++) {
+    const pairs = [];
+    for (let k = lo; k <= hi; k++) {
       pairs.push([k, role]);
     }
     return pairs;
@@ -146,7 +146,7 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
-      var barsEl = api.barsEl;
+      const barsEl = api.barsEl;
       if (s.kind === 'split') {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, rangePairs(s.lo, s.hi, 'range'));

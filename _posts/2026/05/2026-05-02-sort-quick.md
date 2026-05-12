@@ -38,17 +38,16 @@ procedure partition(A, lo, hi)
 <script>
 window.DemoSort && DemoSort.boot('quick-sort-demo', function (root) {
   function generateSteps(initial) {
-    var a = initial.slice();
-    var steps = [];
+    const a = initial.slice();
+    const steps = [];
     function partition(lo, hi) {
-      var pivotVal = a[hi];
-      var i = lo;
-      var j;
-      for (j = lo; j <= hi - 1; j++) {
+      const pivotVal = a[hi];
+      let i = lo;
+      for (let j = lo; j <= hi - 1; j++) {
         steps.push({ kind: 'compare', lo: j, hi: hi, arr: a.slice() });
         if (a[j] < pivotVal) {
           if (i !== j) {
-            var t = a[i];
+            const t = a[i];
             a[i] = a[j];
             a[j] = t;
             steps.push({ kind: 'swap', lo: i, hi: j, arr: a.slice() });
@@ -57,7 +56,7 @@ window.DemoSort && DemoSort.boot('quick-sort-demo', function (root) {
         }
       }
       if (i !== hi) {
-        var t2 = a[i];
+        const t2 = a[i];
         a[i] = a[hi];
         a[hi] = t2;
         steps.push({ kind: 'swap', lo: i, hi: hi, arr: a.slice() });
@@ -67,7 +66,7 @@ window.DemoSort && DemoSort.boot('quick-sort-demo', function (root) {
     function quick(lo, hi) {
       if (lo >= hi) return;
       steps.push({ kind: 'part_start', lo: lo, hi: hi, arr: a.slice() });
-      var p = partition(lo, hi);
+      const p = partition(lo, hi);
       steps.push({ kind: 'part_end', pivot: p, arr: a.slice() });
       quick(lo, p - 1);
       quick(p + 1, hi);
@@ -88,7 +87,7 @@ window.DemoSort && DemoSort.boot('quick-sort-demo', function (root) {
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
-      var barsEl = api.barsEl;
+      const barsEl = api.barsEl;
       if (s.kind === 'part_start') {
         api.mountBars(barsEl, s.arr);
         DemoSort.clearRoles(barsEl);
