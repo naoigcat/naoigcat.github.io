@@ -5,7 +5,8 @@
             scopes role colors via sort-demo--<preset>
             (CSS lives in /assets/css/sort-demo.css, loaded once from head.html when the page contains a sort-demo__bars marker)
   - data_prefix: attribute suffix without "data-", e.g. bubble → data-bubble="shuffle"
-  - script: captured HTML that loads inline JS (typically wraps one <script></script>)
+  - script: captured HTML that loads inline JS (typically wraps one <script></script>);
+            shared demo-sort.js is loaded once from head.html when the page contains sort-demo__bars
   - toolbar_variant: omit or "intro" (extra “昇順データ…” button)
 {% endcomment %}
 <!-- markdownlint-disable MD046 -->
@@ -21,7 +22,6 @@
 </div>
 <div class="sort-demo__bars" data-{{ include.data_prefix }}="bars" aria-hidden="true"></div>
 <p class="sort-demo__caption" data-{{ include.data_prefix }}="caption" aria-live="polite"></p>
-<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
 {{ include.script }}
 </div>
 <!-- markdownlint-enable MD046 -->
