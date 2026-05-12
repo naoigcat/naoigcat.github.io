@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Gitのタグに注釈を付ける
-date:   2023/04/07 12:14:33 +0900
-tags:   git
+layout:    post
+title:     Gitのタグに注釈を付ける
+date:      2023/04/07 12:14:33 +0900
+tags:      git
 ---
 
 ## Gitのタグには3種類ある

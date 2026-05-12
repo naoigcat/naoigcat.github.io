@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Gitでカレントブランチを取得する
-date:   2026-04-14 04:37:49 +0900
-tags:   git
+layout:    post
+title:     Gitでカレントブランチを取得する
+date:      2026-04-14 04:37:49 +0900
+tags:      git
 ---
 
 ## カレントブランチ名を取得する

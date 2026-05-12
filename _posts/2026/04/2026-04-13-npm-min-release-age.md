@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  npmで公開直後のバージョンを避ける
-date:   2026-04-13 00:12:36 +0900
-tags:   npm
+layout:    post
+title:     npmで公開直後のバージョンを避ける
+date:      2026-04-13 00:12:36 +0900
+tags:      npm
 ---
 
 ## 公開直後のバージョンを避ける

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  iOSで使用可能なストレージサイズを取得する
-date:   2022/01/18 10:41:39 +0900
-tags:   swift ios
+layout:    post
+title:     iOSで使用可能なストレージサイズを取得する
+date:      2022/01/18 10:41:39 +0900
+tags:      swift ios
 ---
 
 ## ストレージサイズを取得する

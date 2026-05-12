@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  アルファベットの出現率をまとめる
-date:   2022/02/20 02:53:20 +0900
-tags:   knowledge
+layout:    post
+title:     アルファベットの出現率をまとめる
+date:      2022/02/20 02:53:20 +0900
+tags:      knowledge
 ---
 
 ## 英語文章中のアルファベットの出現率を引用する

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  スプレッドシートの重複するデータを含む行を削除する
-date:   2023/02/27 12:25:55 +0900
-tags:   google
+layout:    post
+title:     スプレッドシートの重複するデータを含む行を削除する
+date:      2023/02/27 12:25:55 +0900
+tags:      google
 ---
 
 ## [重複するデータを含む行を削除する](https://support.google.com/docs/answer/6325535?hl=ja)

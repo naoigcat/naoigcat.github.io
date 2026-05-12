@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Rubyスクリプト内でインストールしたGemを使用する
-date:   2023/01/27 10:16:12 +0900
-tags:   ruby
+layout:    post
+title:     Rubyスクリプト内でインストールしたGemを使用する
+date:      2023/01/27 10:16:12 +0900
+tags:      ruby
 ---
 
 ## インストール直後はロードできない

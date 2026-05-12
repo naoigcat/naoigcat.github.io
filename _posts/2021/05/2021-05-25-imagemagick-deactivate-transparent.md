@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  透過画像を非透過画像に変換する
-date:   2021/05/25 08:06:09 +0900
-tags:   imagemagick
+layout:    post
+title:     透過画像を非透過画像に変換する
+date:      2021/05/25 08:06:09 +0900
+tags:      imagemagick
 ---
 
 ## 半透明を無視して変換する

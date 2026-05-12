@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  素のJavaScript (Vanilla JS) でXPathを使用する
-date:   2024/02/18 11:30:34 +0900
-tags:   javascript
+layout:    post
+title:     素のJavaScript (Vanilla JS) でXPathを使用する
+date:      2024/02/18 11:30:34 +0900
+tags:      javascript
 ---
 
 ## ライブラリを使わずにCSSセレクタで要素を選択する

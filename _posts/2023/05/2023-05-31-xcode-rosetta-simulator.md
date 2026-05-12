@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Xcode 14.xでRosettaを有効にしたシミュレーター向けにビルドする
-date:   2023/05/31 13:31:22 +0900
-tags:   xcode
+layout:    post
+title:     Xcode 14.xでRosettaを有効にしたシミュレーター向けにビルドする
+date:      2023/05/31 13:31:22 +0900
+tags:      xcode
 ---
 
 ## Xcode 12.0 以降でRosettaをサポートしている

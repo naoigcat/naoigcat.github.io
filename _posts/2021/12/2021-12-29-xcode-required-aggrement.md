@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Fastlaneの"A required agreement is missing or has expired"に対応する
-date:   2021/12/29 12:47:47 +0900
-tags:   xcode fastlane
+layout:    post
+title:     Fastlaneの"A required agreement is missing or has expired"に対応する
+date:      2021/12/29 12:47:47 +0900
+tags:      xcode fastlane
 ---
 
 ## 証明書のダウンロードでエラーになる場合がある

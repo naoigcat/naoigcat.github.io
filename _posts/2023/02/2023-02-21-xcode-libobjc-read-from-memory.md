@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  警告"libobjc.A.dylib is being read from process memory."が発生する
-date:   2023/02/21 12:02:24 +0900
-tags:   xcode
+layout:    post
+title:     警告"libobjc.A.dylib is being read from process memory."が発生する
+date:      2023/02/21 12:02:24 +0900
+tags:      xcode
 ---
 
 ## ビルド時に警告が表示されることがある

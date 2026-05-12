@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  GitHub Actionsの実行条件でコンテキストを参照する
-date:   2023/09/06 22:57:14 +0900
-tags:   github
+layout:    post
+title:     GitHub Actionsの実行条件でコンテキストを参照する
+date:      2023/09/06 22:57:14 +0900
+tags:      github
 ---
 
 ## [ワークフロー内でアクセスできるコンテキストは決まっている](https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability)

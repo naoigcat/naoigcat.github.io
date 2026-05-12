@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  ImageMagicで角丸の文字スタンプを作成する
-date:   2024/04/19 15:30:17 +0900
-tags:   imagemagick
+layout:    post
+title:     ImageMagicで角丸の文字スタンプを作成する
+date:      2024/04/19 15:30:17 +0900
+tags:      imagemagick
 ---
 
 ## 文字列を画像にする

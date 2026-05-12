@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  VSCodeのGitHub Copilotでコミットメッセージを生成する
-date:   2025/10/12 20:10:46 +0900
-tags:   vscode github-copilot
+layout:    post
+title:     VSCodeのGitHub Copilotでコミットメッセージを生成する
+date:      2025/10/12 20:10:46 +0900
+tags:      vscode github-copilot
 ---
 
 ## VSCodeのGitHub Copilotでコミットメッセージを生成する

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  選択ソートで配列を並び替える
-date:   2026-05-11 20:49:36 +0900
-tags:   sort
+layout:    post
+title:     選択ソートで配列を並び替える
+date:      2026-05-11 20:49:36 +0900
+tags:      sort
 sort_demo: true
 ---
 

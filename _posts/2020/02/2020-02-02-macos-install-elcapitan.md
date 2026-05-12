@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  El Capitanインストール時のエラーを解消する
-date:   2020/02/02 18:31:00 +0900
-tags:   macos
+layout:    post
+title:     El Capitanインストール時のエラーを解消する
+date:      2020/02/02 18:31:00 +0900
+tags:      macos
 ---
 
 ## 古いmacOSではインストール時にエラーになる

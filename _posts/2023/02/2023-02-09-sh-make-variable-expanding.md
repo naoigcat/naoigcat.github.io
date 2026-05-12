@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  makeコマンドで変数を割り当てる
-date:   2023/02/09 12:00:29 +0900
-tags:   sh
+layout:    post
+title:     makeコマンドで変数を割り当てる
+date:      2023/02/09 12:00:29 +0900
+tags:      sh
 ---
 
 ## 変数割り当ての方法が3種類存在する

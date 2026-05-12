@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  DNSサーバーを変更する
-date:   2025/01/03 06:48:40 +0900
-tags:   network
+layout:    post
+title:     DNSサーバーを変更する
+date:      2025/01/03 06:48:40 +0900
+tags:      network
 ---
 
 ## シェルコマンドでDNSサーバーを変更する

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  macOSのFusion Driveを再構成する
-date:   2020/03/04 11:21:44 +0900
-tags:   macos
+layout:    post
+title:     macOSのFusion Driveを再構成する
+date:      2020/03/04 11:21:44 +0900
+tags:      macos
 ---
 
 ## 一部のmacOS端末で採用されていた
