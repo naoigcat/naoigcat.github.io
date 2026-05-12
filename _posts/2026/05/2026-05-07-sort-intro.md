@@ -210,7 +210,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     onSyncButtons: function (ui, st) {
-      if (ui.sorted) ui.sorted.disabled = st.playing;
+      if (ui.sorted) ui.sorted.disabled = st.playing || st.busy;
     },
     extraBindings: {
       sorted: function (api) {
