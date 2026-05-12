@@ -115,7 +115,7 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-ss',
+    dataAttr: 'data-shaker',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'シェーカーソートのデモ（左→右は順方向、右→左は逆方向の走査。比較はオレンジ、交換は緑）',
@@ -166,7 +166,7 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
 {% include sort-demo/wrapper.html
   id="shaker-sort-demo"
   preset="shaker"
-  data_prefix="ss"
+  data_prefix="shaker"
   script=sort_demo_js
 %}
 
