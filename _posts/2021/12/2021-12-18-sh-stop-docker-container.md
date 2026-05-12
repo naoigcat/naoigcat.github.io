@@ -1,8 +1,8 @@
 ---
 layout:    post
 title:     イメージ名からコンテナを停止する
-date:      2021/12/18 13:39:52 +0900
-tags:      sh docker
+date:      2021-12-18 13:39:52 +0900
+tags:      bash docker
 ---
 
 ## コンテナ一覧を絞り込む

@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Google SheetsでARRAYFORMULAにカスタム関数を渡す
-date:      2024/04/28 14:42:30 +0900
+date:      2024-04-28 14:42:30 +0900
 tags:      google
 ---
 

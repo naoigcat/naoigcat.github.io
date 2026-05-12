@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     macOSのSpotlightのインデックスを再構築する
-date:      2020/03/06 12:06:11 +0900
+date:      2020-03-06 12:06:11 +0900
 tags:      macos
 ---
 

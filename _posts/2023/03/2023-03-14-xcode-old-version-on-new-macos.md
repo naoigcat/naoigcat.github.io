@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     新しいmacOSで古いXcodeを実行する
-date:      2023/03/14 12:12:15 +0900
+date:      2023-03-14 12:12:15 +0900
 tags:      macos
 ---
 

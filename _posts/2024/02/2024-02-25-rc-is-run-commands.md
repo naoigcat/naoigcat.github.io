@@ -1,8 +1,8 @@
 ---
 layout:    post
 title:     設定ファイル名に付くrcはRun Commandsの略である
-date:      2024/02/25 10:14:42 +0900
-tags:      sh
+date:      2024-02-25 10:14:42 +0900
+tags:      bash
 ---
 
 ## 設定ファイル名に共通する接尾辞がある

@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Fastlaneでのコンパイル時に警告を抑制する
-date:      2023/01/05 12:15:15 +0900
+date:      2023-01-05 12:15:15 +0900
 tags:      xcode fastlane
 ---
 
