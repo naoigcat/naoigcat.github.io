@@ -1,6 +1,9 @@
 /**
- * Shared helpers for in-post sort-algorithm bar demos (GitHub Pages / Jekyll).
+ * Sort bar demos: animation helpers, toolbar query, and shared playback wiring.
  * Depends on nothing; attaches DemoSort to window.
+ *
+ * DemoSort.queryToolbar(root, dataAttr, extraRoles?)
+ * DemoSort.attachPlayback(options) — see implementation for option shape.
  */
 (function (global) {
   'use strict';
@@ -160,6 +163,231 @@
     elJ.style.transition = '';
     elI.style.transform = '';
     elJ.style.transform = '';
+  };
+
+  /**
+   * @param {HTMLElement} root
+   * @param {string} dataAttr Full attribute name (e.g. 'data-bs').
+   * @param {string[]} [extraRoles] Additional button roles (e.g. ['sorted']).
+   */
+  DemoSort.queryToolbar = function (root, dataAttr, extraRoles) {
+    function sel(role) {
+      return '[' + dataAttr + '="' + role + '"]';
+    }
+    var ui = {
+      bars: root.querySelector(sel('bars')),
+      caption: root.querySelector(sel('caption')),
+      shuffle: root.querySelector(sel('shuffle')),
+      play: root.querySelector(sel('play')),
+      pause: root.querySelector(sel('pause')),
+      step: root.querySelector(sel('step')),
+    };
+    var i;
+    extraRoles = extraRoles || [];
+    for (i = 0; i < extraRoles.length; i++) {
+      ui[extraRoles[i]] = root.querySelector(sel(extraRoles[i]));
+    }
+    return ui;
+  };
+
+  /**
+   * Wires shuffle / play / pause / step and owns playback state.
+   *
+   * Provide either `generateSteps` (+ optional `prepareValues`, `afterRebuild`) or a full `rebuild`.
+   *
+   * @param {object} o
+   * @param {HTMLElement} o.root
+   * @param {string} o.dataAttr
+   * @param {string[]} [o.extraRoles]
+   * @param {number[]} o.initialValues
+   * @param {string} o.initialCaption
+   * @param {string} [o.barClass] Used by default mountBars helper on api.
+   * @param {function(number[]):object[]} [o.generateSteps]
+   * @param {function(api, newValues):void} [o.rebuild] Overrides default rebuild body (still resets cancelled/playing/busy).
+   * @param {function(number[]):number[]} [o.prepareValues]
+   * @param {function(api):void} [o.afterRebuild] After default rebuild (e.g. clear roles).
+   * @param {function(api,step):Promise<void>} o.applyStep Called after consuming step (idx already advanced).
+   * @param {number|function(api):number} [o.stepPauseMs=280]
+   * @param {function({playing:boolean,busy:boolean}):boolean} [o.shuffleWhen] Return true if shuffle allowed.
+   * @param {function(ui,state):void} [o.onSyncButtons] state = { playing, busy, atEnd, idx, steps }
+   * @param {function(api,Error):void} [o.onStepError]
+   * @param {object<string,function(api):void>} [o.extraBindings] Click handlers keyed by extra toolbar role.
+   */
+  DemoSort.attachPlayback = function (o) {
+    if (!o || !o.root || !o.dataAttr) return;
+    if (!o.rebuild && typeof o.generateSteps !== 'function') return;
+
+    var ui = DemoSort.queryToolbar(o.root, o.dataAttr, o.extraRoles);
+    var barsEl = ui.bars;
+    var capEl = ui.caption;
+    if (!barsEl || !capEl || !ui.shuffle || !ui.play || !ui.pause || !ui.step) {
+      return;
+    }
+
+    var barClass = o.barClass || '';
+
+    var values = (o.initialValues || []).slice();
+    var steps = [];
+    var idx = 0;
+    var playing = false;
+    var cancelled = false;
+    var busy = false;
+
+    var api = {
+      ui: ui,
+      barsEl: barsEl,
+      mountBars: function (container, vals) {
+        DemoSort.mountBars(container, vals, barClass);
+      },
+      setCaption: function (t) {
+        capEl.textContent = t;
+      },
+      wait: DemoSort.wait,
+      shuffleCopy: DemoSort.shuffleCopy,
+      flipSwap: DemoSort.flipSwap,
+      flipAdjacentSwap: DemoSort.flipAdjacentSwap,
+      rebuild: function () {},
+      applyStepForward: function () {},
+    };
+
+    Object.defineProperty(api, 'values', {
+      get: function () {
+        return values;
+      },
+      set: function (v) {
+        values = v;
+      },
+      enumerable: true,
+    });
+    Object.defineProperty(api, 'steps', {
+      get: function () {
+        return steps;
+      },
+      set: function (s) {
+        steps = s;
+      },
+      enumerable: true,
+    });
+    Object.defineProperty(api, 'idx', {
+      get: function () {
+        return idx;
+      },
+      set: function (i) {
+        idx = i;
+      },
+      enumerable: true,
+    });
+
+    function defaultRebuild(v) {
+      values = o.prepareValues ? o.prepareValues(v) : v;
+      steps = o.generateSteps(values);
+      idx = 0;
+      api.mountBars(barsEl, steps[0] ? steps[0].arr : values);
+      api.setCaption(o.initialCaption);
+      if (o.afterRebuild) o.afterRebuild(api);
+    }
+
+    function syncButtons() {
+      var atEnd = idx >= steps.length;
+      ui.play.disabled = playing || atEnd || busy;
+      ui.pause.disabled = !playing;
+      ui.step.disabled = playing || atEnd || busy;
+      var shuffleOk =
+        o.shuffleWhen != null
+          ? o.shuffleWhen({ playing: playing, busy: busy })
+          : !playing;
+      ui.shuffle.disabled = !shuffleOk;
+      if (o.onSyncButtons) {
+        o.onSyncButtons(ui, {
+          playing: playing,
+          busy: busy,
+          atEnd: atEnd,
+          idx: idx,
+          steps: steps,
+        });
+      }
+    }
+
+    function rebuild(v) {
+      cancelled = true;
+      playing = false;
+      busy = false;
+      if (o.rebuild) {
+        o.rebuild(api, v);
+      } else {
+        defaultRebuild(v);
+      }
+      syncButtons();
+    }
+
+    api.rebuild = rebuild;
+
+    async function applyStepForward() {
+      if (busy || idx >= steps.length) return;
+      busy = true;
+      syncButtons();
+      try {
+        var s = steps[idx];
+        idx++;
+        await o.applyStep(api, s);
+      } catch (err) {
+        if (o.onStepError) o.onStepError(api, err);
+        else console.error(err);
+      } finally {
+        busy = false;
+        syncButtons();
+      }
+    }
+
+    api.applyStepForward = applyStepForward;
+
+    ui.shuffle.addEventListener('click', function () {
+      var st = { playing: playing, busy: busy };
+      if (o.shuffleWhen != null && !o.shuffleWhen(st)) return;
+      if (o.shuffleWhen == null && playing) return;
+      rebuild(DemoSort.shuffleCopy(values));
+    });
+
+    ui.step.addEventListener('click', function () {
+      applyStepForward();
+    });
+
+    ui.play.addEventListener('click', async function () {
+      playing = true;
+      cancelled = false;
+      syncButtons();
+      while (!cancelled && idx < steps.length) {
+        await applyStepForward();
+        var ms =
+          typeof o.stepPauseMs === 'function'
+            ? o.stepPauseMs(api)
+            : o.stepPauseMs;
+        if (ms == null) ms = 280;
+        await DemoSort.wait(ms);
+      }
+      playing = false;
+      syncButtons();
+    });
+
+    ui.pause.addEventListener('click', function () {
+      cancelled = true;
+      playing = false;
+      syncButtons();
+    });
+
+    if (o.extraBindings) {
+      Object.keys(o.extraBindings).forEach(function (key) {
+        var btn = ui[key];
+        var fn = o.extraBindings[key];
+        if (btn && typeof fn === 'function') {
+          btn.addEventListener('click', function () {
+            fn(api);
+          });
+        }
+      });
+    }
+
+    rebuild(values);
   };
 
   global.DemoSort = DemoSort;

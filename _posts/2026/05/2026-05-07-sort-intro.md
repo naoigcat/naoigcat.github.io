@@ -137,12 +137,8 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
 (function () {
   var root = document.getElementById('intro-sort-demo');
   if (!root) return;
-  var C = window.DemoSort;
-  if (!C) return;
-
-  function mountBars(container, values) {
-    C.mountBars(container, values, 'intro-sort-demo__bar');
-  }
+  var DemoSort = window.DemoSort;
+  if (!DemoSort || !DemoSort.attachPlayback) return;
 
   /** デモ用に小区間閾値を小さめにし、クイックフェーズが視覚化されやすくしている（実装ではしばしばもう少し大きい）。 */
   var INSERTION_THRESHOLD = 4;
@@ -295,172 +291,115 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
     if (nodes[hi]) nodes[hi].setAttribute('data-role', swapOrCmp);
   }
 
-  var barsEl = root.querySelector('[data-is="bars"]');
-  var capEl = root.querySelector('[data-is="caption"]');
-  var btnShuffle = root.querySelector('[data-is="shuffle"]');
-  var btnSorted = root.querySelector('[data-is="sorted"]');
-  var btnPlay = root.querySelector('[data-is="play"]');
-  var btnPause = root.querySelector('[data-is="pause"]');
-  var btnStep = root.querySelector('[data-is="step"]');
-
-  var values = [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15];
-  var steps = [];
-  var idx = 0;
-  var playing = false;
-  var cancelled = false;
-  var busy = false;
-
-  function syncButtons() {
-    var atEnd = idx >= steps.length;
-    btnPlay.disabled = playing || atEnd || busy;
-    btnPause.disabled = !playing;
-    btnStep.disabled = playing || atEnd || busy;
-    btnShuffle.disabled = playing;
-    btnSorted.disabled = playing;
-  }
-
-  function rebuild(v) {
-    values = v;
-    steps = generateSteps(values);
-    idx = 0;
-    cancelled = true;
-    playing = false;
-    busy = false;
-    mountBars(barsEl, steps[0] ? steps[0].arr : values);
-    capEl.textContent =
-      'イントロソートのデモ（クイック／挿入／ヒープのハイブリッド。実線はフェーズに応じて色分け）';
-    syncButtons();
-  }
-
-  async function applyStepForward() {
-    if (busy || idx >= steps.length) return;
-    busy = true;
-    syncButtons();
-    try {
-      var s = steps[idx];
-      idx++;
-
+  DemoSort.attachPlayback({
+    root: root,
+    dataAttr: 'data-is',
+    extraRoles: ['sorted'],
+    initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
+    initialCaption:
+      'イントロソートのデモ（クイック／挿入／ヒープのハイブリッド。実線はフェーズに応じて色分け）',
+    barClass: 'intro-sort-demo__bar',
+    generateSteps: generateSteps,
+    onSyncButtons: function (ui, st) {
+      if (ui.sorted) ui.sorted.disabled = st.playing;
+    },
+    extraBindings: {
+      sorted: function (api) {
+        api.rebuild(
+          api.values.slice().sort(function (x, y) {
+            return x - y;
+          })
+        );
+      },
+    },
+    applyStep: async function (api, s) {
+      var barsEl = api.barsEl;
       if (s.kind === 'phase') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         clearRoles(barsEl);
-        capEl.textContent = s.text;
+        api.setCaption(s.text);
         return;
       }
-
       if (s.kind === 'heap_start') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         clearRoles(barsEl);
-        capEl.textContent =
-          'ヒープソート開始: 位置 ' + s.lo + ' … ' + s.hi + ' の範囲を整列';
+        api.setCaption(
+          'ヒープソート開始: 位置 ' + s.lo + ' … ' + s.hi + ' の範囲を整列'
+        );
         return;
       }
-
       if (s.kind === 'heap_done') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         clearRoles(barsEl);
-        capEl.textContent =
-          'ヒープソート完了: 位置 ' + s.lo + ' … ' + s.hi + ' が整列しました';
+        api.setCaption(
+          'ヒープソート完了: 位置 ' +
+            s.lo +
+            ' … ' +
+            s.hi +
+            ' が整列しました'
+        );
         return;
       }
-
       if (s.kind === 'heap_compare') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setRoles(barsEl, s.lo, s.hi, 'compare', 'heap');
-        capEl.textContent = 'ヒープ: 親子関係を調整中（ティールの枠）';
+        api.setCaption('ヒープ: 親子関係を調整中（ティールの枠）');
         return;
       }
-
       if (s.kind === 'part_start') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         clearRoles(barsEl);
-        capEl.textContent =
+        api.setCaption(
           'クイックソート分割: 位置 ' +
-          s.lo +
-          ' … ' +
-          s.hi +
-          '（残り許容深度 ' +
-          s.depth +
-          '、右端をピボット）';
+            s.lo +
+            ' … ' +
+            s.hi +
+            '（残り許容深度 ' +
+            s.depth +
+            '、右端をピボット）'
+        );
         return;
       }
-
       if (s.kind === 'compare') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setRoles(barsEl, s.lo, s.hi, 'compare', s.phase);
         if (s.phase === 'insert') {
-          capEl.textContent = '挿入ソート: 隣接要素を比較';
+          api.setCaption('挿入ソート: 隣接要素を比較');
         } else {
-          capEl.textContent =
-            '比較: 位置 ' + s.lo + ' の値とピボット（位置 ' + s.hi + '）';
+          api.setCaption(
+            '比較: 位置 ' + s.lo + ' の値とピボット（位置 ' + s.hi + '）'
+          );
         }
         return;
       }
-
       if (s.kind === 'swap') {
         setRoles(barsEl, s.lo, s.hi, 'swap', s.phase);
-        capEl.textContent = '交換しています…';
-        await C.flipSwap(barsEl, s.lo, s.hi);
+        api.setCaption('交換しています…');
+        await DemoSort.flipSwap(barsEl, s.lo, s.hi);
         clearRoles(barsEl);
-        capEl.textContent =
-          '交換しました（位置 ' + s.lo + ' と ' + s.hi + '）';
+        api.setCaption(
+          '交換しました（位置 ' + s.lo + ' と ' + s.hi + '）'
+        );
         return;
       }
-
       if (s.kind === 'part_end') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setRoles(barsEl, s.pivot, s.pivot, 'pivot');
-        capEl.textContent =
+        api.setCaption(
           'ピボット確定: 位置 ' +
-          s.pivot +
-          '（残り許容深度はこの分割で 1 消費）';
+            s.pivot +
+            '（残り許容深度はこの分割で 1 消費）'
+        );
         return;
       }
-
       if (s.kind === 'done') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         clearRoles(barsEl);
-        capEl.textContent = 'ソート完了';
+        api.setCaption('ソート完了');
       }
-    } finally {
-      busy = false;
-      syncButtons();
-    }
-  }
-
-  btnShuffle.addEventListener('click', function () {
-    rebuild(C.shuffleCopy(values));
+    },
+    stepPauseMs: 260,
   });
-
-  btnSorted.addEventListener('click', function () {
-    var arr = values.slice().sort(function (x, y) {
-      return x - y;
-    });
-    rebuild(arr);
-  });
-
-  btnStep.addEventListener('click', function () {
-    applyStepForward();
-  });
-
-  btnPlay.addEventListener('click', async function () {
-    playing = true;
-    cancelled = false;
-    syncButtons();
-    while (!cancelled && idx < steps.length) {
-      await applyStepForward();
-      await C.wait(260);
-    }
-    playing = false;
-    syncButtons();
-  });
-
-  btnPause.addEventListener('click', function () {
-    cancelled = true;
-    playing = false;
-    syncButtons();
-  });
-
-  rebuild(values);
 })();
 </script>
 </div>
