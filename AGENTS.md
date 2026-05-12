@@ -34,6 +34,24 @@ Treat analytics and consent posture as settled unless the maintainer asks about 
 `.github/dependabot.yml` targets **GitHub Actions only**. Gems are intentionally left to GitHub Pages’ build environment; that split is deliberate.
 Do not suggest widening Dependabot to RubyGems/npm “for completeness” unless those ecosystems gain first-class use in this repo.
 
+### Sync workflow (`sync.yml`) and `contents: write`
+
+`.github/workflows/sync.yml` runs on push to `main` or `dependabot/**` when `.github/workflows/lint.yml` changes.
+It declares `permissions: contents: write`, updates only the `MARKDOWNLINT_CLI2_VERSION="…"` line in
+`.agents/skills/run-markdownlint/scripts/run-markdownlint.sh` to match the pinned `DavidAnson/markdownlint-cli2-action` ref,
+and pushes a commit when that line changes.
+The job is further gated with `if: github.ref == 'refs/heads/main' || github.actor == 'dependabot[bot]'`.
+
+That narrow automation is intentional.
+Do not flag `contents: write`, automated `git push`, or the “commit only the script version line after the lint workflow changes”
+design as review findings unless the maintainer asks to change it.
+
+Human security reviewers may still want to track that workflows with repository write access increase blast radius **if**
+malicious workflow YAML could reach branches where Actions runs.
+Routine mitigation is branch protection and required review so untrusted contributors cannot land arbitrary workflows.
+Do not recycle that generic posture into AI review nits (for example urging removal of write permissions or extra gates)
+unless the maintainer explicitly asks.
+
 ### Site metadata consistency
 
 The site uses `lang: ja` with Japanese article bodies while retaining an Irish-language–style display name in `title` (and similar branding).
