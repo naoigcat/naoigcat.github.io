@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     SSH接続時エスケープ文字で特殊機能を使用できる
 date:      2023-02-24 08:25:35 +0900
 tags:      ssh

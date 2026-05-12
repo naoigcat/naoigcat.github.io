@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     スプレッドシートで配列を使用する
 date:      2023-05-29 14:23:15 +0900
 tags:      google

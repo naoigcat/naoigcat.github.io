@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     新しいiOS/iPadOSを旧バージョンのXcodeで使用する
 date:      2023-01-10 13:17:48 +0900
 tags:      xcode

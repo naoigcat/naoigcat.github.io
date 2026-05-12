@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Docker Hubからイメージのタグ一覧を取得する
 date:      2023-03-28 12:17:50 +0900
 tags:      docker

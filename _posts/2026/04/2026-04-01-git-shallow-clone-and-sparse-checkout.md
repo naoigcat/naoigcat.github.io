@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Gitで巨大なリポジトリの一部だけを利用する
 date:      2026-04-01 08:32:16 +0900
 tags:      git

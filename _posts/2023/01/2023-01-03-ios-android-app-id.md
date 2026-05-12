@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     モバイルアプリのアプリIDに共通して使用できる記号はドットしかない
 date:      2023-01-03 12:26:55 +0900
 tags:      ios android

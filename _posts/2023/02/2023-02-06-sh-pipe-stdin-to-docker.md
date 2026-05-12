@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Dockerコンテナ内に標準入力をパイプで渡す
 date:      2023-02-06 12:09:42 +0900
 tags:      bash docker

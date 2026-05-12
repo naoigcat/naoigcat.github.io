@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     実行中のRubyと異なるバージョンのRubyで同じコードを呼び出す
 date:      2023-03-15 12:42:08 +0900
 tags:      ruby asdf

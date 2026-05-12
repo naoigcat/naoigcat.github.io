@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Gitでクローンする時に秘密鍵を指定する
 date:      2020-02-29 15:26:37 +0900
 tags:      git

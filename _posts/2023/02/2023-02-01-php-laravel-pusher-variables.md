@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Laravelで環境変数を定義せずにライブラリをインストールする
 date:      2023-02-01 12:05:54 +0900
 tags:      php laravel

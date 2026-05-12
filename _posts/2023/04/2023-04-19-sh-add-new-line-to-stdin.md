@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     標準入力の末尾に改行を付加する
 date:      2023-04-19 16:02:05 +0900
 tags:      bash

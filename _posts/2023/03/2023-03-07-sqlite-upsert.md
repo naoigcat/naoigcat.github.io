@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     SQLiteでUPSERTを実行する
 date:      2023-03-07 12:10:19 +0900
 tags:      sqlite

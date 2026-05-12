@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     アルファベットの出現率をまとめる
 date:      2022-02-20 02:53:20 +0900
 tags:      knowledge

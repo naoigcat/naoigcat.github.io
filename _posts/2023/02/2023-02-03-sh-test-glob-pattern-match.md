@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Globパターンにマッチするファイルがあるかテストする
 date:      2023-02-03 12:04:39 +0900
 tags:      bash

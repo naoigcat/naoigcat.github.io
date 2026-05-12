@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     ランダムな識別子を生成する
 date:      2026-04-11 02:17:18 +0900
 tags:      bash

@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     VSCodeで使用するPHP拡張機能を使用する
 date:      2023-02-13 12:00:47 +0900
 tags:      vscode asdf

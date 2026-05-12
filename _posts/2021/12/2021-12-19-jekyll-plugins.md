@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Jekyllに別リポジトリの投稿を取り込むプラグインを追加する
 date:      2021-12-19 00:20:13 +0900
 tags:      bash docker

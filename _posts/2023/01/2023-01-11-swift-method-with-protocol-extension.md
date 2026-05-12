@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Swiftのプロトコルにメソッド宣言があるかどうかで挙動が異なる
 date:      2023-01-11 12:48:56 +0900
 tags:      swift

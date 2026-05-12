@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     grepコマンドの再帰検索で複数のディレクトリを除外する
 date:      2020-03-07 15:26:31 +0900
 tags:      bash

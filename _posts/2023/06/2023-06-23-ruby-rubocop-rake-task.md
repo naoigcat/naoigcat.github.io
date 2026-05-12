@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     RuboCopのRakeタスクを追加する
 date:      2023-06-23 06:00:01 +0900
 tags:      ruby

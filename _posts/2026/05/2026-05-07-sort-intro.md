@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     イントロソートで配列を並び替える
 date:      2026-05-07 05:03:13 +0900
 tags:      sort

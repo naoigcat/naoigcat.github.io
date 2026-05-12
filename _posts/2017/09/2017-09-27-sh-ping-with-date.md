@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     コマンド出力結果の行頭に日時を入れる
 date:      2017-09-27 13:54:00 +0900
 tags:      bash

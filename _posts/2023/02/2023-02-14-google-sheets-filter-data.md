@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     スプレッドシートでデータをフィルタする
 date:      2023-02-14 12:17:44 +0900
 tags:      google

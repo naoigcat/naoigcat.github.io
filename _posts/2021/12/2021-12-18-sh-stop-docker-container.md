@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     イメージ名からコンテナを停止する
 date:      2021-12-18 13:39:52 +0900
 tags:      bash docker
