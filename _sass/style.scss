@@ -21,6 +21,14 @@ $table-border-color:    $border-color-01;
 $on-medium:             600px;
 $on-large:              800px;
 
+$sort-demo-bar-bg-top:    lighten($brand-color, 20%);
+$sort-demo-bar-bg-bottom: $link-hover-color;
+
+:root {
+  --sort-demo-bar-gradient:
+    linear-gradient(180deg, #{$sort-demo-bar-bg-top} 0%, #{$sort-demo-bar-bg-bottom} 100%);
+}
+
 @import "minima";
 
 a {
