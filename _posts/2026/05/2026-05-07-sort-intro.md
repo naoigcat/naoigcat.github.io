@@ -132,10 +132,17 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
 </div>
 <div class="intro-sort-demo__bars" data-is="bars" aria-live="polite"></div>
 <p class="intro-sort-demo__caption" data-is="caption"></p>
+<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
 <script>
 (function () {
   var root = document.getElementById('intro-sort-demo');
   if (!root) return;
+  var C = window.DemoSort;
+  if (!C) return;
+
+  function mountBars(container, values) {
+    C.mountBars(container, values, 'intro-sort-demo__bar');
+  }
 
   /** デモ用に小区間閾値を小さめにし、クイックフェーズが視覚化されやすくしている（実装ではしばしばもう少し大きい）。 */
   var INSERTION_THRESHOLD = 4;
@@ -266,100 +273,6 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
     return steps;
   }
 
-  function wait(ms) {
-    return new Promise(function (resolve) {
-      setTimeout(resolve, ms);
-    });
-  }
-
-  function transitionPromise(el) {
-    return new Promise(function (resolve) {
-      function done(e) {
-        if (e.propertyName !== 'transform') return;
-        el.removeEventListener('transitionend', done);
-        resolve();
-      }
-      el.addEventListener('transitionend', done);
-      setTimeout(function () {
-        el.removeEventListener('transitionend', done);
-        resolve();
-      }, 600);
-    });
-  }
-
-  function swapDomIndices(parent, i, j) {
-    if (i === j) return;
-    var el1 = parent.children[i];
-    var el2 = parent.children[j];
-    var marker = document.createTextNode('');
-    parent.insertBefore(marker, el1);
-    parent.insertBefore(el1, el2.nextSibling);
-    parent.insertBefore(el2, marker);
-    parent.removeChild(marker);
-  }
-
-  async function flipSwap(container, i, j) {
-    if (i === j) return;
-    if (i > j) {
-      var tmp = i;
-      i = j;
-      j = tmp;
-    }
-    var elI = container.children[i];
-    var elJ = container.children[j];
-    if (!elI || !elJ) return;
-
-    var bI = elI.getBoundingClientRect();
-    var bJ = elJ.getBoundingClientRect();
-
-    swapDomIndices(container, i, j);
-
-    var aI = elI.getBoundingClientRect();
-    var aJ = elJ.getBoundingClientRect();
-
-    var dxI = bI.left - aI.left;
-    var dxJ = bJ.left - aJ.left;
-    elI.style.transition = 'none';
-    elJ.style.transition = 'none';
-    elI.style.transform = 'translateX(' + dxI + 'px)';
-    elJ.style.transform = 'translateX(' + dxJ + 'px)';
-
-    await new Promise(function (r) {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(r);
-      });
-    });
-
-    var dur = '0.32s';
-    elI.style.transition = 'transform ' + dur + ' ease';
-    elJ.style.transition = 'transform ' + dur + ' ease';
-    elI.style.transform = '';
-    elJ.style.transform = '';
-
-    await Promise.all([transitionPromise(elI), transitionPromise(elJ)]);
-
-    elI.style.transition = '';
-    elJ.style.transition = '';
-    elI.style.transform = '';
-    elJ.style.transform = '';
-  }
-
-  function mountBars(container, values) {
-    container.innerHTML = '';
-    if (!values.length) return;
-    var max = Math.max(...values);
-    var min = Math.min(...values);
-    var span = Math.max(max - min, 1);
-    values.forEach(function (v) {
-      var bar = document.createElement('div');
-      bar.className = 'intro-sort-demo__bar';
-      var h = 28 + ((v - min) / span) * 92;
-      bar.style.height = h + 'px';
-      bar.setAttribute('title', String(v));
-      container.appendChild(bar);
-    });
-  }
-
   function clearRoles(container) {
     var nodes = container.children;
     for (var k = 0; k < nodes.length; k++) {
@@ -486,7 +399,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
       if (s.kind === 'swap') {
         setRoles(barsEl, s.lo, s.hi, 'swap', s.phase);
         capEl.textContent = '交換しています…';
-        await flipSwap(barsEl, s.lo, s.hi);
+        await C.flipSwap(barsEl, s.lo, s.hi);
         clearRoles(barsEl);
         capEl.textContent =
           '交換しました（位置 ' + s.lo + ' と ' + s.hi + '）';
@@ -515,14 +428,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
   }
 
   btnShuffle.addEventListener('click', function () {
-    var arr = values.slice();
-    for (var i = arr.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = arr[i];
-      arr[i] = arr[j];
-      arr[j] = t;
-    }
-    rebuild(arr);
+    rebuild(C.shuffleCopy(values));
   });
 
   btnSorted.addEventListener('click', function () {
@@ -542,7 +448,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
     syncButtons();
     while (!cancelled && idx < steps.length) {
       await applyStepForward();
-      await wait(260);
+      await C.wait(260);
     }
     playing = false;
     syncButtons();
