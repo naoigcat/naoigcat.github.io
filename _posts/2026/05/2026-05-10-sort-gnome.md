@@ -29,93 +29,7 @@ procedure gnome_sort(A)
 
 交換が `>` だけでトリガされる実装では、等しい値の相対順序は変わらないため **安定** なソートとして扱える。追加の配列を使わなければ空間計算量は O(1) である。すでにソート済みの列では比較しながら右へ進むだけなので **O(n)**、逆順に近い並びでは前後への往復が多く **O(n²)** になる。
 
-<!-- markdownlint-disable MD046 -->
-<div id="gnome-sort-demo" class="gnome-sort-demo">
-<style>
-.gnome-sort-demo {
-  margin: 1.25rem 0;
-  padding: 1rem;
-  border: 1px solid rgba(128,128,128,.35);
-  border-radius: 8px;
-  background: var(--minima-brand-color-lightest, #f9f9f9);
-}
-.gnome-sort-demo__toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-}
-.gnome-sort-demo__toolbar button {
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  border: 1px solid rgba(0,0,0,.2);
-  background: #fff;
-  cursor: pointer;
-  font: inherit;
-}
-.gnome-sort-demo__toolbar button:hover {
-  border-color: rgba(0,0,0,.45);
-}
-.gnome-sort-demo__toolbar button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-.gnome-sort-demo__bars {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 6px;
-  min-height: 140px;
-  padding: 0.5rem;
-}
-.gnome-sort-demo__bar {
-  flex: 1 1 0;
-  max-width: 48px;
-  min-width: 28px;
-  border-radius: 4px 4px 2px 2px;
-  background: linear-gradient(180deg, #5b9bd5 0%, #2e75b6 100%);
-  box-shadow: 0 2px 4px rgba(0,0,0,.12);
-  transition: box-shadow 0.15s ease, outline-color 0.15s ease;
-  transform: translateX(0);
-}
-.gnome-sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.gnome-sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
-.gnome-sort-demo__bar[data-role="cursor"] {
-  outline: 3px solid #1abc9c;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(26,188,156,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.gnome-sort-demo__caption { margin-top: 0.5rem; font-size: 0.85rem; color: #555;
-  text-align: center; min-height: 1.25em;
-}
-@media (prefers-color-scheme: dark) {
-  .gnome-sort-demo { background: rgba(255,255,255,.06);
-    border-color: rgba(255,255,255,.18);
-  }
-  .gnome-sort-demo__toolbar button { background: rgba(255,255,255,.08);
-    border-color: rgba(255,255,255,.25); color: inherit;
-  }
-  .gnome-sort-demo__caption { color: #bbb; }
-}
-</style>
-<div class="gnome-sort-demo__toolbar">
-  <button type="button" data-gs="shuffle">シャッフル</button>
-  <button type="button" data-gs="play">自動再生</button>
-  <button type="button" data-gs="pause" disabled>一時停止</button>
-  <button type="button" data-gs="step">1ステップ</button>
-</div>
-<div class="gnome-sort-demo__bars" data-gs="bars" aria-live="polite"></div>
-<p class="gnome-sort-demo__caption" data-gs="caption"></p>
-<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
+{% capture sort_demo_js %}
 <script>
 (function () {
   var root = document.getElementById('gnome-sort-demo');
@@ -173,7 +87,7 @@ procedure gnome_sort(A)
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'ノームソートのデモ（現在位置は水色枠／比較はオレンジ／交換は緑）',
-    barClass: 'gnome-sort-demo__bar',
+    barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
       var barsEl = api.barsEl;
@@ -217,7 +131,13 @@ procedure gnome_sort(A)
   });
 })();
 </script>
-</div>
-<!-- markdownlint-enable MD046 -->
+{% endcapture %}
+
+{% include sort-demo/wrapper.html
+  id="gnome-sort-demo"
+  preset="gnome"
+  data_prefix="gs"
+  script=sort_demo_js
+%}
 
 バブルのように端へ値を運ぶより「小さい不整合が出るたびにすぐその場で直しにいく」挙動が特徴で、単純ながら規模が増えると時間が読みにくくなる側面もある。教材としては状態の種類が少なく、コードと動きの対応を追いやすいソートアルゴリズムといえる。
