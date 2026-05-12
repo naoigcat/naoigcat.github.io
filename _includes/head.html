@@ -8,6 +8,9 @@
   {%- if jekyll.environment == 'production' and site.google_analytics -%}
     {%- include google-analytics.html -%}
   {%- endif -%}
+  {%- if page.content contains 'sort-demo__bars' -%}
+  <link rel="stylesheet" href="{{ '/assets/css/sort-demo.css' | relative_url }}">
+  {%- endif -%}
   {%- if page.content contains 'language-mermaid' -%}
   <script>
   function initializeMermaid() {
