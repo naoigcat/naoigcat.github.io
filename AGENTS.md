@@ -11,3 +11,30 @@ That reasoning is **incorrect for this repository**: integration with the hosted
 
 Do not volunteer that suggestion in reviews, audits, or advice unless the maintainer **explicitly** asks
 for a duplicate build, PR-preview sites, or another goal that requires Actions.
+
+## Do not volunteer these topics in reviews
+
+The following choices are intentional or already accepted trade-offs for this site.
+Unless the maintainer asks about them explicitly, **do not** raise them as review findings, nits, or “consider later” bullets.
+
+### Third-party JavaScript (Mermaid)
+
+Production loads the Mermaid script from a CDN **only on pages that contain Mermaid** in Markdown. That conditional loading is deliberate.
+Do not suggest vendoring the same version under `assets` for offline verification or CDN resilience unless the maintainer asks;
+it is an optional future trade-off against maintenance cost, not an outstanding gap.
+
+### Analytics
+
+`_config.yml` defines `google_analytics`, and the theme is expected to load it in production only.
+There is no EU-style consent banner in this site’s own markup.
+Treat analytics and consent posture as settled unless the maintainer asks about jurisdictions or CMPs.
+
+### Dependabot scope
+
+`.github/dependabot.yml` targets **GitHub Actions only**. Gems are intentionally left to GitHub Pages’ build environment; that split is deliberate.
+Do not suggest widening Dependabot to RubyGems/npm “for completeness” unless those ecosystems gain first-class use in this repo.
+
+### Site metadata consistency
+
+The site uses `lang: ja` with Japanese article bodies while retaining an Irish-language–style display name in `title` (and similar branding).
+That mix is intentional. Do not flag it as inconsistent for SEO or browser language heuristics unless the maintainer asks to revisit naming or localization.
