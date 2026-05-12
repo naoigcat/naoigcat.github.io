@@ -137,18 +137,16 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
         return;
       }
       if (s.kind === 'swap') {
-        var prev = api.steps[api.idx - 2];
-        var lo = prev && prev.kind === 'compare' ? prev.lo : s.lo;
-        DemoSort.assignRoles(barsEl, [[lo, 'swap'], [lo + 1, 'swap']]);
+        DemoSort.assignRoles(barsEl, [[s.lo, 'swap'], [s.lo + 1, 'swap']]);
         api.setCaption(phaseLabel(s.phase) + ': 交換しています…');
-        await DemoSort.flipAdjacentSwap(barsEl, lo);
+        await DemoSort.flipAdjacentSwap(barsEl, s.lo);
         DemoSort.clearRoles(barsEl);
         api.setCaption(
           phaseLabel(s.phase) +
             ': 交換しました（位置 ' +
-            lo +
+            s.lo +
             ' と ' +
-            (lo + 1) +
+            (s.lo + 1) +
             '）'
         );
         return;
