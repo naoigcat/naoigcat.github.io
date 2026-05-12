@@ -54,6 +54,9 @@
   .sort-demo__bar {
     min-width: 14px;
   }
+  .sort-demo--library .sort-demo__bar {
+    min-width: 0;
+  }
 }
 .sort-demo__caption {
   margin-top: 0.5rem;
@@ -131,6 +134,21 @@
   outline: 3px solid #16a085;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(22,160,133,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+.sort-demo--library {
+  min-width: 0;
+}
+.sort-demo--library .sort-demo__bars {
+  gap: 2px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding-inline: 0.35rem;
+}
+.sort-demo--library .sort-demo__bar {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: none;
 }
 .sort-demo--library .sort-demo__bar[data-role="gap"] {
   opacity: 0.35;
