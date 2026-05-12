@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  スプレッドシートのセル内にプルダウンリストを作成する
-date:   2023/02/17 13:04:18 +0900
-tags:   google
+layout:    post
+title:     スプレッドシートのセル内にプルダウンリストを作成する
+date:      2023/02/17 13:04:18 +0900
+tags:      google
 ---
 
 ## [セル内にプルダウンリストを作成する](https://support.google.com/docs/answer/186103?hl=ja)

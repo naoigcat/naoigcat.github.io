@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Swiftで配列を一定数毎に分割する
-date:   2022/01/06 09:04:13 +0900
-tags:   swift
+layout:    post
+title:     Swiftで配列を一定数毎に分割する
+date:      2022/01/06 09:04:13 +0900
+tags:      swift
 ---
 
 ## 配列を一定数毎に分割して返す

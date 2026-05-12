@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Gitで'bad object'エラーが発生する
-date:   2023/03/31 12:10:02 +0900
-tags:   git
+layout:    post
+title:     Gitで'bad object'エラーが発生する
+date:      2023/03/31 12:10:02 +0900
+tags:      git
 ---
 
 ## プルなどの操作を行った時にエラーが発生する

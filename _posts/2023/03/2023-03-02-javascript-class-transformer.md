@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  JavaScriptでオブジェクトとクラスを相互変換する
-date:   2023/03/02 12:06:27 +0900
-tags:   javascript
+layout:    post
+title:     JavaScriptでオブジェクトとクラスを相互変換する
+date:      2023/03/02 12:06:27 +0900
+tags:      javascript
 ---
 
 ## ライブラリを導入する

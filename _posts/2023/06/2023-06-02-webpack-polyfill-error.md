@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Laravel MixのビルドでPolyfillのエラーが起きる
-date:   2023/06/02 10:30:52 +0900
-tags:   php laravel
+layout:    post
+title:     Laravel MixのビルドでPolyfillのエラーが起きる
+date:      2023/06/02 10:30:52 +0900
+tags:      php laravel
 ---
 
 ## ライブラリのビルドに失敗することがある

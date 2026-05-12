@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  仮想端末なしでsudoを実行する
-date:   2023/03/17 12:03:33 +0900
-tags:   sh sudo
+layout:    post
+title:     仮想端末なしでsudoを実行する
+date:      2023/03/17 12:03:33 +0900
+tags:      sh sudo
 ---
 
 ## 仮想端末と繋がっていないsudoの実行は無効化されている

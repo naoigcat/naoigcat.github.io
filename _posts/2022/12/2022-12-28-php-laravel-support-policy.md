@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  PHP/Laravelのリリース日・サポート期日を並べる
-date:   2022/12/28 12:00:47 +0900
-tags:   php laravel
+layout:    post
+title:     PHP/Laravelのリリース日・サポート期日を並べる
+date:      2022/12/28 12:00:47 +0900
+tags:      php laravel
 ---
 
 ## リリース日が近くなるように並べる

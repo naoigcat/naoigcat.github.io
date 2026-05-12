@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  多段SSHをエラーメッセージ `Killed by signal 1.` を抑制する
-date:   2024/02/16 20:55:36 +0900
-tags:   ssh
+layout:    post
+title:     多段SSHをエラーメッセージ `Killed by signal 1.` を抑制する
+date:      2024/02/16 20:55:36 +0900
+tags:      ssh
 ---
 
 ## サーバーを中継してSSHを接続する

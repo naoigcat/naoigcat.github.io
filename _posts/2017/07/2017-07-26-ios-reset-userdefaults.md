@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  iOSシミュレーターのユーザー設定をリセットする
-date:   2017/07/26 13:50:00 +0900
-tags:   macos ios
+layout:    post
+title:     iOSシミュレーターのユーザー設定をリセットする
+date:      2017/07/26 13:50:00 +0900
+tags:      macos ios
 ---
 
 ## 設定ファイルを削除することでリセットする

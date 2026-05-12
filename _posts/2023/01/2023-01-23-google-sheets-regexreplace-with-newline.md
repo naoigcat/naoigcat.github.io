@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Google Sheetsで改行に置き換えるときは改行そのものを入れる
-date:   2023/01/23 12:07:50 +0900
-tags:   google
+layout:    post
+title:     Google Sheetsで改行に置き換えるときは改行そのものを入れる
+date:      2023/01/23 12:07:50 +0900
+tags:      google
 ---
 
 ## 正規表現での置換は置換元に改行コードを指定できる

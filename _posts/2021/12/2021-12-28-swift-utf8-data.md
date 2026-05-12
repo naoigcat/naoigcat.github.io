@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  SwiftのStringをutf8でエンコーディングするときオプショナルにしない
-date:   2021/12/28 12:08:37 +0900
-tags:   swift
+layout:    post
+title:     SwiftのStringをutf8でエンコーディングするときオプショナルにしない
+date:      2021/12/28 12:08:37 +0900
+tags:      swift
 ---
 
 ## 文字列からデータに変換するときオプショナルになる

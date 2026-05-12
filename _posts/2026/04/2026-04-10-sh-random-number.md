@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  ランダムな数字を生成する
-date:   2026/04/10 22:05:36 +0900
-tags:   bash
+layout:    post
+title:     ランダムな数字を生成する
+date:      2026/04/10 22:05:36 +0900
+tags:      bash
 ---
 
 ## ランダムな数字をコマンドで生成する

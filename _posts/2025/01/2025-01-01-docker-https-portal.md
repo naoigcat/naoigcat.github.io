@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  DockerコンテナでHTTPSでのローカル開発に対応する
-date:   2025/01/01 18:31:01 +0900
-tags:   docker
+layout:    post
+title:     DockerコンテナでHTTPSでのローカル開発に対応する
+date:      2025/01/01 18:31:01 +0900
+tags:      docker
 ---
 
 ## DockerコンテナでHTTPS対応する

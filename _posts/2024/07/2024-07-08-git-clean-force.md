@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  管理対象外のGitディレクトリを削除する
-date:   2024/07/08 12:49:11 +0900
-tags:   git
+layout:    post
+title:     管理対象外のGitディレクトリを削除する
+date:      2024/07/08 12:49:11 +0900
+tags:      git
 ---
 
 ## Gitの管理対象外ファイルを削除する

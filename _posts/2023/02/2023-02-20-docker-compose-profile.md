@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Docker Composeで起動するサービスを指定する
-date:   2023/02/20 12:00:52 +0900
-tags:   docker
+layout:    post
+title:     Docker Composeで起動するサービスを指定する
+date:      2023/02/20 12:00:52 +0900
+tags:      docker
 ---
 
 ## [サービスにプロファイルを設定する](https://docs.docker.com/compose/profiles/)

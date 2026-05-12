@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  スプレッドシートでIMAGE関数を使用する
-date:   2023/06/19 14:55:57 +0900
-tags:   google
+layout:    post
+title:     スプレッドシートでIMAGE関数を使用する
+date:      2023/06/19 14:55:57 +0900
+tags:      google
 ---
 
 ## IMAGE関数を使用する

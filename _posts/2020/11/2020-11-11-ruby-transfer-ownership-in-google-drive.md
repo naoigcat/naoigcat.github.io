@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  サービスアカウントが所有しているファイルの所有権を移す
-date:   2020/11/11 16:21:46 +0900
-tags:   ruby google
+layout:    post
+title:     サービスアカウントが所有しているファイルの所有権を移す
+date:      2020/11/11 16:21:46 +0900
+tags:      ruby google
 ---
 
 ## APIで所有権を移す

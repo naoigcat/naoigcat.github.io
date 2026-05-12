@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Amazon Athenaで予約キーワードをエスケープする
-date:   2023/01/24 12:20:51 +0900
-tags:   amazon sql
+layout:    post
+title:     Amazon Athenaで予約キーワードをエスケープする
+date:      2023/01/24 12:20:51 +0900
+tags:      amazon sql
 ---
 
 ## クエリに予約キーワードを含む場合はエスケープする

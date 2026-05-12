@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  古いmacOSでxcodesコマンドは実行できない
-date:   2023/03/09 12:23:18 +0900
-tags:   macos xcode
+layout:    post
+title:     古いmacOSでxcodesコマンドは実行できない
+date:      2023/03/09 12:23:18 +0900
+tags:      macos xcode
 ---
 
 ## Xcodeのバージョンを管理をコマンドで行う

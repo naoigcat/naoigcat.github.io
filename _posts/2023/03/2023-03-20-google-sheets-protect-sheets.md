@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  スプレッドシートのシートや範囲を保護する
-date:   2023/03/20 12:20:28 +0900
-tags:   google
+layout:    post
+title:     スプレッドシートのシートや範囲を保護する
+date:      2023/03/20 12:20:28 +0900
+tags:      google
 ---
 
 ## [シートや範囲を保護する](https://support.google.com/docs/answer/1218656?hl=ja)

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  SSHのパスワード認証を無効化する
-date:   2023/03/16 22:16:57 +0900
-tags:   ssh
+layout:    post
+title:     SSHのパスワード認証を無効化する
+date:      2023/03/16 22:16:57 +0900
+tags:      ssh
 ---
 
 ## パスワード認証を無効化する

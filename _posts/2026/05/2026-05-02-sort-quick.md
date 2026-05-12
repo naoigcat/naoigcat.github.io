@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  クイックソートで配列を並び替える
-date:   2026-05-02 01:56:15 +0900
-tags:   sort
+layout:    post
+title:     クイックソートで配列を並び替える
+date:      2026-05-02 01:56:15 +0900
+tags:      sort
 sort_demo: true
 ---
 

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Rubyで英語の序数詞を生成する
-date:   2023/01/17 12:06:08 +0900
-tags:   ruby
+layout:    post
+title:     Rubyで英語の序数詞を生成する
+date:      2023/01/17 12:06:08 +0900
+tags:      ruby
 ---
 
 ## 序数詞とは物事の順序を表す数詞である

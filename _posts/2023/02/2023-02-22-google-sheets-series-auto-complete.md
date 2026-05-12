@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  スプレッドシートの系列またはリストを自動的に作成する
-date:   2023/02/22 12:11:28 +0900
-tags:   google
+layout:    post
+title:     スプレッドシートの系列またはリストを自動的に作成する
+date:      2023/02/22 12:11:28 +0900
+tags:      google
 ---
 
 ## [系列またはリストを自動的に作成する](https://support.google.com/docs/answer/75509?hl=ja)

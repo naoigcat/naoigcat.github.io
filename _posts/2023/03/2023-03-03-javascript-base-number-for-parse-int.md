@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  JavaScriptで文字列を整数値に変換する
-date:   2023/03/03 12:44:27 +0900
-tags:   javascript
+layout:    post
+title:     JavaScriptで文字列を整数値に変換する
+date:      2023/03/03 12:44:27 +0900
+tags:      javascript
 ---
 
 ## [`parseInt`](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/parseInt)関数は引数を整数値に変換する

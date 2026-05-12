@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  YAMLで複数行の値を表現する
-date:   2026-04-29 12:34:38 +0900
-tags:   yaml
+layout:    post
+title:     YAMLで複数行の値を表現する
+date:      2026-04-29 12:34:38 +0900
+tags:      yaml
 ---
 
 ## ブロックスカラーを使用する

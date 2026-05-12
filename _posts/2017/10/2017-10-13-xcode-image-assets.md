@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  XcodeでImages.xcassets内のリンク切れをチェックする
-date:   2017/10/13 17:26:00 +0900
-tags:   macos xcode
+layout:    post
+title:     XcodeでImages.xcassets内のリンク切れをチェックする
+date:      2017/10/13 17:26:00 +0900
+tags:      macos xcode
 ---
 
 ## リンクされていないアセットを抽出する
