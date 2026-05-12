@@ -132,3 +132,13 @@
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(22,160,133,.35), 0 2px 6px rgba(0,0,0,.18);
 }
+.sort-demo--library .sort-demo__bar[data-role="gap"] {
+  opacity: 0.35;
+  background: rgba(128,128,128,.35);
+  box-shadow: none;
+}
+.sort-demo--library .sort-demo__bar[data-role="insert"] {
+  outline: 3px solid #8e44ad;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(142,68,173,.35), 0 2px 6px rgba(0,0,0,.18);
+}
