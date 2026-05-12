@@ -105,10 +105,17 @@ procedure shell_sort(A)
 </div>
 <div class="shell-sort-demo__bars" data-ss="bars" aria-live="polite"></div>
 <p class="shell-sort-demo__caption" data-ss="caption"></p>
+<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
 <script>
 (function () {
   var root = document.getElementById('shell-sort-demo');
   if (!root) return;
+  var C = window.DemoSort;
+  if (!C) return;
+
+  function mountBars(container, values) {
+    C.mountBars(container, values, 'shell-sort-demo__bar');
+  }
 
   function generateSteps(initial) {
     var a = initial.slice();
@@ -133,100 +140,6 @@ procedure shell_sort(A)
     }
     steps.push({ kind: 'done', arr: a.slice() });
     return steps;
-  }
-
-  function wait(ms) {
-    return new Promise(function (resolve) {
-      setTimeout(resolve, ms);
-    });
-  }
-
-  function transitionPromise(el) {
-    return new Promise(function (resolve) {
-      function done(e) {
-        if (e.propertyName !== 'transform') return;
-        el.removeEventListener('transitionend', done);
-        resolve();
-      }
-      el.addEventListener('transitionend', done);
-      setTimeout(function () {
-        el.removeEventListener('transitionend', done);
-        resolve();
-      }, 600);
-    });
-  }
-
-  function swapDomIndices(parent, i, j) {
-    if (i === j) return;
-    var el1 = parent.children[i];
-    var el2 = parent.children[j];
-    var marker = document.createTextNode('');
-    parent.insertBefore(marker, el1);
-    parent.insertBefore(el1, el2.nextSibling);
-    parent.insertBefore(el2, marker);
-    parent.removeChild(marker);
-  }
-
-  async function flipSwap(container, i, j) {
-    if (i === j) return;
-    if (i > j) {
-      var tmp = i;
-      i = j;
-      j = tmp;
-    }
-    var elI = container.children[i];
-    var elJ = container.children[j];
-    if (!elI || !elJ) return;
-
-    var bI = elI.getBoundingClientRect();
-    var bJ = elJ.getBoundingClientRect();
-
-    swapDomIndices(container, i, j);
-
-    var aI = elI.getBoundingClientRect();
-    var aJ = elJ.getBoundingClientRect();
-
-    var dxI = bI.left - aI.left;
-    var dxJ = bJ.left - aJ.left;
-    elI.style.transition = 'none';
-    elJ.style.transition = 'none';
-    elI.style.transform = 'translateX(' + dxI + 'px)';
-    elJ.style.transform = 'translateX(' + dxJ + 'px)';
-
-    await new Promise(function (r) {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(r);
-      });
-    });
-
-    var dur = '0.32s';
-    elI.style.transition = 'transform ' + dur + ' ease';
-    elJ.style.transition = 'transform ' + dur + ' ease';
-    elI.style.transform = '';
-    elJ.style.transform = '';
-
-    await Promise.all([transitionPromise(elI), transitionPromise(elJ)]);
-
-    elI.style.transition = '';
-    elJ.style.transition = '';
-    elI.style.transform = '';
-    elJ.style.transform = '';
-  }
-
-  function mountBars(container, values) {
-    container.innerHTML = '';
-    if (!values.length) return;
-    var max = Math.max.apply(null, values);
-    var min = Math.min.apply(null, values);
-    var span = Math.max(max - min, 1);
-    values.forEach(function (v) {
-      var bar = document.createElement('div');
-      bar.className = 'shell-sort-demo__bar';
-      var h = 28 + ((v - min) / span) * 92;
-      bar.style.height = h + 'px';
-      bar.setAttribute('title', String(v));
-      container.appendChild(bar);
-    });
   }
 
   function setRoles(container, lo, hi, kind) {
@@ -300,7 +213,7 @@ procedure shell_sort(A)
       if (s.kind === 'swap') {
         setRoles(barsEl, s.lo, s.hi, 'swap');
         capEl.textContent = '交換しています…';
-        await flipSwap(barsEl, s.lo, s.hi);
+        await C.flipSwap(barsEl, s.lo, s.hi);
         setRoles(barsEl, null, null);
         capEl.textContent = '交換しました（位置 ' + s.lo + ' と ' + s.hi + '）';
         return;
@@ -318,14 +231,7 @@ procedure shell_sort(A)
   }
 
   btnShuffle.addEventListener('click', function () {
-    var arr = values.slice();
-    for (var i = arr.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = arr[i];
-      arr[i] = arr[j];
-      arr[j] = t;
-    }
-    rebuild(arr);
+    rebuild(C.shuffleCopy(values));
   });
 
   btnStep.addEventListener('click', function () {
@@ -338,7 +244,7 @@ procedure shell_sort(A)
     syncButtons();
     while (!cancelled && idx < steps.length) {
       await applyStepForward();
-      await wait(280);
+      await C.wait(280);
     }
     playing = false;
     syncButtons();

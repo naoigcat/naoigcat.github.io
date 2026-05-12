@@ -118,10 +118,17 @@ procedure shaker_sort(A)
 </div>
 <div class="shaker-sort-demo__bars" data-ss="bars" aria-live="polite"></div>
 <p class="shaker-sort-demo__caption" data-ss="caption"></p>
+<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
 <script>
 (function () {
   var root = document.getElementById('shaker-sort-demo');
   if (!root) return;
+  var C = window.DemoSort;
+  if (!C) return;
+
+  function mountBars(container, values) {
+    C.mountBars(container, values, 'shaker-sort-demo__bar');
+  }
 
   function generateSteps(initial) {
     var a = initial.slice();
@@ -184,83 +191,6 @@ procedure shaker_sort(A)
     }
     steps.push({ kind: 'done', arr: a.slice() });
     return steps;
-  }
-
-  function wait(ms) {
-    return new Promise(function (resolve) {
-      setTimeout(resolve, ms);
-    });
-  }
-
-  function transitionPromise(el) {
-    return new Promise(function (resolve) {
-      function done(e) {
-        if (e.propertyName !== 'transform') return;
-        el.removeEventListener('transitionend', done);
-        resolve();
-      }
-      el.addEventListener('transitionend', done);
-      setTimeout(function () {
-        el.removeEventListener('transitionend', done);
-        resolve();
-      }, 600);
-    });
-  }
-
-  async function flipAdjacentSwap(container, lo) {
-    var children = container.children;
-    var first = children[lo];
-    var second = children[lo + 1];
-    if (!first || !second) return;
-
-    var b1 = first.getBoundingClientRect();
-    var b2 = second.getBoundingClientRect();
-
-    container.insertBefore(second, first);
-
-    var a1 = first.getBoundingClientRect();
-    var a2 = second.getBoundingClientRect();
-
-    var dx1 = b1.left - a1.left;
-    var dx2 = b2.left - a2.left;
-    first.style.transition = 'none';
-    second.style.transition = 'none';
-    first.style.transform = 'translateX(' + dx1 + 'px)';
-    second.style.transform = 'translateX(' + dx2 + 'px)';
-
-    await new Promise(function (r) {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(r);
-      });
-    });
-
-    var dur = '0.32s';
-    first.style.transition = 'transform ' + dur + ' ease';
-    second.style.transition = 'transform ' + dur + ' ease';
-    first.style.transform = '';
-    second.style.transform = '';
-
-    await Promise.all([transitionPromise(first), transitionPromise(second)]);
-
-    first.style.transition = '';
-    second.style.transition = '';
-    first.style.transform = '';
-    second.style.transform = '';
-  }
-
-  function mountBars(container, values) {
-    container.innerHTML = '';
-    var max = Math.max.apply(null, values);
-    var min = Math.min.apply(null, values);
-    var span = Math.max(max - min, 1);
-    values.forEach(function (v) {
-      var bar = document.createElement('div');
-      bar.className = 'shaker-sort-demo__bar';
-      var h = 28 + ((v - min) / span) * 92;
-      bar.style.height = h + 'px';
-      bar.setAttribute('title', String(v));
-      container.appendChild(bar);
-    });
   }
 
   function setRoles(container, lo, hi, kind) {
@@ -333,7 +263,7 @@ procedure shaker_sort(A)
         var lo = prev && prev.kind === 'compare' ? prev.lo : s.lo;
         setRoles(barsEl, lo, lo + 1, 'swap');
         capEl.textContent = phaseLabel(s.phase) + ': 交換しています…';
-        await flipAdjacentSwap(barsEl, lo);
+        await C.flipAdjacentSwap(barsEl, lo);
         setRoles(barsEl, null, null);
         capEl.textContent =
           phaseLabel(s.phase) +
@@ -357,14 +287,7 @@ procedure shaker_sort(A)
   }
 
   btnShuffle.addEventListener('click', function () {
-    var arr = values.slice();
-    for (var i = arr.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = arr[i];
-      arr[i] = arr[j];
-      arr[j] = t;
-    }
-    rebuild(arr);
+    rebuild(C.shuffleCopy(values));
   });
 
   btnStep.addEventListener('click', function () {
@@ -377,7 +300,7 @@ procedure shaker_sort(A)
     syncButtons();
     while (!cancelled && idx < steps.length) {
       await applyStepForward();
-      await wait(280);
+      await C.wait(280);
     }
     playing = false;
     syncButtons();

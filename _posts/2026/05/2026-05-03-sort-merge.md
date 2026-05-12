@@ -121,10 +121,17 @@ procedure merge(A, lo, mid, hi)
 </div>
 <div class="merge-sort-demo__bars" data-ms="bars" aria-live="polite"></div>
 <p class="merge-sort-demo__caption" data-ms="caption"></p>
+<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
 <script>
 (function () {
   var root = document.getElementById('merge-sort-demo');
   if (!root) return;
+  var C = window.DemoSort;
+  if (!C) return;
+
+  function mountBars(container, values) {
+    C.mountBars(container, values, 'merge-sort-demo__bar');
+  }
 
   function buildDisplay(a, lo, tmp) {
     var d = a.slice();
@@ -210,28 +217,6 @@ procedure merge(A, lo, mid, hi)
     }
     steps.push({ kind: 'done', arr: a.slice() });
     return steps;
-  }
-
-  function wait(ms) {
-    return new Promise(function (resolve) {
-      setTimeout(resolve, ms);
-    });
-  }
-
-  function mountBars(container, values) {
-    container.innerHTML = '';
-    if (!values.length) return;
-    var max = Math.max.apply(null, values);
-    var min = Math.min.apply(null, values);
-    var span = Math.max(max - min, 1);
-    values.forEach(function (v) {
-      var bar = document.createElement('div');
-      bar.className = 'merge-sort-demo__bar';
-      var h = 28 + ((v - min) / span) * 92;
-      bar.style.height = h + 'px';
-      bar.setAttribute('title', String(v));
-      container.appendChild(bar);
-    });
   }
 
   function clearRoles(container) {
@@ -355,14 +340,7 @@ procedure merge(A, lo, mid, hi)
   }
 
   btnShuffle.addEventListener('click', function () {
-    var arr = values.slice();
-    for (var i = arr.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = arr[i];
-      arr[i] = arr[j];
-      arr[j] = t;
-    }
-    rebuild(arr);
+    rebuild(C.shuffleCopy(values));
   });
 
   btnStep.addEventListener('click', function () {
@@ -375,7 +353,7 @@ procedure merge(A, lo, mid, hi)
     syncButtons();
     while (!cancelled && idx < steps.length) {
       await applyStepForward();
-      await wait(220);
+      await C.wait(220);
     }
     playing = false;
     syncButtons();
