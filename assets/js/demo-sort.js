@@ -65,8 +65,7 @@
 
   DemoSort.shuffleCopy = function (arr) {
     const copy = arr.slice();
-    let i;
-    for (i = copy.length - 1; i > 0; i--) {
+    for (let i = copy.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       const t = copy[i];
       copy[i] = copy[j];
@@ -175,8 +174,7 @@
   DemoSort.clearRoles = function (container) {
     if (!container) return;
     const nodes = container.children;
-    let i;
-    for (i = 0; i < nodes.length; i++) {
+    for (let i = 0; i < nodes.length; i++) {
       nodes[i].removeAttribute('data-role');
     }
   };
@@ -195,8 +193,7 @@
     const options = opts || {};
     const preserve = options.preserve;
     const nodes = container.children;
-    let i;
-    for (i = 0; i < nodes.length; i++) {
+    for (let i = 0; i < nodes.length; i++) {
       const current = nodes[i].getAttribute('data-role');
       if (current == null) continue;
       if (!preserve || preserve.indexOf(current) === -1) {
@@ -204,7 +201,7 @@
       }
     }
     if (!pairs) return;
-    for (i = 0; i < pairs.length; i++) {
+    for (let i = 0; i < pairs.length; i++) {
       const idx = pairs[i][0];
       if (idx == null) continue;
       const node = nodes[idx];
