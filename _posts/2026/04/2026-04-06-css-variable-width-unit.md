@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     画面幅に応じて可変な幅を指定する
 date:      2026-04-06 21:39:09 +0900
 tags:      css

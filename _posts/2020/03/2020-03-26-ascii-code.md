@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     ASCIIコード表の制御文字をまとめる
 date:      2020-03-26 09:44:46 +0900
 tags:      encoding

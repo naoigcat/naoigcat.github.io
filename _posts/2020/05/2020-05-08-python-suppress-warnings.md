@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Tensorflowの警告を抑制する
 date:      2020-05-08 12:33:06 +0900
 tags:      python tensorflow

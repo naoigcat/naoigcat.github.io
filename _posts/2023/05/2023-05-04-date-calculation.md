@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     シェルスクリプトで日時計算を行う
 date:      2023-05-04 14:14:49 +0900
 tags:      bash

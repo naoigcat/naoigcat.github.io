@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     iOSアプリのインストール日時を取得する
 date:      2023-01-02 12:33:04 +0900
 tags:      ios

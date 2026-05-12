@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     iOSで画像の色を動的に変える
 date:      2023-01-16 13:29:48 +0900
 tags:      ios

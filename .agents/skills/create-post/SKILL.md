@@ -90,11 +90,12 @@ with `key:` and ending with delimiter spaces occupies **exactly eleven character
 new front matter scalar key exceeds the width of `sort_demo:`, recompute padding for **all** scalar keys in that front matter
 together so columns still agree.
 
+Posts inherit `layout: post` from `_config.yml` (`defaults`); **do not** set `layout` in post front matter.
+
 Mandatory keys layout:
 
 ```markdown
 ---
-layout:    post
 title:     {display_title}
 date:      {date}
 tags:      {tag}
@@ -105,7 +106,6 @@ When adding optional scalar keys (`mermaid`, `sort_demo`), include only keys the
 present, list them **in alphabetical order** (`mermaid` before `sort_demo`), using the spacing reference.
 
 ```markdown
-layout:    post
 title:     …
 date:      …
 tags:      …
@@ -113,11 +113,10 @@ mermaid:   true
 sort_demo: true
 ```
 
-The fenced block above is **illustrative** (omit unused keys).
+The fenced block above is **illustrative** (omit unused keys; wrap with front matter `---` delimiters).
 
 Spacing reference (**ASCII spaces** after colon before each value):
 
--   `layout`: 4 spaces.
 -   `title`: 5 spaces.
 -   `date`: 6 spaces.
 -   `tags`: 6 spaces.

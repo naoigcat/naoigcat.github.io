@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Xcode13以降でビルド番号を自動的に更新しない
 date:      2023-01-09 12:32:53 +0900
 tags:      xcode fastlane

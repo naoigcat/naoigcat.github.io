@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     makeコマンドで変数を割り当てる
 date:      2023-02-09 12:00:29 +0900
 tags:      bash

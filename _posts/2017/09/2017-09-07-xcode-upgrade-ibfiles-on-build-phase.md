@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Xcodeでのビルド時にInterface Builderファイルを更新する
 date:      2017-09-07 02:33:00 +0900
 tags:      xcode

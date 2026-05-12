@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Dockerコンテナの終了までの猶予期間を設定する
 date:      2023-03-01 19:18:01 +0900
 tags:      docker

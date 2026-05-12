@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Xcodeからのデバッグ実行で実機がビジーになる
 date:      2023-06-21 12:07:05 +0900
 tags:      xcode

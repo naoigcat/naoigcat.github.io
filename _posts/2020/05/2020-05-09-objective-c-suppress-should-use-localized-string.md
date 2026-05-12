@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     User-facing text should use localized string macroの警告を抑制する
 date:      2020-05-09 17:58:28 +0900
 tags:      objective-c

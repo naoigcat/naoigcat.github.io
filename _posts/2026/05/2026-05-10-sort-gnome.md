@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     ノームソートで配列を並び替える
 date:      2026-05-10 07:42:56 +0900
 tags:      sort

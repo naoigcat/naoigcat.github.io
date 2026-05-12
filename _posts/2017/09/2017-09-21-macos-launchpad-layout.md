@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     LaunchPadに表示されるアイコンの数を変更する
 date:      2017-09-21 09:12:00 +0900
 tags:      macos

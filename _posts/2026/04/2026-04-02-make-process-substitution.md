@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Makeファイルでプロセス置換を使用する
 date:      2026-04-02 07:01:44 +0900
 tags:      make

@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Gitで履歴を書き換える
 date:      2020-02-23 00:37:18 +0900
 tags:      git

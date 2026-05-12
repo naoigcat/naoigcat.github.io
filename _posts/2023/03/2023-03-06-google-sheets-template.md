@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     スプレッドシートのテンプレートを作成する
 date:      2023-03-06 12:09:35 +0900
 tags:      google

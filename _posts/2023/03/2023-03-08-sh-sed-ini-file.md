@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     設定ファイルから情報を抽出する
 date:      2023-03-08 12:13:02 +0900
 tags:      bash

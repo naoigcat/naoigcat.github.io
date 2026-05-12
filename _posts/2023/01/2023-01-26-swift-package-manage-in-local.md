@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     依存しているSwift Packageのコードを変更する
 date:      2023-01-26 11:56:08 +0900
 tags:      swift

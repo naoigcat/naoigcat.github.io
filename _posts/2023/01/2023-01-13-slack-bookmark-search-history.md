@@ -1,5 +1,4 @@
 ---
-layout:    post
 title:     Slackの検索履歴をブックマークする
 date:      2023-01-13 12:05:19 +0900
 tags:      slack
