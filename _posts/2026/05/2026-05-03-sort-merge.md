@@ -42,12 +42,7 @@ procedure merge(A, lo, mid, hi)
 
 {% capture sort_demo_js %}
 <script>
-(function () {
-  var root = document.getElementById('merge-sort-demo');
-  if (!root) return;
-  var DemoSort = window.DemoSort;
-  if (!DemoSort || !DemoSort.attachPlayback) return;
-
+window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
   function buildDisplay(a, lo, tmp) {
     var d = a.slice();
     for (var t = 0; t < tmp.length; t++) {
@@ -134,32 +129,12 @@ procedure merge(A, lo, mid, hi)
     return steps;
   }
 
-  function clearRoles(container) {
-    var nodes = container.children;
-    for (var k = 0; k < nodes.length; k++) {
-      nodes[k].removeAttribute('data-role');
+  function rangePairs(lo, hi, role) {
+    var pairs = [];
+    for (var k = lo; k <= hi; k++) {
+      pairs.push([k, role]);
     }
-  }
-
-  function setRange(container, lo, hi) {
-    clearRoles(container);
-    var nodes = container.children;
-    for (var k = lo; k <= hi && k < nodes.length; k++) {
-      nodes[k].setAttribute('data-role', 'range');
-    }
-  }
-
-  function setCompare(container, i, j) {
-    clearRoles(container);
-    var nodes = container.children;
-    if (nodes[i]) nodes[i].setAttribute('data-role', 'compare');
-    if (nodes[j]) nodes[j].setAttribute('data-role', 'compare');
-  }
-
-  function setWrite(container, pos) {
-    clearRoles(container);
-    var nodes = container.children;
-    if (nodes[pos]) nodes[pos].setAttribute('data-role', 'write');
+    return pairs;
   }
 
   DemoSort.attachPlayback({
@@ -174,7 +149,7 @@ procedure merge(A, lo, mid, hi)
       var barsEl = api.barsEl;
       if (s.kind === 'split') {
         api.mountBars(barsEl, s.arr);
-        setRange(barsEl, s.lo, s.hi);
+        DemoSort.assignRoles(barsEl, rangePairs(s.lo, s.hi, 'range'));
         api.setCaption(
           '分割: 区間 ' + s.lo + ' … ' + s.hi + '（中央 mid = ' + s.mid + '）'
         );
@@ -182,7 +157,7 @@ procedure merge(A, lo, mid, hi)
       }
       if (s.kind === 'merge_start') {
         api.mountBars(barsEl, s.arr);
-        setRange(barsEl, s.lo, s.hi);
+        DemoSort.assignRoles(barsEl, rangePairs(s.lo, s.hi, 'range'));
         api.setCaption(
           'マージ開始: 左 [' +
             s.lo +
@@ -198,19 +173,19 @@ procedure merge(A, lo, mid, hi)
       }
       if (s.kind === 'merge_compare') {
         api.mountBars(barsEl, s.arr);
-        setCompare(barsEl, s.i, s.j);
+        DemoSort.assignRoles(barsEl, [[s.i, 'compare'], [s.j, 'compare']]);
         api.setCaption('比較: 位置 ' + s.i + ' と ' + s.j);
         return;
       }
       if (s.kind === 'merge_write') {
         api.mountBars(barsEl, s.arr);
-        setWrite(barsEl, s.writePos);
+        DemoSort.assignRoles(barsEl, [[s.writePos, 'write']]);
         api.setCaption('先頭から確定: 位置 ' + s.writePos);
         return;
       }
       if (s.kind === 'merge_done') {
         api.mountBars(barsEl, s.arr);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           '区間 ' + s.lo + ' … ' + s.hi + ' のマージが完了しました'
         );
@@ -218,13 +193,13 @@ procedure merge(A, lo, mid, hi)
       }
       if (s.kind === 'done') {
         api.mountBars(barsEl, s.arr);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption('ソート完了');
       }
     },
     stepPauseMs: 220,
   });
-})();
+});
 </script>
 {% endcapture %}
 

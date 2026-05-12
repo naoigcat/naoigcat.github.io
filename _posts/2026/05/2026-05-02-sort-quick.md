@@ -36,12 +36,7 @@ procedure partition(A, lo, hi)
 
 {% capture sort_demo_js %}
 <script>
-(function () {
-  var root = document.getElementById('quick-sort-demo');
-  if (!root) return;
-  var DemoSort = window.DemoSort;
-  if (!DemoSort || !DemoSort.attachPlayback) return;
-
+window.DemoSort && DemoSort.boot('quick-sort-demo', function (root) {
   function generateSteps(initial) {
     var a = initial.slice();
     var steps = [];
@@ -84,20 +79,6 @@ procedure partition(A, lo, hi)
     return steps;
   }
 
-  function setRoles(container, lo, hi, kind) {
-    var nodes = container.children;
-    for (var k = 0; k < nodes.length; k++) {
-      nodes[k].removeAttribute('data-role');
-    }
-    if (lo == null || hi == null) return;
-    if (kind === 'pivot' && lo === hi && nodes[lo]) {
-      nodes[lo].setAttribute('data-role', 'pivot');
-      return;
-    }
-    if (nodes[lo]) nodes[lo].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-    if (nodes[hi]) nodes[hi].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-  }
-
   DemoSort.attachPlayback({
     root: root,
     dataAttr: 'data-qs',
@@ -110,7 +91,7 @@ procedure partition(A, lo, hi)
       var barsEl = api.barsEl;
       if (s.kind === 'part_start') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           '分割: 部分配列 位置 ' + s.lo + ' … ' + s.hi + '（右端をピボット）'
         );
@@ -118,17 +99,17 @@ procedure partition(A, lo, hi)
       }
       if (s.kind === 'compare') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, s.lo, s.hi, 'compare');
+        DemoSort.assignRoles(barsEl, [[s.lo, 'compare'], [s.hi, 'compare']]);
         api.setCaption(
           '比較: 位置 ' + s.lo + ' の値とピボット（位置 ' + s.hi + '）'
         );
         return;
       }
       if (s.kind === 'swap') {
-        setRoles(barsEl, s.lo, s.hi, 'swap');
+        DemoSort.assignRoles(barsEl, [[s.lo, 'swap'], [s.hi, 'swap']]);
         api.setCaption('交換しています…');
         await DemoSort.flipSwap(barsEl, s.lo, s.hi);
-        setRoles(barsEl, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           '交換しました（位置 ' + s.lo + ' と ' + s.hi + '）'
         );
@@ -136,7 +117,7 @@ procedure partition(A, lo, hi)
       }
       if (s.kind === 'part_end') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, s.pivot, s.pivot, 'pivot');
+        DemoSort.assignRoles(barsEl, [[s.pivot, 'pivot']]);
         api.setCaption(
           'ピボット確定: 位置 ' +
             s.pivot +
@@ -146,13 +127,13 @@ procedure partition(A, lo, hi)
       }
       if (s.kind === 'done') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption('ソート完了');
       }
     },
     stepPauseMs: 280,
   });
-})();
+});
 </script>
 {% endcapture %}
 

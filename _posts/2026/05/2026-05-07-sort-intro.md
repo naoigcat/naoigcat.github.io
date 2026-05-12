@@ -43,12 +43,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
 
 {% capture sort_demo_js %}
 <script>
-(function () {
-  var root = document.getElementById('intro-sort-demo');
-  if (!root) return;
-  var DemoSort = window.DemoSort;
-  if (!DemoSort || !DemoSort.attachPlayback) return;
-
+window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
   /** デモ用に小区間閾値を小さめにし、クイックフェーズが視覚化されやすくしている（実装ではしばしばもう少し大きい）。 */
   var INSERTION_THRESHOLD = 4;
 
@@ -178,26 +173,15 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
     return steps;
   }
 
-  function clearRoles(container) {
-    var nodes = container.children;
-    for (var k = 0; k < nodes.length; k++) {
-      nodes[k].removeAttribute('data-role');
-    }
+  function rolePair(lo, hi, role) {
+    if (lo == null || hi == null) return [];
+    return [[lo, role], [hi, role]];
   }
 
-  function setRoles(container, lo, hi, kind, phase) {
-    clearRoles(container);
-    if (lo == null || hi == null) return;
-    var nodes = container.children;
-    if (kind === 'pivot' && lo === hi && nodes[lo]) {
-      nodes[lo].setAttribute('data-role', 'pivot');
-      return;
-    }
-    var swapOrCmp = kind === 'swap' ? 'swap' : 'compare';
-    if (phase === 'insert') swapOrCmp = 'insert';
-    if (phase === 'heap') swapOrCmp = 'heap';
-    if (nodes[lo]) nodes[lo].setAttribute('data-role', swapOrCmp);
-    if (nodes[hi]) nodes[hi].setAttribute('data-role', swapOrCmp);
+  function phaseRole(kind, phase) {
+    if (phase === 'insert') return 'insert';
+    if (phase === 'heap') return 'heap';
+    return kind === 'swap' ? 'swap' : 'compare';
   }
 
   DemoSort.attachPlayback({
@@ -225,13 +209,13 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
       var barsEl = api.barsEl;
       if (s.kind === 'phase') {
         api.mountBars(barsEl, s.arr);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(s.text);
         return;
       }
       if (s.kind === 'heap_start') {
         api.mountBars(barsEl, s.arr);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           'ヒープソート開始: 位置 ' + s.lo + ' … ' + s.hi + ' の範囲を整列'
         );
@@ -239,7 +223,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
       }
       if (s.kind === 'heap_done') {
         api.mountBars(barsEl, s.arr);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           'ヒープソート完了: 位置 ' +
             s.lo +
@@ -251,13 +235,13 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
       }
       if (s.kind === 'heap_compare') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, s.lo, s.hi, 'compare', 'heap');
+        DemoSort.assignRoles(barsEl, rolePair(s.lo, s.hi, 'heap'));
         api.setCaption('ヒープ: 親子関係を調整中（ティールの枠）');
         return;
       }
       if (s.kind === 'part_start') {
         api.mountBars(barsEl, s.arr);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           'クイックソート分割: 位置 ' +
             s.lo +
@@ -271,7 +255,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
       }
       if (s.kind === 'compare') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, s.lo, s.hi, 'compare', s.phase);
+        DemoSort.assignRoles(barsEl, rolePair(s.lo, s.hi, phaseRole('compare', s.phase)));
         if (s.phase === 'insert') {
           api.setCaption('挿入ソート: 隣接要素を比較');
         } else {
@@ -282,10 +266,10 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
         return;
       }
       if (s.kind === 'swap') {
-        setRoles(barsEl, s.lo, s.hi, 'swap', s.phase);
+        DemoSort.assignRoles(barsEl, rolePair(s.lo, s.hi, phaseRole('swap', s.phase)));
         api.setCaption('交換しています…');
         await DemoSort.flipSwap(barsEl, s.lo, s.hi);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           '交換しました（位置 ' + s.lo + ' と ' + s.hi + '）'
         );
@@ -293,7 +277,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
       }
       if (s.kind === 'part_end') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, s.pivot, s.pivot, 'pivot');
+        DemoSort.assignRoles(barsEl, [[s.pivot, 'pivot']]);
         api.setCaption(
           'ピボット確定: 位置 ' +
             s.pivot +
@@ -303,13 +287,13 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
       }
       if (s.kind === 'done') {
         api.mountBars(barsEl, s.arr);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption('ソート完了');
       }
     },
     stepPauseMs: 260,
   });
-})();
+});
 </script>
 {% endcapture %}
 

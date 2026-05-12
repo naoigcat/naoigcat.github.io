@@ -31,12 +31,7 @@ procedure gnome_sort(A)
 
 {% capture sort_demo_js %}
 <script>
-(function () {
-  var root = document.getElementById('gnome-sort-demo');
-  if (!root) return;
-  var DemoSort = window.DemoSort;
-  if (!DemoSort || !DemoSort.attachPlayback) return;
-
+window.DemoSort && DemoSort.boot('gnome-sort-demo', function (root) {
   function generateSteps(initial) {
     var a = initial.slice();
     var steps = [];
@@ -59,28 +54,6 @@ procedure gnome_sort(A)
     return steps;
   }
 
-  function clearRoles(container) {
-    var nodes = container.children;
-    for (var i = 0; i < nodes.length; i++) {
-      nodes[i].removeAttribute('data-role');
-    }
-  }
-
-  function setCompareOrSwap(container, lo, hi, kind) {
-    clearRoles(container);
-    var nodes = container.children;
-    if (lo == null || hi == null) return;
-    if (nodes[lo]) nodes[lo].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-    if (nodes[hi]) nodes[hi].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-  }
-
-  function setCursor(container, idx) {
-    clearRoles(container);
-    var nodes = container.children;
-    if (idx == null) return;
-    if (nodes[idx]) nodes[idx].setAttribute('data-role', 'cursor');
-  }
-
   DemoSort.attachPlayback({
     root: root,
     dataAttr: 'data-gs',
@@ -93,7 +66,7 @@ procedure gnome_sort(A)
       var barsEl = api.barsEl;
       if (s.kind === 'advance') {
         api.mountBars(barsEl, s.arr);
-        setCursor(barsEl, s.pos);
+        DemoSort.assignRoles(barsEl, s.pos == null ? [] : [[s.pos, 'cursor']]);
         api.setCaption(
           '前進（位置 ' +
             s.pos +
@@ -103,17 +76,17 @@ procedure gnome_sort(A)
       }
       if (s.kind === 'compare') {
         api.mountBars(barsEl, s.arr);
-        setCompareOrSwap(barsEl, s.lo, s.hi, 'compare');
+        DemoSort.assignRoles(barsEl, [[s.lo, 'compare'], [s.hi, 'compare']]);
         api.setCaption('比較: 位置 ' + s.lo + ' と ' + s.hi);
         return;
       }
       if (s.kind === 'swap') {
         var prev = api.steps[api.idx - 2];
         var lo = prev && prev.kind === 'compare' ? prev.lo : s.lo;
-        setCompareOrSwap(barsEl, lo, lo + 1, 'swap');
+        DemoSort.assignRoles(barsEl, [[lo, 'swap'], [lo + 1, 'swap']]);
         api.setCaption('交換しています…');
         await DemoSort.flipAdjacentSwap(barsEl, lo);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           '順序が逆だったので左へ（位置 ' +
             lo +
@@ -123,13 +96,13 @@ procedure gnome_sort(A)
       }
       if (s.kind === 'done') {
         api.mountBars(barsEl, s.arr);
-        clearRoles(barsEl);
+        DemoSort.clearRoles(barsEl);
         api.setCaption('ソート完了');
       }
     },
     stepPauseMs: 280,
   });
-})();
+});
 </script>
 {% endcapture %}
 
