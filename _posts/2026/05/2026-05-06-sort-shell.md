@@ -60,7 +60,7 @@ window.DemoSort && DemoSort.boot('shell-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-ss',
+    dataAttr: 'data-shell',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'シェルソートのデモ（ギャップ変更時はキャプションのみ更新。比較はオレンジ、交換は緑）',
@@ -115,7 +115,7 @@ window.DemoSort && DemoSort.boot('shell-sort-demo', function (root) {
 {% include sort-demo/wrapper.html
   id="shell-sort-demo"
   preset="shell"
-  data_prefix="ss"
+  data_prefix="shell"
   script=sort_demo_js
 %}
 

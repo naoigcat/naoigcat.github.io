@@ -56,7 +56,7 @@ window.DemoSort && DemoSort.boot('gnome-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-gs',
+    dataAttr: 'data-gnome',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'ノームソートのデモ（現在位置は水色枠／比較はオレンジ／交換は緑）',
@@ -107,7 +107,7 @@ window.DemoSort && DemoSort.boot('gnome-sort-demo', function (root) {
 {% include sort-demo/wrapper.html
   id="gnome-sort-demo"
   preset="gnome"
-  data_prefix="gs"
+  data_prefix="gnome"
   script=sort_demo_js
 %}
 

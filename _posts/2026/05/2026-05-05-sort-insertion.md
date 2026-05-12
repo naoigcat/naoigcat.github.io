@@ -68,7 +68,7 @@ window.DemoSort && DemoSort.boot('insertion-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-is',
+    dataAttr: 'data-insertion',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       '挿入ソートのデモ（挿入中の値は紫、比較はオレンジ、交換は緑）',
@@ -124,7 +124,7 @@ window.DemoSort && DemoSort.boot('insertion-sort-demo', function (root) {
 {% include sort-demo/wrapper.html
   id="insertion-sort-demo"
   preset="insertion"
-  data_prefix="is"
+  data_prefix="insertion"
   script=sort_demo_js
 %}
 

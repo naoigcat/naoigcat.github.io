@@ -139,7 +139,7 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-ms',
+    dataAttr: 'data-merge',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'マージソートのデモ（分割・マージ対象は青、比較はオレンジ、確定書き込みは緑）',
@@ -206,7 +206,7 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
 {% include sort-demo/wrapper.html
   id="merge-sort-demo"
   preset="merge"
-  data_prefix="ms"
+  data_prefix="merge"
   script=sort_demo_js
 %}
 

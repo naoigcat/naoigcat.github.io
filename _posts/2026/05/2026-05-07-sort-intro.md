@@ -186,7 +186,7 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-is',
+    dataAttr: 'data-intro',
     extraRoles: ['sorted'],
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
@@ -300,7 +300,7 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
 {% include sort-demo/wrapper.html
   id="intro-sort-demo"
   preset="intro"
-  data_prefix="is"
+  data_prefix="intro"
   toolbar_variant="intro"
   script=sort_demo_js
 %}

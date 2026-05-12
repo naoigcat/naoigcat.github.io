@@ -88,7 +88,7 @@ window.DemoSort && DemoSort.boot('selection-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-ssel',
+    dataAttr: 'data-selection',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       '選択ソートのデモ（確定済みは紫、比較はオレンジ、交換は緑）',
@@ -137,7 +137,7 @@ window.DemoSort && DemoSort.boot('selection-sort-demo', function (root) {
 {% include sort-demo/wrapper.html
   id="selection-sort-demo"
   preset="selection"
-  data_prefix="ssel"
+  data_prefix="selection"
   script=sort_demo_js
 %}
 
