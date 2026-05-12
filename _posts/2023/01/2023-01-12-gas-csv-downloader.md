@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Google Sheetで文字コードをShift JISにしたCSVをダウンロードする
-date:      2023/01/12 12:10:28 +0900
+date:      2023-01-12 12:10:28 +0900
 tags:      google gas
 ---
 

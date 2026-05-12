@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Google Sheetsで改行に置き換えるときは改行そのものを入れる
-date:      2023/01/23 12:07:50 +0900
+date:      2023-01-23 12:07:50 +0900
 tags:      google
 ---
 

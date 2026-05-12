@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     XcodeがdSYMファイルを生成した後にスクリプトを実行する
-date:      2023/04/06 12:04:06 +0900
+date:      2023-04-06 12:04:06 +0900
 tags:      xcode
 ---
 

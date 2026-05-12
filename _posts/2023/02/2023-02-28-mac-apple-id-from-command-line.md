@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     macOSのターミナルからApple IDを取得する
-date:      2023/02/28 12:03:57 +0900
+date:      2023-02-28 12:03:57 +0900
 tags:      macos
 ---
 

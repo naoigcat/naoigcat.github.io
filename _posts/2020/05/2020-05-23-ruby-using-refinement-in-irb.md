@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     IRBでRefinementを使用する
-date:      2020/05/23 22:10:12 +0900
+date:      2020-05-23 22:10:12 +0900
 tags:      ruby
 ---
 

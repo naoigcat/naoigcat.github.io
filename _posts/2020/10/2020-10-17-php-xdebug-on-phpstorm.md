@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     PhpStorm+DockerでXDebugを使用する
-date:      2020/10/17 05:30:30 +0900
+date:      2020-10-17 05:30:30 +0900
 tags:      php phpstorm docker
 ---
 

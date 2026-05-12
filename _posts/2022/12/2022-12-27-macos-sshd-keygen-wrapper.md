@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     macOSでSSH接続時にフルディスクアクセス権限を付与する
-date:      2022/12/27 12:03:01 +0900
+date:      2022-12-27 12:03:01 +0900
 tags:      macos ssh
 ---
 

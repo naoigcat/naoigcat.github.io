@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Gitのpullコマンドの挙動を変更する
-date:      2023/01/19 14:47:07 +0900
+date:      2023-01-19 14:47:07 +0900
 tags:      git
 mermaid:   true
 ---

@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Xcode 14.3でCocoaPodsライブラリのビルドが失敗する
-date:      2023/06/16 17:03:27 +0900
+date:      2023-06-16 17:03:27 +0900
 tags:      xcode
 ---
 

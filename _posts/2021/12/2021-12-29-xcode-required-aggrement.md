@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Fastlaneの"A required agreement is missing or has expired"に対応する
-date:      2021/12/29 12:47:47 +0900
+date:      2021-12-29 12:47:47 +0900
 tags:      xcode fastlane
 ---
 

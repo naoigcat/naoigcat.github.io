@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Composerイメージが使用しているPHPバージョンを調べる
-date:      2024/05/28 11:49:04 +0900
+date:      2024-05-28 11:49:04 +0900
 tags:      php
 ---
 
