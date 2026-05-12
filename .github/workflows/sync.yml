@@ -3,6 +3,7 @@ name: Sync markdownlint-cli2 skill version
 on:
   push:
     branches:
+      - main
       - dependabot/**
     paths:
       - .github/workflows/lint.yml
@@ -17,7 +18,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]'
+    if: github.ref == 'refs/heads/main' || github.actor == 'dependabot[bot]'
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
