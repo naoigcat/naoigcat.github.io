@@ -56,8 +56,24 @@ Create the new Markdown file at:
 -   **Display title**: Use a separate variable `{display_title}` for front matter and display. It must be **Japanese**
     phrasing appropriate for the post (if the user gives an ASCII slug like `bash-random-number`, expand it to a natural
     Japanese title such as `Bashでの乱数生成`).
--   **Tags**: Extract the first segment when `{filename_slug}` is split on hyphens (`-`) and use that as the tag. (Example:
-    `bash-random-number` → `bash`)
+-   **Tags**: Split `{filename_slug}` on hyphens (`-`) and resolve `{tag}` from those segments.
+    -   The **first segment is always the leading tag** (this is the primary category, e.g. `git`, `sort`, `yaml`). It
+        comes first in the final list.
+    -   For the remaining segments, **add a segment as an additional tag only when that segment is itself a meaningful
+        tag** — typically a tool, platform, language, framework, or other well-known proper noun that already appears as
+        a tag elsewhere in `_posts/`. Skip segments that are merely descriptive words.
+    -   Adjacent segments may be **joined with a hyphen** to form a single tag when together they spell one proper noun
+        (e.g. `github-copilot`).
+    -   Render `{tag}` as a **space-separated list** in the order the segments appear.
+    -   Examples:
+        -   `bash-random-number` → `bash` (`random` and `number` are descriptive, not separate tags)
+        -   `sh-which-of-debian-utils` → `bash debian` (`debian` is a platform tag; the `sh` slug prefix maps to the
+            existing `bash` primary tag, see the note below)
+        -   `vscode-github-copilot-commit-message-generation` → `vscode github-copilot`
+        -   `sort-bubble` → `sort` (`bubble` is descriptive, not a tag)
+    -   When in doubt, **prefer fewer tags** and do not invent new tags that are not already used elsewhere in `_posts/`.
+    -   Note: a few first-segment slugs are normalized to a canonical tag name (e.g. `sh-*` → `bash`, `objc-*` →
+        `objective-c`). Reuse the same normalization that recent posts use; check sibling posts under `_posts/` to confirm.
 
 ## 4. Write the file
 
@@ -72,8 +88,8 @@ tags:   {tag}
 ---
 ```
 
-Set `title` to `{display_title}` and `tags` to `{tag}` (the first segment of `{filename_slug}`). Write the **article body
-in Japanese**.
+Set `title` to `{display_title}` and `tags` to `{tag}` (the space-separated list resolved in step 3, always starting with
+the first segment of `{filename_slug}`). Write the **article body in Japanese**.
 
 ## 5. Run markdownlint
 
