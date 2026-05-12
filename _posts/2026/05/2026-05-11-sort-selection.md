@@ -34,17 +34,15 @@ procedure selection_sort(A)
 <script>
 window.DemoSort && DemoSort.boot('selection-sort-demo', function (root) {
   function generateSteps(initial) {
-    var a = initial.slice();
-    var steps = [];
-    var n = a.length;
-    var iss;
-    var j;
-    var minIdx;
-    var t;
-    for (iss = 0; iss < n - 1; iss++) {
+    const a = initial.slice();
+    const steps = [];
+    const n = a.length;
+    let minIdx;
+    let t;
+    for (let iss = 0; iss < n - 1; iss++) {
       steps.push({ kind: 'round', sortedUpTo: iss, arr: a.slice() });
       minIdx = iss;
-      for (j = iss + 1; j < n; j++) {
+      for (let j = iss + 1; j < n; j++) {
         steps.push({
           kind: 'compare',
           lo: minIdx,
@@ -74,13 +72,12 @@ window.DemoSort && DemoSort.boot('selection-sort-demo', function (root) {
   }
 
   function paintBarStates(container, sortedCount, compareLo, compareHi, role) {
-    var pairs = [];
-    var k;
-    for (k = 0; k < sortedCount; k++) {
+    const pairs = [];
+    for (let k = 0; k < sortedCount; k++) {
       pairs.push([k, 'sorted']);
     }
     if (compareLo != null && compareHi != null) {
-      var r = role === 'swap' ? 'swap' : 'compare';
+      const r = role === 'swap' ? 'swap' : 'compare';
       pairs.push([compareLo, r], [compareHi, r]);
     }
     DemoSort.assignRoles(container, pairs);
@@ -95,7 +92,7 @@ window.DemoSort && DemoSort.boot('selection-sort-demo', function (root) {
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
-      var barsEl = api.barsEl;
+      const barsEl = api.barsEl;
       if (s.kind === 'round') {
         api.mountBars(barsEl, s.arr);
         paintBarStates(barsEl, s.sortedUpTo, null, null);
