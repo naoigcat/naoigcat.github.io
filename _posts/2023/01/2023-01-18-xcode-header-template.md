@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Xcodeのファイルヘッダーをカスタマイズする
-date:   2023/01/18 11:54:32 +0900
-tags:   xcode
+layout:    post
+title:     Xcodeのファイルヘッダーをカスタマイズする
+date:      2023/01/18 11:54:32 +0900
+tags:      xcode
 ---
 
 ## 以前はヘッダーの一部しかカスタマイズできなかった

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  macOSの古いバージョンをインストールする
-date:   2023/03/10 12:01:10 +0900
-tags:   macos
+layout:    post
+title:     macOSの古いバージョンをインストールする
+date:      2023/03/10 12:01:10 +0900
+tags:      macos
 ---
 
 ## [初期搭載されていたバージョンを再インストールする](https://support.apple.com/ja-jp/HT204904)

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Gitで履歴を完全に削除する
-date:   2020/02/24 01:07:41 +0900
-tags:   git
+layout:    post
+title:     Gitで履歴を完全に削除する
+date:      2020/02/24 01:07:41 +0900
+tags:      git
 ---
 
 ## 全てのブランチに対してコマンドを実行する

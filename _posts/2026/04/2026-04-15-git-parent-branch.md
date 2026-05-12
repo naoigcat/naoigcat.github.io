@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Gitで親ブランチを取得する
-date:   2026-04-15 07:39:04 +0900
-tags:   git
+layout:    post
+title:     Gitで親ブランチを取得する
+date:      2026-04-15 07:39:04 +0900
+tags:      git
 ---
 
 ## ブランチとコミットの一覧を表示する

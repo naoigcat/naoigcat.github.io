@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Bashでコマンド履歴を検索する
-date:   2017/09/09 00:11:00 +0900
-tags:   sh
+layout:    post
+title:     Bashでコマンド履歴を検索する
+date:      2017/09/09 00:11:00 +0900
+tags:      sh
 ---
 
 ## コマンド履歴を逆方向検索する

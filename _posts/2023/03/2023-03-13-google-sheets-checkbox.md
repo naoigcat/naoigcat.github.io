@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  スプレッドシートのセル内にチェックボックスを追加する
-date:   2023/03/13 12:05:17 +0900
-tags:   google
+layout:    post
+title:     スプレッドシートのセル内にチェックボックスを追加する
+date:      2023/03/13 12:05:17 +0900
+tags:      google
 ---
 
 ## [チェックボックスを追加して使用する](https://support.google.com/docs/answer/7684717?hl=ja)

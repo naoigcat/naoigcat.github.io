@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  macOSに付属するコマンドのバージョンを調べる
-date:   2023/03/22 12:13:36 +0900
-tags:   macos
+layout:    post
+title:     macOSに付属するコマンドのバージョンを調べる
+date:      2023/03/22 12:13:36 +0900
+tags:      macos
 ---
 
 ## macOSに付属するコマンドのバージョンをまとめる

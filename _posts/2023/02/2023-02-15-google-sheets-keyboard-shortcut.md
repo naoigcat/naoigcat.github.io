@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  スプレッドシートのキーボードショートカットを使う
-date:   2023/02/15 12:35:15 +0900
-tags:   google
+layout:    post
+title:     スプレッドシートのキーボードショートカットを使う
+date:      2023/02/15 12:35:15 +0900
+tags:      google
 ---
 
 ## [キーボードショートカットを抜粋する](https://support.google.com/docs/answer/181110?hl=ja)

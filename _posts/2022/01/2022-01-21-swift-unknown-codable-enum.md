@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Swiftで想定外のレスポンスを変換可能なEnumを作る
-date:   2022/01/21 08:58:59 +0900
-tags:   swift ios
+layout:    post
+title:     Swiftで想定外のレスポンスを変換可能なEnumを作る
+date:      2022/01/21 08:58:59 +0900
+tags:      swift ios
 ---
 
 ## 未知の値をデコードするとエラーになる

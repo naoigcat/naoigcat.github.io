@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  AWKで最後のフィールドのみ出力する
-date:   2023/06/09 13:22:40 +0900
-tags:   awk
+layout:    post
+title:     AWKで最後のフィールドのみ出力する
+date:      2023/06/09 13:22:40 +0900
+tags:      awk
 ---
 
 ## 最後のフィールドのみ出力する

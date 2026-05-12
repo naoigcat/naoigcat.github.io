@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  シェルでコマンドの存在を確認する
-date:   2026-04-17 22:33:45 +0900
-tags:   bash
+layout:    post
+title:     シェルでコマンドの存在を確認する
+date:      2026-04-17 22:33:45 +0900
+tags:      bash
 ---
 
 ## シェルにも種類がある

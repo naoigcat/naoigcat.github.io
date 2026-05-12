@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Dockのアイコンが跳ねるアクションを無効にする
-date:   2017/09/28 09:58:00 +0900
-tags:   macos
+layout:    post
+title:     Dockのアイコンが跳ねるアクションを無効にする
+date:      2017/09/28 09:58:00 +0900
+tags:      macos
 ---
 
 ## 跳ねるアクションを無効にする

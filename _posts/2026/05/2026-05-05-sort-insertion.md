@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  挿入ソートで配列を並び替える
-date:   2026-05-05 06:04:02 +0900
-tags:   sort
+layout:    post
+title:     挿入ソートで配列を並び替える
+date:      2026-05-05 06:04:02 +0900
+tags:      sort
 sort_demo: true
 ---
 

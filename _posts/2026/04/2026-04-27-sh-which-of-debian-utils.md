@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  Debian版のwhichコマンドの実装を確認する
-date:   2026-04-27 23:22:41 +0900
-tags:   bash debian
+layout:    post
+title:     Debian版のwhichコマンドの実装を確認する
+date:      2026-04-27 23:22:41 +0900
+tags:      bash debian
 ---
 
 ## パブリックドメインで公開されている

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  macOSでSSH接続時にフルディスクアクセス権限を付与する
-date:   2022/12/27 12:03:01 +0900
-tags:   macos ssh
+layout:    post
+title:     macOSでSSH接続時にフルディスクアクセス権限を付与する
+date:      2022/12/27 12:03:01 +0900
+tags:      macos ssh
 ---
 
 ## SSH経由でのディレクトリアクセス時にエラーになる

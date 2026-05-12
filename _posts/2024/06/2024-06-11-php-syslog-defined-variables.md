@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  PHPの定義済み定数の値を確認する
-date:   2024/06/11 14:23:59 +0900
-tags:   php
+layout:    post
+title:     PHPの定義済み定数の値を確認する
+date:      2024/06/11 14:23:59 +0900
+tags:      php
 ---
 
 ## 定義済みの定数を確認する

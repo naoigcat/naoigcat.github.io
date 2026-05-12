@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  RubyでmacOSの連絡先からvCard形式のファイルを生成する
-date:   2020/03/24 23:50:11 +0900
-tags:   ruby
+layout:    post
+title:     RubyでmacOSの連絡先からvCard形式のファイルを生成する
+date:      2020/03/24 23:50:11 +0900
+tags:      ruby
 ---
 
 ## 連絡先からvCard形式のファイルを生成する

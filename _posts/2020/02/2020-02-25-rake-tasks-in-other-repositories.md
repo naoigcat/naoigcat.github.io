@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  別ディレクトリにあるRakeタスクを実行する
-date:   2020/02/25 21:32:40 +0900
-tags:   ruby
+layout:    post
+title:     別ディレクトリにあるRakeタスクを実行する
+date:      2020/02/25 21:32:40 +0900
+tags:      ruby
 ---
 
 ## Rakeタスクを実行するタスクを定義する

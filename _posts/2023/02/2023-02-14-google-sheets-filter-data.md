@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  スプレッドシートでデータをフィルタする
-date:   2023/02/14 12:17:44 +0900
-tags:   google
+layout:    post
+title:     スプレッドシートでデータをフィルタする
+date:      2023/02/14 12:17:44 +0900
+tags:      google
 ---
 
 ## [スプレッドシートでデータをフィルタする](https://support.google.com/a/users/answer/9308952?hl=ja)

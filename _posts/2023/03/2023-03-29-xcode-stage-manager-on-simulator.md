@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  シミュレーターでステージマネージャーを有効化する
-date:   2023/03/29 12:03:21 +0900
-tags:   xcode ios
+layout:    post
+title:     シミュレーターでステージマネージャーを有効化する
+date:      2023/03/29 12:03:21 +0900
+tags:      xcode ios
 ---
 
 ## [ステージマネージャーのオン／オフを切り替える](https://support.apple.com/ja-jp/HT213405)

@@ -1,8 +1,8 @@
 ---
-layout: post
-title:  psをgrepした結果から自身を除外する
-date:   2023/01/04 12:02:48 +0900
-tags:   sh
+layout:    post
+title:     psをgrepした結果から自身を除外する
+date:      2023/01/04 12:02:48 +0900
+tags:      sh
 ---
 
 ## psコマンドでプロセスの一覧を取得できる
