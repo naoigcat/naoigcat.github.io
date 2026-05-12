@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MARKDOWNLINT_CLI2_VERSION="0.22.1"
+MARKDOWNLINT_CLI2_VERSION="0.22.0"
 fix=false
 paths=()
 

@@ -1,0 +1,80 @@
+name: Sync markdownlint-cli2 skill version
+
+on:
+  push:
+    branches:
+      - dependabot/**
+    paths:
+      - .github/workflows/lint.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-markdownlint-cli2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Resolve markdownlint-cli2-action ref from lint workflow
+        id: action_ref
+        run: |
+          set -euo pipefail
+          file=.github/workflows/lint.yml
+          line="$(grep -Ei 'uses:[[:space:]]*DavidAnson/markdownlint-cli2-action@' "$file" | head -n1 || true)"
+          if [[ -z "$line" ]]; then
+            echo "::error::Could not find DavidAnson/markdownlint-cli2-action in ${file}"
+            exit 1
+          fi
+          ref="$(printf '%s\n' "$line" | sed -E 's/.*markdownlint-cli2-action@([^[:space:]#]+).*/\1/')"
+          echo "Using action ref: ${ref}"
+          echo "ref=${ref}" >> "$GITHUB_OUTPUT"
+
+      - name: Fetch markdownlint-cli2 version from action package.json
+        id: cli2
+        run: |
+          set -euo pipefail
+          ref="${{ steps.action_ref.outputs.ref }}"
+          url="https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2-action/${ref}/package.json"
+          echo "Fetching ${url}"
+          curl -fsSL "$url" -o /tmp/markdownlint-cli2-action-package.json
+          ver="$(jq -r '.dependencies["markdownlint-cli2"] // empty' /tmp/markdownlint-cli2-action-package.json)"
+          if [[ -z "$ver" || "$ver" == "null" ]]; then
+            echo "::error::Could not read dependencies.markdownlint-cli2 from action package.json"
+            exit 1
+          fi
+          echo "markdownlint-cli2=${ver}"
+          echo "version=${ver}" >> "$GITHUB_OUTPUT"
+
+      - name: Update run-markdownlint.sh
+        run: |
+          set -euo pipefail
+          ver="${{ steps.cli2.outputs.version }}"
+          script=.agents/skills/run-markdownlint/scripts/run-markdownlint.sh
+          if [[ ! -f "$script" ]]; then
+            echo "::error::Missing ${script}"
+            exit 1
+          fi
+          sed -i "s/^MARKDOWNLINT_CLI2_VERSION=\"[^\"]*\"/MARKDOWNLINT_CLI2_VERSION=\"${ver}\"/" "$script"
+
+      - name: Commit and push if changed
+        env:
+          VERSION: ${{ steps.cli2.outputs.version }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          script=.agents/skills/run-markdownlint/scripts/run-markdownlint.sh
+          git add "$script"
+          if git diff --cached --quiet; then
+            echo "MARKDOWNLINT_CLI2_VERSION already matches markdownlint-cli2-action (${VERSION}); nothing to commit."
+            exit 0
+          fi
+          git commit -m "Sync MARKDOWNLINT_CLI2_VERSION with markdownlint-cli2-action (${VERSION})"
+          git push
