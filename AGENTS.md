@@ -38,3 +38,9 @@ Do not suggest widening Dependabot to RubyGems/npm “for completeness” unless
 
 The site uses `lang: ja` with Japanese article bodies while retaining an Irish-language–style display name in `title` (and similar branding).
 That mix is intentional. Do not flag it as inconsistent for SEO or browser language heuristics unless the maintainer asks to revisit naming or localization.
+
+### Error pages (`404.html`)
+
+The not-found page is intentionally English (`lang: en` and English body copy; no `title` in front matter so it stays out of Minima’s header nav)
+while the rest of the site defaults to Japanese metadata from `_config.yml`.
+Do not suggest aligning it with `site.lang` unless the maintainer asks.
