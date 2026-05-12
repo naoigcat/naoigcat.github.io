@@ -9,7 +9,6 @@
             shared demo-sort.js is loaded from head.html when sort_demo: true is set on the page
   - toolbar_variant: omit or "intro" (extra “昇順データ…” button)
 {% endcomment %}
-<!-- markdownlint-disable MD046 -->
 <div id="{{ include.id }}" class="sort-demo sort-demo--{{ include.preset }}">
 <div class="sort-demo__toolbar">
   <button type="button" data-{{ include.data_prefix }}="shuffle">シャッフル</button>
@@ -24,4 +23,3 @@
 <p class="sort-demo__caption" data-{{ include.data_prefix }}="caption" aria-live="polite"></p>
 {{ include.script }}
 </div>
-<!-- markdownlint-enable MD046 -->
