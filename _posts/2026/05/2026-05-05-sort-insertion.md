@@ -115,12 +115,8 @@ procedure insertion_sort(A)
 (function () {
   var root = document.getElementById('insertion-sort-demo');
   if (!root) return;
-  var C = window.DemoSort;
-  if (!C) return;
-
-  function mountBars(container, values) {
-    C.mountBars(container, values, 'insertion-sort-demo__bar');
-  }
+  var DemoSort = window.DemoSort;
+  if (!DemoSort || !DemoSort.attachPlayback) return;
 
   function generateSteps(initial) {
     var a = initial.slice();
@@ -168,124 +164,59 @@ procedure insertion_sort(A)
       nodes[hi].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
   }
 
-  var barsEl = root.querySelector('[data-is="bars"]');
-  var capEl = root.querySelector('[data-is="caption"]');
-  var btnShuffle = root.querySelector('[data-is="shuffle"]');
-  var btnPlay = root.querySelector('[data-is="play"]');
-  var btnPause = root.querySelector('[data-is="pause"]');
-  var btnStep = root.querySelector('[data-is="step"]');
-
-  var values = [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15];
-  var steps = [];
-  var idx = 0;
-  var playing = false;
-  var cancelled = false;
-  var busy = false;
-
-  function syncButtons() {
-    var atEnd = idx >= steps.length;
-    btnPlay.disabled = playing || atEnd || busy;
-    btnPause.disabled = !playing;
-    btnStep.disabled = playing || atEnd || busy;
-    btnShuffle.disabled = playing;
-  }
-
-  function rebuild(v) {
-    values = v;
-    steps = generateSteps(values);
-    idx = 0;
-    cancelled = true;
-    playing = false;
-    busy = false;
-    mountBars(barsEl, steps[0] ? steps[0].arr : values);
-    capEl.textContent =
-      '挿入ソートのデモ（挿入中の値は紫、比較はオレンジ、交換は緑）';
-    syncButtons();
-  }
-
-  async function applyStepForward() {
-    if (busy || idx >= steps.length) return;
-    busy = true;
-    syncButtons();
-    try {
-      var s = steps[idx];
-      idx++;
-
+  DemoSort.attachPlayback({
+    root: root,
+    dataAttr: 'data-is',
+    initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
+    initialCaption:
+      '挿入ソートのデモ（挿入中の値は紫、比較はオレンジ、交換は緑）',
+    barClass: 'insertion-sort-demo__bar',
+    generateSteps: generateSteps,
+    onStepError: function (api, err) {
+      console.error('Step execution error:', err);
+      api.setCaption('エラーが発生しました');
+    },
+    applyStep: async function (api, s) {
+      var barsEl = api.barsEl;
       if (s.kind === 'seg_start') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setRoles(barsEl, null, null, null, s.keyIdx);
-        capEl.textContent =
-          '位置 ' + s.keyIdx + ' の要素を、左の整列済み区間へ挿入しています（紫が取り込み対象）';
+        api.setCaption(
+          '位置 ' +
+            s.keyIdx +
+            ' の要素を、左の整列済み区間へ挿入しています（紫が取り込み対象）'
+        );
         return;
       }
-
       if (s.kind === 'compare') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setRoles(barsEl, s.lo, s.hi, 'compare', null);
-        capEl.textContent =
-          '比較: 位置 ' +
-          (s.lo) +
-          ' と ' +
-          (s.hi) +
-          '（左側が整列済みの範囲内）';
+        api.setCaption(
+          '比較: 位置 ' + s.lo + ' と ' + s.hi + '（左側が整列済みの範囲内）'
+        );
         return;
       }
-
       if (s.kind === 'swap') {
-        var prev = steps[idx - 2];
+        var prev = api.steps[api.idx - 2];
         var lo = prev && prev.kind === 'compare' ? prev.lo : s.lo;
         setRoles(barsEl, lo, lo + 1, 'swap', null);
-        capEl.textContent = '交換しています…';
-        await C.flipAdjacentSwap(barsEl, lo);
-        mountBars(barsEl, s.arr);
+        api.setCaption('交換しています…');
+        await DemoSort.flipAdjacentSwap(barsEl, lo);
+        api.mountBars(barsEl, s.arr);
         setRoles(barsEl, null, null, null, null);
-        capEl.textContent =
-          '交換しました（挿入する値をひとつ左へ進めました）';
+        api.setCaption(
+          '交換しました（挿入する値をひとつ左へ進めました）'
+        );
         return;
       }
-
       if (s.kind === 'done') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setRoles(barsEl, null, null, null, null);
-        capEl.textContent = 'ソート完了';
+        api.setCaption('ソート完了');
       }
-    } catch (err) {
-      console.error('Step execution error:', err);
-      capEl.textContent = 'エラーが発生しました';
-    } finally {
-      busy = false;
-      syncButtons();
-    }
-  }
-
-  btnShuffle.addEventListener('click', function () {
-    rebuild(C.shuffleCopy(values));
+    },
+    stepPauseMs: 280,
   });
-
-  btnStep.addEventListener('click', function () {
-    applyStepForward();
-  });
-
-  btnPlay.addEventListener('click', async function () {
-    playing = true;
-    cancelled = false;
-    syncButtons();
-    while (!cancelled && idx < steps.length) {
-      await applyStepForward();
-      var pauseMs = 280;
-      await C.wait(pauseMs);
-    }
-    playing = false;
-    syncButtons();
-  });
-
-  btnPause.addEventListener('click', function () {
-    cancelled = true;
-    playing = false;
-    syncButtons();
-  });
-
-  rebuild(values);
 })();
 </script>
 </div>

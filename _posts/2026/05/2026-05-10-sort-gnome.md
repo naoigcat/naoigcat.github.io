@@ -120,12 +120,8 @@ procedure gnome_sort(A)
 (function () {
   var root = document.getElementById('gnome-sort-demo');
   if (!root) return;
-  var C = window.DemoSort;
-  if (!C) return;
-
-  function mountBars(container, values) {
-    C.mountBars(container, values, 'gnome-sort-demo__bar');
-  }
+  var DemoSort = window.DemoSort;
+  if (!DemoSort || !DemoSort.attachPlayback) return;
 
   function generateSteps(initial) {
     var a = initial.slice();
@@ -171,115 +167,54 @@ procedure gnome_sort(A)
     if (nodes[idx]) nodes[idx].setAttribute('data-role', 'cursor');
   }
 
-  var barsEl = root.querySelector('[data-gs="bars"]');
-  var capEl = root.querySelector('[data-gs="caption"]');
-  var btnShuffle = root.querySelector('[data-gs="shuffle"]');
-  var btnPlay = root.querySelector('[data-gs="play"]');
-  var btnPause = root.querySelector('[data-gs="pause"]');
-  var btnStep = root.querySelector('[data-gs="step"]');
-
-  var values = [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15];
-  var steps = [];
-  var idx = 0;
-  var playing = false;
-  var cancelled = false;
-  var busy = false;
-
-  function syncButtons() {
-    var atEnd = idx >= steps.length;
-    btnPlay.disabled = playing || atEnd || busy;
-    btnPause.disabled = !playing;
-    btnStep.disabled = playing || atEnd || busy;
-    btnShuffle.disabled = playing;
-  }
-
-  function rebuild(v) {
-    values = v;
-    steps = generateSteps(values);
-    idx = 0;
-    cancelled = true;
-    playing = false;
-    busy = false;
-    mountBars(barsEl, steps[0] ? steps[0].arr : values);
-    capEl.textContent =
-      'ノームソートのデモ（現在位置は水色枠／比較はオレンジ／交換は緑）';
-    syncButtons();
-  }
-
-  async function applyStepForward() {
-    if (busy || idx >= steps.length) return;
-    busy = true;
-    syncButtons();
-    try {
-      var s = steps[idx];
-      idx++;
-
+  DemoSort.attachPlayback({
+    root: root,
+    dataAttr: 'data-gs',
+    initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
+    initialCaption:
+      'ノームソートのデモ（現在位置は水色枠／比較はオレンジ／交換は緑）',
+    barClass: 'gnome-sort-demo__bar',
+    generateSteps: generateSteps,
+    applyStep: async function (api, s) {
+      var barsEl = api.barsEl;
       if (s.kind === 'advance') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setCursor(barsEl, s.pos);
-        capEl.textContent =
-          '前進（位置 ' + s.pos +
-          ' とその左側は昇順になるまで見たので、ひとつ右へ進みます）';
+        api.setCaption(
+          '前進（位置 ' +
+            s.pos +
+            ' とその左側は昇順になるまで見たので、ひとつ右へ進みます）'
+        );
         return;
       }
-
       if (s.kind === 'compare') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setCompareOrSwap(barsEl, s.lo, s.hi, 'compare');
-        capEl.textContent = '比較: 位置 ' + s.lo + ' と ' + s.hi;
+        api.setCaption('比較: 位置 ' + s.lo + ' と ' + s.hi);
         return;
       }
-
       if (s.kind === 'swap') {
-        var prev = steps[idx - 2];
+        var prev = api.steps[api.idx - 2];
         var lo = prev && prev.kind === 'compare' ? prev.lo : s.lo;
         setCompareOrSwap(barsEl, lo, lo + 1, 'swap');
-        capEl.textContent = '交換しています…';
-        await C.flipAdjacentSwap(barsEl, lo);
+        api.setCaption('交換しています…');
+        await DemoSort.flipAdjacentSwap(barsEl, lo);
         clearRoles(barsEl);
-        capEl.textContent =
-          '順序が逆だったので左へ（位置 ' + lo + ' を基準にもう一度見直します）';
+        api.setCaption(
+          '順序が逆だったので左へ（位置 ' +
+            lo +
+            ' を基準にもう一度見直します）'
+        );
         return;
       }
-
       if (s.kind === 'done') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         clearRoles(barsEl);
-        capEl.textContent = 'ソート完了';
+        api.setCaption('ソート完了');
       }
-    } finally {
-      busy = false;
-      syncButtons();
-    }
-  }
-
-  btnShuffle.addEventListener('click', function () {
-    rebuild(C.shuffleCopy(values));
+    },
+    stepPauseMs: 280,
   });
-
-  btnStep.addEventListener('click', function () {
-    applyStepForward();
-  });
-
-  btnPlay.addEventListener('click', async function () {
-    playing = true;
-    cancelled = false;
-    syncButtons();
-    while (!cancelled && idx < steps.length) {
-      await applyStepForward();
-      await C.wait(280);
-    }
-    playing = false;
-    syncButtons();
-  });
-
-  btnPause.addEventListener('click', function () {
-    cancelled = true;
-    playing = false;
-    syncButtons();
-  });
-
-  rebuild(values);
 })();
 </script>
 </div>

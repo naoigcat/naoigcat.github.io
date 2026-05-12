@@ -126,12 +126,8 @@ procedure merge(A, lo, mid, hi)
 (function () {
   var root = document.getElementById('merge-sort-demo');
   if (!root) return;
-  var C = window.DemoSort;
-  if (!C) return;
-
-  function mountBars(container, values) {
-    C.mountBars(container, values, 'merge-sort-demo__bar');
-  }
+  var DemoSort = window.DemoSort;
+  if (!DemoSort || !DemoSort.attachPlayback) return;
 
   function buildDisplay(a, lo, tmp) {
     var d = a.slice();
@@ -247,125 +243,68 @@ procedure merge(A, lo, mid, hi)
     if (nodes[pos]) nodes[pos].setAttribute('data-role', 'write');
   }
 
-  var barsEl = root.querySelector('[data-ms="bars"]');
-  var capEl = root.querySelector('[data-ms="caption"]');
-  var btnShuffle = root.querySelector('[data-ms="shuffle"]');
-  var btnPlay = root.querySelector('[data-ms="play"]');
-  var btnPause = root.querySelector('[data-ms="pause"]');
-  var btnStep = root.querySelector('[data-ms="step"]');
-
-  var values = [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15];
-  var steps = [];
-  var idx = 0;
-  var playing = false;
-  var cancelled = false;
-  var busy = false;
-
-  function syncButtons() {
-    var atEnd = idx >= steps.length;
-    btnPlay.disabled = playing || atEnd || busy;
-    btnPause.disabled = !playing;
-    btnStep.disabled = playing || atEnd || busy;
-    btnShuffle.disabled = playing;
-  }
-
-  function rebuild(v) {
-    values = v;
-    steps = generateSteps(values);
-    idx = 0;
-    cancelled = true;
-    playing = false;
-    busy = false;
-    mountBars(barsEl, steps[0] ? steps[0].arr : values);
-    capEl.textContent =
-      'マージソートのデモ（分割・マージ対象は青、比較はオレンジ、確定書き込みは緑）';
-    syncButtons();
-  }
-
-  async function applyStepForward() {
-    if (busy || idx >= steps.length) return;
-    busy = true;
-    syncButtons();
-    try {
-      var s = steps[idx];
-      idx++;
-
+  DemoSort.attachPlayback({
+    root: root,
+    dataAttr: 'data-ms',
+    initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
+    initialCaption:
+      'マージソートのデモ（分割・マージ対象は青、比較はオレンジ、確定書き込みは緑）',
+    barClass: 'merge-sort-demo__bar',
+    generateSteps: generateSteps,
+    applyStep: async function (api, s) {
+      var barsEl = api.barsEl;
       if (s.kind === 'split') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setRange(barsEl, s.lo, s.hi);
-        capEl.textContent =
-          '分割: 区間 ' + s.lo + ' … ' + s.hi + '（中央 mid = ' + s.mid + '）';
+        api.setCaption(
+          '分割: 区間 ' + s.lo + ' … ' + s.hi + '（中央 mid = ' + s.mid + '）'
+        );
         return;
       }
-
       if (s.kind === 'merge_start') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setRange(barsEl, s.lo, s.hi);
-        capEl.textContent =
-          'マージ開始: 左 [' + s.lo + '…' + s.mid + '] と 右 [' + (s.mid + 1) + '…' + s.hi + ']';
+        api.setCaption(
+          'マージ開始: 左 [' +
+            s.lo +
+            '…' +
+            s.mid +
+            '] と 右 [' +
+            (s.mid + 1) +
+            '…' +
+            s.hi +
+            ']'
+        );
         return;
       }
-
       if (s.kind === 'merge_compare') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setCompare(barsEl, s.i, s.j);
-        capEl.textContent = '比較: 位置 ' + s.i + ' と ' + s.j;
+        api.setCaption('比較: 位置 ' + s.i + ' と ' + s.j);
         return;
       }
-
       if (s.kind === 'merge_write') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         setWrite(barsEl, s.writePos);
-        capEl.textContent = '先頭から確定: 位置 ' + s.writePos;
+        api.setCaption('先頭から確定: 位置 ' + s.writePos);
         return;
       }
-
       if (s.kind === 'merge_done') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         clearRoles(barsEl);
-        capEl.textContent =
-          '区間 ' + s.lo + ' … ' + s.hi + ' のマージが完了しました';
+        api.setCaption(
+          '区間 ' + s.lo + ' … ' + s.hi + ' のマージが完了しました'
+        );
         return;
       }
-
       if (s.kind === 'done') {
-        mountBars(barsEl, s.arr);
+        api.mountBars(barsEl, s.arr);
         clearRoles(barsEl);
-        capEl.textContent = 'ソート完了';
+        api.setCaption('ソート完了');
       }
-    } finally {
-      busy = false;
-      syncButtons();
-    }
-  }
-
-  btnShuffle.addEventListener('click', function () {
-    rebuild(C.shuffleCopy(values));
+    },
+    stepPauseMs: 220,
   });
-
-  btnStep.addEventListener('click', function () {
-    applyStepForward();
-  });
-
-  btnPlay.addEventListener('click', async function () {
-    playing = true;
-    cancelled = false;
-    syncButtons();
-    while (!cancelled && idx < steps.length) {
-      await applyStepForward();
-      await C.wait(220);
-    }
-    playing = false;
-    syncButtons();
-  });
-
-  btnPause.addEventListener('click', function () {
-    cancelled = true;
-    playing = false;
-    syncButtons();
-  });
-
-  rebuild(values);
 })();
 </script>
 </div>
