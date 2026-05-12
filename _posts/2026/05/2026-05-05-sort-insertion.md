@@ -30,87 +30,7 @@ procedure insertion_sort(A)
 
 小さな長さにおいては単純でオーバーヘッドも少ないメリットがある。
 
-<!-- markdownlint-disable MD046 -->
-<div id="insertion-sort-demo" class="insertion-sort-demo">
-<style>
-.insertion-sort-demo {
-  margin: 1.25rem 0;
-  padding: 1rem;
-  border: 1px solid rgba(128,128,128,.35);
-  border-radius: 8px;
-  background: var(--minima-brand-color-lightest, #f9f9f9);
-}
-.insertion-sort-demo__toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  font-size: 0.9rem;
-}
-.insertion-sort-demo__toolbar button {
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  border: 1px solid rgba(0,0,0,.2);
-  background: #fff;
-  cursor: pointer;
-  font: inherit;
-}
-.insertion-sort-demo__toolbar button:hover {
-  border-color: rgba(0,0,0,.45);
-}
-.insertion-sort-demo__toolbar button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-.insertion-sort-demo__bars {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 6px;
-  min-height: 140px;
-  padding: 0.5rem;
-}
-.insertion-sort-demo__bar {
-  flex: 1 1 0;
-  max-width: 48px;
-  min-width: 28px;
-  border-radius: 4px 4px 2px 2px;
-  background: linear-gradient(180deg, #5b9bd5 0%, #2e75b6 100%);
-  box-shadow: 0 2px 4px rgba(0,0,0,.12);
-  transition: box-shadow 0.15s ease, outline-color 0.15s ease;
-  transform: translateX(0);
-}
-.insertion-sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.insertion-sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
-.insertion-sort-demo__bar[data-role="key"] {
-  outline: 3px solid #9b59b6;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(155,89,182,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.insertion-sort-demo__caption { margin-top: 0.5rem; font-size: 0.85rem; color: #555; text-align: center; min-height: 1.25em; }
-@media (prefers-color-scheme: dark) {
-  .insertion-sort-demo { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
-  .insertion-sort-demo__toolbar button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: inherit; }
-  .insertion-sort-demo__caption { color: #bbb; }
-}
-</style>
-<div class="insertion-sort-demo__toolbar">
-  <button type="button" data-is="shuffle">シャッフル</button>
-  <button type="button" data-is="play">自動再生</button>
-  <button type="button" data-is="pause" disabled>一時停止</button>
-  <button type="button" data-is="step">1ステップ</button>
-</div>
-<div class="insertion-sort-demo__bars" data-is="bars" aria-live="polite"></div>
-<p class="insertion-sort-demo__caption" data-is="caption"></p>
-<script src="{{ '/assets/js/demo-sort.js' | relative_url }}"></script>
+{% capture sort_demo_js %}
 <script>
 (function () {
   var root = document.getElementById('insertion-sort-demo');
@@ -170,7 +90,7 @@ procedure insertion_sort(A)
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       '挿入ソートのデモ（挿入中の値は紫、比較はオレンジ、交換は緑）',
-    barClass: 'insertion-sort-demo__bar',
+    barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     onStepError: function (api, err) {
       console.error('Step execution error:', err);
@@ -219,7 +139,13 @@ procedure insertion_sort(A)
   });
 })();
 </script>
-</div>
-<!-- markdownlint-enable MD046 -->
+{% endcapture %}
+
+{% include sort-demo/wrapper.html
+  id="insertion-sort-demo"
+  preset="insertion"
+  data_prefix="is"
+  script=sort_demo_js
+%}
 
 教育用には [バブルソート](/2026/05/01/sort-bubble.html) と同様に実装も追いやすいが、入力が整列済みに近いほどステップが少なくなる点が異なる。広い入力では単体ではなく、より高速なアルゴリズムの補助（小区間処理）としての利用が現実的である。
