@@ -69,26 +69,16 @@
   .sort-demo__toolbar button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: inherit; }
   .sort-demo__caption { color: #bbb; }
 }
-{% if p == 'bubble' or p == 'shell' or p == 'shaker' or p == 'comb' %}
-.sort-demo--{{ p }} .sort-demo__bar[data-role="compare"] {
+.sort-demo__bar[data-role="compare"] {
   outline: 3px solid #e67e22;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
 }
-.sort-demo--{{ p }} .sort-demo__bar[data-role="swap"] {
+.sort-demo__bar[data-role="swap"] {
   outline: 3px solid #27ae60;
   outline-offset: 2px;
 }
-{% elsif p == 'quick' %}
-.sort-demo--quick .sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.sort-demo--quick .sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
+{% if p == 'quick' %}
 .sort-demo--quick .sort-demo__bar[data-role="pivot"] {
   outline: 3px solid #9b59b6;
   outline-offset: 2px;
@@ -100,26 +90,12 @@
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(52,152,219,.35), 0 2px 6px rgba(0,0,0,.18);
 }
-.sort-demo--merge .sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
 .sort-demo--merge .sort-demo__bar[data-role="write"] {
   outline: 3px solid #27ae60;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(39,174,96,.35), 0 2px 6px rgba(0,0,0,.18);
 }
 {% elsif p == 'heap' %}
-.sort-demo--heap .sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.sort-demo--heap .sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
 .sort-demo--heap .sort-demo__bar[data-role="sorted"] {
   outline: 3px solid #9b59b6;
   outline-offset: 2px;
@@ -127,45 +103,18 @@
   opacity: 0.92;
 }
 {% elsif p == 'insertion' %}
-.sort-demo--insertion .sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.sort-demo--insertion .sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
 .sort-demo--insertion .sort-demo__bar[data-role="key"] {
   outline: 3px solid #9b59b6;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(155,89,182,.35), 0 2px 6px rgba(0,0,0,.18);
 }
 {% elsif p == 'gnome' %}
-.sort-demo--gnome .sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.sort-demo--gnome .sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
 .sort-demo--gnome .sort-demo__bar[data-role="cursor"] {
   outline: 3px solid #1abc9c;
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(26,188,156,.35), 0 2px 6px rgba(0,0,0,.18);
 }
 {% elsif p == 'selection' %}
-.sort-demo--selection .sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.sort-demo--selection .sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
 .sort-demo--selection .sort-demo__bar[data-role="sorted"] {
   outline: 3px solid #9b59b6;
   outline-offset: 2px;
@@ -177,20 +126,7 @@
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(142,68,173,.35), 0 2px 6px rgba(0,0,0,.18);
 }
-.sort-demo--tree .sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
 {% elsif p == 'intro' %}
-.sort-demo--intro .sort-demo__bar[data-role="compare"] {
-  outline: 3px solid #e67e22;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
-}
-.sort-demo--intro .sort-demo__bar[data-role="swap"] {
-  outline: 3px solid #27ae60;
-  outline-offset: 2px;
-}
 .sort-demo--intro .sort-demo__bar[data-role="pivot"] {
   outline: 3px solid #9b59b6;
   outline-offset: 2px;
