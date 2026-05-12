@@ -47,14 +47,13 @@ procedure shaker_sort(A)
 <script>
 window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
   function generateSteps(initial) {
-    var a = initial.slice();
-    var steps = [];
-    var begin = 0;
-    var end = a.length - 1;
+    const a = initial.slice();
+    const steps = [];
+    let begin = 0;
+    let end = a.length - 1;
     while (begin < end) {
-      var swapped = false;
-      var i;
-      for (i = begin; i < end; i++) {
+      let swapped = false;
+      for (let i = begin; i < end; i++) {
         steps.push({
           kind: 'compare',
           lo: i,
@@ -63,7 +62,7 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
           arr: a.slice(),
         });
         if (a[i] > a[i + 1]) {
-          var t = a[i];
+          const t = a[i];
           a[i] = a[i + 1];
           a[i + 1] = t;
           swapped = true;
@@ -80,7 +79,7 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
       if (!swapped) break;
 
       swapped = false;
-      for (i = end; i > begin; i--) {
+      for (let i = end; i > begin; i--) {
         steps.push({
           kind: 'compare',
           lo: i - 1,
@@ -89,7 +88,7 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
           arr: a.slice(),
         });
         if (a[i - 1] > a[i]) {
-          var t2 = a[i - 1];
+          const t2 = a[i - 1];
           a[i - 1] = a[i];
           a[i] = t2;
           swapped = true;
@@ -122,7 +121,7 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
-      var barsEl = api.barsEl;
+      const barsEl = api.barsEl;
       if (s.kind === 'compare') {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, [[s.lo, 'compare'], [s.hi, 'compare']]);

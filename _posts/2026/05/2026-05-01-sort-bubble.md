@@ -33,16 +33,16 @@ procedure bubble_sort(A)
 <script>
 window.DemoSort && DemoSort.boot('bubble-sort-demo', function (root) {
   function generateSteps(initial) {
-    var a = initial.slice();
-    var steps = [];
-    var n = a.length;
-    var i, j, swapped;
-    for (i = 0; i < n - 1; i++) {
+    const a = initial.slice();
+    const steps = [];
+    const n = a.length;
+    let swapped;
+    for (let i = 0; i < n - 1; i++) {
       swapped = false;
-      for (j = 0; j < n - 1 - i; j++) {
+      for (let j = 0; j < n - 1 - i; j++) {
         steps.push({ kind: 'compare', lo: j, hi: j + 1, arr: a.slice() });
         if (a[j] > a[j + 1]) {
-          var t = a[j];
+          const t = a[j];
           a[j] = a[j + 1];
           a[j + 1] = t;
           swapped = true;
@@ -64,7 +64,7 @@ window.DemoSort && DemoSort.boot('bubble-sort-demo', function (root) {
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
-      var barsEl = api.barsEl;
+      const barsEl = api.barsEl;
       if (s.kind === 'compare') {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, [[s.lo, 'compare'], [s.hi, 'compare']]);

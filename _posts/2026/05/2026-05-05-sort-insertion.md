@@ -34,21 +34,20 @@ procedure insertion_sort(A)
 <script>
 window.DemoSort && DemoSort.boot('insertion-sort-demo', function (root) {
   function generateSteps(initial) {
-    var a = initial.slice();
-    var steps = [];
-    var n = a.length;
-    var i, j;
-    for (i = 1; i < n; i++) {
+    const a = initial.slice();
+    const steps = [];
+    const n = a.length;
+    for (let i = 1; i < n; i++) {
       steps.push({
         kind: 'seg_start',
         keyIdx: i,
         arr: a.slice(),
       });
-      j = i;
+      let j = i;
       while (j > 0) {
         steps.push({ kind: 'compare', lo: j - 1, hi: j, arr: a.slice(), keyIdx: j });
         if (a[j - 1] > a[j]) {
-          var t = a[j];
+          const t = a[j];
           a[j] = a[j - 1];
           a[j - 1] = t;
           steps.push({
@@ -79,7 +78,7 @@ window.DemoSort && DemoSort.boot('insertion-sort-demo', function (root) {
       api.setCaption('エラーが発生しました');
     },
     applyStep: async function (api, s) {
-      var barsEl = api.barsEl;
+      const barsEl = api.barsEl;
       if (s.kind === 'seg_start') {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, [[s.keyIdx, 'key']]);

@@ -34,18 +34,17 @@ procedure shell_sort(A)
 <script>
 window.DemoSort && DemoSort.boot('shell-sort-demo', function (root) {
   function generateSteps(initial) {
-    var a = initial.slice();
-    var steps = [];
-    var n = a.length;
-    var gap = Math.floor(n / 2);
+    const a = initial.slice();
+    const steps = [];
+    const n = a.length;
+    let gap = Math.floor(n / 2);
     while (gap > 0) {
       steps.push({ kind: 'gap', gap: gap, arr: a.slice() });
-      var i;
-      for (i = gap; i < n; i++) {
-        var j = i;
+      for (let i = gap; i < n; i++) {
+        let j = i;
         while (j >= gap && a[j - gap] > a[j]) {
           steps.push({ kind: 'compare', lo: j - gap, hi: j, arr: a.slice() });
-          var t = a[j];
+          const t = a[j];
           a[j] = a[j - gap];
           a[j - gap] = t;
           steps.push({ kind: 'swap', lo: j - gap, hi: j, arr: a.slice() });
@@ -67,7 +66,7 @@ window.DemoSort && DemoSort.boot('shell-sort-demo', function (root) {
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
-      var barsEl = api.barsEl;
+      const barsEl = api.barsEl;
       if (s.kind === 'gap') {
         api.mountBars(barsEl, s.arr);
         DemoSort.clearRoles(barsEl);

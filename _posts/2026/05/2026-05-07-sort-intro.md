@@ -45,7 +45,7 @@ C++ の `std::sort` や、一部言語ランタイムの汎用ソートが、ク
 <script>
 window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
   /** デモ用に小区間閾値を小さめにし、クイックフェーズが視覚化されやすくしている（実装ではしばしばもう少し大きい）。 */
-  var INSERTION_THRESHOLD = 4;
+  const INSERTION_THRESHOLD = 4;
 
   function maxDepthLimit(n) {
     if (n <= 1) return 0;
@@ -53,18 +53,17 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
   }
 
   function generateSteps(initial) {
-    var a = initial.slice();
-    var steps = [];
+    const a = initial.slice();
+    const steps = [];
 
     function partition(lo, hi) {
-      var pivotVal = a[hi];
-      var i = lo;
-      var j;
-      for (j = lo; j <= hi - 1; j++) {
+      const pivotVal = a[hi];
+      let i = lo;
+      for (let j = lo; j <= hi - 1; j++) {
         steps.push({ kind: 'compare', lo: j, hi: hi, arr: a.slice(), phase: 'quick' });
         if (a[j] < pivotVal) {
           if (i !== j) {
-            var t = a[i];
+            const t = a[i];
             a[i] = a[j];
             a[j] = t;
             steps.push({ kind: 'swap', lo: i, hi: j, arr: a.slice(), phase: 'quick' });
@@ -73,7 +72,7 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
         }
       }
       if (i !== hi) {
-        var t2 = a[i];
+        const t2 = a[i];
         a[i] = a[hi];
         a[hi] = t2;
         steps.push({ kind: 'swap', lo: i, hi: hi, arr: a.slice(), phase: 'quick' });
@@ -82,13 +81,12 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
     }
 
     function insertionSort(lo, hi) {
-      var i, j;
-      for (i = lo + 1; i <= hi; i++) {
-        j = i;
+      for (let i = lo + 1; i <= hi; i++) {
+        let j = i;
         while (j > lo) {
           steps.push({ kind: 'compare', lo: j - 1, hi: j, arr: a.slice(), phase: 'insert' });
           if (a[j - 1] > a[j]) {
-            var t = a[j - 1];
+            const t = a[j - 1];
             a[j - 1] = a[j];
             a[j] = t;
             steps.push({ kind: 'swap', lo: j - 1, hi: j, arr: a.slice(), phase: 'insert' });
@@ -102,14 +100,14 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
 
     function siftDown(lo0, heapLen, root) {
       while (true) {
-        var left = 2 * root + 1;
-        var right = 2 * root + 2;
-        var largest = root;
+        const left = 2 * root + 1;
+        const right = 2 * root + 2;
+        let largest = root;
         if (left < heapLen && a[lo0 + left] > a[lo0 + largest]) largest = left;
         if (right < heapLen && a[lo0 + right] > a[lo0 + largest]) largest = right;
         if (largest === root) break;
         steps.push({ kind: 'heap_compare', lo: lo0 + root, hi: lo0 + largest, arr: a.slice() });
-        var tmp = a[lo0 + root];
+        const tmp = a[lo0 + root];
         a[lo0 + root] = a[lo0 + largest];
         a[lo0 + largest] = tmp;
         steps.push({ kind: 'swap', lo: lo0 + root, hi: lo0 + largest, arr: a.slice(), phase: 'heap' });
@@ -119,13 +117,12 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
 
     function heapsortRange(lo0, hi0) {
       steps.push({ kind: 'heap_start', lo: lo0, hi: hi0, arr: a.slice() });
-      var n = hi0 - lo0 + 1;
-      var i;
-      for (i = Math.floor(n / 2) - 1; i >= 0; i--) {
+      const n = hi0 - lo0 + 1;
+      for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
         siftDown(lo0, n, i);
       }
-      for (i = n - 1; i > 0; i--) {
-        var t = a[lo0];
+      for (let i = n - 1; i > 0; i--) {
+        const t = a[lo0];
         a[lo0] = a[lo0 + i];
         a[lo0 + i] = t;
         steps.push({ kind: 'swap', lo: lo0, hi: lo0 + i, arr: a.slice(), phase: 'heap' });
@@ -160,7 +157,7 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
         return;
       }
       steps.push({ kind: 'part_start', lo: lo, hi: hi, depth: depth, arr: a.slice() });
-      var p = partition(lo, hi);
+      const p = partition(lo, hi);
       steps.push({ kind: 'part_end', pivot: p, depth: depth, arr: a.slice() });
       intro(lo, p - 1, depth - 1);
       intro(p + 1, hi, depth - 1);
@@ -206,7 +203,7 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
       },
     },
     applyStep: async function (api, s) {
-      var barsEl = api.barsEl;
+      const barsEl = api.barsEl;
       if (s.kind === 'phase') {
         api.mountBars(barsEl, s.arr);
         DemoSort.clearRoles(barsEl);
