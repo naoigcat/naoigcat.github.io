@@ -57,7 +57,7 @@ window.DemoSort && DemoSort.boot('bubble-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-bs',
+    dataAttr: 'data-bubble',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'バブルソートのデモ（比較はオレンジ、交換は緑の枠）',
@@ -96,7 +96,7 @@ window.DemoSort && DemoSort.boot('bubble-sort-demo', function (root) {
 {% include sort-demo/wrapper.html
   id="bubble-sort-demo"
   preset="bubble"
-  data_prefix="bs"
+  data_prefix="bubble"
   script=sort_demo_js
 %}
 
