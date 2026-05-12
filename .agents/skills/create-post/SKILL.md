@@ -1,7 +1,8 @@
 ---
 name: create-post
 description: >-
-    Creates a new post file with the given title, using the prescribed format and front matter.
+    Creates a new post file with the given title, using the prescribed format and front matter aligned so scalar values begin
+    on column 12 (matching `sort_demo:` rows elsewhere in `_posts/`).
 ---
 
 # create-post
@@ -77,18 +78,53 @@ Create the new Markdown file at:
 
 ## 4. Write the file
 
-Write the following front matter in the created file:
+### Front matter column alignment
+
+For every scalar `key: value` line in YAML front matter, align values **vertically** so the **first character of each
+value sits on column 12** when counting positions from 1 at the row start. The longest key prefix in `_posts/` is
+`sort_demo:`; shorter keys pad with spaces immediately after `:` so every value aligns with rows that define `sort_demo`.
+
+Concretely, after stripping surrounding whitespace from each scalar value, rebuild each line so the substring beginning
+with `key:` and ending with delimiter spaces occupies **exactly eleven characters**, then append the trimmed value
+(with no extra gap)—the value begins at column 12. Known keys resolve to the spacing counts in the numbered list below. If any
+new front matter scalar key exceeds the width of `sort_demo:`, recompute padding for **all** scalar keys in that front matter
+together so columns still agree.
+
+Mandatory keys layout:
 
 ```markdown
 ---
-layout: post
-title:  {display_title}
-date:   {date}
-tags:   {tag}
+layout:    post
+title:     {display_title}
+date:      {date}
+tags:      {tag}
 ---
 ```
 
-Optional front matter keys (add only when the post needs them):
+When adding optional scalar keys (`mermaid`, `sort_demo`), include only keys the post needs. If multiple optional keys are
+present, list them **in alphabetical order** (`mermaid` before `sort_demo`), using the spacing reference.
+
+```markdown
+layout:    post
+title:     …
+date:      …
+tags:      …
+mermaid:   true
+sort_demo: true
+```
+
+The fenced block above is **illustrative** (omit unused keys).
+
+Spacing reference (**ASCII spaces** after colon before each value):
+
+-   `layout`: 4 spaces.
+-   `title`: 5 spaces.
+-   `date`: 6 spaces.
+-   `tags`: 6 spaces.
+-   `mermaid`: 3 spaces.
+-   `sort_demo`: 1 space.
+
+Optional front matter keys (semantics reminder):
 
 -   **`mermaid: true`** — `head.html` loads the Mermaid CDN script so Mermaid fenced code blocks render.
 -   **`sort_demo: true`** — `head.html` loads sort-demo CSS and `demo-sort.js` when using `{% include sort-demo/wrapper.html %}`.
