@@ -32,12 +32,7 @@ procedure shell_sort(A)
 
 {% capture sort_demo_js %}
 <script>
-(function () {
-  var root = document.getElementById('shell-sort-demo');
-  if (!root) return;
-  var DemoSort = window.DemoSort;
-  if (!DemoSort || !DemoSort.attachPlayback) return;
-
+window.DemoSort && DemoSort.boot('shell-sort-demo', function (root) {
   function generateSteps(initial) {
     var a = initial.slice();
     var steps = [];
@@ -63,16 +58,6 @@ procedure shell_sort(A)
     return steps;
   }
 
-  function setRoles(container, lo, hi, kind) {
-    var nodes = container.children;
-    for (var k = 0; k < nodes.length; k++) {
-      nodes[k].removeAttribute('data-role');
-    }
-    if (lo == null || hi == null) return;
-    if (nodes[lo]) nodes[lo].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-    if (nodes[hi]) nodes[hi].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-  }
-
   DemoSort.attachPlayback({
     root: root,
     dataAttr: 'data-ss',
@@ -85,7 +70,7 @@ procedure shell_sort(A)
       var barsEl = api.barsEl;
       if (s.kind === 'gap') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           'ギャップ ' + s.gap + ' で間隔付き挿入ソートを実行します'
         );
@@ -93,7 +78,7 @@ procedure shell_sort(A)
       }
       if (s.kind === 'compare') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, s.lo, s.hi, 'compare');
+        DemoSort.assignRoles(barsEl, [[s.lo, 'compare'], [s.hi, 'compare']]);
         api.setCaption(
           '比較: 位置 ' +
             s.lo +
@@ -106,10 +91,10 @@ procedure shell_sort(A)
         return;
       }
       if (s.kind === 'swap') {
-        setRoles(barsEl, s.lo, s.hi, 'swap');
+        DemoSort.assignRoles(barsEl, [[s.lo, 'swap'], [s.hi, 'swap']]);
         api.setCaption('交換しています…');
         await DemoSort.flipSwap(barsEl, s.lo, s.hi);
-        setRoles(barsEl, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           '交換しました（位置 ' + s.lo + ' と ' + s.hi + '）'
         );
@@ -117,13 +102,13 @@ procedure shell_sort(A)
       }
       if (s.kind === 'done') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption('ソート完了');
       }
     },
     stepPauseMs: 280,
   });
-})();
+});
 </script>
 {% endcapture %}
 

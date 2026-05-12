@@ -31,12 +31,7 @@ procedure bubble_sort(A)
 
 {% capture sort_demo_js %}
 <script>
-(function () {
-  var root = document.getElementById('bubble-sort-demo');
-  if (!root) return;
-  var DemoSort = window.DemoSort;
-  if (!DemoSort || !DemoSort.attachPlayback) return;
-
+window.DemoSort && DemoSort.boot('bubble-sort-demo', function (root) {
   function generateSteps(initial) {
     var a = initial.slice();
     var steps = [];
@@ -60,16 +55,6 @@ procedure bubble_sort(A)
     return steps;
   }
 
-  function setRoles(container, lo, hi, kind) {
-    var nodes = container.children;
-    for (var i = 0; i < nodes.length; i++) {
-      nodes[i].removeAttribute('data-role');
-    }
-    if (lo == null || hi == null) return;
-    if (nodes[lo]) nodes[lo].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-    if (nodes[hi]) nodes[hi].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-  }
-
   DemoSort.attachPlayback({
     root: root,
     dataAttr: 'data-bs',
@@ -82,17 +67,17 @@ procedure bubble_sort(A)
       var barsEl = api.barsEl;
       if (s.kind === 'compare') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, s.lo, s.hi, 'compare');
+        DemoSort.assignRoles(barsEl, [[s.lo, 'compare'], [s.hi, 'compare']]);
         api.setCaption('比較: 位置 ' + s.lo + ' と ' + s.hi);
         return;
       }
       if (s.kind === 'swap') {
         var prev = api.steps[api.idx - 2];
         var lo = prev && prev.kind === 'compare' ? prev.lo : s.lo;
-        setRoles(barsEl, lo, lo + 1, 'swap');
+        DemoSort.assignRoles(barsEl, [[lo, 'swap'], [lo + 1, 'swap']]);
         api.setCaption('交換しています…');
         await DemoSort.flipAdjacentSwap(barsEl, lo);
-        setRoles(barsEl, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           '交換しました（位置 ' + lo + ' と ' + (lo + 1) + '）'
         );
@@ -100,13 +85,13 @@ procedure bubble_sort(A)
       }
       if (s.kind === 'done') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption('ソート完了');
       }
     },
     stepPauseMs: 280,
   });
-})();
+});
 </script>
 {% endcapture %}
 

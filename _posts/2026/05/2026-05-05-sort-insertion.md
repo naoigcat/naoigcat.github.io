@@ -32,12 +32,7 @@ procedure insertion_sort(A)
 
 {% capture sort_demo_js %}
 <script>
-(function () {
-  var root = document.getElementById('insertion-sort-demo');
-  if (!root) return;
-  var DemoSort = window.DemoSort;
-  if (!DemoSort || !DemoSort.attachPlayback) return;
-
+window.DemoSort && DemoSort.boot('insertion-sort-demo', function (root) {
   function generateSteps(initial) {
     var a = initial.slice();
     var steps = [];
@@ -71,19 +66,6 @@ procedure insertion_sort(A)
     return steps;
   }
 
-  function setRoles(container, lo, hi, kind, keyIdx) {
-    var nodes = container.children;
-    for (var i = 0; i < nodes.length; i++) {
-      nodes[i].removeAttribute('data-role');
-    }
-    if (keyIdx != null && nodes[keyIdx]) nodes[keyIdx].setAttribute('data-role', 'key');
-    if (lo == null || hi == null) return;
-    if (nodes[lo])
-      nodes[lo].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-    if (nodes[hi])
-      nodes[hi].setAttribute('data-role', kind === 'swap' ? 'swap' : 'compare');
-  }
-
   DemoSort.attachPlayback({
     root: root,
     dataAttr: 'data-is',
@@ -100,7 +82,7 @@ procedure insertion_sort(A)
       var barsEl = api.barsEl;
       if (s.kind === 'seg_start') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, null, null, null, s.keyIdx);
+        DemoSort.assignRoles(barsEl, [[s.keyIdx, 'key']]);
         api.setCaption(
           '位置 ' +
             s.keyIdx +
@@ -110,7 +92,7 @@ procedure insertion_sort(A)
       }
       if (s.kind === 'compare') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, s.lo, s.hi, 'compare', null);
+        DemoSort.assignRoles(barsEl, [[s.lo, 'compare'], [s.hi, 'compare']]);
         api.setCaption(
           '比較: 位置 ' + s.lo + ' と ' + s.hi + '（左側が整列済みの範囲内）'
         );
@@ -119,11 +101,11 @@ procedure insertion_sort(A)
       if (s.kind === 'swap') {
         var prev = api.steps[api.idx - 2];
         var lo = prev && prev.kind === 'compare' ? prev.lo : s.lo;
-        setRoles(barsEl, lo, lo + 1, 'swap', null);
+        DemoSort.assignRoles(barsEl, [[lo, 'swap'], [lo + 1, 'swap']]);
         api.setCaption('交換しています…');
         await DemoSort.flipAdjacentSwap(barsEl, lo);
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, null, null, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption(
           '交換しました（挿入する値をひとつ左へ進めました）'
         );
@@ -131,13 +113,13 @@ procedure insertion_sort(A)
       }
       if (s.kind === 'done') {
         api.mountBars(barsEl, s.arr);
-        setRoles(barsEl, null, null, null, null);
+        DemoSort.clearRoles(barsEl);
         api.setCaption('ソート完了');
       }
     },
     stepPauseMs: 280,
   });
-})();
+});
 </script>
 {% endcapture %}
 
