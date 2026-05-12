@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     XcodeのBuild Phasesで使用できる環境変数を出力する
-date:      2023/01/25 12:23:53 +0900
+date:      2023-01-25 12:23:53 +0900
 tags:      xcode
 ---
 

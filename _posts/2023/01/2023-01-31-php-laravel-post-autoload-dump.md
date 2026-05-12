@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     既存のLaravelプロジェクトでもキーを生成する
-date:      2023/01/31 12:31:39 +0900
+date:      2023-01-31 12:31:39 +0900
 tags:      php laravel
 ---
 

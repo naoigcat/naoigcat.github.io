@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Docker Composeで起動するサービスを指定する
-date:      2023/02/20 12:00:52 +0900
+date:      2023-02-20 12:00:52 +0900
 tags:      docker
 ---
 

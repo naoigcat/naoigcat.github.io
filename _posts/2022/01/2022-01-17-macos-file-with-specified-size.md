@@ -1,8 +1,8 @@
 ---
 layout:    post
 title:     macOSで指定したサイズのダミーファイルを作成する
-date:      2022/01/17 08:30:14 +0900
-tags:      macos sh
+date:      2022-01-17 08:30:14 +0900
+tags:      macos bash
 ---
 
 ## コマンドで指定したサイズのファイルを作成する

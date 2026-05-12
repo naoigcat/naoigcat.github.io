@@ -1,8 +1,8 @@
 ---
 layout:    post
 title:     xargsで入力が空のときに処理を実行しない
-date:      2022/12/29 12:11:20 +0900
-tags:      sh
+date:      2022-12-29 12:11:20 +0900
+tags:      bash
 ---
 
 ## GNU版とBSD版で挙動を揃える

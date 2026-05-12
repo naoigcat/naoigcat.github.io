@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     Dockerコンテナでdnsmasqを立ち上げる
-date:      2024/12/19 14:24:08 +0900
+date:      2024-12-19 14:24:08 +0900
 tags:      docker
 ---
 

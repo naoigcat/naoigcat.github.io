@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     OpenCV 3.1.0はiOSの実機向けにビルドできない
-date:      2023/06/20 12:07:23 +0900
+date:      2023-06-20 12:07:23 +0900
 tags:      opencv ios
 ---
 

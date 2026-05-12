@@ -1,7 +1,7 @@
 ---
 layout:    post
 title:     スプレッドシートでQUERY関数を使用する
-date:      2023/06/05 12:08:58 +0900
+date:      2023-06-05 12:08:58 +0900
 tags:      google
 ---
 
