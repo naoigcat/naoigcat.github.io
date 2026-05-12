@@ -41,7 +41,7 @@
   max-width: 48px;
   min-width: 28px;
   border-radius: 4px 4px 2px 2px;
-  background: linear-gradient(180deg, #5b9bd5 0%, #2e75b6 100%);
+  background: var(--sort-demo-bar-gradient);
   box-shadow: 0 2px 4px rgba(0,0,0,.12);
   transition: box-shadow 0.15s ease, outline-color 0.15s ease;
   transform: translateX(0);
