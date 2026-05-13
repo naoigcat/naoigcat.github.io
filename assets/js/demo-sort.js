@@ -1,6 +1,7 @@
 /**
  * Sort bar demos: animation helpers, toolbar query, role markers, and shared
  * playback wiring. Depends on nothing; attaches DemoSort to window.
+ * Swap animations honor prefers-reduced-motion: reduce (instant DOM reorder).
  *
  * DemoSort.boot(rootId, fn)
  * DemoSort.clearRoles(container)
@@ -10,6 +11,16 @@
  */
 (function (global) {
   'use strict';
+
+  /** @returns {boolean} */
+  function prefersReducedMotion() {
+    if (typeof window === 'undefined' || !window.matchMedia) return false;
+    try {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (_e) {
+      return false;
+    }
+  }
 
   function transitionPromise(el) {
     return new Promise(function (resolve) {
@@ -80,6 +91,11 @@
     const second = children[lo + 1];
     if (!first || !second) return;
 
+    if (prefersReducedMotion()) {
+      container.insertBefore(second, first);
+      return;
+    }
+
     const b1 = first.getBoundingClientRect();
     const b2 = second.getBoundingClientRect();
 
@@ -128,6 +144,11 @@
     const elI = container.children[i];
     const elJ = container.children[j];
     if (!elI || !elJ) return;
+
+    if (prefersReducedMotion()) {
+      DemoSort.swapDomIndices(container, i, j);
+      return;
+    }
 
     const bI = elI.getBoundingClientRect();
     const bJ = elJ.getBoundingClientRect();
