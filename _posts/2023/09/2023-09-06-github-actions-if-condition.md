@@ -85,7 +85,7 @@ jobs:
     steps:
       - name: Echo
         env:
-          test: ${{ secrets.TEST }}
+          test: {% raw %}${{ secrets.TEST }}{% endraw %}
         if: env.test != ''
         run: echo test
 ```
