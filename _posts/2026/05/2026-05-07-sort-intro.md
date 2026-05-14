@@ -184,24 +184,11 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
   DemoSort.attachPlayback({
     root: root,
     dataAttr: 'data-intro',
-    extraRoles: ['sorted'],
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'イントロソートのデモ（クイック／挿入／ヒープのハイブリッド。実線はフェーズに応じて色分け）',
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
-    onSyncButtons: function (ui, st) {
-      if (ui.sorted) ui.sorted.disabled = st.playing || st.busy;
-    },
-    extraBindings: {
-      sorted: function (api) {
-        api.rebuild(
-          api.values.slice().sort(function (x, y) {
-            return x - y;
-          })
-        );
-      },
-    },
     applyStep: async function (api, s) {
       const barsEl = api.barsEl;
       if (s.kind === 'phase') {
@@ -298,7 +285,6 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
   id="intro-sort-demo"
   preset="intro"
   data_prefix="intro"
-  toolbar_variant="intro"
   script=sort_demo_js
 %}
 

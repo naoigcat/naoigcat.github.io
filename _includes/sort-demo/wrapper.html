@@ -7,14 +7,10 @@
   - data_prefix: attribute suffix without "data-", e.g. bubble → data-bubble="shuffle"
   - script: captured HTML that loads inline JS (typically wraps one <script></script>);
             shared demo-sort.js is loaded from head.html when sort_demo: true is set on the page
-  - toolbar_variant: omit or "intro" (extra “昇順データ…” button)
 {% endcomment %}
 <div id="{{ include.id }}" class="sort-demo sort-demo--{{ include.preset }}">
 <div class="sort-demo__toolbar">
   <button type="button" data-{{ include.data_prefix }}="shuffle">シャッフル</button>
-  {% if include.toolbar_variant == 'intro' %}
-  <button type="button" data-{{ include.data_prefix }}="sorted">昇順データ（ヒープ切替が出やすい）</button>
-  {% endif %}
   <button type="button" data-{{ include.data_prefix }}="play">自動再生</button>
   <button type="button" data-{{ include.data_prefix }}="pause" disabled>一時停止</button>
   <button type="button" data-{{ include.data_prefix }}="step">1ステップ</button>
