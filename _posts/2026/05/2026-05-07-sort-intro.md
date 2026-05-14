@@ -98,20 +98,44 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
       }
     }
 
-    function siftDown(lo0, heapLen, root) {
+    function siftDown(lo0, heapLen, startRel) {
+      let i = startRel;
       while (true) {
-        const left = 2 * root + 1;
-        const right = 2 * root + 2;
-        let largest = root;
-        if (left < heapLen && a[lo0 + left] > a[lo0 + largest]) largest = left;
-        if (right < heapLen && a[lo0 + right] > a[lo0 + largest]) largest = right;
-        if (largest === root) break;
-        steps.push({ kind: 'heap_compare', lo: lo0 + root, hi: lo0 + largest, arr: a.slice() });
-        const tmp = a[lo0 + root];
-        a[lo0 + root] = a[lo0 + largest];
+        const l = 2 * i + 1;
+        const r = 2 * i + 2;
+        let largest = i;
+        if (l < heapLen) {
+          steps.push({
+            kind: 'compare',
+            lo: lo0 + largest,
+            hi: lo0 + l,
+            arr: a.slice(),
+            phase: 'heap',
+          });
+          if (a[lo0 + l] > a[lo0 + largest]) largest = l;
+        }
+        if (r < heapLen) {
+          steps.push({
+            kind: 'compare',
+            lo: lo0 + largest,
+            hi: lo0 + r,
+            arr: a.slice(),
+            phase: 'heap',
+          });
+          if (a[lo0 + r] > a[lo0 + largest]) largest = r;
+        }
+        if (largest === i) break;
+        const tmp = a[lo0 + i];
+        a[lo0 + i] = a[lo0 + largest];
         a[lo0 + largest] = tmp;
-        steps.push({ kind: 'swap', lo: lo0 + root, hi: lo0 + largest, arr: a.slice(), phase: 'heap' });
-        root = largest;
+        steps.push({
+          kind: 'swap',
+          lo: lo0 + i,
+          hi: lo0 + largest,
+          arr: a.slice(),
+          phase: 'heap',
+        });
+        i = largest;
       }
     }
 
@@ -217,12 +241,6 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
         );
         return;
       }
-      if (s.kind === 'heap_compare') {
-        api.mountBars(barsEl, s.arr);
-        DemoSort.assignRoles(barsEl, rolePair(s.lo, s.hi, 'heap'));
-        api.setCaption('ヒープ: 親子関係を調整中（ティールの枠）');
-        return;
-      }
       if (s.kind === 'part_start') {
         api.mountBars(barsEl, s.arr);
         DemoSort.clearRoles(barsEl);
@@ -242,6 +260,10 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
         DemoSort.assignRoles(barsEl, rolePair(s.lo, s.hi, phaseRole('compare', s.phase)));
         if (s.phase === 'insert') {
           api.setCaption('挿入ソート: 隣接要素を比較');
+        } else if (s.phase === 'heap') {
+          api.setCaption(
+            'ヒープ: 位置 ' + s.lo + ' と ' + s.hi + ' を比較（ティールの枠）'
+          );
         } else {
           api.setCaption(
             '比較: 位置 ' + s.lo + ' の値とピボット（位置 ' + s.hi + '）'
