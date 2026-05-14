@@ -92,6 +92,12 @@
     if (!first || !second) return;
 
     if (prefersReducedMotion()) {
+      // Reduced-motion path: DOM の並び替えだけを行い、要素自身の
+      // data-role 属性はノードと一緒に移動する。呼び出し側で role を
+      // 残したい場合（例: heap sort の preserve: ['sorted']）は正しい
+      // 子に追従するため追加処理は不要だが、将来このブランチに「即時
+      // ステップを追加する」変更を入れる際は、role の付け直しタイミング
+      // が通常パスと噛み合うか必ず確認すること。
       container.insertBefore(second, first);
       return;
     }
@@ -146,6 +152,9 @@
     if (!elI || !elJ) return;
 
     if (prefersReducedMotion()) {
+      // Reduced-motion path: data-role の扱いは flipAdjacentSwap と同じ
+      // 前提（属性はノードと共に移動する）に依存する。将来このブランチに
+      // 別ステップを足す場合は role の付け直しタイミングに注意。
       DemoSort.swapDomIndices(container, i, j);
       return;
     }
