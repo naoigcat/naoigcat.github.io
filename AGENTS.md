@@ -12,6 +12,22 @@ That reasoning is **incorrect for this repository**: integration with the hosted
 Do not volunteer that suggestion in reviews, audits, or advice unless the maintainer **explicitly** asks
 for a duplicate build, PR-preview sites, or another goal that requires Actions.
 
+## In-article JavaScript targets modern browsers
+
+The JavaScript embedded in posts (for example, the sort-algorithm demos under `_posts/` that mount via `{% include sort-demo/wrapper.html ... %}`)
+**does not need to support Internet Explorer or any other engine that lacks ES2015+ syntax**.
+Treat the runtime baseline as evergreen browsers.
+
+When writing or editing article scripts, prefer contemporary, readable language features:
+`const`/`let` rather than `var`, arrow functions, template literals, default and rest parameters, destructuring,
+`class`, `Promise`/`async`/`await`, `Map`/`Set`, optional chaining and nullish coalescing, `BigInt` literals, and similar constructs
+are all acceptable whenever they make the demo clearer.
+
+The goal is to **keep article code from accreting legacy patterns for the sake of obsolete browsers**, not to mandate any
+specific keyword. Do not rewrite working article scripts toward older idioms (for example forcing `var`, hand-rolled polyfills,
+transpiled-style output, or browser-version sniffing) in the name of broader compatibility,
+and do not flag the existing modern syntax as a review finding unless the maintainer explicitly asks to widen the supported browser set.
+
 ## Do not volunteer these topics in reviews
 
 The following choices are intentional or already accepted trade-offs for this site.
