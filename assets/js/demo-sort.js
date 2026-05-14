@@ -6,7 +6,7 @@
  * DemoSort.boot(rootId, fn)
  * DemoSort.clearRoles(container)
  * DemoSort.assignRoles(container, pairs, opts?)
- * DemoSort.queryToolbar(root, dataAttr, extraRoles?)
+ * DemoSort.queryToolbar(root, dataAttr)
  * DemoSort.attachPlayback(options) — see implementation for option shape.
  */
 (function (global) {
@@ -257,13 +257,12 @@
   /**
    * @param {HTMLElement} root
    * @param {string} dataAttr Full attribute name (e.g. 'data-bs').
-   * @param {string[]} [extraRoles] Additional button roles (e.g. ['sorted']).
    */
-  DemoSort.queryToolbar = function (root, dataAttr, extraRoles) {
+  DemoSort.queryToolbar = function (root, dataAttr) {
     function sel(role) {
       return '[' + dataAttr + '="' + role + '"]';
     }
-    const ui = {
+    return {
       bars: root.querySelector(sel('bars')),
       caption: root.querySelector(sel('caption')),
       shuffle: root.querySelector(sel('shuffle')),
@@ -271,41 +270,32 @@
       pause: root.querySelector(sel('pause')),
       step: root.querySelector(sel('step')),
     };
-    const roles = extraRoles || [];
-    for (let i = 0; i < roles.length; i++) {
-      ui[roles[i]] = root.querySelector(sel(roles[i]));
-    }
-    return ui;
   };
 
   /**
    * Wires shuffle / play / pause / step and owns playback state.
    *
-   * Provide either `generateSteps` (+ optional `prepareValues`, `afterRebuild`) or a full `rebuild`.
+   * Provide either `generateSteps` (+ optional `afterRebuild`) or a full `rebuild`.
    *
    * @param {object} o
    * @param {HTMLElement} o.root
    * @param {string} o.dataAttr
-   * @param {string[]} [o.extraRoles]
    * @param {number[]} o.initialValues
    * @param {string} o.initialCaption
    * @param {string} [o.barClass] Used by default mountBars helper on api.
    * @param {function(number[]):object[]} [o.generateSteps]
    * @param {function(api, newValues):void} [o.rebuild] Overrides default rebuild body (still resets cancelled/playing/busy).
-   * @param {function(number[]):number[]} [o.prepareValues]
    * @param {function(api):void} [o.afterRebuild] After default rebuild (e.g. clear roles).
    * @param {function(api,step):Promise<void>} o.applyStep Called after consuming step (idx already advanced).
    * @param {number|function(api):number} [o.stepPauseMs=280]
    * @param {function({playing:boolean,busy:boolean}):boolean} [o.shuffleWhen] Return true if shuffle allowed.
-   * @param {function(ui,state):void} [o.onSyncButtons] state = { playing, busy, atEnd, idx, steps }
    * @param {function(api,Error):void} [o.onStepError]
-   * @param {object<string,function(api):void>} [o.extraBindings] Click handlers keyed by extra toolbar role.
    */
   DemoSort.attachPlayback = function (o) {
     if (!o || !o.root || !o.dataAttr) return;
     if (!o.rebuild && typeof o.generateSteps !== 'function') return;
 
-    const ui = DemoSort.queryToolbar(o.root, o.dataAttr, o.extraRoles);
+    const ui = DemoSort.queryToolbar(o.root, o.dataAttr);
     const barsEl = ui.bars;
     const capEl = ui.caption;
     if (!barsEl || !capEl || !ui.shuffle || !ui.play || !ui.pause || !ui.step) {
@@ -367,7 +357,7 @@
     });
 
     function defaultRebuild(v) {
-      values = o.prepareValues ? o.prepareValues(v) : v;
+      values = v;
       steps = o.generateSteps(values);
       idx = 0;
       api.mountBars(barsEl, steps[0] ? steps[0].arr : values);
@@ -385,15 +375,6 @@
           ? o.shuffleWhen({ playing: playing, busy: busy })
           : !playing && !busy;
       ui.shuffle.disabled = !shuffleOk;
-      if (o.onSyncButtons) {
-        o.onSyncButtons(ui, {
-          playing: playing,
-          busy: busy,
-          atEnd: atEnd,
-          idx: idx,
-          steps: steps,
-        });
-      }
     }
 
     function rebuild(v) {
@@ -462,18 +443,6 @@
       playing = false;
       syncButtons();
     });
-
-    if (o.extraBindings) {
-      Object.keys(o.extraBindings).forEach(function (key) {
-        const btn = ui[key];
-        const fn = o.extraBindings[key];
-        if (btn && typeof fn === 'function') {
-          btn.addEventListener('click', function () {
-            fn(api);
-          });
-        }
-      });
-    }
 
     rebuild(values);
   };
