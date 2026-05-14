@@ -3,6 +3,7 @@
 $brand-color:           #0288d1;
 $brand-color-light:     #fff8e1;
 $brand-color-dark:      #455a64;
+$brand-color-lightest:  #f9f9f9;
 $site-title-color:      $brand-color-dark;
 $text-color:            $brand-color-dark;
 $background-color:      $brand-color-light;
@@ -21,12 +22,11 @@ $table-border-color:    $border-color-01;
 $on-medium:             600px;
 $on-large:              800px;
 
-$sort-demo-bar-bg-top:    lighten($brand-color, 20%);
-$sort-demo-bar-bg-bottom: $link-hover-color;
-
 :root {
+  --sort-demo-background:
+    #{$brand-color-lightest};
   --sort-demo-bar-gradient:
-    linear-gradient(180deg, #{$sort-demo-bar-bg-top} 0%, #{$sort-demo-bar-bg-bottom} 100%);
+    linear-gradient(180deg, #{lighten($link-base-color, 20%)} 0%, #{$link-hover-color} 100%);
 }
 
 @import "minima";

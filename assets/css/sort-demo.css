@@ -3,7 +3,7 @@
   padding: 1rem;
   border: 1px solid rgba(128,128,128,.35);
   border-radius: 8px;
-  background: var(--minima-brand-color-lightest, #f9f9f9);
+  background: var(--sort-demo-background, #f9f9f9);
 }
 .sort-demo__toolbar {
   display: flex;
