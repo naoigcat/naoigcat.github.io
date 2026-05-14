@@ -160,3 +160,88 @@
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(142,68,173,.35), 0 2px 6px rgba(0,0,0,.18);
 }
+.sort-demo--patience {
+  min-width: 0;
+}
+.sort-demo--patience .sort-demo__bars {
+  align-items: stretch;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  min-height: 160px;
+  overflow-x: auto;
+}
+.sort-demo--patience .sort-demo-patience-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: max-content;
+  max-width: 100%;
+}
+.sort-demo--patience .sort-demo-patience__row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 8px;
+}
+.sort-demo--patience .sort-demo-patience__incoming {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 36px;
+  padding-right: 4px;
+  border-right: 1px dashed rgba(128,128,128,.5);
+}
+.sort-demo--patience .sort-demo-patience__piles-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 8px;
+}
+.sort-demo--patience .sort-demo-patience__pile-col {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3px;
+  min-height: 8px;
+  min-width: 32px;
+  padding-inline: 2px;
+}
+.sort-demo--patience .sort-demo-patience__pile-col > .sort-demo__bar {
+  flex: none;
+  width: 100%;
+  max-width: 42px;
+  min-width: 22px;
+}
+.sort-demo--patience .sort-demo-patience__merged-block {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 6px;
+}
+.sort-demo--patience .sort-demo-patience__merged-label {
+  font-size: 0.82rem;
+  color: inherit;
+  opacity: 0.85;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+.sort-demo--patience .sort-demo-patience__merged-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 28px;
+  padding-inline: 0.15rem;
+}
+.sort-demo--patience .sort-demo-patience__merged-row .sort-demo__bar {
+  flex: 0 0 auto;
+  width: 28px;
+  min-width: 18px;
+  max-width: 36px;
+}
+@media (prefers-color-scheme: dark) {
+  .sort-demo--patience .sort-demo-patience__incoming {
+    border-right-color: rgba(255,255,255,.2);
+  }
+}
