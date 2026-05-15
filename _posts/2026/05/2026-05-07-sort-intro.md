@@ -48,8 +48,9 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
   const INSERTION_THRESHOLD = 4;
 
   function maxDepthLimit(n) {
-    if (n <= 1) return 0;
-    return Math.floor(2 * Math.log2(n));
+    if (n <= 0) return 0;
+    const floorLog2 = Math.floor(Math.log2(n));
+    return Math.max(2 * floorLog2, 1);
   }
 
   function generateSteps(initial) {
