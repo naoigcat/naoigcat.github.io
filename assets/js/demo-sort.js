@@ -4,8 +4,11 @@
  * Swap animations honor prefers-reduced-motion: reduce (instant DOM reorder).
  *
  * DemoSort.boot(rootId, fn)
- * DemoSort.clearRoles(container)
- * DemoSort.assignRoles(container, pairs, opts?)
+ * DemoSort.clearRoles(container) — updates bar aria-labels after clearing roles
+ * DemoSort.assignRoles(container, pairs, opts?) — updates bar aria-labels after roles change
+ * DemoSort.barAccessibilityLabel(index, valueText, role?)
+ * DemoSort.barAccessibilityLabelSimple(valueText, role?)
+ * DemoSort.syncBarsAccessibility(container)
  * DemoSort.queryToolbar(root, dataAttr)
  * DemoSort.attachPlayback(options) — see implementation for option shape.
  */
@@ -39,6 +42,84 @@
 
   const DemoSort = {};
 
+  /** Japanese phrases for `data-role` on bars (exposed to assistive tech). */
+  const BAR_ROLE_LABEL_JA = {
+    compare: '比較対象',
+    swap: '交換対象',
+    pivot: 'ピボット',
+    sorted: '整列済み',
+    cursor: 'カーソル',
+    insert: '挿入',
+    key: '挿入キー',
+    range: '対象範囲',
+    write: '確定の書き込み',
+    gap: '空きマス',
+    heap: 'ヒープ化の対象',
+  };
+
+  /**
+   * Accessible name for one bar in a left-to-right array (0-based index).
+   * @param {number} index
+   * @param {string} valueText numeric value as string, or title text
+   * @param {string|null} role `data-role` token or null
+   */
+  DemoSort.barAccessibilityLabel = function (index, valueText, role) {
+    const parts = ['位置' + index];
+    if (role === 'gap') {
+      parts.push(BAR_ROLE_LABEL_JA.gap);
+    } else {
+      parts.push('値 ' + valueText);
+    }
+    if (role && role !== 'gap') {
+      const ja = BAR_ROLE_LABEL_JA[role];
+      if (ja) parts.push(ja);
+    }
+    return parts.join('、');
+  };
+
+  /**
+   * Label for a bar outside a simple linear list (e.g. patience piles).
+   * @param {string} valueText
+   * @param {string|null} role
+   */
+  DemoSort.barAccessibilityLabelSimple = function (valueText, role) {
+    const parts = [];
+    if (role === 'gap') {
+      parts.push(BAR_ROLE_LABEL_JA.gap);
+    } else {
+      parts.push('値 ' + valueText);
+    }
+    if (role && role !== 'gap') {
+      const ja = BAR_ROLE_LABEL_JA[role];
+      if (ja) parts.push(ja);
+    }
+    return parts.join('、');
+  };
+
+  /**
+   * Updates listitem roles and aria-label on each direct child bar of `container`.
+   * Skips nodes without `title` that are not `.sort-demo__bar` (e.g. patience layout wrapper).
+   *
+   * @param {HTMLElement} container
+   */
+  DemoSort.syncBarsAccessibility = function (container) {
+    if (!container) return;
+    const nodes = container.children;
+    for (let i = 0; i < nodes.length; i++) {
+      const el = nodes[i];
+      const title = el.getAttribute('title');
+      const isBar = el.classList && el.classList.contains('sort-demo__bar');
+      if (title == null && !isBar) continue;
+      const role = el.getAttribute('data-role');
+      const valueText = title != null ? title : '';
+      el.setAttribute('role', 'listitem');
+      el.setAttribute(
+        'aria-label',
+        DemoSort.barAccessibilityLabel(i, valueText, role)
+      );
+    }
+  };
+
   DemoSort.wait = function (ms) {
     return new Promise(function (resolve) {
       setTimeout(resolve, ms);
@@ -60,7 +141,16 @@
 
   DemoSort.mountBars = function (container, values, barClass) {
     container.innerHTML = '';
-    if (!values.length) return;
+    if (!values.length) {
+      container.removeAttribute('role');
+      container.removeAttribute('aria-label');
+      return;
+    }
+    container.setAttribute('role', 'list');
+    container.setAttribute(
+      'aria-label',
+      'ソート対象の配列。棒の高さは値の大小、左から右へ位置0、1の順です。'
+    );
     const max = Math.max.apply(null, values);
     const min = Math.min.apply(null, values);
     const span = Math.max(max - min, 1);
@@ -72,6 +162,7 @@
       bar.setAttribute('title', String(v));
       container.appendChild(bar);
     });
+    DemoSort.syncBarsAccessibility(container);
   };
 
   DemoSort.shuffleCopy = function (arr) {
@@ -207,6 +298,7 @@
     for (let i = 0; i < nodes.length; i++) {
       nodes[i].removeAttribute('data-role');
     }
+    DemoSort.syncBarsAccessibility(container);
   };
 
   /**
@@ -230,13 +322,17 @@
         nodes[i].removeAttribute('data-role');
       }
     }
-    if (!pairs) return;
+    if (!pairs) {
+      DemoSort.syncBarsAccessibility(container);
+      return;
+    }
     for (let i = 0; i < pairs.length; i++) {
       const idx = pairs[i][0];
       if (idx == null) continue;
       const node = nodes[idx];
       if (node) node.setAttribute('data-role', pairs[i][1]);
     }
+    DemoSort.syncBarsAccessibility(container);
   };
 
   /**

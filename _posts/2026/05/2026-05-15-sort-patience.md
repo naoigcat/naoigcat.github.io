@@ -216,6 +216,11 @@ window.DemoSort && DemoSort.boot('patience-sort-demo', function (root) {
 
   function mountPatienceBars(container, s) {
     container.innerHTML = '';
+    container.setAttribute('role', 'group');
+    container.setAttribute(
+      'aria-label',
+      'ペイシェンスソートの現在の状態（山・取り出し結果）。'
+    );
     const wrap = document.createElement('div');
     wrap.className = 'sort-demo-patience-wrap';
     const mn = s.rangeMin;
@@ -227,6 +232,10 @@ window.DemoSort && DemoSort.boot('patience-sort-demo', function (root) {
       bar.style.height = barHeight(val, mn, mx) + 'px';
       bar.setAttribute('title', String(val));
       if (role) bar.setAttribute('data-role', role);
+      bar.setAttribute(
+        'aria-label',
+        DemoSort.barAccessibilityLabelSimple(String(val), role)
+      );
       return bar;
     }
 

@@ -57,6 +57,12 @@ window.DemoSort && DemoSort.boot('library-sort-demo', function (root) {
       }
       container.appendChild(bar);
     });
+    container.setAttribute('role', 'list');
+    container.setAttribute(
+      'aria-label',
+      '図書館ソートの棚。左から位置0の順。短い棒は空きマスです。'
+    );
+    DemoSort.syncBarsAccessibility(container);
   }
 
   function generateSteps(initial) {
