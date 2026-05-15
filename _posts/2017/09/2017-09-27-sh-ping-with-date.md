@@ -33,4 +33,4 @@ PING 192.168.100.1 (192.168.100.1): 56 data bytes
 14:34:49.965032 64 bytes from 192.168.100.1: icmp_seq=0 ttl=64 time=5.234 ms
 14:34:50.972081 64 bytes from 192.168.100.1: icmp_seq=1 ttl=64 time=7.480 ms
 14:34:51.969745 64 bytes from 192.168.100.1: icmp_seq=2 ttl=64 time=3.247 ms
-```output
+```
