@@ -9,7 +9,7 @@ description: >-
 exclude:
   - AGENTS.md
   - LICENSE.md
-  - Makefile
+  - mise.toml
   - README.md
 theme: minima
 defaults:
