@@ -1,0 +1,45 @@
+[vars]
+github_pages_image = "naoigcat/github-pages:232"
+
+[tasks.serve]
+description = "Run Jekyll in Docker (GitHub Pages dependency image)"
+interactive = true
+run = '''
+#!/usr/bin/env zsh
+container_id="$(docker run --rm --init \
+  -d \
+  -v "$PWD:/src/site" \
+  -p 127.0.0.1::4000 \
+  "{{vars.github_pages_image}}" \
+  jekyll serve -w --force_polling -H 0.0.0.0 -P 4000)" \
+  || { print -r 'Failed to start container' >&2; exit 1 }
+[[ -n $container_id ]] || { print -r 'Failed to get container ID' >&2; exit 1 }
+
+trap "docker stop ${container_id} >/dev/null 2>&1 || :" EXIT INT TERM
+
+typeset -i timeout=300 elapsed=0
+while true; do
+  logs="$(docker logs "$container_id" 2>&1)"
+  if print -r -- "$logs" | grep -q 'Error response from daemon'; then
+    print -r -- "$logs" >&2
+    print -r 'Docker daemon error while waiting for server' >&2
+    exit 1
+  fi
+  if print -r -- "$logs" | grep -q 'Server running'; then
+    break
+  fi
+  sleep 1
+  elapsed+=1
+  if (( elapsed >= timeout )); then
+    docker logs "$container_id"
+    print -r 'Timeout waiting for server' >&2
+    exit 1
+  fi
+done
+
+port="$(docker port "$container_id" 4000/tcp | awk -F: 'NR == 1 { print $NF }')"
+[[ -n $port ]] || { print -r 'Failed to resolve host port' >&2; exit 1 }
+
+open "http://localhost:${port}"
+docker attach "$container_id" || :
+'''
