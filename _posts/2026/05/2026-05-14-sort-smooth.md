@@ -283,4 +283,4 @@ window.DemoSort && DemoSort.boot('smooth-sort-demo', function (root) {
   script=sort_demo_js
 %}
 
-実装の複雑さと定数倍の大きさから、汎用ライブラリの `sort` として採用されることは稀だが、アルゴリズム史と適応的整列の理解には価値がある。
+実装の複雑さと定数倍の大きさから、汎用ライブラリの `sort` として採用されることは稀である。
