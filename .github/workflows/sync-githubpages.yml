@@ -1,0 +1,198 @@
+name: Sync GitHub Pages image in mise.toml
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 7 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-github-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Bump github_pages_image from Docker Hub
+        run: |
+          set -euo pipefail
+          python3 <<'SYNC'
+          import json
+          import os
+          import re
+          import sys
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
+
+
+          def parse_github_pages_image(path: Path) -> tuple[str, str, str]:
+              text = path.read_text(encoding="utf-8")
+
+              needle = None
+              for line in text.splitlines():
+                  if line.lstrip().startswith("github_pages_image"):
+                      needle = line.rstrip("\r\n")
+                      break
+
+              if needle is None:
+                  print("::error::Missing github_pages_image in mise.toml", file=sys.stderr)
+                  sys.exit(1)
+
+              match = re.match(r'^github_pages_image\s*=\s*"([^"]+)"\s*$', needle)
+              if not match:
+                  print(f"::error::Could not parse github_pages_image line: {needle!r}", file=sys.stderr)
+                  sys.exit(1)
+
+              payload = match.group(1).strip()
+              if ":" not in payload:
+                  print(
+                      f"::error::github_pages_image must include a ':tag'; got {payload!r}",
+                      file=sys.stderr,
+                  )
+                  sys.exit(1)
+
+              repo_raw, tag_old = payload.rsplit(":", 1)
+              repo_raw = repo_raw.strip()
+              tag_old = tag_old.strip()
+
+              lowered = repo_raw.lower()
+              blocked = ("ghcr.io/", "docker.pkg.github.com/")
+              if any(lowered.startswith(prefix) for prefix in blocked):
+                  print(
+                      f"::error::Docker Hub polls only; unsupported registry hint in {repo_raw!r}",
+                      file=sys.stderr,
+                  )
+                  sys.exit(1)
+
+              slug = repo_raw.split("/", maxsplit=1)[1] if lowered.startswith("docker.io/") else repo_raw
+              segments = slug.split("/")
+              if len(segments) != 2 or not all(segments):
+                  tail = payload.rsplit(":", 1)[-1]
+                  print(
+                      f"::error::Expected '<namespace>/<name>:tag'; got {slug!r} with tag {tail!r}",
+                      file=sys.stderr,
+                  )
+                  sys.exit(1)
+
+              return repo_raw, slug, tag_old
+
+
+          def numeric_tags_from_hub(hub_slug: str) -> set[int]:
+              collected: set[int] = set()
+              url = f"https://hub.docker.com/v2/repositories/{hub_slug}/tags?page_size=100"
+              numeric = re.compile(r"^[0-9]+$")
+
+              while url:
+                  try:
+                      with urllib.request.urlopen(url, timeout=90) as resp:
+                          blob = resp.read().decode()
+                  except urllib.error.URLError as exc:
+                      print(f"::error::Docker Hub fetch failed ({url}): {exc}", file=sys.stderr)
+                      sys.exit(1)
+
+                  try:
+                      body = json.loads(blob)
+                  except json.JSONDecodeError as exc:
+                      print(f"::error::Invalid Docker Hub JSON: {exc}", file=sys.stderr)
+                      sys.exit(1)
+
+                  for item in body.get("results") or []:
+                      name = str(item.get("name") or "")
+                      if numeric.match(name):
+                          collected.add(int(name))
+
+                  cursor = body.get("next")
+                  url = str(cursor) if cursor else ""
+
+              return collected
+
+
+          def rewrite_assignment(path: Path, repo_display: str, tag_text: str) -> None:
+              text = path.read_text(encoding="utf-8")
+              replacement = f'github_pages_image = "{repo_display}:{tag_text}"'
+
+              rebuilt: list[str] = []
+              matched = False
+              for raw in text.splitlines(keepends=True):
+                  if matched or not raw.lstrip().startswith("github_pages_image"):
+                      rebuilt.append(raw)
+                      continue
+
+                  ending = ""
+                  if raw.endswith("\r\n"):
+                      ending = "\r\n"
+                  elif raw.endswith("\n"):
+                      ending = "\n"
+
+                  rebuilt.append(replacement + ending)
+                  matched = True
+
+              if not matched:
+                  print(
+                      "::error::github_pages_image line disappeared during rewrite",
+                      file=sys.stderr,
+                  )
+                  sys.exit(1)
+
+              path.write_text("".join(rebuilt), encoding="utf-8")
+
+
+          def main() -> None:
+              mise = Path(os.environ.get("GITHUB_WORKSPACE", ".")).resolve() / "mise.toml"
+              if not mise.is_file():
+                  print(f"::error::{mise} missing", file=sys.stderr)
+                  sys.exit(1)
+
+              repo_display, hub_slug, current_txt = parse_github_pages_image(mise)
+              if not current_txt.isdigit():
+                  print(
+                      f"::error::Existing tag {current_txt!r} is non-numeric; refusing automation",
+                      file=sys.stderr,
+                  )
+                  sys.exit(1)
+
+              tags = numeric_tags_from_hub(hub_slug)
+              if not tags:
+                  print(f"::error::No purely numeric tags under Docker Hub repo {hub_slug}", file=sys.stderr)
+                  sys.exit(1)
+
+              best_num = max(tags)
+              current_num = int(current_txt)
+
+              if best_num == current_num:
+                  print(f"github_pages_image already at numeric tag {best_num}; no mise.toml rewrite.")
+                  return
+
+              rewrite_assignment(mise, repo_display, str(best_num))
+              print(f"Bumped github_pages_image ({repo_display}) {current_num} -> {best_num}.")
+
+
+          if __name__ == "__main__":
+              main()
+          SYNC
+
+      - name: Commit and push if changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add mise.toml
+          if git diff --cached --quiet; then
+            echo "github_pages_image already equals the newest numeric Docker Hub tag; nothing to commit."
+            exit 0
+          fi
+          tag="$(grep -m1 -E '^github_pages_image[[:space:]]*=' mise.toml \
+            | sed -nE 's/.*:([0-9]+)"[[:space:]]*$/\1/p')"
+          if [[ ! "${tag}" =~ ^[0-9]+$ ]]; then
+            echo "::error::Could not parse numeric Docker tag after bump."
+            exit 1
+          fi
+          git commit -m "$(printf 'Bump github_pages_image to Docker Hub tag %s\n' "${tag}")"
+          git push
