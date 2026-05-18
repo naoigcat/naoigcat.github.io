@@ -56,17 +56,21 @@ Treat analytics and consent posture as settled unless the maintainer asks about 
 `.github/dependabot.yml` targets **GitHub Actions only**. Gems are intentionally left to GitHub Pages’ build environment; that split is deliberate.
 Do not suggest widening Dependabot to RubyGems/npm “for completeness” unless those ecosystems gain first-class use in this repo.
 
-### Sync workflow (`sync.yml`) and `contents: write`
+### Sync workflows and `contents: write`
 
-`.github/workflows/sync.yml` runs on push to `main` or `dependabot/**` when `.github/workflows/lint.yml` changes.
-It declares `permissions: contents: write`, updates only the `MARKDOWNLINT_CLI2_VERSION="…"` line in
-`.agents/skills/run-markdownlint/scripts/run-markdownlint.sh` to match the pinned `DavidAnson/markdownlint-cli2-action` ref,
-and pushes a commit when that line changes.
-The job is further gated with `if: github.ref == 'refs/heads/main' || github.actor == 'dependabot[bot]'`.
+Two workflows declare `permissions: contents: write` and push commits when their target files change. That narrow automation is intentional.
+Do not flag `contents: write`, automated `git push`, or these “commit only the touched lines” designs as review findings
+unless the maintainer asks to change them.
 
-That narrow automation is intentional.
-Do not flag `contents: write`, automated `git push`, or the “commit only the script version line after the lint workflow changes”
-design as review findings unless the maintainer asks to change it.
+**Markdownlint skill pin (`sync-markdownlint.yml`).** On push to `main` or `dependabot/**` when
+`.github/workflows/lint.yml` changes, the workflow resolves the pinned
+`DavidAnson/markdownlint-cli2-action` ref, updates only the `MARKDOWNLINT_CLI2_VERSION="…"` line in
+`.agents/skills/run-markdownlint/scripts/run-markdownlint.sh`, and pushes when that line changes.
+It is gated with `if: github.ref == 'refs/heads/main' || github.actor == 'dependabot[bot]'`.
+
+**GitHub Pages Docker image (`sync-githubpages.yml`).** On `workflow_dispatch` or a weekly schedule,
+it compares `github_pages_image` in `mise.toml` to numeric tags on Docker Hub for the configured
+repo, bumps the tag to the latest numeric value when higher, commits `mise.toml`, and pushes.
 
 Human security reviewers may still want to track that workflows with repository write access increase blast radius **if**
 malicious workflow YAML could reach branches where Actions runs.
