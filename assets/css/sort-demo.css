@@ -135,6 +135,21 @@
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(22,160,133,.35), 0 2px 6px rgba(0,0,0,.18);
 }
+.sort-demo--proportion .sort-demo__bar[data-role="pivot"] {
+  outline: 3px solid #9b59b6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(155,89,182,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+.sort-demo--proportion .sort-demo__bar[data-role="range"] {
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(52,152,219,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+.sort-demo--proportion .sort-demo__bar[data-role="insert"] {
+  outline: 3px solid #2980b9;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(41,128,185,.35), 0 2px 6px rgba(0,0,0,.18);
+}
 .sort-demo--strand .sort-demo__bar[data-role="sorted"] {
   outline: 3px solid #9b59b6;
   outline-offset: 2px;
