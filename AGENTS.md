@@ -39,6 +39,12 @@ Production loads the Mermaid script from a CDN **only on posts whose front matte
 Do not suggest vendoring the same version under `assets` for offline verification or CDN resilience unless the maintainer asks;
 it is an optional future trade-off against maintenance cost, not an outstanding gap.
 
+Because Dependabot does not bump that script, the version URL and Subresource Integrity hash
+in `_includes/head.html` are **manually maintained**.
+When upgrading Mermaid, update the `src` version and regenerate `integrity`
+(for example with a browser devtools SRI tool or `openssl`) so the hash matches the new file;
+mismatches break all `mermaid: true` posts.
+
 ### Analytics
 
 `_config.yml` defines `google_analytics`, and the theme is expected to load it in production only.
