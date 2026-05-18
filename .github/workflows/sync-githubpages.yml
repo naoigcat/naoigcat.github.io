@@ -169,6 +169,12 @@ jobs:
               if best_num == current_num:
                   print(f"github_pages_image already at numeric tag {best_num}; no mise.toml rewrite.")
                   return
+              if best_num < current_num:
+                  print(
+                      f"github_pages_image is ahead of Docker Hub numeric tags "
+                      f"({current_num} > {best_num}); no mise.toml rewrite."
+                  )
+                  return
 
               rewrite_assignment(mise, repo_display, str(best_num))
               print(f"Bumped github_pages_image ({repo_display}) {current_num} -> {best_num}.")
