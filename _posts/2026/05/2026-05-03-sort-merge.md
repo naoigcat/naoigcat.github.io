@@ -205,7 +205,6 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="merge-sort-demo"
-  preset="merge"
   data_prefix="merge"
   script=sort_demo_js
 %}

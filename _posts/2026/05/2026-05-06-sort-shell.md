@@ -113,7 +113,6 @@ window.DemoSort && DemoSort.boot('shell-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="shell-sort-demo"
-  preset="shell"
   data_prefix="shell"
   script=sort_demo_js
 %}

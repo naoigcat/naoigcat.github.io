@@ -306,7 +306,6 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="intro-sort-demo"
-  preset="intro"
   data_prefix="intro"
   script=sort_demo_js
 %}

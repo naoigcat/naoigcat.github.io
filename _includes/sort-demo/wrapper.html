@@ -1,14 +1,11 @@
 {% comment %}
   Sort algorithm interactive demo chrome. Params:
   - id (unique per page)
-  - preset: bubble | quick | merge | heap | smooth | insertion | shell | shaker | comb | gnome | selection | tree | intro | library | patience | proportion | symmetry | strand
-            scopes role colors via sort-demo--<preset>
-            (CSS lives in /assets/css/sort-demo.css; head.html loads it when the post sets front matter sort_demo: true)
   - data_prefix: attribute suffix without "data-", e.g. bubble → data-bubble="shuffle"
   - script: captured HTML that loads inline JS (typically wraps one <script></script>);
             shared demo-sort.js is loaded from head.html when sort_demo: true is set on the page
 {% endcomment %}
-<div id="{{ include.id }}" class="sort-demo sort-demo--{{ include.preset }}">
+<div id="{{ include.id }}" class="sort-demo">
 <div class="sort-demo__toolbar">
   <button type="button" data-{{ include.data_prefix }}="shuffle">シャッフル</button>
   <button type="button" data-{{ include.data_prefix }}="play">自動再生</button>

@@ -143,7 +143,6 @@ window.DemoSort && DemoSort.boot('quick-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="quick-sort-demo"
-  preset="quick"
   data_prefix="quick"
   script=sort_demo_js
 %}

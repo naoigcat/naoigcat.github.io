@@ -106,7 +106,6 @@ window.DemoSort && DemoSort.boot('gnome-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="gnome-sort-demo"
-  preset="gnome"
   data_prefix="gnome"
   script=sort_demo_js
 %}
