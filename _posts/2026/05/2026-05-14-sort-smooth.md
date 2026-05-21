@@ -278,7 +278,6 @@ window.DemoSort && DemoSort.boot('smooth-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="smooth-sort-demo"
-  preset="smooth"
   data_prefix="smooth"
   script=sort_demo_js
 %}

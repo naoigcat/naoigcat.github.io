@@ -126,7 +126,6 @@ window.DemoSort && DemoSort.boot('oddeven-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="oddeven-sort-demo"
-  preset="bubble"
   data_prefix="oddeven"
   script=sort_demo_js
 %}

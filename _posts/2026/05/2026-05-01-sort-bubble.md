@@ -95,7 +95,6 @@ window.DemoSort && DemoSort.boot('bubble-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="bubble-sort-demo"
-  preset="bubble"
   data_prefix="bubble"
   script=sort_demo_js
 %}

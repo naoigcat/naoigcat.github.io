@@ -122,7 +122,6 @@ window.DemoSort && DemoSort.boot('insertion-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="insertion-sort-demo"
-  preset="insertion"
   data_prefix="insertion"
   script=sort_demo_js
 %}

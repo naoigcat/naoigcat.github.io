@@ -387,7 +387,6 @@ window.DemoSort && DemoSort.boot('sample-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="sample-sort-demo"
-  preset="proportion"
   data_prefix="sample"
   script=sort_demo_js
 %}

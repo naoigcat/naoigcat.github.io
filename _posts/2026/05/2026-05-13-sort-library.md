@@ -243,7 +243,6 @@ window.DemoSort && DemoSort.boot('library-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="library-sort-demo"
-  preset="library"
   data_prefix="library"
   script=sort_demo_js
 %}

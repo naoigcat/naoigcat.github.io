@@ -218,7 +218,6 @@ window.DemoSort && DemoSort.boot('shear-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="shear-sort-demo"
-  preset="bubble"
   data_prefix="shear"
   script=sort_demo_js
 %}

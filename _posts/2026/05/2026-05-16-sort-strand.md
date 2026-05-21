@@ -343,7 +343,6 @@ window.DemoSort && DemoSort.boot('strand-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="strand-sort-demo"
-  preset="strand"
   data_prefix="strand"
   script=sort_demo_js
 %}

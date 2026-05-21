@@ -310,7 +310,6 @@ window.DemoSort && DemoSort.boot('proportion-extend-sort-demo', function (root) 
 
 {% include sort-demo/wrapper.html
   id="proportion-extend-sort-demo"
-  preset="proportion"
   data_prefix="proportion"
   script=sort_demo_js
 %}

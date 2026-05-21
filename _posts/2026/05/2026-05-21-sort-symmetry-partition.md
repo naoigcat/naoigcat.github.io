@@ -379,7 +379,6 @@ window.DemoSort && DemoSort.boot('symmetry-partition-sort-demo', function (root)
 
 {% include sort-demo/wrapper.html
   id="symmetry-partition-sort-demo"
-  preset="symmetry"
   data_prefix="symmetry"
   script=sort_demo_js
 %}
