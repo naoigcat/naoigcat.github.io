@@ -380,7 +380,6 @@ window.DemoSort && DemoSort.boot('patience-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="patience-sort-demo"
-  preset="patience"
   data_prefix="patience"
   script=sort_demo_js
 %}

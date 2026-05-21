@@ -164,7 +164,6 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
 
 {% include sort-demo/wrapper.html
   id="shaker-sort-demo"
-  preset="shaker"
   data_prefix="shaker"
   script=sort_demo_js
 %}
