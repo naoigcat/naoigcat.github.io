@@ -350,6 +350,54 @@
     fn(root);
   };
 
+  DemoSort.copyText = async function (text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  };
+
+  DemoSort.attachBenchmarkCopyButtons = function () {
+    const buttons = document.querySelectorAll('[data-sort-benchmark-copy]');
+    buttons.forEach(function (button) {
+      const container = button.closest('[data-sort-benchmark-code]');
+      const code = container && container.querySelector('pre code');
+      if (!code) return;
+
+      button.addEventListener('click', async function () {
+        const originalText = button.textContent;
+        button.disabled = true;
+        try {
+          await DemoSort.copyText(code.textContent);
+          button.textContent = 'コピー済み';
+        } catch (_err) {
+          button.textContent = 'コピー失敗';
+        } finally {
+          setTimeout(function () {
+            button.textContent = originalText;
+            button.disabled = false;
+          }, 1600);
+        }
+      });
+    });
+  };
+
+  if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', function () {
+      DemoSort.attachBenchmarkCopyButtons();
+    });
+  }
+
   /**
    * @param {HTMLElement} root
    * @param {string} dataAttr Full attribute name (e.g. 'data-bs').
