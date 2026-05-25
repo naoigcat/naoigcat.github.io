@@ -7,7 +7,7 @@
 {% assign quick_sort_algorithms = "|quick|sample|" %}
 {% assign heap_sort_algorithms = "|heap|intro|" %}
 {% assign merge_values_algorithms = "|strand|cartesian_tree|" %}
-{% assign quadratic_average_algorithms = "|bubble|insertion|shaker|gnome|selection|oddeven|" %}
+{% assign quadratic_average_algorithms = "|bubble|insertion|shaker|gnome|selection|oddeven|cycle|" %}
 {% assign needs_insertion_sort = false %}
 {% assign needs_partition_at = false %}
 {% assign needs_partition = false %}
@@ -344,6 +344,40 @@ fn selection_sort(a: &mut [usize]) {
             }
         }
         a.swap(i, min);
+    }
+}
+{%- endif %}
+
+{%- if sort_algorithm == "cycle" %}
+fn cycle_sort(a: &mut [usize]) {
+    let n = a.len();
+    for cycle_start in 0..n.saturating_sub(1) {
+        let mut item = a[cycle_start];
+        let mut pos = cycle_start;
+        for i in cycle_start + 1..n {
+            if a[i] < item {
+                pos += 1;
+            }
+        }
+        if pos == cycle_start {
+            continue;
+        }
+        while pos < n && a[pos] == item {
+            pos += 1;
+        }
+        std::mem::swap(&mut a[pos], &mut item);
+        while pos != cycle_start {
+            pos = cycle_start;
+            for i in cycle_start + 1..n {
+                if a[i] < item {
+                    pos += 1;
+                }
+            }
+            while pos < n && a[pos] == item {
+                pos += 1;
+            }
+            std::mem::swap(&mut a[pos], &mut item);
+        }
     }
 }
 {%- endif %}
@@ -990,6 +1024,8 @@ fn benchmark_sort(array: &mut [usize]) {
     gnome_sort(array);
 {% when "selection" %}
     selection_sort(array);
+{% when "cycle" %}
+    cycle_sort(array);
 {% when "tree" %}
     tree_sort(array);
 {% when "library" %}
@@ -1188,7 +1224,7 @@ CMD ["./target/release/rust-benchmark"]
 EOF
 
 docker build -t rust-benchmark "$WORKDIR"
-docker run --rm rust-benchmark
+docker run --rm --init rust-benchmark
 ```
 
 </div>
