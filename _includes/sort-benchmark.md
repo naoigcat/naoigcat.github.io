@@ -7,7 +7,7 @@
 {% assign quick_sort_algorithms = "|quick|sample|" %}
 {% assign heap_sort_algorithms = "|heap|intro|" %}
 {% assign merge_values_algorithms = "|strand|cartesian_tree|" %}
-{% assign quadratic_average_algorithms = "|bubble|insertion|shaker|gnome|selection|oddeven|cycle|" %}
+{% assign quadratic_average_algorithms = "|bubble|insertion|shaker|gnome|selection|oddeven|cycle|pancake|" %}
 {% assign needs_insertion_sort = false %}
 {% assign needs_partition_at = false %}
 {% assign needs_partition = false %}
@@ -434,6 +434,36 @@ fn library_sort(a: &mut [usize]) {
         shelf.insert(pos, value);
     }
     a.copy_from_slice(&shelf);
+}
+{%- endif %}
+
+{%- if sort_algorithm == "pancake" %}
+fn flip_prefix(a: &mut [usize], end: usize) {
+    let mut lo = 0;
+    let mut hi = end;
+    while lo < hi {
+        a.swap(lo, hi);
+        lo += 1;
+        hi -= 1;
+    }
+}
+
+fn pancake_sort(a: &mut [usize]) {
+    let n = a.len();
+    for size in (2..=n).rev() {
+        let mut max_idx = 0;
+        for i in 1..size {
+            if a[i] > a[max_idx] {
+                max_idx = i;
+            }
+        }
+        if max_idx != size - 1 {
+            if max_idx != 0 {
+                flip_prefix(a, max_idx);
+            }
+            flip_prefix(a, size - 1);
+        }
+    }
 }
 {%- endif %}
 
@@ -1082,6 +1112,8 @@ fn benchmark_sort(array: &mut [usize]) {
     strand_sort(array);
 {% when "oddeven" %}
     odd_even_sort(array);
+{% when "pancake" %}
+    pancake_sort(array);
 {% when "shear" %}
     shear_sort(array);
 {% when "proportion_extend" %}
