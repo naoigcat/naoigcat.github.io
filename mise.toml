@@ -43,3 +43,13 @@ port="$(docker port "$container_id" 4000/tcp | awk -F: 'NR == 1 { print $NF }')"
 open "http://localhost:${port}"
 docker attach "$container_id" || :
 '''
+
+[tasks.lint]
+description = "Lint Markdown files"
+run = '''
+find . -path ./.git -prune -o -name '*.md' -print0 | xargs -0 docker run --rm \
+  --user "$(id -u):$(id -g)" \
+  --volume "${PWD}:/workdir" \
+  "davidanson/markdownlint-cli2:v0.22.1" \
+  --config .markdownlint-cli2.jsonc "**/*.md"
+'''
