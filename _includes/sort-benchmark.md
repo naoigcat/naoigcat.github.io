@@ -7,7 +7,7 @@
 {% assign quick_sort_algorithms = "|quick|sample|" %}
 {% assign heap_sort_algorithms = "|heap|intro|" %}
 {% assign merge_values_algorithms = "|strand|cartesian_tree|" %}
-{% assign quadratic_average_algorithms = "|bubble|insertion|shaker|gnome|selection|oddeven|cycle|pancake|ford_johnson|" %}
+{% assign quadratic_average_algorithms = "|bubble|insertion|binary_insertion|shaker|gnome|selection|oddeven|cycle|pancake|ford_johnson|" %}
 {% assign needs_insertion_sort = false %}
 {% assign needs_partition_at = false %}
 {% assign needs_partition = false %}
@@ -115,6 +115,28 @@ fn insertion_sort(a: &mut [usize]) {
             a.swap(j - 1, j);
             j -= 1;
         }
+    }
+}
+{%- endif %}
+
+{%- if sort_algorithm == "binary_insertion" %}
+fn binary_insertion_sort(a: &mut [usize]) {
+    for i in 1..a.len() {
+        let key = a[i];
+        let mut lo = 0;
+        let mut hi = i;
+        while lo < hi {
+            let mid = lo + (hi - lo) / 2;
+            if a[mid] > key {
+                hi = mid;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        for j in (lo..i).rev() {
+            a[j + 1] = a[j];
+        }
+        a[lo] = key;
     }
 }
 {%- endif %}
@@ -3261,6 +3283,8 @@ fn benchmark_sort(array: &mut [usize]) {
     heap_sort(array);
 {% when "insertion" %}
     insertion_sort(array);
+{% when "binary_insertion" %}
+    binary_insertion_sort(array);
 {% when "shell" %}
     shell_sort(array);
 {% when "intro" %}
