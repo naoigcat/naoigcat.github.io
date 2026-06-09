@@ -1,17 +1,17 @@
 ---
-title:     ビトニックソートで配列を並び替える
+title:     バイトニックソートで配列を並び替える
 date:      2026-05-28 00:35:10 +0900
 tags:      sort
 sort_demo: true
 ---
 
-## ビトニックソートを使用する
+## バイトニックソートを使用する
 
-ビトニックソート (`bitonic sort`) は、部分列を昇順・降順の2つの単調列（ビトニック列）に組み立て、距離 `k` の要素同士を比較・交換するビトニックマージで整列させる比較ソートである。
+バイトニックソート (`bitonic sort`) は、部分列を昇順・降順の2つの単調列（バイトニック列）に組み立て、距離 `k` の要素同士を比較・交換するバイトニックマージで整列させる比較ソートである。
 
 1.  **分割**: 長さ `n`（2の冪）の区間を半分に分け、前半を昇順・後半を降順に整えるよう再帰する。
-2.  **ビトニック列の形成**: 再帰の底で長さ2の区間は1回の比較で昇順または降順になる。
-3.  **ビトニックマージ**: 区間の前半と後半を距離 `n/2` でペアにし、方向に応じて比較交換する。その後、半分の長さで同じ処理を再帰する。
+2.  **バイトニック列の形成**: 再帰の底で長さ2の区間は1回の比較で昇順または降順になる。
+3.  **バイトニックマージ**: 区間の前半と後半を距離 `n/2` でペアにし、方向に応じて比較交換する。その後、半分の長さで同じ処理を再帰する。
 4.  **全体**: 最上位の呼び出しで昇順方向を指定すれば、配列全体が昇順になる。
 
 ```pseudocode
@@ -126,7 +126,7 @@ window.DemoSort && DemoSort.boot('bitonic-sort-demo', function (root) {
     dataAttr: 'data-bitonic',
     initialValues: [8, 3, 12, 1, 6, 14, 2, 15, 5, 11, 9, 4, 13, 7, 10, 0],
     initialCaption:
-      'ビトニックソートのデモ（対象区間は青、比較はオレンジ、交換は緑）',
+      'バイトニックソートのデモ（対象区間は青、比較はオレンジ、交換は緑）',
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
@@ -135,7 +135,7 @@ window.DemoSort && DemoSort.boot('bitonic-sort-demo', function (root) {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, rangePairs(s.lo, s.cnt, 'range'));
         api.setCaption(
-          'ビトニック列の構築: 区間 ' +
+          'バイトニック列の構築: 区間 ' +
             s.lo +
             ' … ' +
             (s.lo + s.cnt - 1) +
@@ -147,7 +147,7 @@ window.DemoSort && DemoSort.boot('bitonic-sort-demo', function (root) {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, rangePairs(s.lo, s.cnt, 'range'));
         api.setCaption(
-          'ビトニックマージ: 区間 ' +
+          'バイトニックマージ: 区間 ' +
             s.lo +
             ' … ' +
             (s.lo + s.cnt - 1) +
