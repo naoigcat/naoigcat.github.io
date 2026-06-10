@@ -7,7 +7,7 @@
 {% assign quick_sort_algorithms = "|quick|sample|" %}
 {% assign heap_sort_algorithms = "|heap|intro|" %}
 {% assign merge_values_algorithms = "|strand|cartesian_tree|" %}
-{% assign quadratic_average_algorithms = "|bubble|insertion|binary_insertion|shaker|gnome|selection|oddeven|cycle|pancake|ford_johnson|" %}
+{% assign quadratic_average_algorithms = "|bubble|insertion|binary_insertion|shaker|gnome|selection|exchange|oddeven|cycle|pancake|ford_johnson|" %}
 {% assign needs_insertion_sort = false %}
 {% assign needs_partition_at = false %}
 {% assign needs_partition = false %}
@@ -366,6 +366,18 @@ fn selection_sort(a: &mut [usize]) {
             }
         }
         a.swap(i, min);
+    }
+}
+{%- endif %}
+
+{%- if sort_algorithm == "exchange" %}
+fn exchange_sort(a: &mut [usize]) {
+    for i in 0..a.len() {
+        for j in i + 1..a.len() {
+            if a[j] < a[i] {
+                a.swap(i, j);
+            }
+        }
     }
 }
 {%- endif %}
@@ -3297,6 +3309,8 @@ fn benchmark_sort(array: &mut [usize]) {
     gnome_sort(array);
 {% when "selection" %}
     selection_sort(array);
+{% when "exchange" %}
+    exchange_sort(array);
 {% when "cycle" %}
     cycle_sort(array);
 {% when "tree" %}
