@@ -53,16 +53,17 @@ jobs:
           echo "markdownlint-cli2=${ver}"
           echo "version=${ver}" >> "$GITHUB_OUTPUT"
 
-      - name: Update run-markdownlint.sh
+      - name: Update mise.toml
         run: |
           set -euo pipefail
           ver="${{ steps.cli2.outputs.version }}"
-          script=.agents/skills/run-markdownlint/scripts/run-markdownlint.sh
-          if [[ ! -f "$script" ]]; then
-            echo "::error::Missing ${script}"
+          image="davidanson/markdownlint-cli2:v${ver}"
+          mise_toml=mise.toml
+          if [[ ! -f "$mise_toml" ]]; then
+            echo "::error::Missing ${mise_toml}"
             exit 1
           fi
-          sed -i "s/^MARKDOWNLINT_CLI2_VERSION=\"[^\"]*\"/MARKDOWNLINT_CLI2_VERSION=\"${ver}\"/" "$script"
+          sed -i "s|^markdownlint_cli2_image = \"[^\"]*\"|markdownlint_cli2_image = \"${image}\"|" "$mise_toml"
 
       - name: Commit and push if changed
         env:
@@ -71,11 +72,10 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          script=.agents/skills/run-markdownlint/scripts/run-markdownlint.sh
-          git add "$script"
+          git add mise.toml
           if git diff --cached --quiet; then
-            echo "MARKDOWNLINT_CLI2_VERSION already matches markdownlint-cli2-action (${VERSION}); nothing to commit."
+            echo "markdownlint_cli2_image already matches markdownlint-cli2-action (${VERSION}); nothing to commit."
             exit 0
           fi
-          git commit -m "Sync MARKDOWNLINT_CLI2_VERSION with markdownlint-cli2-action (${VERSION})"
+          git commit -m "Sync markdownlint_cli2_image with markdownlint-cli2-action (${VERSION})"
           git push

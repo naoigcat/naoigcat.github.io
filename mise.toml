@@ -1,5 +1,6 @@
 [vars]
 github_pages_image = "naoigcat/github-pages:232"
+markdownlint_cli2_image = "davidanson/markdownlint-cli2:v0.22.1"
 
 [tasks.serve]
 description = "Run Jekyll in Docker (GitHub Pages dependency image)"
@@ -45,11 +46,32 @@ docker attach "$container_id" || :
 '''
 
 [tasks.lint]
-description = "Lint Markdown files"
+description = "Lint Markdown files with markdownlint-cli2 (Docker)"
+usage = '''
+flag "--fix" help="Apply auto-fixes where supported"
+arg "[path]..." help="Markdown paths or globs (default: **/*.md)" var=#true
+'''
 run = '''
-find . -path ./.git -prune -o -name '*.md' -print0 | xargs -0 docker run --rm \
+#!/usr/bin/env bash
+set -euo pipefail
+
+cli_args=(--config .markdownlint-cli2.jsonc)
+
+if [[ -n "${usage_fix:-}" ]]; then
+  cli_args+=(--fix)
+fi
+
+if [[ -n "${usage_path:-}" ]]; then
+  read -r -a paths <<< "${usage_path}"
+  cli_args+=("${paths[@]}")
+else
+  cli_args+=("**/*.md")
+fi
+
+docker run --rm \
   --user "$(id -u):$(id -g)" \
   --volume "${PWD}:/workdir" \
-  "davidanson/markdownlint-cli2:v0.22.1" \
-  --config .markdownlint-cli2.jsonc "**/*.md"
+  --workdir /workdir \
+  "{{ vars.markdownlint_cli2_image }}" \
+  "${cli_args[@]}"
 '''
