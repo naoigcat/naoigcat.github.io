@@ -7,7 +7,7 @@
 {% assign quick_sort_algorithms = "|quick|sample|" %}
 {% assign heap_sort_algorithms = "|heap|intro|" %}
 {% assign merge_values_algorithms = "|strand|cartesian_tree|" %}
-{% assign quadratic_average_algorithms = "|bubble|insertion|binary_insertion|shaker|gnome|selection|exchange|oddeven|cycle|pancake|ford_johnson|" %}
+{% assign quadratic_average_algorithms = "|bubble|insertion|binary_insertion|shaker|gnome|selection|exchange|brick|cycle|pancake|ford_johnson|" %}
 {% assign needs_insertion_sort = false %}
 {% assign needs_partition_at = false %}
 {% assign needs_partition = false %}
@@ -576,8 +576,8 @@ fn strand_sort(a: &mut [usize]) {
 }
 {%- endif %}
 
-{%- if sort_algorithm == "oddeven" %}
-fn odd_even_sort(a: &mut [usize]) {
+{%- if sort_algorithm == "brick" %}
+fn brick_sort(a: &mut [usize]) {
     let mut sorted = false;
     while !sorted {
         sorted = true;
@@ -3323,8 +3323,8 @@ fn benchmark_sort(array: &mut [usize]) {
     patience_sort(array);
 {% when "strand" %}
     strand_sort(array);
-{% when "oddeven" %}
-    odd_even_sort(array);
+{% when "brick" %}
+    brick_sort(array);
 {% when "pancake" %}
     pancake_sort(array);
 {% when "shear" %}

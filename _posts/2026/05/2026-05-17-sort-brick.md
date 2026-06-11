@@ -1,24 +1,22 @@
 ---
-title:     奇偶転置ソートで配列を並び替える
+title:     ブリックソートで配列を並び替える
 date:      2026-05-17 06:55:41 +0900
 tags:      sort
 sort_demo: true
 ---
 
-## 奇偶転置ソートを使用する
+## ブリックソートを使用する
 
-奇偶転置ソート (`odd-even sort`) は、2種類の組に分けて隣接要素同士だけを比較し、逆順なら交換する操作を繰り返す比較ソートである。
+ブリックソート (`brick sort`) は、隣接する2要素だけを比較し、逆順なら入れ替える操作を、奇数インデックス側と偶数インデックス側の2種類の組に分けて繰り返す比較ソートである。奇偶転置ソート (`odd-even sort`) やパリティソート (`parity sort`) とも呼ばれ、レンガを積むように交互の組で整列が進むイメージからこの名前が付いている。
 
 1.  **偶数組**: インデックス `(0,1), (2,3), (4,5), …` のペアを左サイドから順に見て、右の要素の方が小さければ入れ替える。
 2.  **奇数組**: インデックス `(1,2), (3,4), (5,6), …` のペアについて同様に比較・交換する。
 3.  **収束**: 偶数組と奇数組をまとめて 1 ラウンドとみなし、あるラウンドで一度も交換が起きなければ全体は昇順に整っているので終了する。
 
-隣接ペアだけを同時に処理できるため、同じ組内の比較・交換は互いに干渉せず、ラウンド内では「飛び飛びのペア」をまとめて進めることができる。
-
-逐次実行では最悪時間計算量は `O(n²)`（ラウンド数は `O(n)`、各ラウンドで `O(n)` 本の隣接ペア）、追加の配列を使わず `O(1)` の補助記憶でよいインプレースな実装が可能である。隣接交換のみで安定なソートになる。クイックソートのような分割再帰型と比べれば遅いが、構造が単純でデバッグや可視化向きである。
+同一組のペアは互いに干渉しないため、ラウンド内では飛び飛びの隣接ペアを並列に処理できる。逐次実行では最悪時間計算量は `O(n²)`（ラウンド数は `O(n)`、各ラウンドで `O(n)` 本の隣接ペア）、追加の配列を使わず `O(1)` の補助記憶でよいインプレースな実装が可能である。隣接交換のみで安定なソートになる。
 
 ```pseudocode
-procedure odd_even_sort(A)
+procedure brick_sort(A)
   n = length(A)
   sorted = false
   while not sorted
@@ -33,9 +31,11 @@ procedure odd_even_sort(A)
         sorted = false
 ```
 
+バブルソートと同様に局所的な交換だけで進むが、奇数組・偶数組を交互に適用する点が異なる。並列プロセッサ向けに設計されたアルゴリズムとして知られ、各組の比較・交換は互いに独立して実行できる。
+
 {% capture sort_demo_js %}
 <script>
-window.DemoSort && DemoSort.boot('oddeven-sort-demo', function (root) {
+window.DemoSort && DemoSort.boot('brick-sort-demo', function (root) {
   function generateSteps(initial) {
     const a = initial.slice();
     const steps = [];
@@ -78,10 +78,10 @@ window.DemoSort && DemoSort.boot('oddeven-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-oddeven',
+    dataAttr: 'data-brick',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
-      '奇偶転置ソートのデモ（偶数相・奇数相を交互に適用。比較はオレンジ、交換は緑）',
+      'ブリックソートのデモ（奇数組・偶数組を交互に適用。比較はオレンジ、交換は緑）',
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
@@ -91,8 +91,8 @@ window.DemoSort && DemoSort.boot('oddeven-sort-demo', function (root) {
         DemoSort.clearRoles(barsEl);
         api.setCaption(
           s.phase === 'even'
-            ? '偶数相: 位置 0-1, 2-3, … のペアを順に比較'
-            : '奇数相: 位置 1-2, 3-4, … のペアを順に比較'
+            ? '偶数組: 位置 0-1, 2-3, … のペアを順に比較'
+            : '奇数組: 位置 1-2, 3-4, … のペアを順に比較'
         );
         return;
       }
@@ -125,12 +125,12 @@ window.DemoSort && DemoSort.boot('oddeven-sort-demo', function (root) {
 {% endcapture %}
 
 {% include sort-demo/wrapper.html
-  id="oddeven-sort-demo"
-  data_prefix="oddeven"
+  id="brick-sort-demo"
+  data_prefix="brick"
   script=sort_demo_js
 %}
 
-偶・奇の相に分けて常に隣同士だけを見るため、バブルソートと並べると「先頭から順に走査するか、飛び飛びのペアで進めるか」の違いがはっきりする。
+奇数組と偶数組を交互に進めるため、バブルソートの単方向走査とは異なり、小さい値も大きい値も両端へ同時に寄せやすい。偶・奇の組に分けて常に隣同士だけを見る点は、先頭から順に走査するバブルソートとの違いとしてもはっきりする。
 
 ## 計算時間量および空間計算量を計測する
 
@@ -149,4 +149,4 @@ window.DemoSort && DemoSort.boot('oddeven-sort-demo', function (root) {
 
 <!-- sort-benchmark-result:end -->
 
-{% include sort-benchmark.md algorithm="oddeven" %}
+{% include sort-benchmark.md algorithm="brick" %}
