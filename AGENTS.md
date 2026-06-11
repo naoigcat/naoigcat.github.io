@@ -62,10 +62,11 @@ Two workflows declare `permissions: contents: write` and push commits when their
 Do not flag `contents: write`, automated `git push`, or these “commit only the touched lines” designs as review findings
 unless the maintainer asks to change them.
 
-**Markdownlint skill pin (`sync-markdownlint.yml`).** On push to `main` or `dependabot/**` when
+**Markdownlint pin (`sync-markdownlint.yml`).** On push to `main` or `dependabot/**` when
 `.github/workflows/lint.yml` changes, the workflow resolves the pinned
-`DavidAnson/markdownlint-cli2-action` ref, updates only the `MARKDOWNLINT_CLI2_VERSION="…"` line in
-`.agents/skills/run-markdownlint/scripts/run-markdownlint.sh`, and pushes when that line changes.
+`DavidAnson/markdownlint-cli2-action` ref, updates only the `markdownlint_cli2_image = "…"` line in
+`mise.toml`, and pushes when that line changes. Local lint runs via `mise run lint` (Docker image from
+that var).
 It is gated with `if: github.ref == 'refs/heads/main' || github.actor == 'dependabot[bot]'`.
 
 **GitHub Pages Docker image (`sync-githubpages.yml`).** On `workflow_dispatch` or a weekly schedule,

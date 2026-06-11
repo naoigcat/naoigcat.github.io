@@ -133,9 +133,15 @@ the first segment of `{filename_slug}`). Write the **article body in Japanese**.
 
 ## 5. Run markdownlint
 
-When creation or editing of the `.md` file is complete, **read and follow**
-`.agents/skills/run-markdownlint/SKILL.md` (the **run-markdownlint** skill): run `markdownlint-cli2` on the file, fix issues,
-and re-run until lint passes. Do not treat the post as finished while markdownlint still reports errors.
+When creation or editing of the `.md` file is complete, run from the **workspace root**:
+
+```bash
+mise run lint
+```
+
+If lint reports errors, apply fixes (`mise run lint -- --fix "<path-to-file.md>"` for auto-fixable rules; edit manually for
+the rest) and re-run until `mise run lint` exits **0**. Do not treat the post as finished while markdownlint still reports
+errors.
 
 ## 6. Commit
 
