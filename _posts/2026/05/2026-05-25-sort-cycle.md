@@ -185,7 +185,7 @@ window.DemoSort && DemoSort.boot('cycle-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="cycle-sort-demo"
   data_prefix="cycle"
   script=sort_demo_js

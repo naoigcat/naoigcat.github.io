@@ -162,7 +162,7 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="shaker-sort-demo"
   data_prefix="shaker"
   script=sort_demo_js

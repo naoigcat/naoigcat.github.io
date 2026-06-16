@@ -171,7 +171,7 @@ window.DemoSort && DemoSort.boot('binary-insertion-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="binary-insertion-sort-demo"
   data_prefix="binary-insertion"
   script=sort_demo_js

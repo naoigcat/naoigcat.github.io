@@ -126,7 +126,7 @@ window.DemoSort && DemoSort.boot('exchange-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="exchange-sort-demo"
   data_prefix="exchange"
   script=sort_demo_js

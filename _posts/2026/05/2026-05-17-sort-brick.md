@@ -124,7 +124,7 @@ window.DemoSort && DemoSort.boot('brick-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="brick-sort-demo"
   data_prefix="brick"
   script=sort_demo_js

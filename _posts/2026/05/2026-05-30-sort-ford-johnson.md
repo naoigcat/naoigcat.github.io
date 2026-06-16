@@ -357,7 +357,7 @@ window.DemoSort && DemoSort.boot('ford-johnson-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="ford-johnson-sort-demo"
   data_prefix="ford-johnson"
   script=sort_demo_js

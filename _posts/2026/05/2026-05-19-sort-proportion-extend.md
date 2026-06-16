@@ -306,7 +306,7 @@ window.DemoSort && DemoSort.boot('proportion-extend-sort-demo', function (root) 
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="proportion-extend-sort-demo"
   data_prefix="proportion"
   script=sort_demo_js

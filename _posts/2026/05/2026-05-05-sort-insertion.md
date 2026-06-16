@@ -120,7 +120,7 @@ window.DemoSort && DemoSort.boot('insertion-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="insertion-sort-demo"
   data_prefix="insertion"
   script=sort_demo_js
