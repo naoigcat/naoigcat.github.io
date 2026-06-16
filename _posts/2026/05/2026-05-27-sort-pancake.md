@@ -237,7 +237,7 @@ window.DemoSort && DemoSort.boot('pancake-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="pancake-sort-demo"
   data_prefix="pancake"
   script=sort_demo_js

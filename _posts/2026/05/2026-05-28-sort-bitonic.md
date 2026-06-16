@@ -193,7 +193,7 @@ window.DemoSort && DemoSort.boot('bitonic-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="bitonic-sort-demo"
   data_prefix="bitonic"
   script=sort_demo_js

@@ -111,7 +111,7 @@ window.DemoSort && DemoSort.boot('shell-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="shell-sort-demo"
   data_prefix="shell"
   script=sort_demo_js

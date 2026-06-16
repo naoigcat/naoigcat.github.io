@@ -375,7 +375,7 @@ window.DemoSort && DemoSort.boot('symmetry-partition-sort-demo', function (root)
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="symmetry-partition-sort-demo"
   data_prefix="symmetry"
   script=sort_demo_js
