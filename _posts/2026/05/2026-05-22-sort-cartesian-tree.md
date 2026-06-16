@@ -408,7 +408,7 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="cartesian-tree-sort-demo"
   data_prefix="cartesian"
   script=sort_demo_js

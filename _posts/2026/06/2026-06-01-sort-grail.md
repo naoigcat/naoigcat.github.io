@@ -313,7 +313,7 @@ window.DemoSort && DemoSort.boot('grail-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="grail-sort-demo"
   data_prefix="grail"
   script=sort_demo_js

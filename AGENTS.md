@@ -14,7 +14,7 @@ for a duplicate build, PR-preview sites, or another goal that requires Actions.
 
 ## In-article JavaScript targets modern browsers
 
-The JavaScript embedded in posts (for example, the sort-algorithm demos under `_posts/` that mount via `{% include sort-demo/wrapper.html ... %}`)
+The JavaScript embedded in posts (for example, the sort-algorithm demos under `_posts/` that mount via `{% include sort-demo.html ... %}`)
 **does not need to support Internet Explorer or any other engine that lacks ES2015+ syntax**.
 Treat the runtime baseline as evergreen browsers.
 

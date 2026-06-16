@@ -274,7 +274,7 @@ window.DemoSort && DemoSort.boot('smooth-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="smooth-sort-demo"
   data_prefix="smooth"
   script=sort_demo_js

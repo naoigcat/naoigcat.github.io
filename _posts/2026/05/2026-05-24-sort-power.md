@@ -486,7 +486,7 @@ window.DemoSort && DemoSort.boot('power-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="power-sort-demo"
   data_prefix="power"
   script=sort_demo_js

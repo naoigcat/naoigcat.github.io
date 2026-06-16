@@ -203,7 +203,7 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="merge-sort-demo"
   data_prefix="merge"
   script=sort_demo_js

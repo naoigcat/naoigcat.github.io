@@ -104,7 +104,7 @@ window.DemoSort && DemoSort.boot('gnome-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="gnome-sort-demo"
   data_prefix="gnome"
   script=sort_demo_js
