@@ -1,41 +1,13 @@
 <!-- markdownlint-disable MD041 -->
 {% assign sort_algorithm = include.algorithm %}
-{% assign sort_algorithm_key = sort_algorithm | prepend: "|" | append: "|" %}
-{% assign insertion_sort_algorithms = "|insertion|quick|intro|proportion_extend|sample|symmetry_partition|tim|power|shear|" %}
-{% assign partition_at_algorithms = "|quick|intro|proportion_extend|sample|symmetry_partition|" %}
-{% assign partition_algorithms = "|quick|intro|sample|" %}
-{% assign quick_sort_algorithms = "|quick|sample|" %}
-{% assign heap_sort_algorithms = "|heap|intro|" %}
-{% assign merge_values_algorithms = "|strand|cartesian_tree|" %}
-{% assign quadratic_average_algorithms = "|bubble|insertion|binary_insertion|shaker|gnome|selection|exchange|brick|cycle|pancake|ford_johnson|" %}
-{% assign needs_insertion_sort = false %}
-{% assign needs_partition_at = false %}
-{% assign needs_partition = false %}
-{% assign needs_quick_sort = false %}
-{% assign needs_heap_sort = false %}
-{% assign needs_merge_values = false %}
-{% assign has_quadratic_average = false %}
-{% if insertion_sort_algorithms contains sort_algorithm_key %}
-{% assign needs_insertion_sort = true %}
-{% endif %}
-{% if partition_at_algorithms contains sort_algorithm_key %}
-{% assign needs_partition_at = true %}
-{% endif %}
-{% if partition_algorithms contains sort_algorithm_key %}
-{% assign needs_partition = true %}
-{% endif %}
-{% if quick_sort_algorithms contains sort_algorithm_key %}
-{% assign needs_quick_sort = true %}
-{% endif %}
-{% if heap_sort_algorithms contains sort_algorithm_key %}
-{% assign needs_heap_sort = true %}
-{% endif %}
-{% if merge_values_algorithms contains sort_algorithm_key %}
-{% assign needs_merge_values = true %}
-{% endif %}
-{% if quadratic_average_algorithms contains sort_algorithm_key %}
-{% assign has_quadratic_average = true %}
-{% endif %}
+{% assign algo = site.data.sort_algorithms[sort_algorithm] %}
+{% assign needs_insertion_sort = algo.insertion_sort | default: false %}
+{% assign needs_partition_at = algo.partition_at | default: false %}
+{% assign needs_partition = algo.partition | default: false %}
+{% assign needs_quick_sort = algo.quick_sort | default: false %}
+{% assign needs_heap_sort = algo.heap_sort | default: false %}
+{% assign needs_merge_values = algo.merge_values | default: false %}
+{% assign has_quadratic_average = algo.quadratic_average | default: false %}
 
 <details markdown="1">
 <summary>計測に使用したコードを表示する</summary>
@@ -3284,80 +3256,11 @@ fn kota_sort(a: &mut [usize]) {
 {%- endif %}
 
 fn benchmark_sort(array: &mut [usize]) {
-{% case sort_algorithm %}
-{% when "bubble" %}
-    bubble_sort(array);
-{% when "quick" %}
-    quick_sort(array);
-{% when "merge" %}
-    merge_sort(array);
-{% when "heap" %}
-    heap_sort(array);
-{% when "insertion" %}
-    insertion_sort(array);
-{% when "binary_insertion" %}
-    binary_insertion_sort(array);
-{% when "shell" %}
-    shell_sort(array);
-{% when "intro" %}
-    intro_sort(array);
-{% when "shaker" %}
-    shaker_sort(array);
-{% when "comb" %}
-    comb_sort(array);
-{% when "gnome" %}
-    gnome_sort(array);
-{% when "selection" %}
-    selection_sort(array);
-{% when "exchange" %}
-    exchange_sort(array);
-{% when "cycle" %}
-    cycle_sort(array);
-{% when "tree" %}
-    tree_sort(array);
-{% when "library" %}
-    library_sort(array);
-{% when "smooth" %}
-    smooth_sort(array);
-{% when "patience" %}
-    patience_sort(array);
-{% when "strand" %}
-    strand_sort(array);
-{% when "brick" %}
-    brick_sort(array);
-{% when "pancake" %}
-    pancake_sort(array);
-{% when "shear" %}
-    shear_sort(array);
-{% when "proportion_extend" %}
-    proportion_extend_sort(array);
-{% when "sample" %}
-    sample_sort(array);
-{% when "symmetry_partition" %}
-    symmetry_partition_sort(array);
-{% when "cartesian_tree" %}
-    cartesian_tree_sort(array);
-{% when "tim" %}
-    tim_sort(array);
-{% when "tournament" %}
-    tournament_sort(array);
-{% when "power" %}
-    power_sort(array);
-{% when "bitonic" %}
-    bitonic_sort(array);
-{% when "oddeven_merge" %}
-    odd_even_merge_sort(array);
-{% when "ford_johnson" %}
-    ford_johnson(array);
-{% when "wiki" %}
-    wiki_sort(array);
-{% when "grail" %}
-    grail_sort(array);
-{% when "kota" %}
-    kota_sort(array);
+{% if algo.sort_fn %}
+    {{ algo.sort_fn }}(array);
 {% else %}
     panic!("unknown algorithm: {{ sort_algorithm }}");
-{% endcase %}
+{% endif %}
 }
 
 fn shuffled(size: usize, seed: u64) -> Vec<usize> {
