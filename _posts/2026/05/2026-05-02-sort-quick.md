@@ -141,7 +141,7 @@ window.DemoSort && DemoSort.boot('quick-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="quick-sort-demo"
   data_prefix="quick"
   script=sort_demo_js

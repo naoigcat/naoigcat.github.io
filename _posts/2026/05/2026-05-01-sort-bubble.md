@@ -93,7 +93,7 @@ window.DemoSort && DemoSort.boot('bubble-sort-demo', function (root) {
 </script>
 {% endcapture %}
 
-{% include sort-demo/wrapper.html
+{% include sort-demo.html
   id="bubble-sort-demo"
   data_prefix="bubble"
   script=sort_demo_js
