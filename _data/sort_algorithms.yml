@@ -1,0 +1,145 @@
+# Sort benchmark metadata for _includes/sort-benchmark.md.
+#
+# When adding an algorithm:
+# 1. Add a key here (id matches the `algorithm=` argument to sort-benchmark.md).
+# 2. Set sort_fn to the Rust entry point included in benchmark_sort.
+# 3. Set dependency flags only when the generated benchmark needs that helper.
+# 4. Add the algorithm-specific Rust block in sort-benchmark.md.
+
+bubble:
+  sort_fn: bubble_sort
+  quadratic_average: true
+
+quick:
+  sort_fn: quick_sort
+  insertion_sort: true
+  partition_at: true
+  partition: true
+  quick_sort: true
+
+merge:
+  sort_fn: merge_sort
+
+heap:
+  sort_fn: heap_sort
+  heap_sort: true
+
+insertion:
+  sort_fn: insertion_sort
+  insertion_sort: true
+  quadratic_average: true
+
+binary_insertion:
+  sort_fn: binary_insertion_sort
+  quadratic_average: true
+
+shell:
+  sort_fn: shell_sort
+
+intro:
+  sort_fn: intro_sort
+  insertion_sort: true
+  partition_at: true
+  partition: true
+  heap_sort: true
+
+shaker:
+  sort_fn: shaker_sort
+  quadratic_average: true
+
+comb:
+  sort_fn: comb_sort
+
+gnome:
+  sort_fn: gnome_sort
+  quadratic_average: true
+
+selection:
+  sort_fn: selection_sort
+  quadratic_average: true
+
+exchange:
+  sort_fn: exchange_sort
+  quadratic_average: true
+
+cycle:
+  sort_fn: cycle_sort
+  quadratic_average: true
+
+tree:
+  sort_fn: tree_sort
+
+library:
+  sort_fn: library_sort
+
+smooth:
+  sort_fn: smooth_sort
+
+patience:
+  sort_fn: patience_sort
+
+strand:
+  sort_fn: strand_sort
+  merge_values: true
+
+brick:
+  sort_fn: brick_sort
+  quadratic_average: true
+
+pancake:
+  sort_fn: pancake_sort
+
+proportion_extend:
+  sort_fn: proportion_extend_sort
+  insertion_sort: true
+  partition_at: true
+
+sample:
+  sort_fn: sample_sort
+  insertion_sort: true
+  partition_at: true
+  partition: true
+  quick_sort: true
+
+symmetry_partition:
+  sort_fn: symmetry_partition_sort
+  insertion_sort: true
+  partition_at: true
+
+cartesian_tree:
+  sort_fn: cartesian_tree_sort
+  merge_values: true
+
+tim:
+  sort_fn: tim_sort
+  insertion_sort: true
+
+tournament:
+  sort_fn: tournament_sort
+
+power:
+  sort_fn: power_sort
+  insertion_sort: true
+
+bitonic:
+  sort_fn: bitonic_sort
+
+oddeven_merge:
+  sort_fn: odd_even_merge_sort
+
+ford_johnson:
+  sort_fn: ford_johnson
+  quadratic_average: true
+
+shear:
+  sort_fn: shear_sort
+  insertion_sort: true
+
+wiki:
+  sort_fn: wiki_sort
+
+grail:
+  sort_fn: grail_sort
+
+kota:
+  sort_fn: kota_sort
