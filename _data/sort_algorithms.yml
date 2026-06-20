@@ -4,7 +4,8 @@
 # 1. Add a key here (id matches the `algorithm=` argument to sort-benchmark.md).
 # 2. Set sort_fn to the Rust entry point included in benchmark_sort.
 # 3. Set dependency flags only when the generated benchmark needs a shared helper
-#    under _includes/sort-benchmark/helpers/.
+#    under _includes/sort-benchmark/helpers/, or when MAX_POWER must be capped
+#    (`quadratic_average`; see _includes/sort-benchmark.md).
 # 4. Add _includes/sort-benchmark/algorithms/<id>.rs with the algorithm implementation
 #    (leave empty when sort_fn is only a shared helper, e.g. insertion/quick/heap).
 
@@ -145,3 +146,6 @@ grail:
 
 kota:
   sort_fn: kota_sort
+
+counting:
+  sort_fn: counting_sort
