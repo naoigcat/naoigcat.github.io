@@ -46,6 +46,51 @@
   transition: box-shadow 0.15s ease, outline-color 0.15s ease;
   transform: translateX(0);
 }
+#radix-sort-demo .sort-demo__bars {
+  min-height: 168px;
+}
+#radix-sort-demo .sort-demo__bar-stack {
+  flex: 1 1 0;
+  max-width: 48px;
+  min-width: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+#radix-sort-demo .sort-demo__bar-stack--empty .sort-demo__bar {
+  visibility: hidden;
+  height: 0 !important;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}
+#radix-sort-demo .sort-demo__bar-stack[data-role="cursor"] {
+  outline: 3px solid #1abc9c;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(26,188,156,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+#radix-sort-demo .sort-demo__bar-stack[data-role="write"] {
+  outline: 3px solid #27ae60;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(39,174,96,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+#radix-sort-demo .sort-demo__bar-value {
+  font-size: 0.68rem;
+  line-height: 1.1;
+  margin-bottom: 3px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+#radix-sort-demo .sort-demo__bar-stack .sort-demo__bar {
+  width: 100%;
+  flex: none;
+  max-width: none;
+  min-width: 0;
+}
 @media (max-width: 520px) {
   .sort-demo__bars {
     gap: 3px;
@@ -56,6 +101,12 @@
   }
   .sort-demo:has(.sort-demo__bar[data-role="gap"]) .sort-demo__bar {
     min-width: 0;
+  }
+  #radix-sort-demo .sort-demo__bar-stack {
+    min-width: 14px;
+  }
+  #radix-sort-demo .sort-demo__bar-value {
+    font-size: 0.58rem;
   }
 }
 .sort-demo__caption {
