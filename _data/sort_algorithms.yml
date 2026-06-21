@@ -149,3 +149,6 @@ kota:
 
 counting:
   sort_fn: counting_sort
+
+radix:
+  sort_fn: radix_sort
