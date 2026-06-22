@@ -152,3 +152,7 @@ counting:
 
 radix:
   sort_fn: radix_sort
+
+bucket:
+  sort_fn: bucket_sort
+  insertion_sort: true
