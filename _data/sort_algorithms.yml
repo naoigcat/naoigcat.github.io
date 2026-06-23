@@ -120,6 +120,10 @@ tim:
 tournament:
   sort_fn: tournament_sort
 
+two_way_insertion:
+  sort_fn: two_way_insertion_sort
+  quadratic_average: true
+
 power:
   sort_fn: power_sort
   insertion_sort: true
