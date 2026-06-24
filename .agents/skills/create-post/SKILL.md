@@ -16,18 +16,7 @@ the file.
     Markdown after the closing front matter `---`) **in Japanese**. The user may still supply an ASCII/kebab-style slug for
     `{filename_slug}`; only the human-facing title and prose must be Japanese.
 
-## 1. Obtain date and time
-
-Get the current time and always derive the following values from the instant converted to **Asia/Tokyo** (Japan Standard
-Time, JST). Use a timezone-aware API or library so results are consistent across environments (for example:
-`Intl.DateTimeFormat` with `timeZone: 'Asia/Tokyo'`, `date-fns-tz`, or `moment-timezone`).
-
--   `{year}`: Four-digit Gregorian year from the JST instant (`YYYY`; example: 2026)
--   `{month}`: Two-digit month from the JST instant (`MM`; example: 04)
--   `{day}`: Two-digit day from the JST instant (`DD`; example: 10)
--   `{date}`: The same JST instant formatted as `yyyy-mm-dd HH:MM:SS +0900` (example: `2026-04-10 12:00:00 +0900`)
-
-## 2. Determine the file path
+## 1. Determine the filename slug
 
 Keep the user-provided title as `{title}` and introduce a separate variable `{filename_slug}` for the file name. Store a
 value in `{filename_slug}` by converting the user input to ASCII kebab-case suitable for file names. Apply these rules
@@ -44,15 +33,7 @@ when generating it:
 -   If the conversion yields an empty string, treat it as an error and ask the user to re-enter the title. If you adopt a
     fallback, state explicitly that you are appending a short random ID to produce `{filename_slug}`.
 
-Create the new Markdown file at:
-
-`_posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md`
-
--   Create parent directories if they do not exist.
--   If a file already exists at that path, do not overwrite it without confirmation, or prompt the user to choose a different
-    file name.
-
-## 3. Prepare fields
+## 2. Prepare fields
 
 -   **Display title**: Use a separate variable `{display_title}` for front matter and display. It must be **Japanese**
     phrasing appropriate for the post (if the user gives an ASCII slug like `bash-random-number`, expand it to a natural
@@ -76,7 +57,38 @@ Create the new Markdown file at:
     -   Note: a few first-segment slugs are normalized to a canonical tag name (e.g. `sh-*` → `bash`, `objc-*` →
         `objective-c`). Reuse the same normalization that recent posts use; check sibling posts under `_posts/` to confirm.
 
-## 4. Write the file
+## 3. Obtain date and time, then write the file
+
+Capture the current instant **immediately before creating the Markdown file** — not at the start of the workflow and not
+while still drafting body content or other assets. The front matter `date` and the file path must both reflect **when
+the post file is actually created**.
+
+Convert that instant to **Asia/Tokyo** (Japan Standard Time, JST). Use a timezone-aware API or library so results are
+consistent across environments (for example: `TZ=Asia/Tokyo date '+%Y %m %d %Y-%m-%d %H:%M:%S +0900'`,
+`Intl.DateTimeFormat` with `timeZone: 'Asia/Tokyo'`, `date-fns-tz`, or `moment-timezone`).
+
+From that JST instant derive:
+
+-   `{year}`: Four-digit Gregorian year (`YYYY`; example: 2026)
+-   `{month}`: Two-digit month (`MM`; example: 04)
+-   `{day}`: Two-digit day (`DD`; example: 10)
+-   `{date}`: The same instant formatted as `yyyy-mm-dd HH:MM:SS +0900` (example: `2026-04-10 22:05:36 +0900`)
+
+Create the new Markdown file at:
+
+`_posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md`
+
+-   Create parent directories if they do not exist.
+-   If a file already exists at that path, do not overwrite it without confirmation, or prompt the user to choose a different
+    file name.
+-   Do not round `{date}` to midnight or any other fixed clock time; use the captured second-level timestamp.
+-   If preparation crosses midnight JST, re-capture the instant at write time so the directory, file name, and `date` all
+    agree on the new calendar day.
+
+After the file is written, optionally confirm alignment with the filesystem timestamp (for example on macOS:
+`stat -f '%SB' -t '%Y-%m-%d %H:%M:%S %z' '<path>'`; on Linux: `stat -c '%w' '<path>'` or `stat -c '%y' '<path>'` when birth
+time is unavailable). If the recorded `date` differs from the file-creation instant by more than a few seconds, update the
+`date:` line to match the filesystem time (still formatted as `yyyy-mm-dd HH:MM:SS +0900` in JST).
 
 ### Front matter column alignment
 
@@ -128,10 +140,10 @@ Optional front matter keys (semantics reminder):
 -   **`mermaid: true`** — `head.html` loads the Mermaid CDN script so Mermaid fenced code blocks render.
 -   **`sort_demo: true`** — `head.html` loads sort-demo CSS and `sort-demo.js` when using `{% include sort-demo.html %}`.
 
-Set `title` to `{display_title}` and `tags` to `{tag}` (the space-separated list resolved in step 3, always starting with
+Set `title` to `{display_title}` and `tags` to `{tag}` (the space-separated list resolved in step 2, always starting with
 the first segment of `{filename_slug}`). Write the **article body in Japanese**.
 
-## 5. Run markdownlint
+## 4. Run markdownlint
 
 When creation or editing of the `.md` file is complete, run from the **workspace root**:
 
@@ -143,7 +155,7 @@ If lint reports errors, apply fixes (`mise run lint -- --fix "<path-to-file.md>"
 the rest) and re-run until `mise run lint` exits **0**. Do not treat the post as finished while markdownlint still reports
 errors.
 
-## 6. Commit
+## 5. Commit
 
 Before committing the new file, run `git rev-parse --is-inside-work-tree` to verify you are inside a Git repository. If
 not, stop and tell the user to run `git init` or work in an existing repository.
@@ -158,6 +170,6 @@ git add _posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md
 git commit -m "Add post \`{year}-{month}-{day}-{filename_slug}\`"
 ```
 
-## 7. Report completion
+## 6. Report completion
 
 Report the path and contents of the created file to the user.
