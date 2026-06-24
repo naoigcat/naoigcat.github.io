@@ -1,20 +1,71 @@
 ---
-layout: page
+layout: default
 title: Tags
 permalink: /tags/
 ---
 
-<ul class="post-list">
-  {%- assign sorted_tags = site.tags | sort -%} {%- for tag in sorted_tags -%}
-  {%- assign tag_name = tag[0] -%} {%- assign slug = tag_name | slugify -%}
-  <li>
-    <a
-      class="post-link"
-      href="{{ '/tags/' | append: slug | append: '/' | relative_url }}"
-    >
-      {{ tag_name | escape }}
-    </a>
-    <span class="post-meta">({{ tag[1].size }})</span>
-  </li>
-  {%- endfor -%}
-</ul>
+<div class="home tags-page">
+  <header id="tags-page-header">
+    <h1 class="page-heading">Tags</h1>
+  </header>
+
+  <div id="tags-filter-view" class="tags-filter" hidden>
+    <p class="tags-back">
+      <a href="{{ '/tags/' | relative_url }}">← すべてのタグ</a>
+    </p>
+    <h1 class="page-heading" id="tags-filter-heading"></h1>
+    <ul class="post-list" id="tags-filter-posts"></ul>
+    <p id="tags-filter-empty" class="tags-filter-empty" hidden>
+      タグが見つかりません。
+      <a href="{{ '/tags/' | relative_url }}">タグ一覧に戻る</a>
+    </p>
+  </div>
+
+  <div id="tags-list-view">
+    <ul class="post-list">
+      {%- assign sorted_tags = site.tags | sort -%} {%- for tag in sorted_tags
+      -%} {%- assign tag_name = tag[0] -%} {%- assign slug = tag_name |
+      slugify -%}
+      <li>
+        <a
+          class="post-link"
+          href="{{ '/tags/' | relative_url }}?tag={{ slug | uri_escape }}"
+        >
+          {{ tag_name | escape }}
+        </a>
+        <span class="post-meta">({{ tag[1].size }})</span>
+      </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+<script type="application/json" id="tags-data">
+{
+  "siteTitle": {{ site.title | jsonify }},
+  "tagsUrl": {{ '/tags/' | relative_url | jsonify }},
+  "tags": [
+    {%- assign sorted_tags = site.tags | sort -%}
+    {%- for tag in sorted_tags -%}
+    {%- assign tag_name = tag[0] -%}
+    {%- assign slug = tag_name | slugify -%}
+    {
+      "name": {{ tag_name | jsonify }},
+      "slug": {{ slug | jsonify }},
+      "posts": [
+        {%- assign tagged_posts = tag[1] | sort: "date" | reverse -%}
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {%- for post in tagged_posts -%}
+        {
+          "title": {{ post.title | jsonify }},
+          "url": {{ post.url | relative_url | jsonify }},
+          "date": {{ post.date | date: date_format | jsonify }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+<script src="{{ '/assets/js/tags.js' | relative_url }}" defer></script>
