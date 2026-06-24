@@ -27,3 +27,19 @@ mise run serve
 ```
 
 The command starts the server, maps port 4000 to localhost, and opens the site in your default browser (macOS).
+
+## Tags
+
+Tag navigation uses a **single page** at `/tags/`. Each tag links to `/tags/?tag={slug}` (for example `/tags/?tag=sort`).
+At build time Jekyll embeds tag→post data in that page; the browser filters by the `tag` query parameter.
+No custom `_plugins` generator is required, so **production and local preview behave the same** on GitHub Pages.
+
+## GitHub Pages vs local preview
+
+Production builds run on **GitHub Pages’ hosted Jekyll**, which does **not** execute custom Ruby in `_plugins/`.
+This repository does not rely on `_plugins` for site behavior; features that must work in production are implemented with
+committed pages, Liquid, and small client-side scripts (such as the tag index above).
+
+Local `mise run serve` uses a Docker image that mirrors GitHub’s Pages dependency set. It may run Jekyll with different
+flags than production, but anything committed under `_plugins/` would only affect local output—not the live site.
+Do not add custom plugins unless you also change the deployment model.
