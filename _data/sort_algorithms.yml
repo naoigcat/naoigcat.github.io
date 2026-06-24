@@ -113,6 +113,9 @@ cartesian_tree:
   sort_fn: cartesian_tree_sort
   merge_values: true
 
+cascade_merge:
+  sort_fn: cascade_merge_sort
+
 tim:
   sort_fn: tim_sort
   insertion_sort: true
