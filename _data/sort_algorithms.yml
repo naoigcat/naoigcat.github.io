@@ -116,6 +116,9 @@ cartesian_tree:
 cascade_merge:
   sort_fn: cascade_merge_sort
 
+polyphase_merge:
+  sort_fn: polyphase_merge_sort
+
 tim:
   sort_fn: tim_sort
   insertion_sort: true
