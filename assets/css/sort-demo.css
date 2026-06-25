@@ -302,3 +302,258 @@
     color: inherit;
   }
 }
+.sort-demo:has(.sort-demo-polyphase-wrap) {
+  min-width: 0;
+}
+#polyphase-merge-sort-demo .sort-demo__bars {
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: 168px;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 2px 12px;
+  scroll-padding-inline: 12px;
+  box-sizing: border-box;
+}
+#polyphase-merge-sort-demo .sort-demo-polyphase-wrap {
+  width: max-content;
+  max-width: none;
+  margin-inline: auto;
+  padding-inline: 4px;
+  box-sizing: border-box;
+}
+.sort-demo-polyphase-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+#polyphase-merge-sort-demo .sort-demo-polyphase__tapes {
+  width: max-content;
+  max-width: none;
+}
+#polyphase-merge-sort-demo .sort-demo-polyphase__stage {
+  max-width: none;
+}
+.sort-demo-polyphase__stage {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 8px 8px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: 100%;
+}
+.sort-demo-polyphase__stage--flat {
+  min-width: min(100%, max-content);
+}
+.sort-demo-polyphase__label-spacer {
+  flex: none;
+  height: 1.25rem;
+  visibility: hidden;
+}
+.sort-demo-polyphase__flat-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 130px;
+  padding-bottom: 4px;
+  box-sizing: border-box;
+}
+.sort-demo-polyphase__flat-row .sort-demo__bar {
+  flex: 0 0 auto;
+  width: 26px;
+  min-width: 18px;
+  max-width: 34px;
+}
+.sort-demo-polyphase__runs-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 10px;
+  min-height: 130px;
+  padding-bottom: 4px;
+  box-sizing: border-box;
+}
+.sort-demo-polyphase__runs-row .sort-demo-polyphase__run {
+  align-self: stretch;
+}
+.sort-demo-polyphase__tapes {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 10px;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.sort-demo-polyphase__tape {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  padding: 6px 8px 8px;
+  border: 2px solid rgba(52, 152, 219, 0.55);
+  border-radius: 8px;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+  box-sizing: border-box;
+  transition: min-height 0.32s ease, border-color 0.2s ease;
+}
+#polyphase-merge-sort-demo .sort-demo-polyphase__tape:last-child {
+  margin-inline-end: 0;
+}
+.sort-demo-polyphase__tape--empty {
+  min-width: 4.5rem;
+  background: rgba(128, 128, 128, 0.04);
+}
+.sort-demo-polyphase__run {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 6px 8px 4px;
+  border-radius: 6px;
+  min-height: 36px;
+  box-sizing: border-box;
+  transition: background-color 0.28s ease, opacity 0.28s ease;
+}
+.sort-demo-polyphase__run--color-0 {
+  background: rgba(52, 152, 219, 0.28);
+}
+.sort-demo-polyphase__run--color-1 {
+  background: rgba(155, 89, 182, 0.28);
+}
+.sort-demo-polyphase__run--color-2 {
+  background: rgba(26, 188, 156, 0.28);
+}
+.sort-demo-polyphase__run--color-3 {
+  background: rgba(230, 126, 34, 0.28);
+}
+.sort-demo-polyphase__run--color-4 {
+  background: rgba(241, 196, 15, 0.28);
+}
+.sort-demo-polyphase__run--color-5 {
+  background: rgba(231, 76, 60, 0.28);
+}
+.sort-demo-polyphase__run--color-6 {
+  background: rgba(149, 165, 166, 0.28);
+}
+.sort-demo-polyphase__run--color-7 {
+  background: rgba(52, 73, 94, 0.28);
+}
+.sort-demo-polyphase__run--color-merged {
+  background: rgba(39, 174, 96, 0.22);
+}
+.sort-demo-polyphase__run-bars {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 0;
+}
+.sort-demo-polyphase__runs-row .sort-demo-polyphase__run--dummy,
+.sort-demo-polyphase__tape-runs .sort-demo-polyphase__run--dummy {
+  box-sizing: border-box;
+  min-width: 0;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+}
+.sort-demo-polyphase__runs-row .sort-demo-polyphase__run--dummy {
+  width: calc(26px + 16px);
+}
+.sort-demo-polyphase__tape-runs .sort-demo-polyphase__run--dummy {
+  width: calc(26px + 12px);
+}
+.sort-demo-polyphase__run-label {
+  font-size: 0.72rem;
+  opacity: 0.75;
+  white-space: nowrap;
+  align-self: center;
+  margin-right: 2px;
+}
+.sort-demo-polyphase__run-label--dummy {
+  margin: 0;
+  transform: rotate(-90deg);
+  line-height: 1;
+  flex: none;
+}
+.sort-demo-polyphase__run--out {
+  min-width: calc(26px + 12px);
+}
+.sort-demo-polyphase__tape-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  opacity: 0.85;
+  white-space: nowrap;
+  text-align: center;
+  flex: none;
+  line-height: 1.25rem;
+  min-height: 1.25rem;
+}
+.sort-demo-polyphase__tape-runs {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-height: 130px;
+  width: max-content;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+.sort-demo-polyphase__tape-runs .sort-demo-polyphase__run {
+  padding: 4px 6px 3px;
+  align-self: stretch;
+  align-items: flex-end;
+  flex: 0 0 auto;
+}
+.sort-demo-polyphase__run .sort-demo__bar,
+.sort-demo-polyphase__tape-runs .sort-demo__bar {
+  flex: 0 0 auto;
+  width: 26px;
+  min-width: 18px;
+  max-width: 34px;
+}
+@media (max-width: 520px) {
+  .sort-demo-polyphase__runs-row,
+  .sort-demo-polyphase__tapes,
+  .sort-demo-polyphase__flat-row {
+    gap: 6px;
+  }
+  .sort-demo-polyphase__run .sort-demo__bar,
+  .sort-demo-polyphase__tape-runs .sort-demo__bar,
+  .sort-demo-polyphase__flat-row .sort-demo__bar {
+    width: 20px;
+    min-width: 14px;
+  }
+  .sort-demo-polyphase__runs-row .sort-demo-polyphase__run--dummy {
+    width: calc(20px + 16px);
+  }
+  .sort-demo-polyphase__tape-runs .sort-demo-polyphase__run--dummy,
+  .sort-demo-polyphase__run--out {
+    min-width: calc(20px + 12px);
+  }
+  .sort-demo-polyphase__tape-runs .sort-demo-polyphase__run--dummy {
+    width: calc(20px + 12px);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .sort-demo-polyphase__tape {
+    border-color: rgba(93, 173, 226, 0.5);
+  }
+  .sort-demo-polyphase__tape--empty {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
