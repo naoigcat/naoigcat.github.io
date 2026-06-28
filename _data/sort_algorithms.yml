@@ -57,6 +57,11 @@ gnome:
   sort_fn: gnome_sort
   quadratic_average: true
 
+shuttle:
+  sort_fn: shuttle_sort
+  insertion_sort: true
+  quadratic_average: true
+
 selection:
   sort_fn: selection_sort
   quadratic_average: true
