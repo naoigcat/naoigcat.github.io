@@ -14,11 +14,17 @@ for a duplicate build, PR-preview sites, or another goal that requires Actions.
 
 ## Custom `_plugins` and local vs production
 
-GitHub Pages’ default Jekyll build **does not run** custom Ruby plugins from `_plugins/`. Only the [whitelisted plugins](https://pages.github.com/versions/) apply in production.
+GitHub Pages’ default Jekyll build **does not run** custom Ruby plugins from `_plugins/`.
+Only the [whitelisted plugins](https://pages.github.com/versions/) apply in production.
 
-This repository **must not depend** on `_plugins/` for behavior that needs to work on the live site. Tag pages are implemented on the committed `/tags/` page: build-time Liquid embeds tag metadata, and `/tags/?tag={slug}` filters posts in the browser (`assets/js/tags.js`). Post footers link to that query form, not to per-tag paths like `/tags/sort/`.
+This repository **must not depend** on `_plugins/` for behavior that needs to work on the live site.
+Tag pages are implemented on the committed `/tags/` page: build-time Liquid embeds tag metadata, and
+`/tags/?tag={slug}` filters posts in the browser (`assets/js/tags.js`).
+Post footers link to that query form, not to per-tag paths like `/tags/sort/`.
 
-Local `mise run serve` may still load `_plugins/` if files are present, which can create **dev/prod drift**. Do not reintroduce tag generators or other custom plugins without an explicit deployment change. If a feature needs a generator, prefer committed Liquid/JS or ask the maintainer about changing how Pages is built.
+Local `mise run serve` may still load `_plugins/` if files are present, which can create **dev/prod drift**.
+Do not reintroduce tag generators or other custom plugins without an explicit deployment change.
+If a feature needs a generator, prefer committed Liquid/JS or ask the maintainer about changing how Pages is built.
 
 ## In-article JavaScript targets modern browsers
 
