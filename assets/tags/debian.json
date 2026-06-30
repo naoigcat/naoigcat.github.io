@@ -1,0 +1,11 @@
+{
+  "name": "debian",
+  "slug": "debian",
+  "posts": [
+    {
+      "title": "Debian版のwhichコマンドの実装を確認する",
+      "url": "/2026/04/27/sh-which-of-debian-utils.html",
+      "date": "Apr 27, 2026"
+    }
+  ]
+}

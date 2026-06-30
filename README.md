@@ -31,8 +31,9 @@ The command starts the server, maps port 4000 to localhost, and opens the site i
 ## Tags
 
 Tag navigation uses a **single page** at `/tags/`. Each tag links to `/tags/?tag={slug}` (for example `/tags/?tag=sort`).
-At build time Jekyll embeds tag→post data in that page; the browser filters by the `tag` query parameter.
-No custom `_plugins` generator is required, so **production and local preview behave the same** on GitHub Pages.
+At build time Jekyll embeds a lightweight tag index plus full post lists for tags listed in `_data/tags_embed.yml`;
+other tags load `/assets/tags/{slug}.json` on demand in the browser.
+Regenerate those JSON files with `mise run tags-sync` after adding or retagging posts.
 
 ## GitHub Pages vs local preview
 

@@ -1,0 +1,11 @@
+{
+  "name": "ssl",
+  "slug": "ssl",
+  "posts": [
+    {
+      "title": "macOSで期限切れのSSL証明書を更新する",
+      "url": "/2023/02/07/macos-ssl-certificate-expiring.html",
+      "date": "Feb 7, 2023"
+    }
+  ]
+}

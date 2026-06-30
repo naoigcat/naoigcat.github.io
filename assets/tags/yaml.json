@@ -1,0 +1,11 @@
+{
+  "name": "yaml",
+  "slug": "yaml",
+  "posts": [
+    {
+      "title": "YAMLで複数行の値を表現する",
+      "url": "/2026/04/29/yaml-block-scalar-styles.html",
+      "date": "Apr 29, 2026"
+    }
+  ]
+}

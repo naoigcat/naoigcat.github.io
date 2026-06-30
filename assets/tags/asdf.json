@@ -1,0 +1,16 @@
+{
+  "name": "asdf",
+  "slug": "asdf",
+  "posts": [
+    {
+      "title": "実行中のRubyと異なるバージョンのRubyで同じコードを呼び出す",
+      "url": "/2023/03/15/ruby-invoke-with-other-version.html",
+      "date": "Mar 15, 2023"
+    },
+    {
+      "title": "VSCodeで使用するPHP拡張機能を使用する",
+      "url": "/2023/02/13/vscode-tool-versions-per-folder.html",
+      "date": "Feb 13, 2023"
+    }
+  ]
+}

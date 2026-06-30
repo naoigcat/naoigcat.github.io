@@ -1,0 +1,111 @@
+{
+  "name": "google",
+  "slug": "google",
+  "posts": [
+    {
+      "title": "Google SheetsでARRAYFORMULAにカスタム関数を渡す",
+      "url": "/2024/04/28/google-sheets-custom-function-with-arrayformula.html",
+      "date": "Apr 28, 2024"
+    },
+    {
+      "title": "スプレッドシートでIMAGE関数を使用する",
+      "url": "/2023/06/19/google-sheets-image-function.html",
+      "date": "Jun 19, 2023"
+    },
+    {
+      "title": "スプレッドシートでQUERY関数を使用する",
+      "url": "/2023/06/05/google-sheets-query-function.html",
+      "date": "Jun 5, 2023"
+    },
+    {
+      "title": "スプレッドシートで配列を使用する",
+      "url": "/2023/05/29/google-sheets-array.html",
+      "date": "May 29, 2023"
+    },
+    {
+      "title": "スプレッドシートで条件付き書式を使用する",
+      "url": "/2023/04/03/google-sheets-conditional-format.html",
+      "date": "Apr 3, 2023"
+    },
+    {
+      "title": "スプレッドシートのグラフとピボットテーブルをフィルタする",
+      "url": "/2023/03/27/google-sheets-slicer.html",
+      "date": "Mar 27, 2023"
+    },
+    {
+      "title": "スプレッドシートのシートや範囲を保護する",
+      "url": "/2023/03/20/google-sheets-protect-sheets.html",
+      "date": "Mar 20, 2023"
+    },
+    {
+      "title": "スプレッドシートのセル内にチェックボックスを追加する",
+      "url": "/2023/03/13/google-sheets-checkbox.html",
+      "date": "Mar 13, 2023"
+    },
+    {
+      "title": "スプレッドシートのテンプレートを作成する",
+      "url": "/2023/03/06/google-sheets-template.html",
+      "date": "Mar 6, 2023"
+    },
+    {
+      "title": "スプレッドシートの重複するデータを含む行を削除する",
+      "url": "/2023/02/27/google-sheets-remove-duplicates.html",
+      "date": "Feb 27, 2023"
+    },
+    {
+      "title": "スプレッドシートの系列またはリストを自動的に作成する",
+      "url": "/2023/02/22/google-sheets-series-auto-complete.html",
+      "date": "Feb 22, 2023"
+    },
+    {
+      "title": "スプレッドシートのセル内にプルダウンリストを作成する",
+      "url": "/2023/02/17/google-sheets-pull-down-list.html",
+      "date": "Feb 17, 2023"
+    },
+    {
+      "title": "スプレッドシートのセルへのリンクを作成する",
+      "url": "/2023/02/16/google-sheets-cell-link.html",
+      "date": "Feb 16, 2023"
+    },
+    {
+      "title": "スプレッドシートのキーボードショートカットを使う",
+      "url": "/2023/02/15/google-sheets-keyboard-shortcut.html",
+      "date": "Feb 15, 2023"
+    },
+    {
+      "title": "スプレッドシートでデータをフィルタする",
+      "url": "/2023/02/14/google-sheets-filter-data.html",
+      "date": "Feb 14, 2023"
+    },
+    {
+      "title": "Docker内のClaspにログインする",
+      "url": "/2023/02/02/gas-clasp-login-in-docker.html",
+      "date": "Feb 2, 2023"
+    },
+    {
+      "title": "Google Sheetsで改行に置き換えるときは改行そのものを入れる",
+      "url": "/2023/01/23/google-sheets-regexreplace-with-newline.html",
+      "date": "Jan 23, 2023"
+    },
+    {
+      "title": "Google Sheetで文字コードをShift JISにしたCSVをダウンロードする",
+      "url": "/2023/01/12/gas-csv-downloader.html",
+      "date": "Jan 12, 2023"
+    },
+    {
+      "title": "サービスアカウントが所有しているファイルの所有権を移す",
+      "url": "/2020/11/11/ruby-transfer-ownership-in-google-drive.html",
+      "date": "Nov 11, 2020"
+    },
+    {
+      "title": "Google Sheetsでバイトサイズに単位を付ける",
+      "url": "/2020/03/14/google-sheets-byte-formatting.html",
+      "date": "Mar 14, 2020"
+    },
+    {
+      "title": "RubyでGoogle Driveからファイルをダウンロードする",
+      "url": "/2017/09/17/ruby-google-drive-download.html",
+      "date": "Sep 17, 2017"
+    }
+  ]
+}

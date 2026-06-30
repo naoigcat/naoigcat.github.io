@@ -1,0 +1,11 @@
+{
+  "name": "firebase",
+  "slug": "firebase",
+  "posts": [
+    {
+      "title": "Firebase App Distributionによる配信時にエラーが発生する",
+      "url": "/2022/12/30/firebase-app-distribution-server-not-found.html",
+      "date": "Dec 30, 2022"
+    }
+  ]
+}

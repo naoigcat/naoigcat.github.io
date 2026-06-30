@@ -1,0 +1,116 @@
+{
+  "name": "macos",
+  "slug": "macos",
+  "posts": [
+    {
+      "title": "Xcodeに付属するm4コマンドのバージョンを調べる",
+      "url": "/2024/06/23/m4-on-mac.html",
+      "date": "Jun 23, 2024"
+    },
+    {
+      "title": "一時的に使用可能なポートの範囲を取得する",
+      "url": "/2023/09/27/macos-ephemeral-ports.html",
+      "date": "Sep 27, 2023"
+    },
+    {
+      "title": "macOSに付属するコマンドのバージョンを調べる",
+      "url": "/2023/03/22/macos-command-versions.html",
+      "date": "Mar 22, 2023"
+    },
+    {
+      "title": "新しいmacOSで古いXcodeを実行する",
+      "url": "/2023/03/14/xcode-old-version-on-new-macos.html",
+      "date": "Mar 14, 2023"
+    },
+    {
+      "title": "macOSの古いバージョンをインストールする",
+      "url": "/2023/03/10/macos-downgrade.html",
+      "date": "Mar 10, 2023"
+    },
+    {
+      "title": "古いmacOSでxcodesコマンドは実行できない",
+      "url": "/2023/03/09/macos-xcodes-on-old-version.html",
+      "date": "Mar 9, 2023"
+    },
+    {
+      "title": "macOSのターミナルからApple IDを取得する",
+      "url": "/2023/02/28/mac-apple-id-from-command-line.html",
+      "date": "Feb 28, 2023"
+    },
+    {
+      "title": "macOSで期限切れのSSL証明書を更新する",
+      "url": "/2023/02/07/macos-ssl-certificate-expiring.html",
+      "date": "Feb 7, 2023"
+    },
+    {
+      "title": "macOSのキーボードで特殊記号を入力する",
+      "url": "/2023/01/06/macos-special-character-with-keyboard.html",
+      "date": "Jan 6, 2023"
+    },
+    {
+      "title": "macOSでSSH接続時にフルディスクアクセス権限を付与する",
+      "url": "/2022/12/27/macos-sshd-keygen-wrapper.html",
+      "date": "Dec 27, 2022"
+    },
+    {
+      "title": "macOSで指定したサイズのダミーファイルを作成する",
+      "url": "/2022/01/17/macos-file-with-specified-size.html",
+      "date": "Jan 17, 2022"
+    },
+    {
+      "title": "セキュリティ＆プライバシーで許可ボタンが効かない",
+      "url": "/2020/08/15/macos-allow-button-in-security-and-privacy.html",
+      "date": "Aug 15, 2020"
+    },
+    {
+      "title": "コマンドラインでmacOSのシリアル番号を取得する",
+      "url": "/2020/03/22/macos-serial-number.html",
+      "date": "Mar 22, 2020"
+    },
+    {
+      "title": "macOSのSpotlightのインデックスを再構築する",
+      "url": "/2020/03/06/macos-rebuild-spotlight-index.html",
+      "date": "Mar 6, 2020"
+    },
+    {
+      "title": "macOSのFusion Driveを再構成する",
+      "url": "/2020/03/04/macos-fusion-drive.html",
+      "date": "Mar 4, 2020"
+    },
+    {
+      "title": "SafariでタイトルをコピーするBookmarkletを作成する",
+      "url": "/2020/02/05/safari-copy-title-bookmarklet.html",
+      "date": "Feb 5, 2020"
+    },
+    {
+      "title": "El Capitanインストール時のエラーを解消する",
+      "url": "/2020/02/02/macos-install-elcapitan.html",
+      "date": "Feb 2, 2020"
+    },
+    {
+      "title": "XcodeでImages.xcassets内のリンク切れをチェックする",
+      "url": "/2017/10/13/xcode-image-assets.html",
+      "date": "Oct 13, 2017"
+    },
+    {
+      "title": "Dockのアイコンが跳ねるアクションを無効にする",
+      "url": "/2017/09/28/macos-disable-dock-bouncing.html",
+      "date": "Sep 28, 2017"
+    },
+    {
+      "title": "LaunchPadに表示されるアイコンの数を変更する",
+      "url": "/2017/09/21/macos-launchpad-layout.html",
+      "date": "Sep 21, 2017"
+    },
+    {
+      "title": "スクリーンショットのファイル名を自動的に変更する",
+      "url": "/2017/09/03/macos-automatic-renaming-screenshots.html",
+      "date": "Sep 3, 2017"
+    },
+    {
+      "title": "iOSシミュレーターのユーザー設定をリセットする",
+      "url": "/2017/07/26/ios-reset-userdefaults.html",
+      "date": "Jul 26, 2017"
+    }
+  ]
+}

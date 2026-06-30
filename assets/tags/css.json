@@ -1,0 +1,16 @@
+{
+  "name": "css",
+  "slug": "css",
+  "posts": [
+    {
+      "title": "スタイルで指定する値の最小値と最大値を指定する",
+      "url": "/2026/04/07/css-clamp.html",
+      "date": "Apr 7, 2026"
+    },
+    {
+      "title": "画面幅に応じて可変な幅を指定する",
+      "url": "/2026/04/06/css-variable-width-unit.html",
+      "date": "Apr 6, 2026"
+    }
+  ]
+}
