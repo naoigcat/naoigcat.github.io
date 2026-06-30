@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "プロックスマップソートで配列を並び替える",
+      "url": "/2026/06/30/sort-proxmap.html",
+      "date": "Jun 30, 2026"
+    },
+    {
       "title": "シャトルソートで配列を並び替える",
       "url": "/2026/06/29/sort-shuttle.html",
       "date": "Jun 29, 2026"
