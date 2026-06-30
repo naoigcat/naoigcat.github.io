@@ -1,0 +1,26 @@
+{
+  "name": "fastlane",
+  "slug": "fastlane",
+  "posts": [
+    {
+      "title": "Xcode13以降でビルド番号を自動的に更新しない",
+      "url": "/2023/01/09/xcode-manage-build-number.html",
+      "date": "Jan 9, 2023"
+    },
+    {
+      "title": "Fastlaneでのコンパイル時に警告を抑制する",
+      "url": "/2023/01/05/ios-suppress-warnings-on-ci.html",
+      "date": "Jan 5, 2023"
+    },
+    {
+      "title": "Firebase App Distributionによる配信時にエラーが発生する",
+      "url": "/2022/12/30/firebase-app-distribution-server-not-found.html",
+      "date": "Dec 30, 2022"
+    },
+    {
+      "title": "Fastlaneの\"A required agreement is missing or has expired\"に対応する",
+      "url": "/2021/12/29/xcode-required-aggrement.html",
+      "date": "Dec 29, 2021"
+    }
+  ]
+}

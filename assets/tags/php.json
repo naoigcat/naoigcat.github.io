@@ -1,0 +1,46 @@
+{
+  "name": "php",
+  "slug": "php",
+  "posts": [
+    {
+      "title": "Xcodeに付属するm4コマンドのバージョンを調べる",
+      "url": "/2024/06/23/m4-on-mac.html",
+      "date": "Jun 23, 2024"
+    },
+    {
+      "title": "PHPの定義済み定数の値を確認する",
+      "url": "/2024/06/11/php-syslog-defined-variables.html",
+      "date": "Jun 11, 2024"
+    },
+    {
+      "title": "Composerイメージが使用しているPHPバージョンを調べる",
+      "url": "/2024/05/28/php-composer-versions.html",
+      "date": "May 28, 2024"
+    },
+    {
+      "title": "Laravel MixのビルドでPolyfillのエラーが起きる",
+      "url": "/2023/06/02/webpack-polyfill-error.html",
+      "date": "Jun 2, 2023"
+    },
+    {
+      "title": "Laravelで環境変数を定義せずにライブラリをインストールする",
+      "url": "/2023/02/01/php-laravel-pusher-variables.html",
+      "date": "Feb 1, 2023"
+    },
+    {
+      "title": "既存のLaravelプロジェクトでもキーを生成する",
+      "url": "/2023/01/31/php-laravel-post-autoload-dump.html",
+      "date": "Jan 31, 2023"
+    },
+    {
+      "title": "PHP/Laravelのリリース日・サポート期日を並べる",
+      "url": "/2022/12/28/php-laravel-support-policy.html",
+      "date": "Dec 28, 2022"
+    },
+    {
+      "title": "PhpStorm+DockerでXDebugを使用する",
+      "url": "/2020/10/17/php-xdebug-on-phpstorm.html",
+      "date": "Oct 17, 2020"
+    }
+  ]
+}

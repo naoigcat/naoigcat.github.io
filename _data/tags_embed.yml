@@ -1,0 +1,11 @@
+# Tag slugs whose full post lists are embedded in /tags/index.html.
+# Other tags load /assets/tags/{slug}.json on demand (see assets/js/tags.js).
+- sort
+- bash
+- macos
+- google
+- xcode
+- git
+- ruby
+- ios
+- docker

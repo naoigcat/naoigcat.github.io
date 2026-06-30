@@ -1,0 +1,11 @@
+{
+  "name": "sudo",
+  "slug": "sudo",
+  "posts": [
+    {
+      "title": "仮想端末なしでsudoを実行する",
+      "url": "/2023/03/17/sudo-require-tty.html",
+      "date": "Mar 17, 2023"
+    }
+  ]
+}

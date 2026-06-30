@@ -1,0 +1,11 @@
+{
+  "name": "knowledge",
+  "slug": "knowledge",
+  "posts": [
+    {
+      "title": "アルファベットの出現率をまとめる",
+      "url": "/2022/02/20/appearance-ratio-of-alphabet.html",
+      "date": "Feb 20, 2022"
+    }
+  ]
+}

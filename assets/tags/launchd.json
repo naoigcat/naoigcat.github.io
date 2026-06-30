@@ -1,0 +1,11 @@
+{
+  "name": "launchd",
+  "slug": "launchd",
+  "posts": [
+    {
+      "title": "RubyでLaunchAgentsタスクを作成する",
+      "url": "/2017/09/30/ruby-make-launch-agents.html",
+      "date": "Sep 30, 2017"
+    }
+  ]
+}

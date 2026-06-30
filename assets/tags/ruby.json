@@ -1,0 +1,71 @@
+{
+  "name": "ruby",
+  "slug": "ruby",
+  "posts": [
+    {
+      "title": "RuboCopのRakeタスクを追加する",
+      "url": "/2023/06/23/ruby-rubocop-rake-task.html",
+      "date": "Jun 23, 2023"
+    },
+    {
+      "title": "実行中のRubyと異なるバージョンのRubyで同じコードを呼び出す",
+      "url": "/2023/03/15/ruby-invoke-with-other-version.html",
+      "date": "Mar 15, 2023"
+    },
+    {
+      "title": "Rubyスクリプト内でインストールしたGemを使用する",
+      "url": "/2023/01/27/ruby-install-gem-in-scripts.html",
+      "date": "Jan 27, 2023"
+    },
+    {
+      "title": "Rubyで英語の序数詞を生成する",
+      "url": "/2023/01/17/ruby-ordinalized-number.html",
+      "date": "Jan 17, 2023"
+    },
+    {
+      "title": "サービスアカウントが所有しているファイルの所有権を移す",
+      "url": "/2020/11/11/ruby-transfer-ownership-in-google-drive.html",
+      "date": "Nov 11, 2020"
+    },
+    {
+      "title": "IRBでRefinementを使用する",
+      "url": "/2020/05/23/ruby-using-refinement-in-irb.html",
+      "date": "May 23, 2020"
+    },
+    {
+      "title": "RubyでvMessage形式のメールをGmailにアップロードする",
+      "url": "/2020/03/25/ruby-upload-vmessage-to-gmail.html",
+      "date": "Mar 25, 2020"
+    },
+    {
+      "title": "RubyでmacOSの連絡先からvCard形式のファイルを生成する",
+      "url": "/2020/03/24/ruby-convert-address-book-to-vcard.html",
+      "date": "Mar 24, 2020"
+    },
+    {
+      "title": "別ディレクトリにあるRakeタスクを実行する",
+      "url": "/2020/02/25/rake-tasks-in-other-repositories.html",
+      "date": "Feb 25, 2020"
+    },
+    {
+      "title": "RubyでLaunchAgentsタスクを作成する",
+      "url": "/2017/09/30/ruby-make-launch-agents.html",
+      "date": "Sep 30, 2017"
+    },
+    {
+      "title": "Rubyで固定幅のファイルをCSVとして読み込む",
+      "url": "/2017/09/18/ruby-read-fixed-width.html",
+      "date": "Sep 18, 2017"
+    },
+    {
+      "title": "RubyでGoogle Driveからファイルをダウンロードする",
+      "url": "/2017/09/17/ruby-google-drive-download.html",
+      "date": "Sep 17, 2017"
+    },
+    {
+      "title": "Rubyでデフォルト以外のGemをアンインストールする",
+      "url": "/2017/09/08/ruby-removing-non-default-gems.html",
+      "date": "Sep 8, 2017"
+    }
+  ]
+}

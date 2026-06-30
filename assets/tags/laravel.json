@@ -1,0 +1,26 @@
+{
+  "name": "laravel",
+  "slug": "laravel",
+  "posts": [
+    {
+      "title": "Laravel MixのビルドでPolyfillのエラーが起きる",
+      "url": "/2023/06/02/webpack-polyfill-error.html",
+      "date": "Jun 2, 2023"
+    },
+    {
+      "title": "Laravelで環境変数を定義せずにライブラリをインストールする",
+      "url": "/2023/02/01/php-laravel-pusher-variables.html",
+      "date": "Feb 1, 2023"
+    },
+    {
+      "title": "既存のLaravelプロジェクトでもキーを生成する",
+      "url": "/2023/01/31/php-laravel-post-autoload-dump.html",
+      "date": "Jan 31, 2023"
+    },
+    {
+      "title": "PHP/Laravelのリリース日・サポート期日を並べる",
+      "url": "/2022/12/28/php-laravel-support-policy.html",
+      "date": "Dec 28, 2022"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "swift",
+  "slug": "swift",
+  "posts": [
+    {
+      "title": "依存しているSwift Packageのコードを変更する",
+      "url": "/2023/01/26/swift-package-manage-in-local.html",
+      "date": "Jan 26, 2023"
+    },
+    {
+      "title": "Swiftのプロトコルにメソッド宣言があるかどうかで挙動が異なる",
+      "url": "/2023/01/11/swift-method-with-protocol-extension.html",
+      "date": "Jan 11, 2023"
+    },
+    {
+      "title": "Swiftで想定外のレスポンスを変換可能なEnumを作る",
+      "url": "/2022/01/21/swift-unknown-codable-enum.html",
+      "date": "Jan 21, 2022"
+    },
+    {
+      "title": "iOSで使用可能なストレージサイズを取得する",
+      "url": "/2022/01/18/swift-available-capacity-of-volume.html",
+      "date": "Jan 18, 2022"
+    },
+    {
+      "title": "Swiftで配列を一定数毎に分割する",
+      "url": "/2022/01/06/swift-array-slice.html",
+      "date": "Jan 6, 2022"
+    },
+    {
+      "title": "SwiftのStringをutf8でエンコーディングするときオプショナルにしない",
+      "url": "/2021/12/28/swift-utf8-data.html",
+      "date": "Dec 28, 2021"
+    }
+  ]
+}

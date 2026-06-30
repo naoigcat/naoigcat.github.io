@@ -1,0 +1,101 @@
+{
+  "name": "xcode",
+  "slug": "xcode",
+  "posts": [
+    {
+      "title": "Xcodeからのデバッグ実行で実機がビジーになる",
+      "url": "/2023/06/21/xcode-copying-caches-from-device.html",
+      "date": "Jun 21, 2023"
+    },
+    {
+      "title": "Xcode 14.3でCocoaPodsライブラリのビルドが失敗する",
+      "url": "/2023/06/16/xcode-minimum-deployment.html",
+      "date": "Jun 16, 2023"
+    },
+    {
+      "title": "Xcode 12でシミュレーター向けにビルドする",
+      "url": "/2023/06/08/xcode-exclude-architecture.html",
+      "date": "Jun 8, 2023"
+    },
+    {
+      "title": "Xcode 14.xでRosettaを有効にしたシミュレーター向けにビルドする",
+      "url": "/2023/05/31/xcode-rosetta-simulator.html",
+      "date": "May 31, 2023"
+    },
+    {
+      "title": "XcodeがdSYMファイルを生成した後にスクリプトを実行する",
+      "url": "/2023/04/06/xcode-run-script-with-dsym.html",
+      "date": "Apr 6, 2023"
+    },
+    {
+      "title": "シミュレーターでステージマネージャーを有効化する",
+      "url": "/2023/03/29/xcode-stage-manager-on-simulator.html",
+      "date": "Mar 29, 2023"
+    },
+    {
+      "title": "古いmacOSでxcodesコマンドは実行できない",
+      "url": "/2023/03/09/macos-xcodes-on-old-version.html",
+      "date": "Mar 9, 2023"
+    },
+    {
+      "title": "警告\"libobjc.A.dylib is being read from process memory.\"が発生する",
+      "url": "/2023/02/21/xcode-libobjc-read-from-memory.html",
+      "date": "Feb 21, 2023"
+    },
+    {
+      "title": "CocoaPodsでフレームワークとライブラリを混ぜる",
+      "url": "/2023/01/30/cocoapods-build-type-static-library.html",
+      "date": "Jan 30, 2023"
+    },
+    {
+      "title": "XcodeのBuild Phasesで使用できる環境変数を出力する",
+      "url": "/2023/01/25/xcode-environment-variables.html",
+      "date": "Jan 25, 2023"
+    },
+    {
+      "title": "Xcodeのファイルヘッダーをカスタマイズする",
+      "url": "/2023/01/18/xcode-header-template.html",
+      "date": "Jan 18, 2023"
+    },
+    {
+      "title": "新しいiOS/iPadOSを旧バージョンのXcodeで使用する",
+      "url": "/2023/01/10/xcode-simulator-with-next-os-version.html",
+      "date": "Jan 10, 2023"
+    },
+    {
+      "title": "Xcode13以降でビルド番号を自動的に更新しない",
+      "url": "/2023/01/09/xcode-manage-build-number.html",
+      "date": "Jan 9, 2023"
+    },
+    {
+      "title": "Fastlaneでのコンパイル時に警告を抑制する",
+      "url": "/2023/01/05/ios-suppress-warnings-on-ci.html",
+      "date": "Jan 5, 2023"
+    },
+    {
+      "title": "Fastlaneの\"A required agreement is missing or has expired\"に対応する",
+      "url": "/2021/12/29/xcode-required-aggrement.html",
+      "date": "Dec 29, 2021"
+    },
+    {
+      "title": "XcodeでImages.xcassets内のリンク切れをチェックする",
+      "url": "/2017/10/13/xcode-image-assets.html",
+      "date": "Oct 13, 2017"
+    },
+    {
+      "title": "Xcodeでのビルド時にInterface Builderファイルを更新する",
+      "url": "/2017/09/07/xcode-upgrade-ibfiles-on-build-phase.html",
+      "date": "Sep 7, 2017"
+    },
+    {
+      "title": "Xcodeでのビルド時にSwiftLintを実行する",
+      "url": "/2017/09/05/xcode-swift-lint-on-build-phase.html",
+      "date": "Sep 5, 2017"
+    },
+    {
+      "title": "Xcodeで新規ファイルに挿入されるヘッダーのローカライズを英語にする",
+      "url": "/2017/04/10/xcode-header.html",
+      "date": "Apr 10, 2017"
+    }
+  ]
+}

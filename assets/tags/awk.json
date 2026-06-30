@@ -1,0 +1,11 @@
+{
+  "name": "awk",
+  "slug": "awk",
+  "posts": [
+    {
+      "title": "AWKで最後のフィールドのみ出力する",
+      "url": "/2023/06/09/awk-print-last-column.html",
+      "date": "Jun 9, 2023"
+    }
+  ]
+}
