@@ -75,3 +75,11 @@ docker run --rm \
   "{{ vars.markdownlint_cli2_image }}" \
   "${cli_args[@]}"
 '''
+
+[tasks.tags]
+description = "Regenerate per-tag JSON under assets/tags/ (Docker Jekyll export)"
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+exec bash scripts/generate-tags-json.sh
+'''

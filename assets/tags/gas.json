@@ -1,0 +1,16 @@
+{
+  "name": "gas",
+  "slug": "gas",
+  "posts": [
+    {
+      "title": "Docker内のClaspにログインする",
+      "url": "/2023/02/02/gas-clasp-login-in-docker.html",
+      "date": "Feb 2, 2023"
+    },
+    {
+      "title": "Google Sheetで文字コードをShift JISにしたCSVをダウンロードする",
+      "url": "/2023/01/12/gas-csv-downloader.html",
+      "date": "Jan 12, 2023"
+    }
+  ]
+}

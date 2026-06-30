@@ -1,0 +1,11 @@
+{
+  "name": "python",
+  "slug": "python",
+  "posts": [
+    {
+      "title": "Tensorflowの警告を抑制する",
+      "url": "/2020/05/08/python-suppress-warnings.html",
+      "date": "May 8, 2020"
+    }
+  ]
+}

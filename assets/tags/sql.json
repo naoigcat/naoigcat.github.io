@@ -1,0 +1,11 @@
+{
+  "name": "sql",
+  "slug": "sql",
+  "posts": [
+    {
+      "title": "Amazon Athenaで予約キーワードをエスケープする",
+      "url": "/2023/01/24/sql-escaping-reserved-keyword.html",
+      "date": "Jan 24, 2023"
+    }
+  ]
+}

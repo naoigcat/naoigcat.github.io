@@ -1,0 +1,11 @@
+{
+  "name": "sqlite",
+  "slug": "sqlite",
+  "posts": [
+    {
+      "title": "SQLiteでUPSERTを実行する",
+      "url": "/2023/03/07/sqlite-upsert.html",
+      "date": "Mar 7, 2023"
+    }
+  ]
+}

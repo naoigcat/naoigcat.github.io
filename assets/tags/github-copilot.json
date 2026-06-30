@@ -1,0 +1,11 @@
+{
+  "name": "github-copilot",
+  "slug": "github-copilot",
+  "posts": [
+    {
+      "title": "VSCodeのGitHub Copilotでコミットメッセージを生成する",
+      "url": "/2025/10/12/vscode-github-copilot-commit-message-generation.html",
+      "date": "Oct 12, 2025"
+    }
+  ]
+}

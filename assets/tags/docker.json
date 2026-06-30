@@ -1,0 +1,56 @@
+{
+  "name": "docker",
+  "slug": "docker",
+  "posts": [
+    {
+      "title": "DockerコンテナでHTTPSでのローカル開発に対応する",
+      "url": "/2025/01/01/docker-https-portal.html",
+      "date": "Jan 1, 2025"
+    },
+    {
+      "title": "Dockerコンテナでdnsmasqを立ち上げる",
+      "url": "/2024/12/19/docker-dnsmasq.html",
+      "date": "Dec 19, 2024"
+    },
+    {
+      "title": "Docker Hubからイメージのタグ一覧を取得する",
+      "url": "/2023/03/28/docker-tag-list.html",
+      "date": "Mar 28, 2023"
+    },
+    {
+      "title": "Dockerでnetwork not foundのエラーを解消する",
+      "url": "/2023/03/23/docker-error-response-from-daemon.html",
+      "date": "Mar 23, 2023"
+    },
+    {
+      "title": "Dockerコンテナの終了までの猶予期間を設定する",
+      "url": "/2023/03/01/docker-stop-grace-period.html",
+      "date": "Mar 1, 2023"
+    },
+    {
+      "title": "Docker Composeで起動するサービスを指定する",
+      "url": "/2023/02/20/docker-compose-profile.html",
+      "date": "Feb 20, 2023"
+    },
+    {
+      "title": "Dockerコンテナ内に標準入力をパイプで渡す",
+      "url": "/2023/02/06/sh-pipe-stdin-to-docker.html",
+      "date": "Feb 6, 2023"
+    },
+    {
+      "title": "Jekyllに別リポジトリの投稿を取り込むプラグインを追加する",
+      "url": "/2021/12/19/jekyll-plugins.html",
+      "date": "Dec 19, 2021"
+    },
+    {
+      "title": "イメージ名からコンテナを停止する",
+      "url": "/2021/12/18/sh-stop-docker-container.html",
+      "date": "Dec 18, 2021"
+    },
+    {
+      "title": "PhpStorm+DockerでXDebugを使用する",
+      "url": "/2020/10/17/php-xdebug-on-phpstorm.html",
+      "date": "Oct 17, 2020"
+    }
+  ]
+}

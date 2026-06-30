@@ -1,0 +1,56 @@
+{
+  "name": "ios",
+  "slug": "ios",
+  "posts": [
+    {
+      "title": "OpenCV 3.1.0はiOSの実機向けにビルドできない",
+      "url": "/2023/06/20/opencv-enable-neon.html",
+      "date": "Jun 20, 2023"
+    },
+    {
+      "title": "シミュレーターでステージマネージャーを有効化する",
+      "url": "/2023/03/29/xcode-stage-manager-on-simulator.html",
+      "date": "Mar 29, 2023"
+    },
+    {
+      "title": "iOSのクラッシュログのファイル名・メソッド名・行数を復元する",
+      "url": "/2023/01/20/ios-symbolicate-crash-logs.html",
+      "date": "Jan 20, 2023"
+    },
+    {
+      "title": "iOSで画像の色を動的に変える",
+      "url": "/2023/01/16/ios-image-rendering-mode.html",
+      "date": "Jan 16, 2023"
+    },
+    {
+      "title": "モバイルアプリのアプリIDに共通して使用できる記号はドットしかない",
+      "url": "/2023/01/03/ios-android-app-id.html",
+      "date": "Jan 3, 2023"
+    },
+    {
+      "title": "iOSアプリのインストール日時を取得する",
+      "url": "/2023/01/02/ios-installed-date.html",
+      "date": "Jan 2, 2023"
+    },
+    {
+      "title": "Swiftで想定外のレスポンスを変換可能なEnumを作る",
+      "url": "/2022/01/21/swift-unknown-codable-enum.html",
+      "date": "Jan 21, 2022"
+    },
+    {
+      "title": "iOSで使用可能なストレージサイズを取得する",
+      "url": "/2022/01/18/swift-available-capacity-of-volume.html",
+      "date": "Jan 18, 2022"
+    },
+    {
+      "title": ".ipaファイルからプロビジョニングプロファイルを抽出する",
+      "url": "/2020/04/23/sh-extract-provisioning-profile-from-ipa.html",
+      "date": "Apr 23, 2020"
+    },
+    {
+      "title": "iOSシミュレーターのユーザー設定をリセットする",
+      "url": "/2017/07/26/ios-reset-userdefaults.html",
+      "date": "Jul 26, 2017"
+    }
+  ]
+}

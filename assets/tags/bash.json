@@ -1,0 +1,201 @@
+{
+  "name": "bash",
+  "slug": "bash",
+  "posts": [
+    {
+      "title": "シェルの組み込みコマンドを一覧表示する",
+      "url": "/2026/04/28/sh-list-builtin-commands.html",
+      "date": "Apr 28, 2026"
+    },
+    {
+      "title": "Debian版のwhichコマンドの実装を確認する",
+      "url": "/2026/04/27/sh-which-of-debian-utils.html",
+      "date": "Apr 27, 2026"
+    },
+    {
+      "title": "コマンドの存在確認の可否を比較する",
+      "url": "/2026/04/26/sh-compare-which-command.html",
+      "date": "Apr 26, 2026"
+    },
+    {
+      "title": "シェルでのコマンド存在確認の速度を比較する",
+      "url": "/2026/04/25/sh-speed-of-command-exists.html",
+      "date": "Apr 25, 2026"
+    },
+    {
+      "title": "シェルで実行ファイルのパスのキャッシュを扱う",
+      "url": "/2026/04/23/sh-hash-command.html",
+      "date": "Apr 23, 2026"
+    },
+    {
+      "title": "シェルでコマンドの存在や種類を確認する",
+      "url": "/2026/04/20/sh-type-command.html",
+      "date": "Apr 20, 2026"
+    },
+    {
+      "title": "シェルのシェル関数の定義を読む",
+      "url": "/2026/04/18/sh-function-exists.html",
+      "date": "Apr 18, 2026"
+    },
+    {
+      "title": "シェルでコマンドの存在を確認する",
+      "url": "/2026/04/17/sh-which-command-exists.html",
+      "date": "Apr 17, 2026"
+    },
+    {
+      "title": "エージェントツールの利用状況を確認する",
+      "url": "/2026/04/12/sh-ccusage.html",
+      "date": "Apr 12, 2026"
+    },
+    {
+      "title": "ランダムな識別子を生成する",
+      "url": "/2026/04/11/sh-random-identifier.html",
+      "date": "Apr 11, 2026"
+    },
+    {
+      "title": "ランダムな数字を生成する",
+      "url": "/2026/04/10/sh-random-number.html",
+      "date": "Apr 10, 2026"
+    },
+    {
+      "title": "空きポートを検索する",
+      "url": "/2026/04/09/sh-search-port.html",
+      "date": "Apr 9, 2026"
+    },
+    {
+      "title": "シェルスクリプトでコマンドの結果の先頭行と末尾行を取得する",
+      "url": "/2026/04/05/sh-head-and-tail-of-command.html",
+      "date": "Apr 5, 2026"
+    },
+    {
+      "title": "シェルスクリプトで非同期処理を行いつつ実行結果を受け取る",
+      "url": "/2026/04/04/sh-asynchronous-process.html",
+      "date": "Apr 4, 2026"
+    },
+    {
+      "title": "同一ハッシュ値となる文字列が発見されている",
+      "url": "/2024/03/20/md5-collision.html",
+      "date": "Mar 20, 2024"
+    },
+    {
+      "title": "設定ファイル名に付くrcはRun Commandsの略である",
+      "url": "/2024/02/25/rc-is-run-commands.html",
+      "date": "Feb 25, 2024"
+    },
+    {
+      "title": "シェルスクリプトを直接実行させない",
+      "url": "/2024/02/22/sh-force-script-sourced.html",
+      "date": "Feb 22, 2024"
+    },
+    {
+      "title": "シェルスクリプトで日時計算を行う",
+      "url": "/2023/05/04/date-calculation.html",
+      "date": "May 4, 2023"
+    },
+    {
+      "title": "標準入力の末尾に改行を付加する",
+      "url": "/2023/04/19/sh-add-new-line-to-stdin.html",
+      "date": "Apr 19, 2023"
+    },
+    {
+      "title": "Xcodeが対応しているSwiftのバージョンを調べる",
+      "url": "/2023/03/30/xcode-swift-versions.html",
+      "date": "Mar 30, 2023"
+    },
+    {
+      "title": "シェルスクリプトで配列を結合する",
+      "url": "/2023/03/24/sh-join-array.html",
+      "date": "Mar 24, 2023"
+    },
+    {
+      "title": "仮想端末なしでsudoを実行する",
+      "url": "/2023/03/17/sudo-require-tty.html",
+      "date": "Mar 17, 2023"
+    },
+    {
+      "title": "設定ファイルから情報を抽出する",
+      "url": "/2023/03/08/sh-sed-ini-file.html",
+      "date": "Mar 8, 2023"
+    },
+    {
+      "title": "makeコマンドは引数に指定した変数が優先される",
+      "url": "/2023/02/10/sh-make-variable-priority.html",
+      "date": "Feb 10, 2023"
+    },
+    {
+      "title": "makeコマンドで変数を割り当てる",
+      "url": "/2023/02/09/sh-make-variable-expanding.html",
+      "date": "Feb 9, 2023"
+    },
+    {
+      "title": "macOSに付属しているmakeコマンドは古い",
+      "url": "/2023/02/08/sh-make-version.html",
+      "date": "Feb 8, 2023"
+    },
+    {
+      "title": "Dockerコンテナ内に標準入力をパイプで渡す",
+      "url": "/2023/02/06/sh-pipe-stdin-to-docker.html",
+      "date": "Feb 6, 2023"
+    },
+    {
+      "title": "Globパターンにマッチするファイルがあるかテストする",
+      "url": "/2023/02/03/sh-test-glob-pattern-match.html",
+      "date": "Feb 3, 2023"
+    },
+    {
+      "title": "psをgrepした結果から自身を除外する",
+      "url": "/2023/01/04/sh-exclude-self-from-ps-grep.html",
+      "date": "Jan 4, 2023"
+    },
+    {
+      "title": "xargsで入力が空のときに処理を実行しない",
+      "url": "/2022/12/29/sh-xargs-no-run-if-empty.html",
+      "date": "Dec 29, 2022"
+    },
+    {
+      "title": "macOSで指定したサイズのダミーファイルを作成する",
+      "url": "/2022/01/17/macos-file-with-specified-size.html",
+      "date": "Jan 17, 2022"
+    },
+    {
+      "title": "Jekyllに別リポジトリの投稿を取り込むプラグインを追加する",
+      "url": "/2021/12/19/jekyll-plugins.html",
+      "date": "Dec 19, 2021"
+    },
+    {
+      "title": "イメージ名からコンテナを停止する",
+      "url": "/2021/12/18/sh-stop-docker-container.html",
+      "date": "Dec 18, 2021"
+    },
+    {
+      "title": "ハッシュを使用してファイル名を変更する",
+      "url": "/2020/11/12/sh-rename-file-using-hash.html",
+      "date": "Nov 12, 2020"
+    },
+    {
+      "title": "grepコマンドの再帰検索で複数のディレクトリを除外する",
+      "url": "/2020/03/07/sh-grep-exclude-dirs.html",
+      "date": "Mar 7, 2020"
+    },
+    {
+      "title": "Bonjourで配信されているサーバーを監視する",
+      "url": "/2017/09/29/sh-watch-boujour.html",
+      "date": "Sep 29, 2017"
+    },
+    {
+      "title": "コマンド出力結果の行頭に日時を入れる",
+      "url": "/2017/09/27/sh-ping-with-date.html",
+      "date": "Sep 27, 2017"
+    },
+    {
+      "title": "Bashでコマンド履歴を検索する",
+      "url": "/2017/09/09/sh-history-search.html",
+      "date": "Sep 9, 2017"
+    },
+    {
+      "title": "既存サービスに使用されていないポート一覧を取得する",
+      "url": "/2015/08/16/sh-port-numbers.html",
+      "date": "Aug 16, 2015"
+    }
+  ]
+}

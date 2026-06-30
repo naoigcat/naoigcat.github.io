@@ -1,0 +1,11 @@
+{
+  "name": "opencv",
+  "slug": "opencv",
+  "posts": [
+    {
+      "title": "OpenCV 3.1.0はiOSの実機向けにビルドできない",
+      "url": "/2023/06/20/opencv-enable-neon.html",
+      "date": "Jun 20, 2023"
+    }
+  ]
+}

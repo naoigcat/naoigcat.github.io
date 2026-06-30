@@ -1,0 +1,21 @@
+{
+  "name": "javascript",
+  "slug": "javascript",
+  "posts": [
+    {
+      "title": "素のJavaScript (Vanilla JS) でXPathを使用する",
+      "url": "/2024/02/18/javascript-xpath-selector.html",
+      "date": "Feb 18, 2024"
+    },
+    {
+      "title": "JavaScriptで文字列を整数値に変換する",
+      "url": "/2023/03/03/javascript-base-number-for-parse-int.html",
+      "date": "Mar 3, 2023"
+    },
+    {
+      "title": "JavaScriptでオブジェクトとクラスを相互変換する",
+      "url": "/2023/03/02/javascript-class-transformer.html",
+      "date": "Mar 2, 2023"
+    }
+  ]
+}

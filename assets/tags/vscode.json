@@ -1,0 +1,16 @@
+{
+  "name": "vscode",
+  "slug": "vscode",
+  "posts": [
+    {
+      "title": "VSCodeのGitHub Copilotでコミットメッセージを生成する",
+      "url": "/2025/10/12/vscode-github-copilot-commit-message-generation.html",
+      "date": "Oct 12, 2025"
+    },
+    {
+      "title": "VSCodeで使用するPHP拡張機能を使用する",
+      "url": "/2023/02/13/vscode-tool-versions-per-folder.html",
+      "date": "Feb 13, 2023"
+    }
+  ]
+}

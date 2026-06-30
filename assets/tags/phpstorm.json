@@ -1,0 +1,11 @@
+{
+  "name": "phpstorm",
+  "slug": "phpstorm",
+  "posts": [
+    {
+      "title": "PhpStorm+DockerでXDebugを使用する",
+      "url": "/2020/10/17/php-xdebug-on-phpstorm.html",
+      "date": "Oct 17, 2020"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "android",
+  "slug": "android",
+  "posts": [
+    {
+      "title": "モバイルアプリのアプリIDに共通して使用できる記号はドットしかない",
+      "url": "/2023/01/03/ios-android-app-id.html",
+      "date": "Jan 3, 2023"
+    }
+  ]
+}

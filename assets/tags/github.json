@@ -1,0 +1,11 @@
+{
+  "name": "github",
+  "slug": "github",
+  "posts": [
+    {
+      "title": "GitHub Actionsの実行条件でコンテキストを参照する",
+      "url": "/2023/09/06/github-actions-if-condition.html",
+      "date": "Sep 6, 2023"
+    }
+  ]
+}

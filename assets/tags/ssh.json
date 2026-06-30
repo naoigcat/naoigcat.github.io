@@ -1,0 +1,26 @@
+{
+  "name": "ssh",
+  "slug": "ssh",
+  "posts": [
+    {
+      "title": "多段SSHをエラーメッセージ `Killed by signal 1.` を抑制する",
+      "url": "/2024/02/16/ssh-proxy-suppressing-error.html",
+      "date": "Feb 16, 2024"
+    },
+    {
+      "title": "SSHのパスワード認証を無効化する",
+      "url": "/2023/03/16/ssh-challenge-response-authentication.html",
+      "date": "Mar 16, 2023"
+    },
+    {
+      "title": "SSH接続時エスケープ文字で特殊機能を使用できる",
+      "url": "/2023/02/24/ssh-escape-character.html",
+      "date": "Feb 24, 2023"
+    },
+    {
+      "title": "macOSでSSH接続時にフルディスクアクセス権限を付与する",
+      "url": "/2022/12/27/macos-sshd-keygen-wrapper.html",
+      "date": "Dec 27, 2022"
+    }
+  ]
+}

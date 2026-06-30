@@ -1,0 +1,26 @@
+{
+  "name": "imagemagick",
+  "slug": "imagemagick",
+  "posts": [
+    {
+      "title": "ImageMagicで角丸の文字スタンプを作成する",
+      "url": "/2024/04/19/imagemagick-generate-stamp.html",
+      "date": "Apr 19, 2024"
+    },
+    {
+      "title": "ImageMagickの最小構成で使用できるフォーマットを出力する",
+      "url": "/2023/04/05/imagemagick-list-format.html",
+      "date": "Apr 5, 2023"
+    },
+    {
+      "title": "ImageMagickが依存しているライブラリを調べる",
+      "url": "/2023/04/04/imagemagick-dependencies.html",
+      "date": "Apr 4, 2023"
+    },
+    {
+      "title": "透過画像を非透過画像に変換する",
+      "url": "/2021/05/25/imagemagick-deactivate-transparent.html",
+      "date": "May 25, 2021"
+    }
+  ]
+}

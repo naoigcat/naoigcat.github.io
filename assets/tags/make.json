@@ -1,0 +1,11 @@
+{
+  "name": "make",
+  "slug": "make",
+  "posts": [
+    {
+      "title": "Makeファイルでプロセス置換を使用する",
+      "url": "/2026/04/02/make-process-substitution.html",
+      "date": "Apr 2, 2026"
+    }
+  ]
+}
