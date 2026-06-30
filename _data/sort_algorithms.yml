@@ -171,3 +171,6 @@ radix:
 bucket:
   sort_fn: bucket_sort
   insertion_sort: true
+
+proxmap:
+  sort_fn: proxmap_sort
