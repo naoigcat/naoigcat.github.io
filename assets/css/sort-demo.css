@@ -91,6 +91,77 @@
   max-width: none;
   min-width: 0;
 }
+#american-flag-sort-demo .sort-demo__bars {
+  min-height: 168px;
+}
+#american-flag-sort-demo .sort-demo__bar-stack {
+  flex: 1 1 0;
+  max-width: 48px;
+  min-width: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 2px 1px 0;
+}
+#american-flag-sort-demo .sort-demo__bar-value {
+  font-size: 0.68rem;
+  line-height: 1.1;
+  margin-bottom: 3px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+#american-flag-sort-demo .sort-demo__bar-stack .sort-demo__bar {
+  width: 100%;
+  flex: none;
+  max-width: none;
+  min-width: 0;
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="0"] {
+  background: rgba(52, 152, 219, 0.22);
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="1"] {
+  background: rgba(155, 89, 182, 0.22);
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="2"] {
+  background: rgba(26, 188, 156, 0.22);
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="3"] {
+  background: rgba(230, 126, 34, 0.22);
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="4"] {
+  background: rgba(241, 196, 15, 0.24);
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="5"] {
+  background: rgba(231, 76, 60, 0.22);
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-role="compare"] {
+  outline: 3px solid #e67e22;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-role="swap"] {
+  outline: 3px solid #27ae60;
+  outline-offset: 2px;
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-role="range"] {
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(52,152,219,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-role="sorted"] {
+  outline: 3px solid #9b59b6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(155,89,182,.35), 0 2px 6px rgba(0,0,0,.18);
+  opacity: 0.92;
+}
+#american-flag-sort-demo .sort-demo__bar-stack[data-role="cursor"] {
+  outline: 3px solid #1abc9c;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(26,188,156,.35), 0 2px 6px rgba(0,0,0,.18);
+}
 @media (max-width: 520px) {
   .sort-demo__bars {
     gap: 3px;
@@ -108,6 +179,12 @@
   #radix-sort-demo .sort-demo__bar-value {
     font-size: 0.58rem;
   }
+  #american-flag-sort-demo .sort-demo__bar-stack {
+    min-width: 14px;
+  }
+  #american-flag-sort-demo .sort-demo__bar-value {
+    font-size: 0.58rem;
+  }
 }
 .sort-demo__caption {
   margin-top: 0.5rem;
@@ -120,6 +197,24 @@
   .sort-demo { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
   .sort-demo__toolbar button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: inherit; }
   .sort-demo__caption { color: #bbb; }
+  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="0"] {
+    background: rgba(52, 152, 219, 0.32);
+  }
+  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="1"] {
+    background: rgba(155, 89, 182, 0.32);
+  }
+  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="2"] {
+    background: rgba(26, 188, 156, 0.32);
+  }
+  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="3"] {
+    background: rgba(230, 126, 34, 0.32);
+  }
+  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="4"] {
+    background: rgba(241, 196, 15, 0.28);
+  }
+  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="5"] {
+    background: rgba(231, 76, 60, 0.32);
+  }
 }
 .sort-demo__bar[data-role="compare"] {
   outline: 3px solid #e67e22;

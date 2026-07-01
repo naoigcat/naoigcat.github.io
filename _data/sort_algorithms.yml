@@ -177,3 +177,7 @@ proxmap:
 
 unshuffle:
   sort_fn: unshuffle_sort
+
+american_flag:
+  sort_fn: american_flag_sort
+  insertion_sort: true
