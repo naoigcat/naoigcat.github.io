@@ -174,3 +174,6 @@ bucket:
 
 proxmap:
   sort_fn: proxmap_sort
+
+unshuffle:
+  sort_fn: unshuffle_sort

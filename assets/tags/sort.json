@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "アンシャッフルソートで配列を並び替える",
+      "url": "/2026/07/01/sort-unshuffle.html",
+      "date": "Jul 1, 2026"
+    },
+    {
       "title": "プロックスマップソートで配列を並び替える",
       "url": "/2026/06/30/sort-proxmap.html",
       "date": "Jun 30, 2026"
