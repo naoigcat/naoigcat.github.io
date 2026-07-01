@@ -302,6 +302,100 @@
     color: inherit;
   }
 }
+.sort-demo:has(.sort-demo-unshuffle-wrap) {
+  min-width: 0;
+}
+.sort-demo:has(.sort-demo-unshuffle-wrap) .sort-demo__bars {
+  align-items: stretch;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  min-height: auto;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-block: 6px;
+  box-sizing: border-box;
+}
+.sort-demo-unshuffle-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: max-content;
+  max-width: 100%;
+  min-width: min(100%, max-content);
+}
+.sort-demo-unshuffle__section-label {
+  display: block;
+  font-size: 0.82rem;
+  opacity: 0.85;
+  margin-bottom: 0.35rem;
+}
+.sort-demo-unshuffle__incoming-track,
+.sort-demo-unshuffle__pile-track,
+.sort-demo-unshuffle__merged-track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 5px;
+}
+.sort-demo-unshuffle__incoming-track,
+.sort-demo-unshuffle__merged-track {
+  min-height: calc(2rem + 12px);
+  padding: 6px;
+  box-sizing: border-box;
+}
+.sort-demo-unshuffle__incoming-track {
+  max-width: 100%;
+  overflow-x: auto;
+  scroll-padding: 6px;
+}
+.sort-demo-unshuffle__piles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sort-demo-unshuffle__pile-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+.sort-demo-unshuffle__pile-row--active {
+  border-color: rgba(128,128,128,.35);
+  background: rgba(128,128,128,.06);
+}
+.sort-demo-unshuffle__pile-label {
+  flex: none;
+  width: 1.4rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+  text-align: right;
+}
+.sort-demo-unshuffle__chip {
+  flex: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem !important;
+  max-width: none !important;
+  min-width: 2rem !important;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0,0,0,.25);
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+@media (prefers-color-scheme: dark) {
+  .sort-demo-unshuffle__pile-row--active {
+    border-color: rgba(255,255,255,.18);
+    background: rgba(255,255,255,.05);
+  }
+}
 .sort-demo:has(.sort-demo-polyphase-wrap) {
   min-width: 0;
 }
