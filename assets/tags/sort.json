@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "自己インデックスソートで配列を並び替える",
+      "url": "/2026/07/07/sort-self-indexed.html",
+      "date": "Jul 7, 2026"
+    },
+    {
       "title": "アメリカ国旗ソートで配列を並び替える",
       "url": "/2026/07/02/sort-american-flag.html",
       "date": "Jul 2, 2026"

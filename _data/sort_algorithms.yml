@@ -181,3 +181,6 @@ unshuffle:
 american_flag:
   sort_fn: american_flag_sort
   insertion_sort: true
+
+self_indexed:
+  sort_fn: self_indexed_sort
