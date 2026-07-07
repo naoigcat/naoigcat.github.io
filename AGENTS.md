@@ -20,7 +20,7 @@ Only the [whitelisted plugins](https://pages.github.com/versions/) apply in prod
 This repository **must not depend** on `_plugins/` for behavior that needs to work on the live site.
 Tag pages are implemented on the committed `/tags/` page: build-time Liquid embeds a lightweight tag index plus full post lists for tags listed in `_data/tags_embed.yml`;
 other tags load `/assets/tags/{slug}.json` on demand in the browser (`assets/js/tags.js`).
-Regenerate those JSON files with `mise run tags-sync` after changing posts or tag metadata.
+Regenerate those JSON files with `mise run tags` after changing posts or tag metadata.
 Post footers link to that query form, not to per-tag paths like `/tags/sort/`.
 
 Local `mise run serve` may still load `_plugins/` if files are present, which can create **dev/prod drift**.
