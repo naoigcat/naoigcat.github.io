@@ -77,6 +77,9 @@ cycle:
 tree:
   sort_fn: tree_sort
 
+splay:
+  sort_fn: splay_sort
+
 library:
   sort_fn: library_sort
 
