@@ -2,7 +2,8 @@
 name: create-post
 description: >-
     Creates a new post file with the given title, using the prescribed format and front matter aligned so scalar values begin
-    on column 12 (matching `sort_demo:` rows elsewhere in `_posts/`).
+    on column 12 (matching `sort_demo:` rows elsewhere in `_posts/`). After lint, runs `mise run tags` to refresh
+    `assets/tags/` before commit.
 ---
 
 # create-post
@@ -155,7 +156,21 @@ If lint reports errors, apply fixes (`mise run lint -- --fix "<path-to-file.md>"
 the rest) and re-run until `mise run lint` exits **0**. Do not treat the post as finished while markdownlint still reports
 errors.
 
-## 5. Commit
+## 5. Regenerate tag JSON
+
+After markdownlint passes, regenerate committed tag metadata under `assets/tags/` from the **workspace root**:
+
+```bash
+mise run tags
+```
+
+This task runs `scripts/generate-tags-json.sh` (Docker + Jekyll export). **Docker must be running**; if the command fails,
+report the exit code and stderr and do not commit until tag JSON is updated successfully.
+
+When the command succeeds, stage any created, updated, or removed files under `assets/tags/` together with the new post in
+the commit step below.
+
+## 6. Commit
 
 Before committing the new file, run `git rev-parse --is-inside-work-tree` to verify you are inside a Git repository. If
 not, stop and tell the user to run `git init` or work in an existing repository.
@@ -166,10 +181,10 @@ then suggest next steps such as retrying, checking with `git status`, or running
 If everything is fine, commit with:
 
 ```bash
-git add _posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md
+git add _posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md assets/tags/
 git commit -m "Add post \`{year}-{month}-{day}-{filename_slug}\`"
 ```
 
-## 6. Report completion
+## 7. Report completion
 
 Report the path and contents of the created file to the user.
