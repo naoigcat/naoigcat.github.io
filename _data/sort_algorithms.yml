@@ -187,3 +187,7 @@ american_flag:
 
 self_indexed:
   sort_fn: self_indexed_sort
+
+flash:
+  sort_fn: flash_sort
+  insertion_sort: true
