@@ -191,3 +191,7 @@ self_indexed:
 flash:
   sort_fn: flash_sort
   insertion_sort: true
+
+spread:
+  sort_fn: spread_sort
+  insertion_sort: true
