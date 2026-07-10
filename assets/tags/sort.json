@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "トライソートで配列を並び替える",
+      "url": "/2026/07/11/sort-trie.html",
+      "date": "Jul 11, 2026"
+    },
+    {
       "title": "スプレッドソートで配列を並び替える",
       "url": "/2026/07/10/sort-spread.html",
       "date": "Jul 10, 2026"
