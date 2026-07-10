@@ -1,6 +1,6 @@
 [vars]
 github_pages_image = "naoigcat/github-pages:232"
-markdownlint_cli2_image = "davidanson/markdownlint-cli2:v0.22.1"
+markdownlint_cli2_image = "davidanson/markdownlint-cli2:v0.23.0"
 
 [tasks.serve]
 description = "Run Jekyll in Docker (GitHub Pages dependency image)"
