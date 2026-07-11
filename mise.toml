@@ -61,12 +61,16 @@ if [[ -n "${usage_fix:-}" ]]; then
   cli_args+=(--fix)
 fi
 
-if [[ -n "${usage_path:-}" ]]; then
-  read -r -a paths <<< "${usage_path}"
-  cli_args+=("${paths[@]}")
-else
-  cli_args+=("**/*.md")
-fi
+{% if usage.path | default(value=[]) | length > 0 %}
+paths=(
+{% for p in usage.path %}
+  {{ p | quote }}
+{% endfor %}
+)
+cli_args+=("${paths[@]}")
+{% else %}
+cli_args+=("**/*.md")
+{% endif %}
 
 docker run --rm \
   --user "$(id -u):$(id -g)" \
