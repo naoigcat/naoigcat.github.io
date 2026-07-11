@@ -37,6 +37,7 @@ printf '%s\n' '{{ content }}' > "$workdir/_layouts/null.html"
 
 site_out="$workdir/_site"
 docker run --rm \
+  --user "$(id -u):$(id -g)" \
   -v "$workdir:/work" \
   "$pages_image" \
   jekyll build -s /work -d /work/_site >/dev/null
