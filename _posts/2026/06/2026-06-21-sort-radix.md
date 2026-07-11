@@ -416,6 +416,10 @@ window.DemoSort && DemoSort.boot('radix-sort-demo', function (root) {
   script=sort_demo_js
 %}
 
+## 類似アルゴリズムとの相違点
+
+[カウンティングソート](/2026/06/20/sort-counting.html)を桁ごとに繰り返す。LSD 版は下位桁から、[トライソート](/2026/07/11/sort-trie.html)の MSD 版は上位桁から区分する。
+
 ## 計算時間量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->

@@ -1326,6 +1326,10 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
 
 テープドライブが高価だった時代のポリフェーズマージは、限られた I/O チャネルを稼働させ続ける典型例として学ぶ価値がある。
 
+## 類似アルゴリズムとの相違点
+
+[マージソート](/2026/05/03/sort-merge.html)は 2 路併合を繰り返す。ポリフェーズはテープが少ない外部整列向きに、フィボナッチ分布で併合先を回転させる。
+
 ## 計算時間量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
