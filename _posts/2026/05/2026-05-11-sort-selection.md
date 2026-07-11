@@ -135,7 +135,9 @@ window.DemoSort && DemoSort.boot('selection-sort-demo', function (root) {
   script=sort_demo_js
 %}
 
-実装が単純な分、入力サイズが大きい場面では標準ライブラリのソートやより漸近的に有利なアルゴリズムに任せるのが現実的である。
+## 類似アルゴリズムとの相違点
+
+[交換ソート](/2026/06/11/sort-exchange.html)と比較パターンは同じだが、最小位置を記録してから 1 回交換する。[トーナメントソート](/2026/05/26/sort-tournament.html)も最小を繰り返し取り出すが、木で比較を共有する。
 
 ## 計算時間量および空間計算量を計測する
 

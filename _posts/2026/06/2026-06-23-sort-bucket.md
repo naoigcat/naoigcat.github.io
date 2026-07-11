@@ -307,6 +307,10 @@ window.DemoSort && DemoSort.boot('bucket-sort-demo', function (root) {
   script=sort_demo_js
 %}
 
+## 類似アルゴリズムとの相違点
+
+[カウンティングソート](/2026/06/20/sort-counting.html)は値そのものをインデックスにする。バケットは値域を等分し、仕分け後にバケット内を別ソートする。[サンプルソート](/2026/05/20/sort-sample.html)は標本から分割点を求める。
+
 ## 計算時間量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
