@@ -282,6 +282,10 @@ window.DemoSort && DemoSort.boot('smooth-sort-demo', function (root) {
 
 実装の複雑さと定数倍の大きさから、汎用ライブラリの `sort` として採用されることは稀である。
 
+## 類似アルゴリズムとの相違点
+
+[ヒープソート](/2026/05/04/sort-heap.html)と同様にインプレースで 最悪計算量 `O(n log n)` だが、レオナルド木により整列済み入力では `O(n)` に近づく。
+
 ## 計算時間量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->

@@ -383,7 +383,9 @@ window.DemoSort && DemoSort.boot('symmetry-partition-sort-demo', function (root)
   script=sort_demo_js
 %}
 
-比例拡張ソートの記事と並べて読むと、「整列済み標本を左端だけに置くか、両端に置いて番兵にするか」の違いが対比しやすい。
+## 類似アルゴリズムとの相違点
+
+[比例拡張ソート](/2026/05/19/sort-proportion-extend.html)と同系統だが、整列済み標本を `L | U | R` と両端へ配置してから未整列部分を分割していて、分割の局所性を改善しやすい。
 
 ## 計算時間量および空間計算量を計測する
 
