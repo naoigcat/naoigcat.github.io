@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  verify:
+  markdownlint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,3 +25,19 @@ jobs:
         with:
           globs: '**/*.md'
           config: '.markdownlint-cli2.jsonc'
+
+  tags-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Verify tag JSON is up to date
+        run: |
+          set -euo pipefail
+          bash scripts/generate-tags-json.sh
+          if ! git diff --exit-code -- assets/tags/; then
+            echo "::error::assets/tags/ is out of date. Run: mise run tags"
+            git diff --stat -- assets/tags/
+            exit 1
+          fi
