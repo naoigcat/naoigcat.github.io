@@ -36,6 +36,8 @@ jobs:
         run: |
           set -euo pipefail
           bash scripts/generate-tags-json.sh
+          # git diff ignores untracked files; intent-to-add makes new tag JSON visible.
+          git add --intent-to-add assets/tags/
           if ! git diff --exit-code -- assets/tags/; then
             echo "::error::assets/tags/ is out of date. Run: mise run tags"
             git diff --stat -- assets/tags/
