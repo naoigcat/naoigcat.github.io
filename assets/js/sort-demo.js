@@ -428,7 +428,7 @@
    * @param {string} o.initialCaption
    * @param {string} [o.barClass] Used by default mountBars helper on api.
    * @param {function(number[]):object[]} [o.generateSteps]
-   * @param {function(api, newValues):void} [o.rebuild] Overrides default rebuild body (still resets cancelled/playing/busy).
+   * @param {function(api, newValues):void} [o.rebuild] Overrides default rebuild body (still resets playGeneration/playing/busy).
    * @param {function(api):void} [o.afterRebuild] After default rebuild (e.g. clear roles).
    * @param {function(api,step):Promise<void>} o.applyStep Called after consuming step (idx already advanced).
    * @param {number|function(api):number} [o.stepPauseMs=280]
@@ -452,7 +452,7 @@
     let steps = [];
     let idx = 0;
     let playing = false;
-    let cancelled = false;
+    let playGeneration = 0;
     let busy = false;
 
     const api = {
@@ -522,7 +522,7 @@
     }
 
     function rebuild(v) {
-      cancelled = true;
+      playGeneration++;
       playing = false;
       busy = false;
       if (o.rebuild) {
@@ -566,11 +566,12 @@
     });
 
     ui.play.addEventListener('click', async function () {
+      const generation = ++playGeneration;
       playing = true;
-      cancelled = false;
       syncButtons();
-      while (!cancelled && idx < steps.length) {
+      while (playGeneration === generation && idx < steps.length) {
         await applyStepForward();
+        if (playGeneration !== generation) break;
         let ms =
           typeof o.stepPauseMs === 'function'
             ? o.stepPauseMs(api)
@@ -578,12 +579,14 @@
         if (ms == null) ms = 280;
         await DemoSort.wait(ms);
       }
-      playing = false;
-      syncButtons();
+      if (playGeneration === generation) {
+        playing = false;
+        syncButtons();
+      }
     });
 
     ui.pause.addEventListener('click', function () {
-      cancelled = true;
+      playGeneration++;
       playing = false;
       syncButtons();
     });
