@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "バーストソートで配列を並び替える",
+      "url": "/2026/07/12/sort-burst.html",
+      "date": "Jul 12, 2026"
+    },
+    {
       "title": "トライソートで配列を並び替える",
       "url": "/2026/07/11/sort-trie.html",
       "date": "Jul 11, 2026"

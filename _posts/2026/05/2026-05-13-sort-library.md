@@ -206,7 +206,7 @@ window.DemoSort && DemoSort.boot('library-sort-demo', function (root) {
       }
       if (s.kind === 'insert') {
         mountLibraryBars(barsEl, s.arr);
-        DemoSort.assignRoles(barsEl, [[s.p, 'insert']]);
+        DemoSort.assignRoles(barsEl, [[s.p, 'key']]);
         api.setCaption(
           'キー ' + s.key + ' を位置 ' + s.p + ' の空きへ置きます'
         );

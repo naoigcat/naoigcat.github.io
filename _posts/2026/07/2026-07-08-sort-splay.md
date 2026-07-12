@@ -148,6 +148,16 @@ window.DemoSort && DemoSort.boot('splay-sort-demo', function (root) {
     inorderCollect(n.right, out);
   }
 
+  function snapshotTree(n) {
+    if (!n) return null;
+    return {
+      id: n.k.id,
+      value: n.k.value,
+      left: snapshotTree(n.left),
+      right: snapshotTree(n.right)
+    };
+  }
+
   function generateSteps(vals) {
     const steps = [];
     const ids = vals.map(function (v, i) {
@@ -161,13 +171,14 @@ window.DemoSort && DemoSort.boot('splay-sort-demo', function (root) {
 
     let splayRoot = null;
     for (let i = 0; i < ids.length; i++) {
+      splayRoot = splayInsert(splayRoot, ids[i]);
       steps.push({
         kind: 'insert',
         idx: i,
         value: vals[i],
-        arr: vals.slice()
+        arr: vals.slice(),
+        tree: snapshotTree(splayRoot)
       });
-      splayRoot = splayInsert(splayRoot, ids[i]);
     }
 
     const sortedKeys = [];
@@ -178,7 +189,8 @@ window.DemoSort && DemoSort.boot('splay-sort-demo', function (root) {
 
     steps.push({
       kind: 'phase_reorder',
-      caption: '中順走査の順（昇順）に並べ替えます（スワップで視覚化）'
+      caption: '中順走査の順（昇順）に並べ替えます（スワップで視覚化）',
+      tree: snapshotTree(splayRoot)
     });
 
     const n = sortedIds.length;
@@ -262,19 +274,24 @@ window.DemoSort && DemoSort.boot('splay-sort-demo', function (root) {
         break;
       }
     }
-    DemoSort.assignRoles(container, target === -1 ? [] : [[target, 'insert']]);
+    DemoSort.assignRoles(container, target === -1 ? [] : [[target, 'key']]);
   }
 
   function rebuildOrderFromPerm(api, perm) {
     api.permState = perm.slice();
   }
 
+  const treeView = DemoSort.createBinaryTreeView(root, {
+    label: '現在のスプレイ木（青: 根、紫: 今回根へ持ち上げた値）',
+    emptyText: 'まだスプレイ木は空です'
+  });
+
   DemoSort.attachPlayback({
     root: root,
     dataAttr: 'data-splay',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
-      'スプレイソート（スプレイ木への挿入＋並び順の復元）。挿入は紫、スワップは緑です。',
+      '値を根へ持ち上げながらスプレイ木へ挿入し、下の木を中順走査して昇順へ戻します。紫は今回の挿入、緑は配列の交換です。',
     barClass: 'sort-demo__bar',
     rebuild: function (api, v) {
       api.values = v.slice();
@@ -284,8 +301,11 @@ window.DemoSort && DemoSort.boot('splay-sort-demo', function (root) {
       for (let oi = 0; oi < api.values.length; oi++) order.push(oi);
       rebuildOrderFromPerm(api, order);
       mountBars(api.barsEl, api.values, api.permState);
+      DemoSort.renderBinaryTree(treeView, null, {
+        ariaLabel: '現在のスプレイ木'
+      });
       api.setCaption(
-        'スプレイソート（スプレイ木への挿入＋並び順の復元）。挿入は紫、スワップは緑です。'
+        '値を根へ持ち上げながらスプレイ木へ挿入し、下の木を中順走査して昇順へ戻します。紫は今回の挿入、緑は配列の交換です。'
       );
     },
     applyStep: async function (api, s) {
@@ -293,14 +313,22 @@ window.DemoSort && DemoSort.boot('splay-sort-demo', function (root) {
       if (s.kind === 'phase_insert') {
         mountBars(barsEl, api.values, api.permState);
         DemoSort.clearRoles(barsEl);
+        DemoSort.renderBinaryTree(treeView, null, {
+          ariaLabel: '現在のスプレイ木'
+        });
         api.setCaption(
-          '1. 入力順に値をスプレイ木へ挿入していきます（木は内部のみ）'
+          '1. 入力順に値をスプレイ木へ挿入します。下の図は各挿入後の木です'
         );
         return;
       }
       if (s.kind === 'insert') {
         mountBars(barsEl, api.values, api.permState);
         setInsertRole(barsEl, s.idx);
+        DemoSort.renderBinaryTree(treeView, s.tree, {
+          activeId: s.idx,
+          rootId: s.tree.id,
+          ariaLabel: '現在のスプレイ木'
+        });
         api.setCaption(
           'スプレイ木に挿入: 入力位置 ' + s.idx + ' の値（' + s.value + '）'
         );
@@ -309,12 +337,16 @@ window.DemoSort && DemoSort.boot('splay-sort-demo', function (root) {
       if (s.kind === 'phase_reorder') {
         mountBars(barsEl, api.values, api.permState);
         DemoSort.clearRoles(barsEl);
+        DemoSort.renderBinaryTree(treeView, s.tree, {
+          rootId: s.tree.id,
+          ariaLabel: '現在のスプレイ木'
+        });
         api.setCaption(s.caption);
         return;
       }
       if (s.kind === 'swap') {
         DemoSort.assignRoles(barsEl, [[s.lo, 'swap'], [s.hi, 'swap']]);
-        api.setCaption('交換中… (' + s.caption + ')');
+        api.setCaption('交換中: ' + s.caption);
         await DemoSort.flipSwap(barsEl, s.lo, s.hi);
 
         const newPerm = [];

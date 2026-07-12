@@ -9,6 +9,8 @@
  * DemoSort.barAccessibilityLabel(index, valueText, role?)
  * DemoSort.barAccessibilityLabelSimple(valueText, role?)
  * DemoSort.syncBarsAccessibility(container)
+ * DemoSort.createBinaryTreeView(root, options?)
+ * DemoSort.renderBinaryTree(view, tree, options?)
  * DemoSort.queryToolbar(root, dataAttr)
  * DemoSort.attachPlayback(options) — see implementation for option shape.
  */
@@ -163,6 +165,179 @@
       container.appendChild(bar);
     });
     DemoSort.syncBarsAccessibility(container);
+  };
+
+  function treeNodeLabel(node, options) {
+    if (options && typeof options.nodeLabel === 'function') {
+      return String(options.nodeLabel(node));
+    }
+    return node.value == null ? '' : String(node.value);
+  }
+
+  function svgElement(name) {
+    return document.createElementNS('http://www.w3.org/2000/svg', name);
+  }
+
+  /**
+   * Adds a compact binary-tree view below a demo's bars.
+   * The returned canvas is deliberately separate from the bars so articles can
+   * keep their array animation while exposing the structure that drives it.
+   *
+   * @param {HTMLElement} root
+   * @param {object} [options]
+   * @param {string} [options.label]
+   * @param {string} [options.emptyText]
+   * @returns {HTMLElement|null}
+   */
+  DemoSort.createBinaryTreeView = function (root, options) {
+    if (!root || typeof document === 'undefined') return null;
+    const config = options || {};
+    const section = document.createElement('section');
+    section.className = 'sort-demo__tree';
+
+    const label = document.createElement('p');
+    label.className = 'sort-demo__tree-label';
+    label.textContent = config.label || '現在の二分木';
+
+    const canvas = document.createElement('div');
+    canvas.className = 'sort-demo__tree-canvas';
+    canvas.dataset.emptyText = config.emptyText || 'まだ木は空です';
+    canvas.setAttribute('role', 'img');
+
+    section.appendChild(label);
+    section.appendChild(canvas);
+
+    const bars = root.querySelector('.sort-demo__bars');
+    if (bars && bars.parentNode) {
+      bars.parentNode.insertBefore(section, bars.nextSibling);
+    } else {
+      root.appendChild(section);
+    }
+    return canvas;
+  };
+
+  /**
+   * Renders a binary tree snapshot. Nodes require `value`, `left`, and `right`;
+   * `id` is optional but enables a stable active-node highlight.
+   *
+   * @param {HTMLElement|null} view
+   * @param {object|null} tree
+   * @param {object} [options]
+   * @param {string|number} [options.activeId]
+   * @param {string|number} [options.rootId]
+   * @param {string} [options.ariaLabel]
+   * @param {function(object):string} [options.nodeLabel]
+   */
+  DemoSort.renderBinaryTree = function (view, tree, options) {
+    if (!view || typeof document === 'undefined') return;
+    const config = options || {};
+    const ariaLabel = config.ariaLabel || '二分木';
+    view.innerHTML = '';
+
+    if (!tree) {
+      view.classList.add('sort-demo__tree-canvas--empty');
+      const empty = document.createElement('span');
+      empty.className = 'sort-demo__tree-empty';
+      empty.textContent = view.dataset.emptyText || 'まだ木は空です';
+      view.appendChild(empty);
+      view.setAttribute('aria-label', ariaLabel + '。まだ木は空です。');
+      return;
+    }
+
+    view.classList.remove('sort-demo__tree-canvas--empty');
+    const entries = [];
+    const positions = new Map();
+    let nextOrder = 0;
+    let maxDepth = 0;
+
+    function visit(node, depth) {
+      if (!node) return;
+      visit(node.left, depth + 1);
+      const entry = { node: node, depth: depth, order: nextOrder++ };
+      entries.push(entry);
+      positions.set(node, entry);
+      if (depth > maxDepth) maxDepth = depth;
+      visit(node.right, depth + 1);
+    }
+
+    visit(tree, 0);
+    const width = Math.max(220, entries.length * 54 + 32);
+    const height = Math.max(82, (maxDepth + 1) * 58 + 28);
+    const svg = svgElement('svg');
+    svg.classList.add('sort-demo__tree-svg');
+    svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+    svg.setAttribute('width', String(width));
+    svg.setAttribute('height', String(height));
+    svg.setAttribute('aria-hidden', 'true');
+
+    function position(entry) {
+      return { x: 28 + entry.order * 54, y: 28 + entry.depth * 58 };
+    }
+
+    entries.forEach(function (entry) {
+      const from = position(entry);
+      [entry.node.left, entry.node.right].forEach(function (child) {
+        const childEntry = positions.get(child);
+        if (!childEntry) return;
+        const to = position(childEntry);
+        const edge = svgElement('line');
+        edge.classList.add('sort-demo__tree-edge');
+        edge.setAttribute('x1', String(from.x));
+        edge.setAttribute('y1', String(from.y + 16));
+        edge.setAttribute('x2', String(to.x));
+        edge.setAttribute('y2', String(to.y - 16));
+        svg.appendChild(edge);
+      });
+    });
+
+    entries.forEach(function (entry) {
+      const point = position(entry);
+      const node = svgElement('g');
+      const id = entry.node.id;
+      const isActive =
+        config.activeId != null && String(id) === String(config.activeId);
+      const isRoot =
+        entry.node === tree ||
+        (config.rootId != null && String(id) === String(config.rootId));
+      node.setAttribute(
+        'class',
+        'sort-demo__tree-node' +
+          (isRoot ? ' sort-demo__tree-node--root' : '') +
+          (isActive ? ' sort-demo__tree-node--active' : '')
+      );
+
+      const circle = svgElement('circle');
+      circle.setAttribute('cx', String(point.x));
+      circle.setAttribute('cy', String(point.y));
+      circle.setAttribute('r', '17');
+
+      const text = svgElement('text');
+      text.setAttribute('x', String(point.x));
+      text.setAttribute('y', String(point.y));
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('dy', '.35em');
+      text.textContent = treeNodeLabel(entry.node, config);
+
+      node.appendChild(circle);
+      node.appendChild(text);
+      svg.appendChild(node);
+    });
+
+    const values = entries
+      .map(function (entry) {
+        return treeNodeLabel(entry.node, config);
+      })
+      .join('、');
+    view.setAttribute(
+      'aria-label',
+      ariaLabel +
+        '。根は ' +
+        treeNodeLabel(tree, config) +
+        '。ノードは ' +
+        values +
+        '。'
+    );
+    view.appendChild(svg);
   };
 
   DemoSort.shuffleCopy = function (arr) {
