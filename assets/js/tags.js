@@ -50,6 +50,16 @@
     });
   }
 
+  function showEmpty(emptyEl, message, backUrl) {
+    emptyEl.replaceChildren();
+    emptyEl.append(message + ' ');
+    const link = document.createElement('a');
+    link.href = backUrl;
+    link.textContent = 'タグ一覧に戻る';
+    emptyEl.appendChild(link);
+    emptyEl.hidden = false;
+  }
+
   async function loadTag(data, slug) {
     const embedded = findEmbedded(data, slug);
     if (embedded) return embedded;
@@ -99,13 +109,15 @@
     const indexEntry = findIndexEntry(data, slug);
     const embedded = findEmbedded(data, slug);
 
+    const backUrl = data.tagsUrl || '/tags/';
+
     if (!indexEntry) {
       if (pageHeader) pageHeader.hidden = true;
       listView.hidden = true;
       filterView.hidden = false;
       filterHeading.textContent = slug;
       postsEl.hidden = true;
-      emptyEl.hidden = false;
+      showEmpty(emptyEl, 'タグが見つかりません。', backUrl);
       if (loadingEl) loadingEl.hidden = true;
       document.title = slug + ' | ' + data.siteTitle;
       return;
@@ -127,17 +139,21 @@
     if (loadingEl) loadingEl.hidden = false;
 
     let tag;
+    let loadFailed = false;
     try {
       tag = await loadTag(data, slug);
     } catch (_err) {
-      tag = null;
+      loadFailed = true;
     }
 
     if (loadingEl) loadingEl.hidden = true;
 
     if (!tag) {
       postsEl.hidden = true;
-      emptyEl.hidden = false;
+      const message = loadFailed
+        ? '読み込みに失敗しました。'
+        : 'タグのデータを取得できませんでした。';
+      showEmpty(emptyEl, message, backUrl);
       return;
     }
 
@@ -150,10 +166,17 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     render().catch(function () {
+      const data = readData();
       const emptyEl = document.getElementById('tags-filter-empty');
       const loadingEl = document.getElementById('tags-filter-loading');
       if (loadingEl) loadingEl.hidden = true;
-      if (emptyEl) emptyEl.hidden = false;
+      if (emptyEl) {
+        showEmpty(
+          emptyEl,
+          '読み込みに失敗しました。',
+          (data && data.tagsUrl) || '/tags/'
+        );
+      }
     });
   });
   window.addEventListener('popstate', function () {
