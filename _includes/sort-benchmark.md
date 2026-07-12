@@ -110,6 +110,8 @@ fn shuffled(size: usize, seed: u64) -> Vec<usize> {
 }
 
 fn memory_usage_kb() -> usize {
+    // VmHWM (peak RSS, KiB). Reported memory subtracts a per-size baseline that only
+    // holds the input array, so the table reflects auxiliary space during sorting.
     let contents = std::fs::read_to_string("/proc/self/status")
         .unwrap_or_default();
 
@@ -133,16 +135,26 @@ fn micros(d: Duration) -> u128 {
     d.as_micros()
 }
 
+fn input_array(size: usize, seed: u64) -> Vec<usize> {
+    shuffled(size, seed)
+}
+
+fn run_baseline(size: usize) -> usize {
+    let _hold = input_array(size, 1);
+    memory_usage_kb()
+}
+
 fn run_once(size: usize, seed: usize) -> (u128, usize) {
-    let expected: Vec<usize> = (1..=size).collect();
-    let mut array = shuffled(size, seed as u64);
+    let mut array = input_array(size, seed as u64);
 
     let start = Instant::now();
 
     benchmark_sort(&mut array);
 
     let elapsed = start.elapsed();
+    let mem = memory_usage_kb();
 
+    let expected: Vec<usize> = (1..=size).collect();
     if array != expected {
         panic!(
             "sort failed with seed {} for size {}",
@@ -151,7 +163,13 @@ fn run_once(size: usize, seed: usize) -> (u128, usize) {
         );
     }
 
-    (micros(elapsed), memory_usage_kb())
+    (micros(elapsed), mem)
+}
+
+fn run_baseline_child(args: &[String]) {
+    let size = args[2].parse::<usize>().expect("invalid size");
+    let mem = run_baseline(size);
+    println!("{}", mem);
 }
 
 fn run_child(args: &[String]) {
@@ -163,6 +181,10 @@ fn run_child(args: &[String]) {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
+    if args.get(1).is_some_and(|arg| arg == "--baseline-once") {
+        run_baseline_child(&args);
+        return;
+    }
     if args.get(1).is_some_and(|arg| arg == "--run-once") {
         run_child(&args);
         return;
@@ -188,6 +210,28 @@ fn main() {
 
     for power in MIN_POWER..=MAX_POWER {
         let size = 1usize << power;
+
+        let baseline_output = Command::new(env::current_exe().expect("failed to find current executable"))
+            .arg("--baseline-once")
+            .arg(size.to_string())
+            .output()
+            .expect("failed to run benchmark baseline process");
+
+        if !baseline_output.status.success() {
+            panic!(
+                "benchmark baseline process failed: {}",
+                String::from_utf8_lossy(&baseline_output.stderr)
+            );
+        }
+
+        let baseline_stdout = String::from_utf8(baseline_output.stdout)
+            .expect("baseline process returned non-UTF-8 output");
+        let baseline_mem = baseline_stdout
+            .split_whitespace()
+            .next()
+            .expect("missing baseline memory usage")
+            .parse::<usize>()
+            .expect("invalid baseline memory usage");
 
         let mut total_time: u128 = 0;
         let mut max_time: u128 = 0;
@@ -230,10 +274,12 @@ fn main() {
                 max_time = elapsed_us;
             }
 
-            total_mem += mem;
+            let aux_mem = mem.saturating_sub(baseline_mem);
 
-            if mem > max_mem {
-                max_mem = mem;
+            total_mem += aux_mem;
+
+            if aux_mem > max_mem {
+                max_mem = aux_mem;
             }
         }
 
