@@ -60,7 +60,7 @@ procedure extract_sorted(node)
 
 以下のデモでは、同値の棒が入れ替わらないよう、ヒープ比較を値が異なれば値、等しければ元の位置 `id` の辞書式順にしている（可視化上の安定化であり、一般のデカルト木ソートの性質を変えるものではない）。
 
-1.  **構築**: 左から添字を処理し、スタックとの比較（オレンジ）とリンク付け（紫）を示す。木自体は内部データとして保持する。
+1.  **構築**: 左から添字を処理し、スタックとの比較（オレンジ）とリンク付け（紫）を示す。構築済みの最小デカルト木もデモ下部に表示する。
 2.  **取出し**: 根優先の再帰取出し＋マージで得た昇順に、配列上の棒をスワップ（緑）で並べ替えて視覚化する（実装では取出し結果を別バッファへ書くだけでよい）。
 
 {% capture sort_demo_js %}
@@ -70,6 +70,16 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
     if (a.value !== b.value) return a.value < b.value ? -1 : 1;
     if (a.id !== b.id) return a.id < b.id ? -1 : 1;
     return 0;
+  }
+
+  function snapshotTree(idx, left, right, ids) {
+    if (idx === -1) return null;
+    return {
+      id: ids[idx].id,
+      value: ids[idx].value,
+      left: snapshotTree(left[idx], left, right, ids),
+      right: snapshotTree(right[idx], left, right, ids)
+    };
   }
 
   function buildCartesianTree(ids, steps) {
@@ -123,6 +133,7 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
           idx: i,
           parent: parentIdx,
           side: 'right',
+          tree: snapshotTree(stack[0], left, right, ids),
           caption:
             '添字 ' + i + ' を 添字 ' + parentIdx + ' の右の子にする'
         });
@@ -135,6 +146,12 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
           idx: i,
           parent: last,
           side: 'left',
+          tree: snapshotTree(
+            stack.length > 0 ? stack[0] : i,
+            left,
+            right,
+            ids
+          ),
           caption: '添字 ' + last + ' を 添字 ' + i + ' の左の子にする'
         });
       }
@@ -143,6 +160,7 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
       steps.push({
         kind: 'push',
         idx: i,
+        tree: snapshotTree(stack[0], left, right, ids),
         caption: 'push: 添字 ' + i + ' をスタックへ'
       });
     }
@@ -200,7 +218,8 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
     steps.push({
       kind: 'phase_reorder',
       caption:
-        '根優先取出し＋マージで得た昇順に並べ替えます（スワップで視覚化）'
+        '根優先取出し＋マージで得た昇順に並べ替えます（スワップで視覚化）',
+      tree: snapshotTree(tree.root, tree.left, tree.right, ids)
     });
 
     const n = sortedIds.length;
@@ -301,12 +320,17 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
     api.permState = perm.slice();
   }
 
+  const treeView = DemoSort.createBinaryTreeView(root, {
+    label: '現在の最小デカルト木（青: 根、紫: 今リンクしたノード）',
+    emptyText: 'まだデカルト木は空です'
+  });
+
   DemoSort.attachPlayback({
     root: root,
     dataAttr: 'data-cartesian',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
-      'デカルト木ソート（単調スタック構築＋昇順取出し）。比較はオレンジ、リンクは紫、スワップは緑です。',
+      '単調スタックで最小デカルト木を構築し、下の木から昇順を取り出します。比較はオレンジ、紫はリンク、緑は配列の交換です。',
     barClass: 'sort-demo__bar',
     rebuild: function (api, v) {
       api.values = v.slice();
@@ -316,8 +340,11 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
       for (let oi = 0; oi < api.values.length; oi++) order.push(oi);
       rebuildOrderFromPerm(api, order);
       mountBars(api.barsEl, api.values, api.permState);
+      DemoSort.renderBinaryTree(treeView, null, {
+        ariaLabel: '現在の最小デカルト木'
+      });
       api.setCaption(
-        'デカルト木ソート（単調スタック構築＋昇順取出し）。比較はオレンジ、リンクは紫、スワップは緑です。'
+        '単調スタックで最小デカルト木を構築し、下の木から昇順を取り出します。比較はオレンジ、紫はリンク、緑は配列の交換です。'
       );
     },
     applyStep: async function (api, s) {
@@ -325,8 +352,11 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
       if (s.kind === 'phase_build') {
         mountBars(barsEl, api.values, api.permState);
         DemoSort.clearRoles(barsEl);
+        DemoSort.renderBinaryTree(treeView, null, {
+          ariaLabel: '現在の最小デカルト木'
+        });
         api.setCaption(
-          '1. 左から添字を処理し、単調スタックで最小デカルト木を構築します'
+          '1. 左から添字を処理し、単調スタックで最小デカルト木を構築します。下の図に追加されます'
         );
         return;
       }
@@ -354,26 +384,40 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
       if (s.kind === 'link') {
         mountBars(barsEl, api.values, api.permState);
         const linkRoles = [[s.idx, 'key']];
-        if (s.parent !== undefined) linkRoles.push([s.parent, 'insert']);
+        if (s.parent !== undefined) linkRoles.push([s.parent, 'key']);
         assignOrigRoles(barsEl, linkRoles);
+        DemoSort.renderBinaryTree(treeView, s.tree, {
+          activeId: s.idx,
+          rootId: s.tree.id,
+          ariaLabel: '現在の最小デカルト木'
+        });
         api.setCaption(s.caption);
         return;
       }
       if (s.kind === 'push') {
         mountBars(barsEl, api.values, api.permState);
         setIndexRole(barsEl, s.idx, 'heap');
+        DemoSort.renderBinaryTree(treeView, s.tree, {
+          activeId: s.idx,
+          rootId: s.tree.id,
+          ariaLabel: '現在の最小デカルト木'
+        });
         api.setCaption(s.caption);
         return;
       }
       if (s.kind === 'phase_reorder') {
         mountBars(barsEl, api.values, api.permState);
         DemoSort.clearRoles(barsEl);
+        DemoSort.renderBinaryTree(treeView, s.tree, {
+          rootId: s.tree.id,
+          ariaLabel: '現在の最小デカルト木'
+        });
         api.setCaption(s.caption);
         return;
       }
       if (s.kind === 'swap') {
         DemoSort.assignRoles(barsEl, [[s.lo, 'swap'], [s.hi, 'swap']]);
-        api.setCaption('交換中… (' + s.caption + ')');
+        api.setCaption('交換中: ' + s.caption);
         await DemoSort.flipSwap(barsEl, s.lo, s.hi);
 
         const newPerm = [];

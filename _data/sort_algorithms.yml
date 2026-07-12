@@ -196,5 +196,9 @@ spread:
   sort_fn: spread_sort
   insertion_sort: true
 
+burst:
+  sort_fn: burst_sort
+  insertion_sort: true
+
 trie:
   sort_fn: trie_sort

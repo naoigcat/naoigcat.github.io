@@ -549,7 +549,7 @@ window.DemoSort && DemoSort.boot('american-flag-sort-demo', function (root) {
         renderBars(barsEl, s);
         assignAmericanFlagRoles(barsEl, [[s.start, 'range'], [s.end - 1, 'range']]);
         api.setCaption(
-          '記号 ' +
+          '桁 ' +
             s.bucket +
             ' の区間（位置 ' +
             s.start +
@@ -568,7 +568,7 @@ window.DemoSort && DemoSort.boot('american-flag-sort-demo', function (root) {
         api.setCaption(
           '位置 ' +
             s.idx +
-            ' は記号 ' +
+            ' は桁 ' +
             s.digit +
             '（現在のバケット ' +
             s.bucket +
@@ -593,7 +593,7 @@ window.DemoSort && DemoSort.boot('american-flag-sort-demo', function (root) {
         renderBars(barsEl, s);
         assignAmericanFlagRoles(barsEl, [[s.start, 'sorted'], [s.end - 1, 'sorted']]);
         api.setCaption(
-          '記号 ' +
+          '桁 ' +
             s.bucket +
             ' の区間が揃いました（' +
             digitName(s.exp) +
