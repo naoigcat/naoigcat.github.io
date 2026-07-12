@@ -56,12 +56,20 @@ if not source.is_file():
 tags = json.loads(source.read_text(encoding="utf-8"))
 dest.mkdir(parents=True, exist_ok=True)
 
-seen: set[str] = set()
+slug_to_name: dict[str, str] = {}
 for tag in tags:
     slug = tag["slug"]
-    seen.add(slug)
+    name = tag["name"]
+    existing = slug_to_name.get(slug)
+    if existing is not None and existing != name:
+        raise SystemExit(
+            f"Tag slug collision: {slug!r} is used by both {existing!r} and {name!r}"
+        )
+    slug_to_name[slug] = name
     path = dest / f"{slug}.json"
     path.write_text(json.dumps(tag, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+seen = set(slug_to_name)
 
 for path in dest.glob("*.json"):
     if path.stem not in seen:
