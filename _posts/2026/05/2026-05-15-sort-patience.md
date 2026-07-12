@@ -317,7 +317,7 @@ window.DemoSort && DemoSort.boot('patience-sort-demo', function (root) {
   }
 
   const initialCaption =
-    'ペイシェンスソート（左へ積み、一番上の値の最小を順に結果へ。比較＝オレンジ、積んだ山＝緑の枠）';
+    'ペイシェンスソート（左へ積み、一番上の値の最小を順に結果へ。比較＝オレンジ、載せたカード＝緑の枠）';
 
   DemoSort.attachPlayback({
     root: root,

@@ -97,7 +97,7 @@ window.DemoSort && DemoSort.boot('quick-sort-demo', function (root) {
       const barsEl = api.barsEl;
       if (s.kind === 'part_start') {
         api.mountBars(barsEl, s.arr);
-        DemoSort.clearRoles(barsEl);
+        DemoSort.assignRoles(barsEl, [[s.hi, 'pivot']]);
         api.setCaption(
           '分割: 部分配列 位置 ' + s.lo + ' … ' + s.hi + '（右端をピボット）'
         );
@@ -105,7 +105,7 @@ window.DemoSort && DemoSort.boot('quick-sort-demo', function (root) {
       }
       if (s.kind === 'compare') {
         api.mountBars(barsEl, s.arr);
-        DemoSort.assignRoles(barsEl, [[s.lo, 'compare'], [s.hi, 'compare']]);
+        DemoSort.assignRoles(barsEl, [[s.lo, 'compare'], [s.hi, 'pivot']]);
         api.setCaption(
           '比較: 位置 ' + s.lo + ' の値とピボット（位置 ' + s.hi + '）'
         );
