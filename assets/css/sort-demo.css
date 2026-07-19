@@ -436,6 +436,151 @@
   line-height: 1.45;
   text-align: center;
 }
+#pigeonhole-sort-demo {
+  --pigeonhole-bar-max-height: 120px;
+}
+#pigeonhole-sort-demo .sort-demo__bars {
+  display: block;
+  width: 100%;
+  min-height: auto;
+  padding: 0.35rem 0;
+  overflow: visible;
+  box-sizing: border-box;
+}
+#pigeonhole-sort-demo .pigeonhole-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+#pigeonhole-sort-demo .pigeonhole-demo__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+#pigeonhole-sort-demo .pigeonhole-demo__section-label {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+}
+#pigeonhole-sort-demo .pigeonhole-demo__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  align-items: end;
+  gap: 4px;
+  width: 100%;
+  min-height: calc(var(--pigeonhole-bar-max-height) + 1.35rem);
+  padding: 0 0.75rem;
+  overflow: visible;
+  box-sizing: border-box;
+}
+#pigeonhole-sort-demo .pigeonhole-demo__holes {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 4px;
+  width: 100%;
+  min-height: calc(var(--pigeonhole-bar-max-height) + 1.1rem);
+  padding: 0.35rem 0.75rem 0.25rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  border: 1px dashed rgba(26, 188, 156, 0.45);
+  border-radius: 6px;
+  background: rgba(26, 188, 156, 0.06);
+  box-sizing: border-box;
+}
+#pigeonhole-sort-demo .pigeonhole-demo__hole {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 0;
+  flex: none;
+  width: auto;
+  min-width: var(--pigeonhole-bar-width, 28px);
+  padding: 0.15rem 0 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+#pigeonhole-sort-demo .pigeonhole-demo__hole--active {
+  background: rgba(26, 188, 156, 0.14);
+  outline: 1px solid rgba(26, 188, 156, 0.45);
+}
+#pigeonhole-sort-demo .pigeonhole-demo__hole-label {
+  flex: none;
+  order: 2;
+  padding-top: 0.2rem;
+  font-size: 0.62rem;
+  line-height: 1.1;
+  color: rgba(0, 0, 0, 0.55);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: center;
+}
+#pigeonhole-sort-demo .pigeonhole-demo__hole-stack {
+  order: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 2px;
+  width: auto;
+  min-width: var(--pigeonhole-bar-width, 28px);
+  height: var(--pigeonhole-bar-max-height);
+  min-height: var(--pigeonhole-bar-max-height);
+  max-height: var(--pigeonhole-bar-max-height);
+  box-sizing: border-box;
+}
+#pigeonhole-sort-demo .sort-demo__bar-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+#pigeonhole-sort-demo .sort-demo__bar-stack--empty .sort-demo__bar {
+  visibility: hidden;
+  height: 0 !important;
+  min-height: 0;
+  margin: 0;
+  box-shadow: none;
+}
+#pigeonhole-sort-demo .sort-demo__bar-value {
+  font-size: 0.68rem;
+  line-height: 1.1;
+  margin-bottom: 3px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+#pigeonhole-sort-demo .sort-demo__bar-stack .sort-demo__bar {
+  width: var(--pigeonhole-bar-width, 100%);
+  flex: none;
+  max-width: none;
+  min-width: 0;
+}
+#pigeonhole-sort-demo .pigeonhole-demo__hole-stack .sort-demo__bar {
+  width: var(--pigeonhole-bar-width, 28px);
+  flex: none;
+  max-width: none;
+  min-width: var(--pigeonhole-bar-width, 28px);
+}
+@media (max-width: 520px) {
+  #pigeonhole-sort-demo .pigeonhole-demo__track,
+  #pigeonhole-sort-demo .pigeonhole-demo__holes {
+    gap: 2px;
+  }
+  #pigeonhole-sort-demo .sort-demo__bar-value,
+  #pigeonhole-sort-demo .pigeonhole-demo__hole-label {
+    font-size: 0.58rem;
+  }
+}
 @media (max-width: 520px) {
   .sort-demo__bars {
     gap: 3px;
@@ -562,6 +707,20 @@
   #burst-sort-demo .burst-demo__empty {
     background: rgba(155, 89, 182, 0.18);
     color: rgba(255, 255, 255, 0.72);
+  }
+  #pigeonhole-sort-demo .pigeonhole-demo__section-label {
+    color: #aaa;
+  }
+  #pigeonhole-sort-demo .pigeonhole-demo__holes {
+    border-color: rgba(26, 188, 156, 0.45);
+    background: rgba(26, 188, 156, 0.12);
+  }
+  #pigeonhole-sort-demo .pigeonhole-demo__hole--active {
+    background: rgba(26, 188, 156, 0.22);
+    outline-color: rgba(26, 188, 156, 0.55);
+  }
+  #pigeonhole-sort-demo .pigeonhole-demo__hole-label {
+    color: rgba(255, 255, 255, 0.62);
   }
 }
 .sort-demo__bar[data-role="compare"] {
