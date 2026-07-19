@@ -1,0 +1,12 @@
+{%- assign tag_name = include.name -%}
+{%- assign slug = tag_name | slugify -%}
+<noscript>
+  <a class="post-link" href="{{ '/tags/' | relative_url }}#tag-{{ slug }}"
+    >{{ tag_name | escape }}</a
+  >
+</noscript>
+<a
+  class="post-link js-only-tag-link"
+  href="{{ '/tags/' | relative_url }}?tag={{ slug | uri_escape }}"
+  >{{ tag_name | escape }}</a
+>
