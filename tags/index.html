@@ -28,17 +28,32 @@ permalink: /tags/
       -%} {%- assign tag_name = tag[0] -%} {%- assign slug = tag_name |
       slugify -%}
       <li>
-        <a
-          class="post-link"
-          href="{{ '/tags/' | relative_url }}?tag={{ slug | uri_escape }}"
-        >
-          {{ tag_name | escape }}
-        </a>
+        {% include tags-link.html name=tag_name %}
         <span class="post-meta">({{ tag[1].size }})</span>
       </li>
       {%- endfor -%}
     </ul>
   </div>
+
+  <noscript>
+    <style>
+      .tags-noscript-filter {
+        display: none;
+      }
+
+      .tags-noscript-filter:target {
+        display: block;
+      }
+
+      .tags-page:has(.tags-noscript-filter:target) #tags-page-header,
+      .tags-page:has(.tags-noscript-filter:target) #tags-list-view {
+        display: none;
+      }
+    </style>
+    {%- assign sorted_tags = site.tags | sort -%} {%- for tag in sorted_tags -%}
+    {%- assign tag_name = tag[0] -%} {% include tags-noscript-filter.html
+    name=tag_name %} {%- endfor -%}
+  </noscript>
 </div>
 
 <script type="application/json" id="tags-data">
