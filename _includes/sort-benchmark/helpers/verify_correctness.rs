@@ -28,6 +28,19 @@ fn check_correctness_case(label: &str, mut input: Vec<usize>) {
     }
 }
 
+fn few_unique_values(size: usize, unique: usize, seed: u64) -> Vec<usize> {
+    let mut state = seed;
+
+    (0..size)
+        .map(|_| {
+            state ^= state << 13;
+            state ^= state >> 7;
+            state ^= state << 17;
+            (state as usize % unique) + 1
+        })
+        .collect()
+}
+
 fn run_correctness_checks() {
     check_correctness_case("empty", vec![]);
     check_correctness_case("single", vec![42]);
@@ -36,4 +49,16 @@ fn run_correctness_checks() {
     check_correctness_case("reverse", vec![5, 4, 3, 2, 1]);
     check_correctness_case("all_equal", vec![7, 7, 7, 7]);
     check_correctness_case("skewed_range", vec![1_000_000, 2, 1_000_001, 1, 999_999]);
+    // Static-buffer Grail skips the in-buffer build when key collection is sparse
+    // (ideal_buffer = false). Exercising that path catches regressions in buffer gating.
+    check_correctness_case(
+        "few_keys_len16",
+        vec![2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 1, 2, 3, 4, 1, 4],
+    );
+    for seed in 0..32 {
+        check_correctness_case(
+            &format!("few_keys_len32_seed_{seed}"),
+            few_unique_values(32, 4, seed),
+        );
+    }
 }
