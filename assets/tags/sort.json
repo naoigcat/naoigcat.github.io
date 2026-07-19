@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "鳩の巣ソートで配列を並び替える",
+      "url": "/2026/07/19/sort-pigeonhole.html",
+      "date": "Jul 19, 2026"
+    },
+    {
       "title": "バーストソートで配列を並び替える",
       "url": "/2026/07/12/sort-burst.html",
       "date": "Jul 12, 2026"

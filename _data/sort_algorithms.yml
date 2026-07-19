@@ -168,6 +168,9 @@ kota:
 counting:
   sort_fn: counting_sort
 
+pigeonhole:
+  sort_fn: pigeonhole_sort
+
 radix:
   sort_fn: radix_sort
 
