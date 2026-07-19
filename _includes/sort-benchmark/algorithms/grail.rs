@@ -541,7 +541,6 @@ fn grail_build_out_of_place<T: Sortable, F: FnMut(&T, &T) -> Ordering>(
                 cmp,
             );
         } else {
-            //TODO: Might not be correct?
             for offset in 0..left_over {
                 set[merge_index + offset - merge_len] = set[merge_index + offset];
             }
@@ -1082,49 +1081,36 @@ fn grail_combine_blocks<T: Sortable, F: FnMut(&T, &T) -> Ordering>(
         last_subarray = 0;
     }
 
-    match buffer {
-        Some(buf) => {
-            if block_len <= buf.len() {
-                grail_combine_out_of_place(
-                    set,
-                    buf,
-                    keys,
-                    start,
-                    length,
-                    subarray_len,
-                    block_len,
-                    merge_count,
-                    last_subarray,
-                    cmp,
-                );
-            } else {
-                grail_combine_in_place(
-                    set,
-                    keys,
-                    start,
-                    length,
-                    subarray_len,
-                    block_len,
-                    merge_count,
-                    last_subarray,
-                    scrolling_buffer,
-                    cmp,
-                );
-            }
+    if let Some(buf) = buffer.as_mut() {
+        if scrolling_buffer && block_len <= buf.len() {
+            grail_combine_out_of_place(
+                set,
+                *buf,
+                keys,
+                start,
+                length,
+                subarray_len,
+                block_len,
+                merge_count,
+                last_subarray,
+                cmp,
+            );
+            return;
         }
-        None => grail_combine_in_place(
-            set,
-            keys,
-            start,
-            length,
-            subarray_len,
-            block_len,
-            merge_count,
-            last_subarray,
-            scrolling_buffer,
-            cmp,
-        ),
     }
+
+    grail_combine_in_place(
+        set,
+        keys,
+        start,
+        length,
+        subarray_len,
+        block_len,
+        merge_count,
+        last_subarray,
+        scrolling_buffer,
+        cmp,
+    );
 }
 
 fn grail_combine_out_of_place<T: Sortable, F: FnMut(&T, &T) -> Ordering>(
@@ -1492,14 +1478,25 @@ fn grail_common_sort<T: Sortable, F: FnMut(&T, &T) -> Ordering>(
         let buffer_end = block_len + key_len;
         let mut subarray_len = if ideal_buffer { block_len } else { key_len };
 
-        grail_build_blocks(
-            set,
-            ext_buf,
-            start + buffer_end,
-            length - buffer_end,
-            subarray_len,
-            &mut cmp,
-        );
+        if ideal_buffer {
+            grail_build_blocks(
+                set,
+                ext_buf,
+                start + buffer_end,
+                length - buffer_end,
+                subarray_len,
+                &mut cmp,
+            );
+        } else {
+            grail_build_blocks(
+                set,
+                &mut None,
+                start + buffer_end,
+                length - buffer_end,
+                subarray_len,
+                &mut cmp,
+            );
+        }
 
         while length - buffer_end > 2 * subarray_len {
             subarray_len *= 2;
