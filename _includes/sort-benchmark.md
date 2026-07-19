@@ -91,6 +91,8 @@ fn benchmark_sort(array: &mut [usize]) {
 {% endif %}
 }
 
+{% include sort-benchmark/helpers/verify_correctness.rs %}
+
 fn shuffled(size: usize, seed: u64) -> Vec<usize> {
     let mut v: Vec<usize> = (1..=size).collect();
 
@@ -189,6 +191,8 @@ fn main() {
         run_child(&args);
         return;
     }
+
+    run_correctness_checks();
 
     println!(
         "| {:>10} | {:>15} | {:>15} | {:>15} | {:>15} |",
