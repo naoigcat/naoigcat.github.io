@@ -8,6 +8,7 @@
 {% assign needs_heap_sort = algo.heap_sort | default: false %}
 {% assign needs_merge_values = algo.merge_values | default: false %}
 {% assign has_quadratic_average = algo.quadratic_average | default: false %}
+{% assign max_power_override = algo.max_power %}
 
 <details markdown="1">
 <summary>計測に使用したコードを表示する</summary>
@@ -47,7 +48,10 @@ use std::{
     time::{Duration, Instant},
 };
 
-{%- if has_quadratic_average %}
+{%- if max_power_override %}
+const MIN_POWER: u32 = 8;
+const MAX_POWER: u32 = {{ max_power_override }};
+{%- elsif has_quadratic_average %}
 const MIN_POWER: u32 = 8;
 const MAX_POWER: u32 = 15;
 {%- else %}
