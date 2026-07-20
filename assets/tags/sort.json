@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "ストゥージソートで配列を並び替える",
+      "url": "/2026/07/20/sort-stooge.html",
+      "date": "Jul 20, 2026"
+    },
+    {
       "title": "鳩の巣ソートで配列を並び替える",
       "url": "/2026/07/19/sort-pigeonhole.html",
       "date": "Jul 19, 2026"
