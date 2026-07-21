@@ -56,6 +56,11 @@ stooge:
   quadratic_average: true
   max_power: 11
 
+slow:
+  sort_fn: slow_sort
+  quadratic_average: true
+  max_power: 8
+
 comb:
   sort_fn: comb_sort
 
