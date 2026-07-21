@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "スローソートで配列を並び替える",
+      "url": "/2026/07/21/sort-slow.html",
+      "date": "Jul 21, 2026"
+    },
+    {
       "title": "ストゥージソートで配列を並び替える",
       "url": "/2026/07/20/sort-stooge.html",
       "date": "Jul 20, 2026"
