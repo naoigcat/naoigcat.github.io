@@ -61,6 +61,11 @@ slow:
   quadratic_average: true
   max_power: 8
 
+sleep:
+  sort_fn: sleep_sort
+  quadratic_average: true
+  max_power: 8
+
 comb:
   sort_fn: comb_sort
 
