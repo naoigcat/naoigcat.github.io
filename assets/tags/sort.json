@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "スリープソートで配列を並び替える",
+      "url": "/2026/07/23/sort-sleep.html",
+      "date": "Jul 23, 2026"
+    },
+    {
       "title": "スローソートで配列を並び替える",
       "url": "/2026/07/21/sort-slow.html",
       "date": "Jul 21, 2026"
