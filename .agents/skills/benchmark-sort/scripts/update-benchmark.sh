@@ -1,16 +1,64 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+EXCLUDED_ALGORITHMS=(bogo)
+
 usage() {
   cat <<'EOF'
-usage: update-sort-benchmark.sh <algorithm> [--dry-run]
+usage: update-benchmark.sh <algorithm> [--dry-run]
+       update-benchmark.sh --list-targets
 
   <algorithm>  Key from _data/sort_algorithms.yml (e.g. bubble, polyphase_merge).
                Also accepts a post slug such as sort-bubble or 2026-05-01-sort-bubble.
 
   --dry-run    Render the benchmark script and print the post path without running Docker.
+  --list-targets
+               Print benchmarkable algorithm ids from posts (excludes bogo).
 EOF
 }
+
+is_excluded_algorithm() {
+  local algo="$1"
+  local excluded
+  for excluded in "${EXCLUDED_ALGORITHMS[@]}"; do
+    if [[ $algo == "$excluded" ]]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+reject_excluded_input() {
+  local input="$1"
+  local candidate="${input#sort-}"
+  candidate="${candidate//-/_}"
+  local excluded
+  for excluded in "${EXCLUDED_ALGORITHMS[@]}"; do
+    if [[ $input == "$excluded" || $candidate == "$excluded" ]]; then
+      echo "Algorithm \"${excluded}\" is excluded from benchmark recalculation." >&2
+      exit 1
+    fi
+  done
+}
+
+list_targets() {
+  local algo
+  while IFS= read -r algo; do
+    if ! is_excluded_algorithm "$algo"; then
+      printf '%s\n' "$algo"
+    fi
+  done < <(
+    rg -o 'algorithm="[^"]+"' "$root/_posts" --no-heading 2>/dev/null \
+      | sed 's/algorithm="//;s/"//' \
+      | sort -u
+  )
+}
+
+if [[ $# -eq 1 && ${1:-} == "--list-targets" ]]; then
+  root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+  list_targets
+  exit 0
+fi
 
 if [[ $# -lt 1 ]]; then
   usage >&2
@@ -25,6 +73,8 @@ elif [[ -n ${2:-} ]]; then
   usage >&2
   exit 2
 fi
+
+reject_excluded_input "$algorithm"
 
 root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 script_dir="$(cd "$(dirname "$0")" && pwd)"
@@ -60,6 +110,11 @@ resolve_algorithm() {
 
 if ! algorithm="$(resolve_algorithm "$algorithm")"; then
   echo "Unknown algorithm or post slug: $1" >&2
+  exit 1
+fi
+
+if is_excluded_algorithm "$algorithm"; then
+  echo "Algorithm \"${algorithm}\" is excluded from benchmark recalculation." >&2
   exit 1
 fi
 

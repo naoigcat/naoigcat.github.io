@@ -1,5 +1,5 @@
 ---
-name: remeasure-sort-benchmark
+name: benchmark-sort
 description: >-
     Re-runs the Rust/Docker sort benchmark for one or all sort posts and replaces the committed table between
     `<!-- sort-benchmark-result:start -->` and `<!-- sort-benchmark-result:end -->`. Use when the user asks to
@@ -7,7 +7,7 @@ description: >-
     `_data/sort_algorithms.yml`, or the Rust version in `_includes/sort-benchmark.md`.
 ---
 
-# remeasure-sort-benchmark
+# benchmark-sort
 
 Re-measure the static benchmark table at the end of sort-algorithm posts and write fresh numbers back into the
 Markdown source.
@@ -18,6 +18,8 @@ Markdown source.
     `<!-- sort-benchmark-result:start -->` … `<!-- sort-benchmark-result:end -->` block.
 -   **Out of scope:** changing benchmark methodology (`RUNS`, size range, Docker/Rust versions) unless the user
     explicitly asks — those live in `_includes/sort-benchmark.md` and `_data/sort_algorithms.yml`.
+-   **Excluded algorithms:** `bogo` is intentionally skipped (factorial expected time makes the standard benchmark
+    harness impractical). Do not run this skill for `bogo`, and omit it from bulk refreshes.
 
 ## Prerequisites
 
@@ -57,13 +59,13 @@ rg '^[a-z_]+:' _data/sort_algorithms.yml
 Verify Jekyll can render the benchmark shell script for the algorithm:
 
 ```bash
-.agents/skills/remeasure-sort-benchmark/scripts/update-sort-benchmark.sh {algorithm} --dry-run
+.agents/skills/benchmark-sort/scripts/update-benchmark.sh {algorithm} --dry-run
 ```
 
 ### 2. Run benchmark and update the post
 
 ```bash
-.agents/skills/remeasure-sort-benchmark/scripts/update-sort-benchmark.sh {algorithm}
+.agents/skills/benchmark-sort/scripts/update-benchmark.sh {algorithm}
 ```
 
 The script:
@@ -95,11 +97,12 @@ When the user wants every sort table refreshed (for example after bumping Rust i
 
 ```bash
 while IFS= read -r algo; do
-  .agents/skills/remeasure-sort-benchmark/scripts/update-sort-benchmark.sh "$algo"
-done < <(rg -o 'algorithm="[^"]+"' _posts -h | sed 's/algorithm="//;s/"//' | sort -u)
+  .agents/skills/benchmark-sort/scripts/update-benchmark.sh "$algo"
+done < <(.agents/skills/benchmark-sort/scripts/update-benchmark.sh --list-targets)
 ```
 
-Run sequentially — parallel runs contend for Docker and CPU. Expect **many hours** for all 42 algorithms.
+Run sequentially — parallel runs contend for Docker and CPU. Expect **many hours** for all benchmarked algorithms
+(`bogo` excluded).
 
 ## Manual fallback
 
