@@ -18,8 +18,8 @@ Markdown source.
     `<!-- sort-benchmark-result:start -->` … `<!-- sort-benchmark-result:end -->` block.
 -   **Out of scope:** changing benchmark methodology (`RUNS`, size range, Docker/Rust versions) unless the user
     explicitly asks — those live in `_includes/sort-benchmark.md` and `_data/sort_algorithms.yml`.
--   **Excluded algorithms:** `bogo` is intentionally skipped (factorial expected time makes the standard benchmark
-    harness impractical). Do not run this skill for `bogo`, and omit it from bulk refreshes.
+-   **Excluded algorithms:** `bogo` and `bozo` are intentionally skipped (factorial expected time makes the standard
+    benchmark harness impractical). Do not run this skill for `bogo` or `bozo`, and omit them from bulk refreshes.
 
 ## Prerequisites
 
@@ -102,7 +102,7 @@ done < <(.agents/skills/benchmark-sort/scripts/update-benchmark.sh --list-target
 ```
 
 Run sequentially — parallel runs contend for Docker and CPU. Expect **many hours** for all benchmarked algorithms
-(`bogo` excluded).
+(`bogo` and `bozo` excluded).
 
 ## Manual fallback
 

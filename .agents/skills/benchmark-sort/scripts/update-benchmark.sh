@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-EXCLUDED_ALGORITHMS=(bogo)
+EXCLUDED_ALGORITHMS=(bogo bozo)
 
 usage() {
   cat <<'EOF'
@@ -13,7 +13,7 @@ usage: update-benchmark.sh <algorithm> [--dry-run]
 
   --dry-run    Render the benchmark script and print the post path without running Docker.
   --list-targets
-               Print benchmarkable algorithm ids from posts (excludes bogo).
+               Print benchmarkable algorithm ids from posts (excludes bogo, bozo).
 EOF
 }
 
