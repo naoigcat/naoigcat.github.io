@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "ボゴソートで配列を並び替える",
+      "url": "/2026/07/24/sort-bogo.html",
+      "date": "Jul 24, 2026"
+    },
+    {
       "title": "スリープソートで配列を並び替える",
       "url": "/2026/07/23/sort-sleep.html",
       "date": "Jul 23, 2026"
