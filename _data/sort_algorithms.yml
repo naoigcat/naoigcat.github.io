@@ -21,6 +21,10 @@ quick:
   partition: true
   quick_sort: true
 
+dual_pivot_quick:
+  sort_fn: dual_pivot_quick_sort
+  insertion_sort: true
+
 merge:
   sort_fn: merge_sort
 
