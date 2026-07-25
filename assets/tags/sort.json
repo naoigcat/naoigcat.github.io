@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "デュアルピボットクイックソートで配列を並び替える",
+      "url": "/2026/07/26/sort-dual-pivot-quick.html",
+      "date": "Jul 26, 2026"
+    },
+    {
       "title": "ボゾソートで配列を並び替える",
       "url": "/2026/07/25/sort-bozo.html",
       "date": "Jul 25, 2026"
