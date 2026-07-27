@@ -25,6 +25,11 @@ dual_pivot_quick:
   sort_fn: dual_pivot_quick_sort
   insertion_sort: true
 
+pattern_defeating_quick:
+  sort_fn: pattern_defeating_quick_sort
+  insertion_sort: true
+  heap_sort: true
+
 merge:
   sort_fn: merge_sort
 

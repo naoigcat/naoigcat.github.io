@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "パターン撃退クイックソートで配列を並び替える",
+      "url": "/2026/07/27/sort-pattern-defeating-quick.html",
+      "date": "Jul 27, 2026"
+    },
+    {
       "title": "デュアルピボットクイックソートで配列を並び替える",
       "url": "/2026/07/26/sort-dual-pivot-quick.html",
       "date": "Jul 26, 2026"
