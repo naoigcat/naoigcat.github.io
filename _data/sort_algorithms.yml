@@ -33,6 +33,9 @@ pattern_defeating_quick:
 merge:
   sort_fn: merge_sort
 
+natural_merge:
+  sort_fn: natural_merge_sort
+
 heap:
   sort_fn: heap_sort
   heap_sort: true
