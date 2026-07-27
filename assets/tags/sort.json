@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "ナチュラル・マージソートで配列を並び替える",
+      "url": "/2026/07/28/sort-natural-merge.html",
+      "date": "Jul 28, 2026"
+    },
+    {
       "title": "パターン撃退クイックソートで配列を並び替える",
       "url": "/2026/07/27/sort-pattern-defeating-quick.html",
       "date": "Jul 27, 2026"
