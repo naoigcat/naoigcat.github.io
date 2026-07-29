@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "シバーズソートで配列を並び替える",
+      "url": "/2026/07/30/sort-shivers.html",
+      "date": "Jul 30, 2026"
+    },
+    {
       "title": "適応型シバーズソートで配列を並び替える",
       "url": "/2026/07/29/sort-adaptive-shivers.html",
       "date": "Jul 29, 2026"
