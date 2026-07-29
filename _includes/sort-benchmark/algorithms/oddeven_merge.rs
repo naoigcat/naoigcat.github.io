@@ -28,8 +28,18 @@ fn odd_even_merge_sort_range(a: &mut [usize], lo: usize, n: usize) {
 }
 
 fn odd_even_merge_sort(a: &mut [usize]) {
-    if a.is_empty() {
+    let n = a.len();
+    if n <= 1 {
         return;
     }
-    odd_even_merge_sort_range(a, 0, a.len());
+    if n.is_power_of_two() {
+        odd_even_merge_sort_range(a, 0, n);
+        return;
+    }
+    // Classic odd-even mergesort assumes a power-of-two length; pad for other sizes.
+    let k = n.next_power_of_two();
+    let mut buf = vec![usize::MAX; k];
+    buf[..n].copy_from_slice(a);
+    odd_even_merge_sort_range(&mut buf, 0, k);
+    a.copy_from_slice(&buf[..n]);
 }
