@@ -127,6 +127,7 @@ brick:
 
 pancake:
   sort_fn: pancake_sort
+  quadratic_average: true
 
 proportion_extend:
   sort_fn: proportion_extend_sort
