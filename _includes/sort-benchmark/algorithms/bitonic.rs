@@ -32,8 +32,18 @@ fn bitonic_sort_range(a: &mut [usize], lo: usize, cnt: usize, dir_up: bool) {
 }
 
 fn bitonic_sort(a: &mut [usize]) {
-    if a.is_empty() {
+    let n = a.len();
+    if n <= 1 {
         return;
     }
-    bitonic_sort_range(a, 0, a.len(), true);
+    if n.is_power_of_two() {
+        bitonic_sort_range(a, 0, n, true);
+        return;
+    }
+    // Classic bitonic sort assumes a power-of-two length; pad for other sizes.
+    let k = n.next_power_of_two();
+    let mut buf = vec![usize::MAX; k];
+    buf[..n].copy_from_slice(a);
+    bitonic_sort_range(&mut buf, 0, k, true);
+    a.copy_from_slice(&buf[..n]);
 }
