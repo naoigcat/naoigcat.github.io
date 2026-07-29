@@ -61,7 +61,8 @@ fn proxmap_sort(a: &mut [usize]) {
                     end += 1;
                 }
 
-                for k in (insert_idx..end - 1).rev() {
+                // Shift right into the hole at `end` (inclusive of insert_idx).
+                for k in (insert_idx..end).rev() {
                     a2[k + 1] = a2[k];
                 }
 
