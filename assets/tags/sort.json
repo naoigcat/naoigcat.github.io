@@ -3,7 +3,12 @@
   "slug": "sort",
   "posts": [
     {
-      "title": "ナチュラル・マージソートで配列を並び替える",
+      "title": "適応型シバーズソートで配列を並び替える",
+      "url": "/2026/07/29/sort-adaptive-shivers.html",
+      "date": "Jul 29, 2026"
+    },
+    {
+      "title": "ナチュラルマージソートで配列を並び替える",
       "url": "/2026/07/28/sort-natural-merge.html",
       "date": "Jul 28, 2026"
     },

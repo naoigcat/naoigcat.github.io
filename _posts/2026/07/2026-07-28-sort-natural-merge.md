@@ -1,13 +1,13 @@
 ---
-title:     ナチュラル・マージソートで配列を並び替える
+title:     ナチュラルマージソートで配列を並び替える
 date:      2026-07-28 06:59:57 +0900
 tags:      sort
 sort_demo: true
 ---
 
-## ナチュラル・マージソートを使用する
+## ナチュラルマージソートを使用する
 
-ナチュラル・マージソート (`natural merge sort`) は、入力にすでに存在する昇順の連続区間（自然ラン）を検出し、隣接するラン同士をマージソートと同じ要領で併合していく。
+ナチュラルマージソート (`natural merge sort`) は、入力にすでに存在する昇順の連続区間（自然ラン）を検出し、隣接するラン同士をマージソートと同じ要領で併合していく。
 
 通常のボトムアップ型マージソートが長さ 1 のランから機械的に倍々で併合するのに対し、最初から「すでに整っている部分」をランとして取り込む点が名前の由来である。
 
@@ -185,7 +185,7 @@ window.DemoSort && DemoSort.boot('natural-merge-sort-demo', function (root) {
     dataAttr: 'data-natural-merge',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
-      'ナチュラル・マージソートのデモ（青＝検出したラン／マージ対象、比較はオレンジ、確定書き込みは緑）',
+      'ナチュラルマージソートのデモ（青＝検出したラン／マージ対象、比較はオレンジ、確定書き込みは緑）',
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
