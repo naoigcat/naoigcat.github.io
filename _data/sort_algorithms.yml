@@ -234,3 +234,7 @@ burst:
 
 trie:
   sort_fn: trie_sort
+
+adaptive_shivers:
+  sort_fn: adaptive_shivers_sort
+  insertion_sort: true
