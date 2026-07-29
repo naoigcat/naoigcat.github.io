@@ -1,35 +1,37 @@
 ---
-title:     適応型シバーズソートで配列を並び替える
-date:      2026-07-29 22:11:12 +0900
+title:     シバーズソートで配列を並び替える
+date:      2026-07-30 00:20:44 +0900
 tags:      sort
 sort_demo: true
 ---
 
-## 適応型シバーズソートを使用する
+## シバーズソートを使用する
 
-適応型シバーズソート (`Adaptive ShiversSort`) は、入力にすでに存在する単調な連続区間（ラン）を検出し、ラン長の「レベル」に基づいてマージ順を決める自然マージソートである。
+シバーズソート (`ShiversSort`) は、入力にすでに存在する単調な連続区間（ラン）を検出し、ラン長の「レベル」に基づいてスタック最上段 2 本をいつ併合するかを決める自然マージソートである。
 
-ティムソートと同じく、スタック上端 3 本のラン長だけを見てマージを決める方針を保ちつつ、シバーズソート由来のレベル比較で最悪時のマージコストを抑えやすくした折衷案と捉えられる。マージコストがラン長エントロピーに対して `nH + O(n)` に収まることが示されている。
+ティムソートより単純な、スタック上端 2 本だけを見て決めるマージ方針でありながら、入力長 `n` だけを見たときの最悪マージコストが `n log₂(n) + O(n)` に収まることが後に示された。
 
 1.  **ランの検出**: 左から昇順または厳密な降順の連続区間を見つける。降順ランは反転して昇順にそろえる。
 2.  **ランの拡張**: 長さが最小ラン長 `min_run` 未満なら挿入ソートで伸ばす（デモでは見やすさのため 4 に固定。計測実装では 32）。
 3.  **レベルの計算**: ラン長 `r` に対し `ℓ = ⌊log₂(r)⌋`（パラメータ `c = 1`）をレベルとする。
-4.  **スタックに従ったマージ**: ランを左から 1 本ずつ積み、スタック高さが 3 以上かつ `ℓ_{h-2} ≤ max{ℓ_{h-1}, ℓ_h}` なら上から 2 本目と 3 本目（`R_{h-2}` と `R_{h-1}`）を併合する。最上段 `R_h` はそのまま残す。
+4.  **スタックに従ったマージ**: ランを左から 1 本ずつ積み、スタック高さが 2 以上かつ `ℓ_h ≥ ℓ_{h-1}` なら最上段 2 本（`R_{h-1}` と `R_h`）を併合する。
 5.  **仕上げ**: 入力のランをすべて積み終わったあと、スタックに 2 本以上残っていれば上から順に 2 本ずつ併合する。
 
-ティムソートはラン長そのものの大小関係でマージを決めるのに対し、適応型シバーズソートは長さを 2 の冪の段階（レベル）に丸めてから比較する。その結果、同程度の長さのランを早めにまとめる方針が明示的になり、最悪ケースの定数が改善しやすい。
+条件 `ℓ_h ≥ ℓ_{h-1}` は `2^{⌊log₂|Y|⌋} ≤ |Z|`（`Y = R_{h-1}`、`Z = R_h`）と同値である。長さそのものではなく 2 の冪へ丸めたレベルで比較するため、スタック上のレベル列をほぼ狭義減少に保ちやすい。
+
+一方で、新しく積んだランがスタック上の既存ランよりはるかに長くても即座に併合しうる。そのためラン数 `ρ` やラン長分布への適応性は弱く、最悪マージコストは `ω(n log₂(ρ))` になりうる（`n` に対しては最適に近い）。
 
 ```pseudocode
 procedure level(r)  // c = 1
   return floor(log2(r))
 
-procedure adaptive_shivers_sort(A)
+procedure shivers_sort(A)
   runs := run_decomposition(A)  // 反転・min_run 拡張済み
   S := empty stack
   while true
     h := height(S)
-    if h >= 3 and level(len(R_{h-2})) <= max(level(len(R_{h-1})), level(len(R_h)))
-      merge R_{h-2} and R_{h-1} on S
+    if h >= 2 and level(len(R_h)) >= level(len(R_{h-1}))
+      merge R_{h-1} and R_h on S
     else if runs is not empty
       push next run from runs onto S
     else
@@ -38,11 +40,11 @@ procedure adaptive_shivers_sort(A)
     merge R_{h-1} and R_h on S
 ```
 
-安定ソートであり、整列済みに近い入力では検出した長いランを活かして `O(n)` に近づく。最悪でもマージソートと同程度の `O(n log n)` を保つ。
+安定ソートであり、最悪でもマージソートと同程度の `O(n log n)` を保つ。ただし整列済みに近い入力でも、適応型シバーズソートやパワーソートほどラン長エントロピーに追従する保証はない。
 
 {% capture sort_demo_js %}
 <script>
-window.DemoSort && DemoSort.boot('adaptive-shivers-sort-demo', function (root) {
+window.DemoSort && DemoSort.boot('shivers-sort-demo', function (root) {
   const MIN_RUN = 4;
 
   function runLevel(len) {
@@ -242,41 +244,32 @@ window.DemoSort && DemoSort.boot('adaptive-shivers-sort-demo', function (root) {
     let next = 0;
     while (true) {
       const h = stack.length;
-      if (h >= 3) {
-        const left = stack[h - 3];
+      if (h >= 2) {
         const mid = stack[h - 2];
         const top = stack[h - 1];
-        const ellLeft = runLevel(left.hi - left.lo + 1);
         const ellMid = runLevel(mid.hi - mid.lo + 1);
         const ellTop = runLevel(top.hi - top.lo + 1);
         steps.push({
           kind: 'level_check',
-          leftLo: left.lo,
-          leftHi: left.hi,
           midLo: mid.lo,
           midHi: mid.hi,
           topLo: top.lo,
           topHi: top.hi,
-          ellLeft: ellLeft,
           ellMid: ellMid,
           ellTop: ellTop,
-          shouldMerge: ellLeft <= Math.max(ellMid, ellTop),
+          shouldMerge: ellTop >= ellMid,
           arr: a.slice(),
         });
-        if (ellLeft <= Math.max(ellMid, ellTop)) {
-          stack.pop();
+        if (ellTop >= ellMid) {
           stack.pop();
           stack.pop();
           steps.push({
             kind: 'level_merge',
-            ellLeft: ellLeft,
             ellMid: ellMid,
             ellTop: ellTop,
             arr: a.slice(),
           });
-          const merged = merge(left.lo, left.hi, mid.lo, mid.hi);
-          stack.push(merged);
-          stack.push(top);
+          stack.push(merge(mid.lo, mid.hi, top.lo, top.hi));
           continue;
         }
       }
@@ -308,10 +301,10 @@ window.DemoSort && DemoSort.boot('adaptive-shivers-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-adaptive-shivers',
+    dataAttr: 'data-shivers',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
-      '適応型シバーズソートのデモ（ラン・マージ対象は青、比較はオレンジ、交換・確定は緑、挿入キーは紫、レベル判定は黄）',
+      'シバーズソートのデモ（ラン・マージ対象は青、比較はオレンジ、交換・確定は緑、挿入キーは紫、レベル判定は黄）',
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
@@ -420,19 +413,16 @@ window.DemoSort && DemoSort.boot('adaptive-shivers-sort-demo', function (root) {
       if (s.kind === 'level_check') {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, [
-          ...rangePairs(s.leftLo, s.leftHi, 'range'),
-          ...rangePairs(s.midLo, s.midHi, 'pivot'),
-          ...rangePairs(s.topLo, s.topHi, 'key'),
+          ...rangePairs(s.midLo, s.midHi, 'range'),
+          ...rangePairs(s.topLo, s.topHi, 'pivot'),
         ]);
         api.setCaption(
-          'レベル比較: ℓ=' +
-            s.ellLeft +
-            ',' +
+          'レベル比較: ℓ_{h-1}=' +
             s.ellMid +
-            ',' +
+            ', ℓ_h=' +
             s.ellTop +
             (s.shouldMerge
-              ? ' → ℓ_{h-2} ≤ max のためマージ'
+              ? ' → ℓ_h ≥ ℓ_{h-1} のため最上段 2 本をマージ'
               : ' → 条件を満たさないので次のランへ')
         );
         return;
@@ -441,13 +431,11 @@ window.DemoSort && DemoSort.boot('adaptive-shivers-sort-demo', function (root) {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, [[0, 'pivot']]);
         api.setCaption(
-          'R_{h-2} と R_{h-1} をマージ（ℓ=' +
-            s.ellLeft +
-            ',' +
+          'R_{h-1} と R_h をマージ（ℓ=' +
             s.ellMid +
-            ' / 最上段 ℓ=' +
+            ',' +
             s.ellTop +
-            ' は残す）'
+            '）'
         );
         return;
       }
@@ -506,20 +494,20 @@ window.DemoSort && DemoSort.boot('adaptive-shivers-sort-demo', function (root) {
 {% endcapture %}
 
 {% include sort-demo.html
-  id="adaptive-shivers-sort-demo"
-  data_prefix="adaptive-shivers"
+  id="shivers-sort-demo"
+  data_prefix="shivers"
   script=sort_demo_js
 %}
 
-ティムソートからの差し替えはマージ抑制条件をレベル比較に変える程度で済む一方、パワーソートのような中点ベースのパワー計算は不要で、実装と証明の両方が短い点が利点である。
+実装の核は「長さをレベルに丸めてから最上段 2 本を比べる」だけであり、ティムソートの 3 本比較やパワーソートの中点ベースのパワー計算より短い。その単純さの代償として、ラン構造への適応性は後続の改良版に譲る。
 
 ## 類似アルゴリズムとの相違点
 
 [ティムソート](/2026/05/23/sort-tim.html)はスタック上端のラン長そのものでマージを決める。[パワーソート](/2026/05/24/sort-power.html)は隣接ランの中点からパワーを求め、ほぼ最適な二分マージ木に沿う。
 
-適応型シバーズソートはティムソート同様、スタック上端 3 本だけを見てマージを決めるが、長さを `⌊log₂(r)⌋` に丸めてから比較する。
+シバーズソートはレベル比較を使う点で適応型シバーズソートと同じだが、マージの判定も併合もスタック上端 2 本（`R_{h-1}` と `R_h`）だけに限る方針である。
 
-[古典的なシバーズソート](/2026/07/30/sort-shivers.html)は条件成立時に最上段 2 本をマージするのに対し、適応型はティムソート寄りに `R_{h-2}` と `R_{h-1}` をマージして最上段を残す。その差が最悪マージコストの改善につながる。
+[適応型シバーズソート](/2026/07/29/sort-adaptive-shivers.html)はティムソート寄りに `R_{h-2}` と `R_{h-1}` をマージして最上段を残し、マージコストをラン長エントロピーに対して `nH + O(n)` へ近づけた。
 
 [ナチュラルマージソート](/2026/07/28/sort-natural-merge.html)は自然ランを使うが、マージ順は単純なペア併合にとどまる。
 
@@ -529,18 +517,18 @@ window.DemoSort && DemoSort.boot('adaptive-shivers-sort-demo', function (root) {
 
 |       Size |    Average time |    Maximum time |  Average memory |  Maximum memory |
 |-----------:|----------------:|----------------:|----------------:|----------------:|
-|        256 |        0.000009 |        0.000060 |              66 |              72 |
-|        512 |        0.000020 |        0.000119 |              70 |              76 |
-|       1024 |        0.000039 |        0.000103 |              74 |              80 |
-|       2048 |        0.000090 |        0.000240 |              89 |              96 |
-|       4096 |        0.000195 |        0.001333 |             106 |             112 |
-|       8192 |        0.000447 |        0.000930 |             150 |             156 |
-|      16384 |        0.000989 |        0.004583 |             142 |             152 |
-|      32768 |        0.002105 |        0.005306 |             334 |             340 |
-|      65536 |        0.004591 |        0.025612 |             751 |             792 |
-|     131072 |        0.010018 |        0.032057 |            1559 |            1604 |
-|     262144 |        0.024700 |        0.091013 |            3167 |            3212 |
+|        256 |        0.000010 |        0.000195 |              61 |              68 |
+|        512 |        0.000022 |        0.000147 |              66 |              72 |
+|       1024 |        0.000045 |        0.000173 |              82 |              88 |
+|       2048 |        0.000092 |        0.000288 |              86 |              92 |
+|       4096 |        0.000206 |        0.000543 |              97 |             104 |
+|       8192 |        0.000459 |        0.002512 |             130 |             136 |
+|      16384 |        0.001029 |        0.002745 |             138 |             148 |
+|      32768 |        0.002268 |        0.012365 |             334 |             340 |
+|      65536 |        0.004700 |        0.018750 |             756 |             796 |
+|     131072 |        0.009833 |        0.032556 |            1575 |            1676 |
+|     262144 |        0.020734 |        0.055377 |            3171 |            3216 |
 
 <!-- sort-benchmark-result:end -->
 
-{% include sort-benchmark.md algorithm="adaptive_shivers" %}
+{% include sort-benchmark.md algorithm="shivers" %}
