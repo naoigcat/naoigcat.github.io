@@ -41,7 +41,9 @@ fn splay(mut root: Box<Node>, key: usize) -> Box<Node> {
                 }
                 root.left = Some(left);
             } else {
+                // key == left.value: zig so the match becomes root (for count bumps).
                 root.left = Some(left);
+                return rotate_right(root);
             }
         }
     } else if key > root.value {
@@ -62,7 +64,9 @@ fn splay(mut root: Box<Node>, key: usize) -> Box<Node> {
                 }
                 root.right = Some(right);
             } else {
+                // key == right.value: zig so the match becomes root (for count bumps).
                 root.right = Some(right);
+                return rotate_left(root);
             }
         }
     }
