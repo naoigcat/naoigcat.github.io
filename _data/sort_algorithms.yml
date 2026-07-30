@@ -242,3 +242,6 @@ shivers:
 adaptive_shivers:
   sort_fn: adaptive_shivers_sort
   insertion_sort: true
+
+van_emde_boas:
+  sort_fn: van_emde_boas_sort
