@@ -43,6 +43,18 @@ specific keyword. Do not rewrite working article scripts toward older idioms (fo
 transpiled-style output, or browser-version sniffing) in the name of broader compatibility,
 and do not flag the existing modern syntax as a review finding unless the maintainer explicitly asks to widen the supported browser set.
 
+## Do not create sort-algorithm test scripts
+
+Do **not** add standalone test or regression scripts for sort algorithms (for example under `scripts/test-*-sort-*`,
+`scripts/test-*-shivers-*`, or similar Node/shell harnesses that extract demo JS from posts or recompile benchmark Rust).
+That includes creating them while fixing review findings, “for completeness,” or because another skill asks for a regression test.
+
+Correctness for the committed Rust path is already exercised by `verify_correctness` inside the sort-benchmark harness
+(`_includes/sort-benchmark/helpers/verify_correctness.rs`). Article demos are illustrative; do not grow a parallel test suite around them.
+
+Only create such scripts if the maintainer **explicitly** asks for them. Do not recommend adding them in reviews or audits
+unless asked.
+
 ## Do not volunteer these topics in reviews
 
 The following choices are intentional or already accepted trade-offs for this site.
