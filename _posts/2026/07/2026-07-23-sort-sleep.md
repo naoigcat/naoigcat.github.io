@@ -61,6 +61,7 @@ window.DemoSort && DemoSort.boot('sleep-sort-demo', function (root) {
 
     const order = wakeOrder(a);
     const awoken = [];
+    const output = [];
     order.forEach(function (idx) {
       steps.push({
         kind: 'wake',
@@ -70,14 +71,15 @@ window.DemoSort && DemoSort.boot('sleep-sort-demo', function (root) {
         awoken: awoken.slice(),
       });
       awoken.push(idx);
+      output.push(a[idx]);
       steps.push({
         kind: 'placed',
         idx: idx,
-        arr: a.slice(),
+        arr: output.slice(),
         awoken: awoken.slice(),
       });
     });
-    steps.push({ kind: 'done', arr: a.slice() });
+    steps.push({ kind: 'done', arr: output.slice() });
     return steps;
   }
 
@@ -117,9 +119,17 @@ window.DemoSort && DemoSort.boot('sleep-sort-demo', function (root) {
       }
       if (s.kind === 'placed') {
         api.mountBars(barsEl, s.arr);
-        DemoSort.assignRoles(barsEl, rolePairs(s.awoken, 'sorted'));
+        DemoSort.assignRoles(
+          barsEl,
+          rolePairs(
+            s.arr.map(function (_v, i) {
+              return i;
+            }),
+            'sorted'
+          )
+        );
         api.setCaption(
-          '出力済み ' + s.awoken.length + ' / ' + s.arr.length + ' 要素'
+          '出力済み ' + s.awoken.length + ' / ' + api.values.length + ' 要素'
         );
         return;
       }
