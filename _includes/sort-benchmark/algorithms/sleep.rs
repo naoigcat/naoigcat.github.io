@@ -7,6 +7,10 @@ fn sleep_sort(a: &mut [usize]) {
     }
 
     let n = a.len();
+    // Measurement convenience: pick stable output slots by comparing values first.
+    // Threads still sleep so wall time tracks a capped max(A), but the published
+    // order must not depend on OS scheduling across thousands of benchmark runs.
+    // Article demos append in true wake order; this harness path does not.
     let mut order: Vec<usize> = (0..n).collect();
     order.sort_by(|&i, &j| a[i].cmp(&a[j]).then(i.cmp(&j)));
 
