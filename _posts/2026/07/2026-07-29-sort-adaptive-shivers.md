@@ -221,7 +221,7 @@ window.DemoSort && DemoSort.boot('adaptive-shivers-sort-demo', function (root) {
         insertionExtend(start, targetEnd);
       }
 
-      const end = Math.min(start + MIN_RUN, n);
+      const end = Math.max(Math.min(start + MIN_RUN, n), runEnd + 1);
       const level = runLevel(end - start);
       pending.push({ lo: start, hi: end - 1, level: level });
       steps.push({
