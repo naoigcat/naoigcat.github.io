@@ -27,13 +27,20 @@ rsync -a \
 mkdir -p "$workdir/_layouts"
 printf '%s\n' '{{ content }}' > "$workdir/_layouts/null.html"
 
-{
-  echo "---"
-  echo "layout: null"
-  echo "markdown: false"
-  echo "---"
-  cat "$root/scripts/export-all-tags.md.liquid"
-} > "$workdir/export-all-tags.html"
+cat > "$workdir/export-all-tags.html" <<'LIQUID'
+---
+layout: null
+markdown: false
+---
+[
+{%- assign sorted_tags = site.tags | sort -%}
+{%- for tag in sorted_tags -%}
+{%- assign tag_name = tag[0] -%}
+{%- unless forloop.first -%},{%- endunless -%}
+{% include tags-tag-json-full.html name=tag_name %}
+{%- endfor -%}
+]
+LIQUID
 
 site_out="$workdir/_site"
 docker run --rm \
