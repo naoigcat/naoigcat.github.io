@@ -103,8 +103,7 @@ window.DemoSort && DemoSort.boot('sleep-sort-demo', function (root) {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, rolePairs(s.indices, 'range'));
         api.setCaption(
-          '各要素が値 ' +
-            'に比例した時間スリープ中（小さい値ほど早く目覚める）'
+          '各要素が値の大きさに比例した時間スリープ中（小さい値ほど早く目覚める）'
         );
         return;
       }
