@@ -111,6 +111,12 @@ unless the maintainer explicitly asks.
 The site uses `lang: ja` with Japanese article bodies while retaining an Irish-language–style display name in `title` (and similar branding).
 That mix is intentional. Do not flag it as inconsistent for SEO or browser language heuristics unless the maintainer asks to revisit naming or localization.
 
+### Site description (no SEO meta)
+
+`site.description` in `_config.yml` is rendered as visible page content (Minima’s footer). That on-page display is enough;
+SEO-oriented markup is intentionally omitted. Do not suggest adding `<meta name="description">`, `{%- seo -%}`,
+`jekyll-seo-tag`, or equivalent “description is unused because it is not in `<head>`” findings unless the maintainer asks.
+
 ### Error pages (`404.html`)
 
 The not-found page is intentionally English (`lang: en` and English body copy; no `title` in front matter
