@@ -45,8 +45,8 @@ and do not flag the existing modern syntax as a review finding unless the mainta
 
 ## Do not create sort-algorithm test scripts
 
-Do **not** add standalone test or regression scripts for sort algorithms (for example under `scripts/test-*-sort-*`,
-`scripts/test-*-shivers-*`, or similar Node/shell harnesses that extract demo JS from posts or recompile benchmark Rust).
+Do **not** add standalone test or regression scripts for sort algorithms (for example under `tests/test-*-sort-*`,
+`tests/test-*-shivers-*`, or similar Node/shell harnesses that extract demo JS from posts or recompile benchmark Rust).
 That includes creating them while fixing review findings, “for completeness,” or because another skill asks for a regression test.
 
 Correctness for the committed Rust path is already exercised by `verify_correctness` inside the sort-benchmark harness
