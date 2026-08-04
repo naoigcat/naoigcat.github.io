@@ -219,6 +219,103 @@
   outline-offset: 2px;
   box-shadow: 0 0 0 2px rgba(26,188,156,.35), 0 2px 6px rgba(0,0,0,.18);
 }
+#cradix-sort-demo .sort-demo__caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+  height: calc(1.5em * 2);
+  min-height: calc(1.5em * 2);
+  box-sizing: content-box;
+}
+#cradix-sort-demo .sort-demo__bars {
+  min-height: 188px;
+}
+#cradix-sort-demo .sort-demo__bar-stack {
+  flex: 1 1 0;
+  max-width: 52px;
+  min-width: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding: 2px 1px 0;
+}
+#cradix-sort-demo .sort-demo__bar-value {
+  font-size: 0.68rem;
+  line-height: 1.1;
+  margin-bottom: 1px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+#cradix-sort-demo .sort-demo__bar-buffer {
+  font-size: 0.58rem;
+  line-height: 1.1;
+  margin-bottom: 3px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  opacity: 0.78;
+}
+#cradix-sort-demo .sort-demo__bar-stack .sort-demo__bar {
+  width: 100%;
+  flex: none;
+  max-width: none;
+  min-width: 0;
+}
+#cradix-sort-demo .sort-demo__bar-stack--empty .sort-demo__bar {
+  visibility: hidden;
+  height: 0;
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="0"] {
+  background: rgba(52, 152, 219, 0.22);
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="1"] {
+  background: rgba(155, 89, 182, 0.22);
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="2"] {
+  background: rgba(26, 188, 156, 0.22);
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="3"] {
+  background: rgba(230, 126, 34, 0.22);
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="4"] {
+  background: rgba(241, 196, 15, 0.24);
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="5"] {
+  background: rgba(231, 76, 60, 0.22);
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-role="compare"] {
+  outline: 3px solid #e67e22;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(230,126,34,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-role="swap"] {
+  outline: 3px solid #27ae60;
+  outline-offset: 2px;
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-role="range"] {
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(52,152,219,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-role="sorted"] {
+  outline: 3px solid #9b59b6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(155,89,182,.35), 0 2px 6px rgba(0,0,0,.18);
+  opacity: 0.92;
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-role="cursor"] {
+  outline: 3px solid #1abc9c;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(26,188,156,.35), 0 2px 6px rgba(0,0,0,.18);
+}
+#cradix-sort-demo .sort-demo__bar-stack[data-role="write"] {
+  outline: 3px solid #2980b9;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(41,128,185,.35), 0 2px 6px rgba(0,0,0,.18);
+}
 #burst-sort-demo {
   /* scaledBarHeight 非 compact の最大 (28 + 92) + 値ラベル */
   --burst-bucket-stack-height: 135px;
@@ -604,6 +701,15 @@
   #american-flag-sort-demo .sort-demo__bar-value {
     font-size: 0.58rem;
   }
+  #cradix-sort-demo .sort-demo__bar-stack {
+    min-width: 16px;
+  }
+  #cradix-sort-demo .sort-demo__bar-value {
+    font-size: 0.58rem;
+  }
+  #cradix-sort-demo .sort-demo__bar-buffer {
+    font-size: 0.5rem;
+  }
 }
 .sort-demo__caption {
   margin: 0.35rem 0 0.25rem;
@@ -842,6 +948,24 @@
     background: rgba(241, 196, 15, 0.28);
   }
   #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="5"] {
+    background: rgba(231, 76, 60, 0.32);
+  }
+  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="0"] {
+    background: rgba(52, 152, 219, 0.32);
+  }
+  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="1"] {
+    background: rgba(155, 89, 182, 0.32);
+  }
+  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="2"] {
+    background: rgba(26, 188, 156, 0.32);
+  }
+  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="3"] {
+    background: rgba(230, 126, 34, 0.32);
+  }
+  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="4"] {
+    background: rgba(241, 196, 15, 0.28);
+  }
+  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="5"] {
     background: rgba(231, 76, 60, 0.32);
   }
   #burst-sort-demo .burst-demo__tier-label {
