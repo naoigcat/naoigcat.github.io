@@ -87,3 +87,11 @@ run = '''
 set -euo pipefail
 exec bash scripts/generate-tags-json.sh
 '''
+
+[tasks.test]
+description = "Run repository regression tests"
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+exec bash tests/run.sh
+'''
