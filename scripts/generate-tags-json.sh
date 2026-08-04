@@ -2,7 +2,7 @@
 set -euo pipefail
 
 root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-pages_image="$(awk -F'"' '/github_pages_image/ { print $2; exit }' "$root/mise.toml")"
+pages_image="$(awk -F'"' '/^github_pages_image[[:space:]]*=/ { print $2; exit }' "$root/mise.toml")"
 out_dir="$root/assets/tags"
 
 if [[ -z $pages_image ]]; then
