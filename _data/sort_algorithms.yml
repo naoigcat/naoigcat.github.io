@@ -203,6 +203,9 @@ pigeonhole:
 radix:
   sort_fn: radix_sort
 
+cradix:
+  sort_fn: cradix_sort
+
 bucket:
   sort_fn: bucket_sort
   insertion_sort: true
