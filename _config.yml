@@ -12,6 +12,7 @@ exclude:
   - mise.toml
   - README.md
   - scripts
+  - tests
 theme: minima
 defaults:
   - scope:
