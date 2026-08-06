@@ -3,7 +3,12 @@
   "slug": "sort",
   "posts": [
     {
-      "title": "CRadixソートで配列を並び替える",
+      "title": "フランチェスキーニソートで配列を並び替える",
+      "url": "/2026/08/07/sort-franceschini.html",
+      "date": "Aug 7, 2026"
+    },
+    {
+      "title": "キャッシュ効率型基数ソートで配列を並び替える",
       "url": "/2026/08/04/sort-cradix.html",
       "date": "Aug 4, 2026"
     },

@@ -248,3 +248,6 @@ adaptive_shivers:
 
 van_emde_boas:
   sort_fn: van_emde_boas_sort
+
+franceschini:
+  sort_fn: franceschini_sort
