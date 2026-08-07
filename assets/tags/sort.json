@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "ファンネルソートで配列を並び替える",
+      "url": "/2026/08/08/sort-funnel.html",
+      "date": "Aug 8, 2026"
+    },
+    {
       "title": "フランチェスキーニソートで配列を並び替える",
       "url": "/2026/08/07/sort-franceschini.html",
       "date": "Aug 7, 2026"

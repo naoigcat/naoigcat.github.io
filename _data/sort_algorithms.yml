@@ -251,3 +251,7 @@ van_emde_boas:
 
 franceschini:
   sort_fn: franceschini_sort
+
+funnel:
+  sort_fn: funnel_sort
+  insertion_sort: true
