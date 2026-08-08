@@ -255,3 +255,6 @@ franceschini:
 funnel:
   sort_fn: funnel_sort
   insertion_sort: true
+
+circle:
+  sort_fn: circle_sort
