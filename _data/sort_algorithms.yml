@@ -40,6 +40,9 @@ heap:
   sort_fn: heap_sort
   heap_sort: true
 
+binomial_heap:
+  sort_fn: binomial_heap_sort
+
 insertion:
   sort_fn: insertion_sort
   insertion_sort: true
