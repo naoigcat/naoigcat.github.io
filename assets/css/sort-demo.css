@@ -103,6 +103,24 @@
 .sort-demo__tree-node--root.sort-demo__tree-node--active circle {
   fill: #e3f2fd;
 }
+#binomial-heap-sort-demo .sort-demo__bars {
+  min-height: 158px;
+}
+#binomial-heap-sort-demo .sort-demo__bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-bottom: 3px;
+  color: rgba(0, 0, 0, 0.82);
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+#binomial-heap-sort-demo .sort-demo__bar::after {
+  content: attr(title);
+}
 #radix-sort-demo .sort-demo__bars {
   min-height: 168px;
 }
@@ -878,6 +896,9 @@
   }
   .sort-demo__tree-node--root.sort-demo__tree-node--active circle {
     fill: rgba(25,118,210,.34);
+  }
+  #binomial-heap-sort-demo .sort-demo__bar {
+    color: rgba(255, 255, 255, 0.9);
   }
   #van-emde-boas-sort-demo .veb-demo__meta {
     border-color: rgba(100, 181, 246, 0.45);

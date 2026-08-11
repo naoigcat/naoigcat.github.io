@@ -11,6 +11,7 @@
  * DemoSort.syncBarsAccessibility(container)
  * DemoSort.createBinaryTreeView(root, options?)
  * DemoSort.renderBinaryTree(view, tree, options?)
+ * DemoSort.renderForest(view, roots, options?) — multiway tree forest (e.g. binomial heap)
  * DemoSort.queryToolbar(root, dataAttr)
  * DemoSort.attachPlayback(options) — see implementation for option shape.
  */
@@ -336,6 +337,159 @@
         '。ノードは ' +
         values +
         '。'
+    );
+    view.appendChild(svg);
+  };
+
+  /**
+   * Renders a forest of multiway trees. Each root is
+   * `{ value, id?, children?: same[] }`. Roots are drawn left to right.
+   *
+   * @param {HTMLElement|null} view
+   * @param {Array<object>|null} roots
+   * @param {object} [options]
+   * @param {string|number} [options.activeId]
+   * @param {string} [options.ariaLabel]
+   * @param {function(object):string} [options.nodeLabel]
+   */
+  DemoSort.renderForest = function (view, roots, options) {
+    if (!view || typeof document === 'undefined') return;
+    const config = options || {};
+    const ariaLabel = config.ariaLabel || '森';
+    view.innerHTML = '';
+
+    if (!roots || !roots.length) {
+      view.classList.add('sort-demo__tree-canvas--empty');
+      const empty = document.createElement('span');
+      empty.className = 'sort-demo__tree-empty';
+      empty.textContent = view.dataset.emptyText || 'まだ木は空です';
+      view.appendChild(empty);
+      view.setAttribute('aria-label', ariaLabel + '。まだ木は空です。');
+      return;
+    }
+
+    view.classList.remove('sort-demo__tree-canvas--empty');
+
+    const gapUnits = 1.15;
+    const unit = 54;
+    const positions = new Map();
+    let maxDepth = 0;
+    const allNodes = [];
+
+    function measure(node) {
+      if (!node) return 0;
+      const kids = node.children || [];
+      if (!kids.length) return 1;
+      let w = 0;
+      for (let i = 0; i < kids.length; i++) {
+        w += measure(kids[i]);
+      }
+      return Math.max(1, w);
+    }
+
+    function place(node, depth, left, isForestRoot) {
+      if (!node) return;
+      allNodes.push(node);
+      if (depth > maxDepth) maxDepth = depth;
+      const kids = node.children || [];
+      if (!kids.length) {
+        positions.set(node, {
+          x: left + 0.5,
+          depth: depth,
+          isForestRoot: !!isForestRoot,
+        });
+        return;
+      }
+      let x = left;
+      for (let i = 0; i < kids.length; i++) {
+        const cw = measure(kids[i]);
+        place(kids[i], depth + 1, x, false);
+        x += cw;
+      }
+      const first = positions.get(kids[0]);
+      const last = positions.get(kids[kids.length - 1]);
+      positions.set(node, {
+        x: (first.x + last.x) / 2,
+        depth: depth,
+        isForestRoot: !!isForestRoot,
+      });
+    }
+
+    let cursor = 0;
+    for (let r = 0; r < roots.length; r++) {
+      const width = measure(roots[r]);
+      place(roots[r], 0, cursor, true);
+      cursor += width + gapUnits;
+    }
+
+    const widthPx = Math.max(220, cursor * unit + 32);
+    const heightPx = Math.max(82, (maxDepth + 1) * 58 + 28);
+    const svg = svgElement('svg');
+    svg.classList.add('sort-demo__tree-svg');
+    svg.setAttribute('viewBox', '0 0 ' + widthPx + ' ' + heightPx);
+    svg.setAttribute('width', String(widthPx));
+    svg.setAttribute('height', String(heightPx));
+    svg.setAttribute('aria-hidden', 'true');
+
+    function pointOf(node) {
+      const entry = positions.get(node);
+      return { x: 28 + entry.x * unit, y: 28 + entry.depth * 58 };
+    }
+
+    allNodes.forEach(function (node) {
+      const kids = node.children || [];
+      const from = pointOf(node);
+      for (let i = 0; i < kids.length; i++) {
+        const to = pointOf(kids[i]);
+        const edge = svgElement('line');
+        edge.classList.add('sort-demo__tree-edge');
+        edge.setAttribute('x1', String(from.x));
+        edge.setAttribute('y1', String(from.y + 16));
+        edge.setAttribute('x2', String(to.x));
+        edge.setAttribute('y2', String(to.y - 16));
+        svg.appendChild(edge);
+      }
+    });
+
+    allNodes.forEach(function (node) {
+      const point = pointOf(node);
+      const entry = positions.get(node);
+      const g = svgElement('g');
+      const id = node.id;
+      const isActive =
+        config.activeId != null && String(id) === String(config.activeId);
+      g.setAttribute(
+        'class',
+        'sort-demo__tree-node' +
+          (entry.isForestRoot ? ' sort-demo__tree-node--root' : '') +
+          (isActive ? ' sort-demo__tree-node--active' : '')
+      );
+
+      const circle = svgElement('circle');
+      circle.setAttribute('cx', String(point.x));
+      circle.setAttribute('cy', String(point.y));
+      circle.setAttribute('r', '17');
+
+      const text = svgElement('text');
+      text.setAttribute('x', String(point.x));
+      text.setAttribute('y', String(point.y));
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('dy', '.35em');
+      text.textContent = treeNodeLabel(node, config);
+
+      g.appendChild(circle);
+      g.appendChild(text);
+      svg.appendChild(g);
+    });
+
+    const labels = roots
+      .map(function (node) {
+        return treeNodeLabel(node, config);
+      })
+      .join('、');
+    view.setAttribute(
+      'aria-label',
+      ariaLabel + '。根は左から ' + labels + '。'
     );
     view.appendChild(svg);
   };
