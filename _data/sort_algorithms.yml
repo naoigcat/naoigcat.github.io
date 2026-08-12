@@ -21,6 +21,10 @@ quick:
   partition: true
   quick_sort: true
 
+binary_quick:
+  sort_fn: binary_quick_sort
+  insertion_sort: true
+
 three_way_quick:
   sort_fn: three_way_quick_sort
   insertion_sort: true
