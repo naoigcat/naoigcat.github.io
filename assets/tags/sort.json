@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "三分割クイックソートで配列を並び替える",
+      "url": "/2026/08/12/sort-three-way-quick.html",
+      "date": "Aug 12, 2026"
+    },
+    {
       "title": "二項ヒープソートで配列を並び替える",
       "url": "/2026/08/11/sort-binomial-heap.html",
       "date": "Aug 11, 2026"
