@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "バイナリクイックソートで配列を並び替える",
+      "url": "/2026/08/13/sort-binary-quick.html",
+      "date": "Aug 13, 2026"
+    },
+    {
       "title": "三分割クイックソートで配列を並び替える",
       "url": "/2026/08/12/sort-three-way-quick.html",
       "date": "Aug 12, 2026"
