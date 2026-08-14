@@ -162,6 +162,10 @@ proportion_extend:
 proxmap:
   sort_fn: proxmap_sort
 
+quick_hoare:
+  sort_fn: quick_hoare_sort
+  insertion_sort: true
+
 quick_lumoto:
   sort_fn: quick_sort
   insertion_sort: true
