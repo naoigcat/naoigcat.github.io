@@ -505,59 +505,18 @@
     return copy;
   };
 
-  DemoSort.flipAdjacentSwap = async function (container, lo) {
-    const children = container.children;
-    const first = children[lo];
-    const second = children[lo + 1];
-    if (!first || !second) return;
-
-    if (prefersReducedMotion()) {
-      // Reduced-motion path: DOM の並び替えだけを行い、要素自身の
-      // data-role 属性はノードと一緒に移動する。呼び出し側で role を
-      // 残したい場合（例: heap sort の preserve: ['sorted']）は正しい
-      // 子に追従するため追加処理は不要だが、将来このブランチに「即時
-      // ステップを追加する」変更を入れる際は、role の付け直しタイミング
-      // が通常パスと噛み合うか必ず確認すること。
-      container.insertBefore(second, first);
-      return;
-    }
-
-    const b1 = first.getBoundingClientRect();
-    const b2 = second.getBoundingClientRect();
-
-    container.insertBefore(second, first);
-
-    const a1 = first.getBoundingClientRect();
-    const a2 = second.getBoundingClientRect();
-
-    const dx1 = b1.left - a1.left;
-    const dx2 = b2.left - a2.left;
-    first.style.transition = 'none';
-    second.style.transition = 'none';
-    first.style.transform = 'translateX(' + dx1 + 'px)';
-    second.style.transform = 'translateX(' + dx2 + 'px)';
-
-    await new Promise(function (r) {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(r);
-      });
-    });
-
-    const dur = '0.32s';
-    first.style.transition = 'transform ' + dur + ' ease';
-    second.style.transition = 'transform ' + dur + ' ease';
-    first.style.transform = '';
-    second.style.transform = '';
-
-    await Promise.all([
-      transitionPromise(first),
-      transitionPromise(second),
-    ]);
-
-    first.style.transition = '';
-    second.style.transition = '';
-    first.style.transform = '';
-    second.style.transform = '';
+  /**
+   * Swaps the children at lo and lo + 1 with the same FLIP animation as
+   * flipSwap. An adjacent swap is just a special case of flipSwap, so the
+   * implementation is delegated to keep a single animation code path; the
+   * name is kept because many articles call it directly.
+   *
+   * @param {HTMLElement} container
+   * @param {number} lo
+   * @returns {Promise<void>}
+   */
+  DemoSort.flipAdjacentSwap = function (container, lo) {
+    return DemoSort.flipSwap(container, lo, lo + 1);
   };
 
   DemoSort.flipSwap = async function (container, i, j) {
@@ -572,9 +531,11 @@
     if (!elI || !elJ) return;
 
     if (prefersReducedMotion()) {
-      // Reduced-motion path: data-role の扱いは flipAdjacentSwap と同じ
-      // 前提（属性はノードと共に移動する）に依存する。将来このブランチに
-      // 別ステップを足す場合は role の付け直しタイミングに注意。
+      // Reduced-motion path: DOM の並び替えだけを行う。data-role 属性は
+      // ノードと一緒に移動するため、呼び出し側で role を残したい場合
+      // （例: heap sort の preserve: ['sorted']）も正しい子に追従し、追加
+      // 処理は不要。将来このブランチに別ステップを足す際は、role の付け直し
+      // タイミングが通常パスと噛み合うか必ず確認すること。
       DemoSort.swapDomIndices(container, i, j);
       return;
     }
