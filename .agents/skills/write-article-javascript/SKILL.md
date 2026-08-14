@@ -38,3 +38,14 @@ Do **not**:
     transpiled-style output, or browser-version sniffing) in the name of broader compatibility
 -   flag existing modern syntax as a review finding unless the maintainer explicitly asks to widen
     the supported browser set
+
+## Sort demos: always pass `barClass`
+
+Every `DemoSort.attachPlayback({ ... })` options object **must** include
+`barClass: 'sort-demo__bar'` (or an equivalent local variable passed as `barClass:`).
+
+`attachPlayback`’s default `mountBars` uses that class; omitting it leaves bars without width/background
+(invisible). Custom `rebuild` / `renderBars` paths still pass it so the shared helper stays consistent.
+
+Regression: `tests/test-demo-bar-class.sh` (via `mise run test`) fails when any attachPlayback call
+lacks `barClass`.
