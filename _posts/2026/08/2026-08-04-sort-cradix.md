@@ -557,10 +557,11 @@ window.DemoSort && DemoSort.boot('cradix-sort-demo', function (root) {
     },
     generateSteps: generateSteps,
     afterRebuild: function (api) {
-      renderBars(
-        api.barsEl,
-        api.steps[0] ? api.steps[0] : { arr: api.values }
-      );
+      const first = api.steps[0];
+      renderBars(api.barsEl, first ? first : { arr: api.values });
+      if (first && first.text) {
+        api.setCaption(first.text);
+      }
     },
     applyStep: async function (api, s) {
       const barsEl = api.barsEl;
