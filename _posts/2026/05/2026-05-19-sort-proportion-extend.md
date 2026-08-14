@@ -316,7 +316,7 @@ window.DemoSort && DemoSort.boot('proportion-extend-sort-demo', function (root) 
 
 ## 類似アルゴリズムとの相違点
 
-[クイックソート](/2026/05/02/sort-quick.html)と同様に分割するが、整列済み接頭辞を伸ばしてから中央値で切るため最悪計算量 `O(n log n)` を狙える。[対称分割ソート](/2026/05/21/sort-symmetry-partition.html)は標本を両端へ置いてから分割する。
+[ロムート分割型クイックソート](/2026/05/02/sort-quick-lumoto.html)と同様に分割するが、整列済み接頭辞を伸ばしてから中央値で切るため最悪計算量 `O(n log n)` を狙える。[対称分割ソート](/2026/05/21/sort-symmetry-partition.html)は標本を両端へ置いてから分割する。
 
 ## 計算時間量および空間計算量を計測する
 
