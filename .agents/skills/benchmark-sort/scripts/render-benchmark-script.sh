@@ -46,6 +46,7 @@ layout: null
 MD
 
 docker run --rm \
+  --user "$(id -u):$(id -g)" \
   -v "$workdir:/work" \
   "$pages_image" \
   jekyll build -s /work -d /work/_site >/dev/null
