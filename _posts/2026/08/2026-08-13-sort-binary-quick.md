@@ -102,7 +102,7 @@ window.DemoSort && DemoSort.boot('binary-quick-sort-demo', function (root) {
       if (lo >= hi || bit < 0) {
         return;
       }
-      if (hi - lo <= INSERTION_THRESHOLD) {
+      if (hi - lo + 1 <= INSERTION_THRESHOLD) {
         steps.push({
           kind: 'phase',
           text:
