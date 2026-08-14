@@ -67,17 +67,9 @@
    * @param {string|null} role `data-role` token or null
    */
   DemoSort.barAccessibilityLabel = function (index, valueText, role) {
-    const parts = ['位置' + index];
-    if (role === 'gap') {
-      parts.push(BAR_ROLE_LABEL_JA.gap);
-    } else {
-      parts.push('値 ' + valueText);
-    }
-    if (role && role !== 'gap') {
-      const ja = BAR_ROLE_LABEL_JA[role];
-      if (ja) parts.push(ja);
-    }
-    return parts.join('、');
+    // Only the position prefix differs from the simple label, so keep the role
+    // vocabulary in one place.
+    return '位置' + index + '、' + DemoSort.barAccessibilityLabelSimple(valueText, role);
   };
 
   /**
