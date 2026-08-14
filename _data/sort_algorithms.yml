@@ -173,6 +173,11 @@ quick_lumoto:
   partition: true
   quick_sort: true
 
+quick_random_pivot:
+  sort_fn: quick_random_pivot_sort
+  insertion_sort: true
+  partition_at: true
+
 radix:
   sort_fn: radix_sort
 
