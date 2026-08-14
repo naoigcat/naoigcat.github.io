@@ -102,6 +102,7 @@ window.DemoSort && DemoSort.boot('three-way-quick-sort-demo', function (root) {
       steps.push({ kind: 'part_start', lo: lo, hi: hi, arr: a.slice() });
 
       const pivot = a[lo];
+      let pivotIdx = lo;
       let lt = lo;
       let i = lo + 1;
       let gt = hi;
@@ -114,6 +115,7 @@ window.DemoSort && DemoSort.boot('three-way-quick-sort-demo', function (root) {
           gt: gt,
           lo: lo,
           hi: hi,
+          pivot: pivotIdx,
           arr: a.slice(),
         });
         if (a[i] < pivot) {
@@ -121,6 +123,8 @@ window.DemoSort && DemoSort.boot('three-way-quick-sort-demo', function (root) {
             const t1 = a[lt];
             a[lt] = a[i];
             a[i] = t1;
+            if (pivotIdx === lt) pivotIdx = i;
+            else if (pivotIdx === i) pivotIdx = lt;
             steps.push({
               kind: 'swap',
               lo: lt,
@@ -136,6 +140,8 @@ window.DemoSort && DemoSort.boot('three-way-quick-sort-demo', function (root) {
             const t2 = a[i];
             a[i] = a[gt];
             a[gt] = t2;
+            if (pivotIdx === i) pivotIdx = gt;
+            else if (pivotIdx === gt) pivotIdx = i;
             steps.push({
               kind: 'swap',
               lo: i,
@@ -205,10 +211,10 @@ window.DemoSort && DemoSort.boot('three-way-quick-sort-demo', function (root) {
       if (s.kind === 'scan') {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, [
-          [s.lo, 'pivot'],
           [s.i, 'compare'],
           [s.lt, 'swap'],
           [s.gt, 'swap'],
+          [s.pivot, 'pivot'],
         ]);
         api.setCaption(
           '走査: 位置 ' +
