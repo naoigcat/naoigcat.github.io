@@ -53,7 +53,7 @@ window.DemoSort && DemoSort.boot('hoare-quick-sort-demo', function (root) {
     const steps = [];
 
     function hoarePartition(lo, hi) {
-      const pivotIdx = lo + Math.floor((hi - lo) / 2);
+      let pivotIdx = lo + Math.floor((hi - lo) / 2);
       const pivotVal = a[pivotIdx];
       steps.push({
         kind: 'part_start',
@@ -99,6 +99,8 @@ window.DemoSort && DemoSort.boot('hoare-quick-sort-demo', function (root) {
         const t = a[i];
         a[i] = a[j];
         a[j] = t;
+        if (pivotIdx === i) pivotIdx = j;
+        else if (pivotIdx === j) pivotIdx = i;
         steps.push({ kind: 'swap', lo: i, hi: j, arr: a.slice() });
       }
     }
