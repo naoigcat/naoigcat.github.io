@@ -447,6 +447,7 @@ window.DemoSort && DemoSort.boot('funnel-sort-demo', function (root) {
     dataAttr: 'data-funnel',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption: 'ファンネルソートのデモ',
+    barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
       const barsEl = api.barsEl;
