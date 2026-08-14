@@ -306,7 +306,7 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
 
 ## 類似アルゴリズムとの相違点
 
-[クイックソート](/2026/05/02/sort-quick.html)に深さ監視と[ヒープソート](/2026/05/04/sort-heap.html)への切り替え、[挿入ソート](/2026/05/05/sort-insertion.html)による小区間仕上げを加えたものである。
+[ロムート分割型クイックソート](/2026/05/02/sort-quick-lumoto.html)に深さ監視と[ヒープソート](/2026/05/04/sort-heap.html)への切り替え、[挿入ソート](/2026/05/05/sort-insertion.html)による小区間仕上げを加えたものである。
 
 クイックソート単体の最悪計算量 `O(n²)` を避けつつ、平均性能を維持しようとする設計である。
 
