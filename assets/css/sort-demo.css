@@ -541,16 +541,6 @@
 #burst-sort-demo .burst-demo__bars--bucket .sort-demo__bar {
   transition: height 0.22s ease;
 }
-#burst-sort-demo .burst-demo__empty {
-  margin: 0;
-  padding: 0.55rem 0.75rem;
-  border-radius: 6px;
-  background: rgba(155, 89, 182, 0.08);
-  color: rgba(0, 0, 0, 0.68);
-  font-size: 0.82rem;
-  line-height: 1.45;
-  text-align: center;
-}
 #pigeonhole-sort-demo {
   --pigeonhole-bar-max-height: 120px;
 }
@@ -1011,10 +1001,6 @@
     outline-color: rgba(0, 172, 193, 0.55);
   }
   #burst-sort-demo .burst-demo__bucket-label {
-    color: rgba(255, 255, 255, 0.72);
-  }
-  #burst-sort-demo .burst-demo__empty {
-    background: rgba(155, 89, 182, 0.18);
     color: rgba(255, 255, 255, 0.72);
   }
   #pigeonhole-sort-demo .pigeonhole-demo__section-label {
