@@ -265,6 +265,10 @@ window.DemoSort && DemoSort.boot('shivers-sort-demo', function (root) {
           stack.pop();
           steps.push({
             kind: 'level_merge',
+            midLo: mid.lo,
+            midHi: mid.hi,
+            topLo: top.lo,
+            topHi: top.hi,
             ellMid: ellMid,
             ellTop: ellTop,
             arr: a.slice(),
@@ -291,7 +295,14 @@ window.DemoSort && DemoSort.boot('shivers-sort-demo', function (root) {
     while (stack.length >= 2) {
       const right = stack.pop();
       const left = stack.pop();
-      steps.push({ kind: 'flush_merge', arr: a.slice() });
+      steps.push({
+        kind: 'flush_merge',
+        leftLo: left.lo,
+        leftHi: left.hi,
+        rightLo: right.lo,
+        rightHi: right.hi,
+        arr: a.slice(),
+      });
       stack.push(merge(left.lo, left.hi, right.lo, right.hi));
     }
 
@@ -429,7 +440,10 @@ window.DemoSort && DemoSort.boot('shivers-sort-demo', function (root) {
       }
       if (s.kind === 'level_merge') {
         api.mountBars(barsEl, s.arr);
-        DemoSort.assignRoles(barsEl, [[0, 'pivot']]);
+        DemoSort.assignRoles(barsEl, [
+          ...rangePairs(s.midLo, s.midHi, 'range'),
+          ...rangePairs(s.topLo, s.topHi, 'key'),
+        ]);
         api.setCaption(
           'R_{h-1} と R_h をマージ（ℓ=' +
             s.ellMid +
@@ -441,7 +455,10 @@ window.DemoSort && DemoSort.boot('shivers-sort-demo', function (root) {
       }
       if (s.kind === 'flush_merge') {
         api.mountBars(barsEl, s.arr);
-        DemoSort.assignRoles(barsEl, [[0, 'pivot']]);
+        DemoSort.assignRoles(barsEl, [
+          ...rangePairs(s.leftLo, s.leftHi, 'range'),
+          ...rangePairs(s.rightLo, s.rightHi, 'key'),
+        ]);
         api.setCaption('残りスタックの上 2 本をマージします');
         return;
       }
