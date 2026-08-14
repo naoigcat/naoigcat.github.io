@@ -8,7 +8,7 @@
 #    (`quadratic_average`; see _includes/sort-benchmark.md). Optional `max_power` caps
 #    MAX_POWER below the quadratic default when an algorithm is slower than O(n²).
 # 4. Add _includes/sort-benchmark/algorithms/<id>.rs with the algorithm implementation
-#    (leave empty when sort_fn is only a shared helper, e.g. insertion/quick/heap).
+#    (leave empty when sort_fn is only a shared helper, e.g. insertion/quick_lumoto/heap).
 
 adaptive_shivers:
   sort_fn: adaptive_shivers_sort
@@ -162,7 +162,7 @@ proportion_extend:
 proxmap:
   sort_fn: proxmap_sort
 
-quick:
+quick_lumoto:
   sort_fn: quick_sort
   insertion_sort: true
   partition_at: true
