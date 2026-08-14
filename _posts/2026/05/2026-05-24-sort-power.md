@@ -266,6 +266,10 @@ window.DemoSort && DemoSort.boot('power-sort-demo', function (root) {
           kind: 'power_merge',
           topPower: top.power,
           newPower: p,
+          b1: top.lo,
+          e1: top.hi + 1,
+          b2: b1,
+          e2: e1,
           arr: a.slice(),
         });
         const merged = merge(top.lo, top.hi, b1, e1 - 1);
@@ -287,7 +291,15 @@ window.DemoSort && DemoSort.boot('power-sort-demo', function (root) {
 
     while (stack.length > 0) {
       const top = stack.pop();
-      steps.push({ kind: 'power_flush', topPower: top.power, arr: a.slice() });
+      steps.push({
+        kind: 'power_flush',
+        topPower: top.power,
+        b1: top.lo,
+        e1: top.hi + 1,
+        b2: b1,
+        e2: e1,
+        arr: a.slice(),
+      });
       const merged = merge(top.lo, top.hi, b1, e1 - 1);
       b1 = merged.lo;
       e1 = merged.hi + 1;
@@ -402,7 +414,10 @@ window.DemoSort && DemoSort.boot('power-sort-demo', function (root) {
       }
       if (s.kind === 'power_merge') {
         api.mountBars(barsEl, s.arr);
-        DemoSort.assignRoles(barsEl, [[0, 'pivot']]);
+        DemoSort.assignRoles(barsEl, [
+          ...rangePairs(s.b1, s.e1 - 1, 'range'),
+          ...rangePairs(s.b2, s.e2 - 1, 'pivot'),
+        ]);
         api.setCaption(
           'スタック先端 power=' +
             s.topPower +
@@ -414,7 +429,10 @@ window.DemoSort && DemoSort.boot('power-sort-demo', function (root) {
       }
       if (s.kind === 'power_flush') {
         api.mountBars(barsEl, s.arr);
-        DemoSort.assignRoles(barsEl, [[0, 'pivot']]);
+        DemoSort.assignRoles(barsEl, [
+          ...rangePairs(s.b1, s.e1 - 1, 'range'),
+          ...rangePairs(s.b2, s.e2 - 1, 'pivot'),
+        ]);
         api.setCaption(
           '残りスタック power=' + s.topPower + ' を現在のランとマージします'
         );
