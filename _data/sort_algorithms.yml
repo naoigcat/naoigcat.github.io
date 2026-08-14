@@ -10,152 +10,43 @@
 # 4. Add _includes/sort-benchmark/algorithms/<id>.rs with the algorithm implementation
 #    (leave empty when sort_fn is only a shared helper, e.g. insertion/quick/heap).
 
-bubble:
-  sort_fn: bubble_sort
-  quadratic_average: true
-
-quick:
-  sort_fn: quick_sort
-  insertion_sort: true
-  partition_at: true
-  partition: true
-  quick_sort: true
-
-binary_quick:
-  sort_fn: binary_quick_sort
+adaptive_shivers:
+  sort_fn: adaptive_shivers_sort
   insertion_sort: true
 
-three_way_quick:
-  sort_fn: three_way_quick_sort
+american_flag:
+  sort_fn: american_flag_sort
   insertion_sort: true
-
-dual_pivot_quick:
-  sort_fn: dual_pivot_quick_sort
-  insertion_sort: true
-
-pattern_defeating_quick:
-  sort_fn: pattern_defeating_quick_sort
-  insertion_sort: true
-  heap_sort: true
-
-merge:
-  sort_fn: merge_sort
-
-natural_merge:
-  sort_fn: natural_merge_sort
-
-heap:
-  sort_fn: heap_sort
-  heap_sort: true
-
-binomial_heap:
-  sort_fn: binomial_heap_sort
-
-insertion:
-  sort_fn: insertion_sort
-  insertion_sort: true
-  quadratic_average: true
 
 binary_insertion:
   sort_fn: binary_insertion_sort
   quadratic_average: true
 
-shell:
-  sort_fn: shell_sort
-
-intro:
-  sort_fn: intro_sort
+binary_quick:
+  sort_fn: binary_quick_sort
   insertion_sort: true
-  partition_at: true
-  partition: true
-  heap_sort: true
 
-shaker:
-  sort_fn: shaker_sort
-  quadratic_average: true
+binomial_heap:
+  sort_fn: binomial_heap_sort
 
-stooge:
-  sort_fn: stooge_sort
-  quadratic_average: true
-  max_power: 11
-
-slow:
-  sort_fn: slow_sort
-  quadratic_average: true
-  max_power: 8
-
-sleep:
-  sort_fn: sleep_sort
-  quadratic_average: true
-  max_power: 8
-
-comb:
-  sort_fn: comb_sort
-
-gnome:
-  sort_fn: gnome_sort
-  quadratic_average: true
-
-shuttle:
-  sort_fn: shuttle_sort
-  insertion_sort: true
-  quadratic_average: true
-
-selection:
-  sort_fn: selection_sort
-  quadratic_average: true
-
-exchange:
-  sort_fn: exchange_sort
-  quadratic_average: true
-
-cycle:
-  sort_fn: cycle_sort
-  quadratic_average: true
-
-tree:
-  sort_fn: tree_sort
-
-splay:
-  sort_fn: splay_sort
-
-library:
-  sort_fn: library_sort
-
-smooth:
-  sort_fn: smooth_sort
-
-patience:
-  sort_fn: patience_sort
-
-strand:
-  sort_fn: strand_sort
-  merge_values: true
+bitonic:
+  sort_fn: bitonic_sort
 
 brick:
   sort_fn: brick_sort
   quadratic_average: true
 
-pancake:
-  sort_fn: pancake_sort
+bubble:
+  sort_fn: bubble_sort
   quadratic_average: true
 
-proportion_extend:
-  sort_fn: proportion_extend_sort
+bucket:
+  sort_fn: bucket_sort
   insertion_sort: true
-  partition_at: true
 
-sample:
-  sort_fn: sample_sort
+burst:
+  sort_fn: burst_sort
   insertion_sort: true
-  partition_at: true
-  partition: true
-  quick_sort: true
-
-symmetry_partition:
-  sort_fn: symmetry_partition_sort
-  insertion_sort: true
-  partition_at: true
 
 cartesian_tree:
   sort_fn: cartesian_tree_sort
@@ -164,101 +55,37 @@ cartesian_tree:
 cascade_merge:
   sort_fn: cascade_merge_sort
 
-polyphase_merge:
-  sort_fn: polyphase_merge_sort
+circle:
+  sort_fn: circle_sort
 
-tim:
-  sort_fn: tim_sort
-  insertion_sort: true
-
-tournament:
-  sort_fn: tournament_sort
-
-two_way_insertion:
-  sort_fn: two_way_insertion_sort
-  quadratic_average: true
-
-power:
-  sort_fn: power_sort
-  insertion_sort: true
-
-bitonic:
-  sort_fn: bitonic_sort
-
-oddeven_merge:
-  sort_fn: odd_even_merge_sort
-
-ford_johnson:
-  sort_fn: ford_johnson
-  quadratic_average: true
-
-shear:
-  sort_fn: shear_sort
-  insertion_sort: true
-
-wiki:
-  sort_fn: wiki_sort
-
-grail:
-  sort_fn: grail_sort
-
-kota:
-  sort_fn: kota_sort
+comb:
+  sort_fn: comb_sort
 
 counting:
   sort_fn: counting_sort
 
-pigeonhole:
-  sort_fn: pigeonhole_sort
-
-radix:
-  sort_fn: radix_sort
-
 cradix:
   sort_fn: cradix_sort
 
-bucket:
-  sort_fn: bucket_sort
+cycle:
+  sort_fn: cycle_sort
+  quadratic_average: true
+
+dual_pivot_quick:
+  sort_fn: dual_pivot_quick_sort
   insertion_sort: true
 
-proxmap:
-  sort_fn: proxmap_sort
-
-unshuffle:
-  sort_fn: unshuffle_sort
-
-american_flag:
-  sort_fn: american_flag_sort
-  insertion_sort: true
-
-self_indexed:
-  sort_fn: self_indexed_sort
+exchange:
+  sort_fn: exchange_sort
+  quadratic_average: true
 
 flash:
   sort_fn: flash_sort
   insertion_sort: true
 
-spread:
-  sort_fn: spread_sort
-  insertion_sort: true
-
-burst:
-  sort_fn: burst_sort
-  insertion_sort: true
-
-trie:
-  sort_fn: trie_sort
-
-shivers:
-  sort_fn: shivers_sort
-  insertion_sort: true
-
-adaptive_shivers:
-  sort_fn: adaptive_shivers_sort
-  insertion_sort: true
-
-van_emde_boas:
-  sort_fn: van_emde_boas_sort
+ford_johnson:
+  sort_fn: ford_johnson
+  quadratic_average: true
 
 franceschini:
   sort_fn: franceschini_sort
@@ -267,5 +94,178 @@ funnel:
   sort_fn: funnel_sort
   insertion_sort: true
 
-circle:
-  sort_fn: circle_sort
+gnome:
+  sort_fn: gnome_sort
+  quadratic_average: true
+
+grail:
+  sort_fn: grail_sort
+
+heap:
+  sort_fn: heap_sort
+  heap_sort: true
+
+insertion:
+  sort_fn: insertion_sort
+  insertion_sort: true
+  quadratic_average: true
+
+intro:
+  sort_fn: intro_sort
+  insertion_sort: true
+  partition_at: true
+  partition: true
+  heap_sort: true
+
+kota:
+  sort_fn: kota_sort
+
+library:
+  sort_fn: library_sort
+
+merge:
+  sort_fn: merge_sort
+
+natural_merge:
+  sort_fn: natural_merge_sort
+
+oddeven_merge:
+  sort_fn: odd_even_merge_sort
+
+pancake:
+  sort_fn: pancake_sort
+  quadratic_average: true
+
+patience:
+  sort_fn: patience_sort
+
+pattern_defeating_quick:
+  sort_fn: pattern_defeating_quick_sort
+  insertion_sort: true
+  heap_sort: true
+
+pigeonhole:
+  sort_fn: pigeonhole_sort
+
+polyphase_merge:
+  sort_fn: polyphase_merge_sort
+
+power:
+  sort_fn: power_sort
+  insertion_sort: true
+
+proportion_extend:
+  sort_fn: proportion_extend_sort
+  insertion_sort: true
+  partition_at: true
+
+proxmap:
+  sort_fn: proxmap_sort
+
+quick:
+  sort_fn: quick_sort
+  insertion_sort: true
+  partition_at: true
+  partition: true
+  quick_sort: true
+
+radix:
+  sort_fn: radix_sort
+
+sample:
+  sort_fn: sample_sort
+  insertion_sort: true
+  partition_at: true
+  partition: true
+  quick_sort: true
+
+selection:
+  sort_fn: selection_sort
+  quadratic_average: true
+
+self_indexed:
+  sort_fn: self_indexed_sort
+
+shaker:
+  sort_fn: shaker_sort
+  quadratic_average: true
+
+shear:
+  sort_fn: shear_sort
+  insertion_sort: true
+
+shell:
+  sort_fn: shell_sort
+
+shivers:
+  sort_fn: shivers_sort
+  insertion_sort: true
+
+shuttle:
+  sort_fn: shuttle_sort
+  insertion_sort: true
+  quadratic_average: true
+
+sleep:
+  sort_fn: sleep_sort
+  quadratic_average: true
+  max_power: 8
+
+slow:
+  sort_fn: slow_sort
+  quadratic_average: true
+  max_power: 8
+
+smooth:
+  sort_fn: smooth_sort
+
+splay:
+  sort_fn: splay_sort
+
+spread:
+  sort_fn: spread_sort
+  insertion_sort: true
+
+stooge:
+  sort_fn: stooge_sort
+  quadratic_average: true
+  max_power: 11
+
+strand:
+  sort_fn: strand_sort
+  merge_values: true
+
+symmetry_partition:
+  sort_fn: symmetry_partition_sort
+  insertion_sort: true
+  partition_at: true
+
+three_way_quick:
+  sort_fn: three_way_quick_sort
+  insertion_sort: true
+
+tim:
+  sort_fn: tim_sort
+  insertion_sort: true
+
+tournament:
+  sort_fn: tournament_sort
+
+tree:
+  sort_fn: tree_sort
+
+trie:
+  sort_fn: trie_sort
+
+two_way_insertion:
+  sort_fn: two_way_insertion_sort
+  quadratic_average: true
+
+unshuffle:
+  sort_fn: unshuffle_sort
+
+van_emde_boas:
+  sort_fn: van_emde_boas_sort
+
+wiki:
+  sort_fn: wiki_sort
