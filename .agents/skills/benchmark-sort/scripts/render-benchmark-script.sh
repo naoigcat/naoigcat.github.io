@@ -8,7 +8,7 @@ fi
 
 algorithm="$1"
 root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-pages_image="$(awk -F'"' '/github_pages_image/ { print $2; exit }' "$root/mise.toml")"
+pages_image="$(awk -F'"' '/^github_pages_image[[:space:]]*=/ { print $2; exit }' "$root/mise.toml")"
 
 if [[ -z $pages_image ]]; then
   echo "Could not read github_pages_image from mise.toml" >&2
