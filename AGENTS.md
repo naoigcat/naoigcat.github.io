@@ -1,16 +1,21 @@
 # Instructions for automated assistants
 
+Always-on project constraints. Task-specific workflows live under `.agents/skills/`
+(see [Cursor Skills](https://cursor.com/docs/skills.md)); load those when the work matches.
+
 ## GitHub Pages already runs Jekyll
 
-This repository is published with **GitHub Pages**. Pushing to the branch that Pages uses triggers **GitHub’s Jekyll build** in their environment.
-Whether that build passes or fails is visible in the repository’s Pages deployment state and history.
+This repository is published with **GitHub Pages**. Pushing to the branch that Pages uses triggers
+**GitHub’s Jekyll build** in their environment. Build success or failure is visible in the repository’s
+Pages deployment state and history.
 
-**Do not recommend** adding GitHub Actions (or other CI) jobs whose *only* purpose is to run `jekyll build` (or equivalent)
-“because the site would otherwise not be built,” “to discover build failures before deploy,” or “Pages does not build the site.”
-That reasoning is **incorrect for this repository**: integration with the hosted stack is already enforced on push.
+**Do not recommend** adding GitHub Actions (or other CI) jobs whose *only* purpose is to run
+`jekyll build` (or equivalent) “because the site would otherwise not be built,” “to discover build
+failures before deploy,” or “Pages does not build the site.” That reasoning is **incorrect for this
+repository**: integration with the hosted stack is already enforced on push.
 
-Do not volunteer that suggestion in reviews, audits, or advice unless the maintainer **explicitly** asks
-for a duplicate build, PR-preview sites, or another goal that requires Actions.
+Do not volunteer that suggestion in reviews, audits, or advice unless the maintainer **explicitly**
+asks for a duplicate build, PR-preview sites, or another goal that requires Actions.
 
 ## Custom `_plugins` and local vs production
 
@@ -18,108 +23,52 @@ GitHub Pages’ default Jekyll build **does not run** custom Ruby plugins from `
 Only the [whitelisted plugins](https://pages.github.com/versions/) apply in production.
 
 This repository **must not depend** on `_plugins/` for behavior that needs to work on the live site.
-Tag pages are implemented on the committed `/tags/` page: build-time Liquid embeds a lightweight tag index plus full post lists for tags listed in `_data/tags_embed.yml`;
-other tags load `/assets/tags/{slug}.json` on demand in the browser (`assets/js/tags.js`).
-Regenerate those JSON files with `mise run tags` after changing posts or tag metadata.
+Tag pages use committed Liquid on `/tags/` plus on-demand `/assets/tags/{slug}.json`
+(`assets/js/tags.js`); regenerate JSON with `mise run tags` after changing posts or tag metadata.
 Post footers link to that query form, not to per-tag paths like `/tags/sort/`.
 
-Local `mise run serve` may still load `_plugins/` if files are present, which can create **dev/prod drift**.
+Local `mise run serve` may still load `_plugins/` if files are present (**dev/prod drift**).
 Do not reintroduce tag generators or other custom plugins without an explicit deployment change.
-If a feature needs a generator, prefer committed Liquid/JS or ask the maintainer about changing how Pages is built.
-
-## In-article JavaScript targets modern browsers
-
-The JavaScript embedded in posts (for example, the sort-algorithm demos under `_posts/` that mount via `{% include sort-demo.html ... %}`)
-**does not need to support Internet Explorer or any other engine that lacks ES2015+ syntax**.
-Treat the runtime baseline as evergreen browsers.
-
-When writing or editing article scripts, prefer contemporary, readable language features:
-`const`/`let` rather than `var`, arrow functions, template literals, default and rest parameters, destructuring,
-`class`, `Promise`/`async`/`await`, `Map`/`Set`, optional chaining and nullish coalescing, `BigInt` literals, and similar constructs
-are all acceptable whenever they make the demo clearer.
-
-The goal is to **keep article code from accreting legacy patterns for the sake of obsolete browsers**, not to mandate any
-specific keyword. Do not rewrite working article scripts toward older idioms (for example forcing `var`, hand-rolled polyfills,
-transpiled-style output, or browser-version sniffing) in the name of broader compatibility,
-and do not flag the existing modern syntax as a review finding unless the maintainer explicitly asks to widen the supported browser set.
+If a feature needs a generator, prefer committed Liquid/JS or ask the maintainer about changing how
+Pages is built.
 
 ## Do not create sort-algorithm test scripts
 
-Do **not** add standalone test or regression scripts for sort algorithms (for example under `tests/test-*-sort-*`,
-`tests/test-*-shivers-*`, or similar Node/shell harnesses that extract demo JS from posts or recompile benchmark Rust).
-That includes creating them while fixing review findings, “for completeness,” or because another skill asks for a regression test.
+Do **not** add standalone test or regression scripts for sort algorithms (for example under
+`tests/test-*-sort-*`, `tests/test-*-shivers-*`, or similar Node/shell harnesses that extract demo JS
+from posts or recompile benchmark Rust). That includes creating them while fixing review findings,
+“for completeness,” or because another skill asks for a regression test.
 
-Correctness for the committed Rust path is already exercised by `verify_correctness` inside the sort-benchmark harness
-(`_includes/sort-benchmark/helpers/verify_correctness.rs`). Article demos are illustrative; do not grow a parallel test suite around them.
+Correctness for the committed Rust path is already exercised by `verify_correctness` inside the
+sort-benchmark harness (`_includes/sort-benchmark/helpers/verify_correctness.rs`). Article demos are
+illustrative; do not grow a parallel test suite around them.
 
-Only create such scripts if the maintainer **explicitly** asks for them. Do not recommend adding them in reviews or audits
-unless asked.
+Only create such scripts if the maintainer **explicitly** asks for them. Do not recommend adding them
+in reviews or audits unless asked.
 
 ## Do not volunteer these topics in reviews
 
 The following choices are intentional or already accepted trade-offs for this site.
-Unless the maintainer asks about them explicitly, **do not** raise them as review findings, nits, or “consider later” bullets.
+Unless the maintainer asks about them explicitly, **do not** raise them as review findings, nits, or
+“consider later” bullets.
 
-### Third-party JavaScript (Mermaid)
-
-Production loads the Mermaid script from a CDN **only on posts whose front matter sets `mermaid: true`**. That opt-in loading is deliberate.
-Do not suggest vendoring the same version under `assets` for offline verification or CDN resilience unless the maintainer asks;
-it is an optional future trade-off against maintenance cost, not an outstanding gap.
-
-Because Dependabot does not bump that script, the version URL and Subresource Integrity hash
-in `_includes/head.html` are **manually maintained**.
-When upgrading Mermaid, update the `src` version and regenerate `integrity`
-(for example with a browser devtools SRI tool or `openssl`) so the hash matches the new file;
-mismatches break all `mermaid: true` posts.
-
-### Analytics
-
-`_config.yml` defines `google_analytics`, and the theme is expected to load it in production only.
-There is no EU-style consent banner in this site’s own markup.
-Treat analytics and consent posture as settled unless the maintainer asks about jurisdictions or CMPs.
-
-### Dependabot scope
-
-`.github/dependabot.yml` targets **GitHub Actions only**. Gems are intentionally left to GitHub Pages’ build environment; that split is deliberate.
-Do not suggest widening Dependabot to RubyGems/npm “for completeness” unless those ecosystems gain first-class use in this repo.
-
-### Sync workflows and `contents: write`
-
-Two workflows declare `permissions: contents: write` and push commits when their target files change. That narrow automation is intentional.
-Do not flag `contents: write`, automated `git push`, or these “commit only the touched lines” designs as review findings
-unless the maintainer asks to change them.
-
-**Markdownlint pin (`sync-markdownlint.yml`).** On push to `main` or `dependabot/**` when
-`.github/workflows/lint.yml` changes, the workflow resolves the pinned
-`DavidAnson/markdownlint-cli2-action` ref, updates only the `markdownlint_cli2_image = "…"` line in
-`mise.toml`, and pushes when that line changes. Local lint runs via `mise run lint` (Docker image from
-that var).
-It is gated with `if: github.ref == 'refs/heads/main' || github.actor == 'dependabot[bot]'`.
-
-**GitHub Pages Docker image (`sync-githubpages.yml`).** On `workflow_dispatch` or a weekly schedule,
-it compares `github_pages_image` in `mise.toml` to numeric tags on Docker Hub for the configured
-repo, bumps the tag to the latest numeric value when higher, commits `mise.toml`, and pushes.
-
-Human security reviewers may still want to track that workflows with repository write access increase blast radius **if**
-malicious workflow YAML could reach branches where Actions runs.
-Routine mitigation is branch protection and required review so untrusted contributors cannot land arbitrary workflows.
-Do not recycle that generic posture into AI review nits (for example urging removal of write permissions or extra gates)
-unless the maintainer explicitly asks.
-
-### Site metadata consistency
-
-The site uses `lang: ja` with Japanese article bodies while retaining an Irish-language–style display name in `title` (and similar branding).
-That mix is intentional. Do not flag it as inconsistent for SEO or browser language heuristics unless the maintainer asks to revisit naming or localization.
-
-### Site description (no SEO meta)
-
-`site.description` in `_config.yml` is rendered as visible page content (Minima’s footer). That on-page display is enough;
-SEO-oriented markup is intentionally omitted. Do not suggest adding `<meta name="description">`, `{%- seo -%}`,
-`jekyll-seo-tag`, or equivalent “description is unused because it is not in `<head>`” findings unless the maintainer asks.
-
-### Error pages (`404.html`)
-
-The not-found page is intentionally English (`lang: en` and English body copy; no `title` in front matter
-so it stays out of Minima’s header nav), while the rest of the site defaults to Japanese metadata from `_config.yml`.
-The HTML `<title>` (tab label) is set in `_includes/head.html` when `page.path` is `404.html`, without adding front matter `title`.
-Do not suggest aligning it with `site.lang` unless the maintainer asks.
+-   **Mermaid CDN** — Loaded only when front matter sets `mermaid: true`. Do not suggest vendoring
+    under `assets` for offline or CDN resilience unless asked. Version URL and SRI in
+    `_includes/head.html` are manually maintained (Dependabot does not bump them).
+-   **Analytics** — `google_analytics` in `_config.yml`; theme loads it in production only. No
+    EU-style consent banner in this site’s markup. Settled unless asked about jurisdictions or CMPs.
+-   **Dependabot** — `.github/dependabot.yml` targets **GitHub Actions only**. Gems stay with GitHub
+    Pages’ build environment. Do not widen to RubyGems/npm “for completeness” unless those ecosystems
+    gain first-class use here.
+-   **Sync workflows (`contents: write`)** — `sync-markdownlint.yml` and `sync-githubpages.yml` push
+    narrow commits when their target pins change. Do not flag `contents: write`, automated `git push`,
+    or “commit only the touched lines” as review findings unless asked to change them. Do not recycle
+    generic “write access increases blast radius” nits unless the maintainer explicitly asks.
+-   **Site metadata** — `lang: ja` with Japanese bodies and an Irish-language–style `title` (and
+    similar branding) is intentional. Do not flag for SEO or language heuristics unless asked.
+-   **Site description** — `site.description` is on-page footer content (Minima). Do not suggest
+    `<meta name="description">`, `{%- seo -%}`, `jekyll-seo-tag`, or “unused because not in `<head>`”
+    findings unless asked.
+-   **`404.html`** — Intentionally English (`lang: en`; no front matter `title` so it stays out of
+    Minima’s header nav). Tab title is set in `_includes/head.html` when `page.path` is `404.html`.
+    Do not suggest aligning it with `site.lang` unless asked.
