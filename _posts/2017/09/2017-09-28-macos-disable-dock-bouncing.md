@@ -6,7 +6,7 @@ tags:      macos
 
 ## 跳ねるアクションを無効にする
 
-Dock上のアプリがアラート通知があった時に跳ねるのを停止する。
+Dock上のアプリがアラート通知を受けたときに跳ねる動作を停止する。
 
 ```sh
 defaults write com.apple.dock no-bouncing -boolean true
