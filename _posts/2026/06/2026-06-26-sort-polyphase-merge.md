@@ -761,19 +761,17 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
     tapes[inputLeft].shift();
     tapes[inputRight].shift();
 
-    steps.push(
-      stamp({
-        kind: 'merge_done',
-        mode: 'tapes',
-        tapes: cloneTapes(tapes),
-        outputSlot: roles.outputSlot,
-        inputSlots: roles.inputSlots.slice(),
-        merge: null,
-        mergedRun: outValues.slice(),
-        rangeValues: meta.rangeValues,
-        consumedDummy: leftRun.dummy || rightRun.dummy,
-      })
-    );
+    steps.push({
+      kind: 'merge_done',
+      mode: 'tapes',
+      tapes: cloneTapes(tapes),
+      outputSlot: roles.outputSlot,
+      inputSlots: roles.inputSlots.slice(),
+      merge: null,
+      mergedRun: outValues.slice(),
+      rangeValues: meta.rangeValues,
+      consumedDummy: leftRun.dummy || rightRun.dummy,
+    });
     return mergedRun;
   }
 
@@ -797,19 +795,17 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
     }
     if (n === 1) {
       tapes[0].push(copyRun(runs[0]));
-      steps.push(
-        stamp({
-          kind: 'distribute',
-          mode: 'tapes',
-          tapes: cloneTapes(tapes),
-          outputSlot: roles.outputSlot,
-          inputSlots: roles.inputSlots.slice(),
-          rangeValues: meta.rangeValues,
-          onTape1: 1,
-          onTape2: 0,
-          dummies: 0,
-        })
-      );
+      steps.push({
+        kind: 'distribute',
+        mode: 'tapes',
+        tapes: cloneTapes(tapes),
+        outputSlot: roles.outputSlot,
+        inputSlots: roles.inputSlots.slice(),
+        rangeValues: meta.rangeValues,
+        onTape1: 1,
+        onTape2: 0,
+        dummies: 0,
+      });
       return { tapes: tapes, roles: roles };
     }
 
@@ -833,19 +829,17 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
       });
     }
 
-    steps.push(
-      stamp({
-        kind: 'distribute',
-        mode: 'tapes',
-        tapes: cloneTapes(tapes),
-        outputSlot: roles.outputSlot,
-        inputSlots: roles.inputSlots.slice(),
-        rangeValues: meta.rangeValues,
-        onTape1: onTape1,
-        onTape2: onTape2,
-        dummies: dummies,
-      })
-    );
+    steps.push({
+      kind: 'distribute',
+      mode: 'tapes',
+      tapes: cloneTapes(tapes),
+      outputSlot: roles.outputSlot,
+      inputSlots: roles.inputSlots.slice(),
+      rangeValues: meta.rangeValues,
+      onTape1: onTape1,
+      onTape2: onTape2,
+      dummies: dummies,
+    });
     return { tapes: tapes, roles: roles };
   }
 
@@ -859,17 +853,15 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
 
   function polyphasePass(tapes, roles, steps, passNo, meta) {
     let merged = false;
-    steps.push(
-      stamp({
-        kind: 'pass_start',
-        mode: 'tapes',
-        passNo: passNo,
-        tapes: cloneTapes(tapes),
-        outputSlot: roles.outputSlot,
-        inputSlots: roles.inputSlots.slice(),
-        rangeValues: meta.rangeValues,
-      })
-    );
+    steps.push({
+      kind: 'pass_start',
+      mode: 'tapes',
+      passNo: passNo,
+      tapes: cloneTapes(tapes),
+      outputSlot: roles.outputSlot,
+      inputSlots: roles.inputSlots.slice(),
+      rangeValues: meta.rangeValues,
+    });
     const inA = roles.inputSlots[0];
     const inB = roles.inputSlots[1];
     while (tapes[inA].length > 0 && tapes[inB].length > 0) {
@@ -887,17 +879,15 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
         meta
       );
       merged = true;
-      steps.push(
-        stamp({
-          kind: 'pass_merge',
-          mode: 'tapes',
-          passNo: passNo,
-          tapes: cloneTapes(tapes),
-          outputSlot: roles.outputSlot,
-          inputSlots: roles.inputSlots.slice(),
-          rangeValues: meta.rangeValues,
-        })
-      );
+      steps.push({
+        kind: 'pass_merge',
+        mode: 'tapes',
+        passNo: passNo,
+        tapes: cloneTapes(tapes),
+        outputSlot: roles.outputSlot,
+        inputSlots: roles.inputSlots.slice(),
+        rangeValues: meta.rangeValues,
+      });
     }
     return merged;
   }
@@ -957,14 +947,12 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
     const a = initial.slice();
     const meta = { rangeValues: initial.slice() };
 
-    steps.push(
-      stamp({
-        kind: 'flat',
-        mode: 'flat',
-        values: initial.slice(),
-        rangeValues: meta.rangeValues,
-      })
-    );
+    steps.push({
+      kind: 'flat',
+      mode: 'flat',
+      values: initial.slice(),
+      rangeValues: meta.rangeValues,
+    });
 
     for (let r = 0; r < initial.length / RUN_SIZE; r++) {
       const start = r * RUN_SIZE;
@@ -1025,14 +1013,12 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
       dummy: true,
       colorIndex: -1,
     });
-    steps.push(
-      stamp({
-        kind: 'dummy_add',
-        mode: 'runs',
-        runs: withDummy,
-        rangeValues: meta.rangeValues,
-      })
-    );
+    steps.push({
+      kind: 'dummy_add',
+      mode: 'runs',
+      runs: withDummy,
+      rangeValues: meta.rangeValues,
+    });
 
     const dist = distributeFibonacci(runs, steps, meta);
     let tapes = dist.tapes;
@@ -1042,17 +1028,15 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
     while (countRuns(tapes) > 1) {
       if (polyphasePass(tapes, roles, steps, passNo, meta)) {
         roles = nextRoles(tapes, roles.outputSlot);
-        steps.push(
-          stamp({
-            kind: 'rotate',
-            mode: 'tapes',
-            passNo: passNo,
-            tapes: cloneTapes(tapes),
-            outputSlot: roles.outputSlot,
-            inputSlots: roles.inputSlots.slice(),
-            rangeValues: meta.rangeValues,
-          })
-        );
+        steps.push({
+          kind: 'rotate',
+          mode: 'tapes',
+          passNo: passNo,
+          tapes: cloneTapes(tapes),
+          outputSlot: roles.outputSlot,
+          inputSlots: roles.inputSlots.slice(),
+          rangeValues: meta.rangeValues,
+        });
         idle = 0;
         passNo += 1;
       } else {
@@ -1061,17 +1045,15 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
           break;
         }
         roles = nextRoles(tapes, roles.outputSlot);
-        steps.push(
-          stamp({
-            kind: 'rotate',
-            mode: 'tapes',
-            passNo: passNo,
-            tapes: cloneTapes(tapes),
-            outputSlot: roles.outputSlot,
-            inputSlots: roles.inputSlots.slice(),
-            rangeValues: meta.rangeValues,
-          })
-        );
+        steps.push({
+          kind: 'rotate',
+          mode: 'tapes',
+          passNo: passNo,
+          tapes: cloneTapes(tapes),
+          outputSlot: roles.outputSlot,
+          inputSlots: roles.inputSlots.slice(),
+          rangeValues: meta.rangeValues,
+        });
       }
     }
 
@@ -1088,15 +1070,13 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
       finalRun = mergeAllRemaining(tapes, roles, steps, meta);
     }
 
-    steps.push(
-      stamp({
-        kind: 'done',
-        mode: 'flat',
-        values: finalRun,
-        rangeValues: finalRun,
-        finalRun: finalRun,
-      })
-    );
+    steps.push({
+      kind: 'done',
+      mode: 'flat',
+      values: finalRun,
+      rangeValues: finalRun,
+      finalRun: finalRun,
+    });
     return steps;
   }
 
