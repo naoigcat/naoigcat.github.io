@@ -8,7 +8,7 @@ tags:      bash docker
 
 Jekyllは`_plugins`ディレクトリにRubyファイルを追加することでプラグインとして動作させることができる。
 
-下記のコードで`_config.yml`の`imports_dir`ディレクトリ内にシンボリックリンクとしてリンクさせた別リポジトリのディレクトリから投稿を取り込むことができる。
+下記のコードを使うと、`_config.yml`の`imports_dir`で指定したディレクトリ内にある、シンボリックリンク先の別リポジトリから投稿を取り込むことができる。
 
 ```ruby
 Jekyll::Hooks.register :site, :after_reset do |site|
