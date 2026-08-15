@@ -227,22 +227,14 @@ window.DemoSort && DemoSort.boot('american-flag-sort-demo', function (root) {
     }
   }
 
-  function assignAmericanFlagRoles(container, pairs, opts) {
+  function assignAmericanFlagRoles(container, pairs) {
     if (!container) {
       return;
     }
-    const options = opts || {};
-    const preserve = options.preserve;
     const stacks = container.children;
     let i;
     for (i = 0; i < stacks.length; i++) {
-      const current = stacks[i].getAttribute('data-role');
-      if (current == null) {
-        continue;
-      }
-      if (!preserve || preserve.indexOf(current) === -1) {
-        stacks[i].removeAttribute('data-role');
-      }
+      stacks[i].removeAttribute('data-role');
     }
     if (!pairs) {
       let si;
