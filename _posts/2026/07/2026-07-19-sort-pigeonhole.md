@@ -113,25 +113,6 @@ window.DemoSort && DemoSort.boot('pigeonhole-sort-demo', function (root) {
     }
   }
 
-  function outputSlotRect(slotEl, wrap) {
-    if (!slotEl) return null;
-    const bar = slotEl.querySelector('.sort-demo__bar:not([data-role="gap"])');
-    if (bar) {
-      return barRectFromEl(bar);
-    }
-    const box = slotEl.getBoundingClientRect();
-    const barWidth = parseFloat(
-      (wrap && wrap.style.getPropertyValue('--pigeonhole-bar-width')) || ''
-    );
-    const w = barWidth > 0 ? barWidth : box.width;
-    return {
-      left: box.left + (box.width - w) / 2,
-      top: box.bottom - (wrap ? wrap.querySelector('.pigeonhole-demo__track')?.getBoundingClientRect().height || box.height : box.height),
-      width: w,
-      height: box.height,
-    };
-  }
-
   function cloneHoles(holes) {
     return holes.map(function (hole) {
       return hole.slice();
@@ -363,10 +344,6 @@ window.DemoSort && DemoSort.boot('pigeonhole-sort-demo', function (root) {
     const slot = findOutputSlot(wrap, outputIdx);
     if (!slot) return null;
     return slot.querySelector('.sort-demo__bar:not([data-role="gap"])');
-  }
-
-  function findOutputLanding(wrap, outputIdx) {
-    return outputSlotRect(findOutputSlot(wrap, outputIdx), wrap);
   }
 
   async function flyBarRects(fromRect, toRect, value, scale, role) {
