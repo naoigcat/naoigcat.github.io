@@ -12,9 +12,9 @@ Rubyの`xcode-install` gemでインストール済みのXcodeのバージョン�
 mdfind "kMDItemCFBundleIdentifier == 'com.apple.dt.Xcode'"
 ```
 
-というコマンドを実行しているがSpotlightのインデックスに正しく含まれていないと検索されない。
+というコマンドを実行しているが、Spotlightのインデックスに正しく含まれていないと検索されない。
 
-Xcode.appのパスを指定して下記コマンドを実行した時に`kMDItemCFBundleIdentifier = "com.apple.dt.Xcode"`というレスポンスが得られているのにインストール済みのXcodeのリストに含まれなかった場合は、Spotlightのインデックスが正しく構築されていないことになる。
+Xcode.appのパスを指定して下記コマンドを実行したときに`kMDItemCFBundleIdentifier = "com.apple.dt.Xcode"`というレスポンスが得られているのにインストール済みのXcodeのリストに含まれなかった場合は、Spotlightのインデックスが正しく構築されていないことになる。
 
 ```sh
 mdls -name kMDItemCFBundleIdentifier /Applications/Xcode.app
