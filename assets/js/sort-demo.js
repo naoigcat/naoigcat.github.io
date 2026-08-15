@@ -740,8 +740,9 @@
     let playGeneration = 0;
     let busy = false;
 
+    // Demos reach the animation and shuffle helpers through DemoSort directly,
+    // so `api` only carries what a step callback cannot get on its own.
     const api = {
-      ui: ui,
       barsEl: barsEl,
       mountBars: function (container, vals) {
         DemoSort.mountBars(container, vals, barClass);
@@ -749,12 +750,6 @@
       setCaption: function (t) {
         capEl.textContent = t;
       },
-      wait: DemoSort.wait,
-      shuffleCopy: DemoSort.shuffleCopy,
-      flipSwap: DemoSort.flipSwap,
-      flipAdjacentSwap: DemoSort.flipAdjacentSwap,
-      rebuild: function () {},
-      applyStepForward: function () {},
     };
 
     Object.defineProperty(api, 'values', {
@@ -818,8 +813,6 @@
       syncButtons();
     }
 
-    api.rebuild = rebuild;
-
     async function applyStepForward() {
       if (busy || idx >= steps.length) return;
       busy = true;
@@ -836,8 +829,6 @@
         syncButtons();
       }
     }
-
-    api.applyStepForward = applyStepForward;
 
     ui.shuffle.addEventListener('click', function () {
       const st = { playing: playing, busy: busy };
