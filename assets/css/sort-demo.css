@@ -548,8 +548,6 @@
   #pigeonhole-sort-demo .pigeonhole-demo__hole-label {
     font-size: 0.58rem;
   }
-}
-@media (max-width: 520px) {
   .sort-demo__bars {
     gap: 3px;
     padding-inline: 0.25rem;
