@@ -48,16 +48,12 @@ use std::{
     time::{Duration, Instant},
 };
 
-{%- if max_power_override %}
-const MIN_POWER: u32 = 8;
-const MAX_POWER: u32 = {{ max_power_override }};
-{%- elsif has_quadratic_average %}
-const MIN_POWER: u32 = 8;
-const MAX_POWER: u32 = 15;
-{%- else %}
-const MIN_POWER: u32 = 8;
-const MAX_POWER: u32 = 18;
+{%- if max_power_override %}{% assign max_power = max_power_override %}
+{%- elsif has_quadratic_average %}{% assign max_power = 15 %}
+{%- else %}{% assign max_power = 18 %}
 {%- endif %}
+const MIN_POWER: u32 = 8;
+const MAX_POWER: u32 = {{ max_power }};
 const RUNS: usize = 8192;
 
 {%- if needs_insertion_sort %}
