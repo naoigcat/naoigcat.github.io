@@ -112,9 +112,6 @@
     const backUrl = data.tagsUrl || '/tags/';
 
     if (!indexEntry) {
-      if (pageHeader) pageHeader.hidden = true;
-      listView.hidden = true;
-      filterView.hidden = false;
       filterHeading.textContent = slug;
       postsEl.hidden = true;
       showEmpty(emptyEl, 'タグが見つかりません。', backUrl);
