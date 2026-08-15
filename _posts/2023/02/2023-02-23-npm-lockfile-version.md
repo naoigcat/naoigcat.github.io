@@ -26,7 +26,7 @@ npm version 7では`lockfile-version`に`3`が導入された。より高速に�
 
 `2`は`1`から`3`への移行のために両方の情報を含んだ形式となっていてファイルサイズが大きくなっている。
 
-`package-lock.json`がない、もしくは、`lockfile-version`が`2`以下の場合は`lockfile-version`を`2`のファイルが生成される。
+`package-lock.json`がない、もしくは`lockfile-version`が`2`以下の場合は、`lockfile-version`が`2`のファイルが生成される。
 
 ## [NPM 9ではデフォルト値が3に変更された](https://docs.npmjs.com/cli/v9/using-npm/config#lockfile-version)
 
