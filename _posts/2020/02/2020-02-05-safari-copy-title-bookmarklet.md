@@ -6,7 +6,7 @@ tags:      macos safari bookmarklet
 
 ## Redmineのタイトルをコピーする
 
-Redmineのチケットタイトルをコピーしたい場合BookmarkletでJavaScriptを実行することで実現できる。
+Redmineのチケットタイトルをコピーしたい場合は、BookmarkletでJavaScriptを実行することで実現できる。
 
 ## Safariでクリップボードにコピーする
 
