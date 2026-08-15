@@ -1,12 +1,12 @@
 ---
-title:     VSCodeで使用するPHP拡張機能を使用する
+title:     VSCodeでPHP拡張機能を設定する
 date:      2023-02-13 12:00:47 +0900
 tags:      vscode asdf
 ---
 
 ## 補完機能は標準機能ではなく拡張機能を使用する
 
-VSCodeにはPHPの補完機能が標準でインストールされているが、機能的に優れた拡張[PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)があるためそちらを使用する。
+VSCodeにはPHPの補完機能が標準でインストールされているが、より高機能な[PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)拡張機能があるため、そちらを使用する。
 
 ```sh
 code --install-extension bmewburn.vscode-intelephense-client
