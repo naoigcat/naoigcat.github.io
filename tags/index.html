@@ -25,8 +25,7 @@ permalink: /tags/
   <div id="tags-list-view">
     <ul class="post-list">
       {%- assign sorted_tags = site.tags | sort -%} {%- for tag in sorted_tags
-      -%} {%- assign tag_name = tag[0] -%} {%- assign slug = tag_name |
-      slugify -%}
+      -%} {%- assign tag_name = tag[0] -%}
       <li>
         {% include tags-link.html name=tag_name %}
         <span class="post-meta">({{ tag[1].size }})</span>
