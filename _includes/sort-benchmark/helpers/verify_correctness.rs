@@ -55,7 +55,9 @@ fn run_correctness_checks() {
         "few_keys_len16",
         vec![2, 2, 2, 2, 2, 2, 2, 2, 4, 3, 1, 2, 3, 4, 1, 4],
     );
-    for seed in 0..32 {
+    // Seed 0 is a fixed point of the xorshift below, so it would degenerate into
+    // yet another all-equal case instead of a 4-value mix. Start at 1.
+    for seed in 1..=32 {
         check_correctness_case(
             &format!("few_keys_len32_seed_{seed}"),
             few_unique_values(32, 4, seed),
