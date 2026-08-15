@@ -645,8 +645,11 @@
     textarea.style.top = '-9999px';
     document.body.appendChild(textarea);
     textarea.select();
-    document.execCommand('copy');
+    // execCommand reports failure by returning false rather than throwing, so
+    // callers would otherwise announce a copy that never happened.
+    const copied = document.execCommand('copy');
     document.body.removeChild(textarea);
+    if (!copied) throw new Error('copy command was rejected');
   };
 
   DemoSort.attachBenchmarkCopyButtons = function () {
