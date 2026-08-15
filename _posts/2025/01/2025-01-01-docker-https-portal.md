@@ -1,12 +1,12 @@
 ---
-title:     DockerコンテナでHTTPSでのローカル開発に対応する
+title:     DockerコンテナでHTTPSのローカル開発に対応する
 date:      2025-01-01 18:31:01 +0900
 tags:      docker
 ---
 
-## DockerコンテナでHTTPS対応する
+## DockerコンテナでHTTPSに対応する
 
-ローカル開発時コンテナを一つ追加するだけでHTTPSに対応できる。
+ローカル開発時にコンテナを一つ追加するだけで、HTTPSに対応できる。
 
 ```sh
 grep naoigcat\.github\.test /etc/hosts || echo '127.0.0.1       naoigcat.github.test' | sudo tee -a /etc/hosts
