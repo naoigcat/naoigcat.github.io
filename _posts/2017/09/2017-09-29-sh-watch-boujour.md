@@ -6,7 +6,7 @@ tags:      bash
 
 ## 配信されているサーバーを監視する
 
-LAN内のBonjourで配信されているサーバーを監視する
+LAN内のBonjourで配信されているサーバーを監視する。
 
 ```sh
 dns-sd -B _http._tcp
