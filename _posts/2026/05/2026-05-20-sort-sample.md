@@ -60,14 +60,6 @@ window.DemoSort && DemoSort.boot('sample-sort-demo', function (root) {
     return indices;
   }
 
-  function bucketIndex(x, splitters) {
-    let b = 0;
-    while (b < splitters.length && x > splitters[b]) {
-      b++;
-    }
-    return b;
-  }
-
   function generateSteps(initial) {
     const a = initial.slice();
     const n = a.length;
