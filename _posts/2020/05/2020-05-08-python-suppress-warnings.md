@@ -8,7 +8,7 @@ tags:      python tensorflow
 
 Tensorflowを使用していると`Warning`や`FutureWarning`の警告メッセージが表示されることがある。
 
-開発中は必要なメッセージだが、最終的な成果物としてJupyter Notebookを作成する際には不要なメッセージなため抑制するコードを実行しておく。
+開発中は必要なメッセージだが、最終的な成果物としてJupyter Notebookを作成する際には不要なので、抑制するコードを実行しておく。
 
 ## Warningを抑制する
 
