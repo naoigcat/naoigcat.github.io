@@ -66,8 +66,9 @@ a {
     display: flex;
   }
 
+  // No width here: it would come later in the cascade than the per-column
+  // widths above and flatten the 50/50 and 35/65 splits back to one size.
   .footer-col {
-    width: calc(100% - (#{$spacing-unit} / 2));
     padding: 0 ($spacing-unit / 2);
 
     &:first-child {
