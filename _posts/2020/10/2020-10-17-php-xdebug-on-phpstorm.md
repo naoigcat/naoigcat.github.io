@@ -64,7 +64,7 @@ PhpStormのXDebug設定はプロジェクト毎に保存されるため各プロ
 1.  `Debug port`をPHP-FPMの設定で指定したポート番号に合わせる
 2.  `Ignore external connections through unregistered server configurations`をチェックする
     -   外部からのデバッグ接続がサーバー構成に未登録の構成なら無視する
-3.  `Break at first lien in PHP scripts`をチェックする（設定に問題ないことが確認できてらチェックを外す）
+3.  `Break at first line in PHP scripts`をチェックする（設定に問題ないことが確認できたらチェックを外す）
 
 ### Preferences | Languages & Frameworks | PHP | Servers
 
