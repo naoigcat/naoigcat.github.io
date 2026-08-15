@@ -60,10 +60,9 @@
     emptyEl.hidden = false;
   }
 
+  // Only reached for tags that are not embedded in #tags-data: render() returns
+  // early on those, so there is no embedded entry left to short-circuit on.
   async function loadTag(data, slug) {
-    const embedded = findEmbedded(data, slug);
-    if (embedded) return embedded;
-
     if (tagCache.has(slug)) return tagCache.get(slug);
 
     const base = data.tagsBase || '/assets/tags/';
