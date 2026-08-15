@@ -6,7 +6,7 @@ tags:      ruby google
 
 ## APIで所有権を移す
 
-サービスアカウントを使用してGoogle Drive上に作成したファイルの所有権を移すには同様にサービスアカウントを使用してAPI経由で移す必要がある。
+サービスアカウントでGoogle Drive上に作成したファイルの所有権を移すには、API経由で所有権を移行する必要がある。
 
 ```rb
 require "google_drive"
