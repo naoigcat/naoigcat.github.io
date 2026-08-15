@@ -30,7 +30,7 @@ macOSのOpenSSLは/etc/ssl/cert.pemを使用して認証しており、この証
 
 ## 新しい証明書をダウンロードする
 
-Mozillaから抽出した証明書が [CA certificates extracted from Mozilla](https://curl.se/docs/caextract.html) にアップロードされているためダウンロードして置き換えることでエラーが発生なくなる。
+Mozillaから抽出した証明書が [CA certificates extracted from Mozilla](https://curl.se/docs/caextract.html) にアップロードされているため、ダウンロードして置き換えることでエラーが発生しなくなる。
 
 ```sh
 cd ~/Downloads
