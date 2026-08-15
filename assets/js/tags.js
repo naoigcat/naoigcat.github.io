@@ -153,10 +153,10 @@
       return;
     }
 
-    filterHeading.textContent = tag.name;
-    document.title = tag.name + ' | ' + data.siteTitle;
+    // Heading, title and the empty state were already set from the tag index
+    // before the fetch; the JSON carries the same name, so only the post list
+    // still has to be revealed.
     postsEl.hidden = false;
-    emptyEl.hidden = true;
     renderPosts(postsEl, tag.posts);
   }
 
