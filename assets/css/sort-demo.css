@@ -330,9 +330,9 @@
   box-shadow: 0 0 0 2px rgba(26,188,156,.35), 0 2px 6px rgba(0,0,0,.18);
 }
 #cradix-sort-demo .sort-demo__bar-stack[data-role="write"] {
-  outline: 3px solid #2980b9;
+  outline: 3px solid #00acc1;
   outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(41,128,185,.35), 0 2px 6px rgba(0,0,0,.18);
+  box-shadow: 0 0 0 2px rgba(0,172,193,.35), 0 2px 6px rgba(0,0,0,.18);
 }
 #burst-sort-demo {
   /* scaledBarHeight 非 compact の最大 (28 + 92) + 値ラベル */
