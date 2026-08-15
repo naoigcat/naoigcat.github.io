@@ -53,6 +53,16 @@
   max-width: none;
   min-width: 0;
 }
+/* An empty slot keeps its stack for alignment but must not show or occupy a bar.
+   The demos still carry an inline height on that bar, hence !important. */
+.sort-demo__bar-stack--empty .sort-demo__bar {
+  visibility: hidden;
+  height: 0 !important;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+}
 /* Value label above a bucket demo's bar stack. */
 .sort-demo__bar-value {
   font-size: 0.68rem;
@@ -150,14 +160,6 @@
   border-radius: 6px;
   box-sizing: border-box;
 }
-#radix-sort-demo .sort-demo__bar-stack--empty .sort-demo__bar {
-  visibility: hidden;
-  height: 0 !important;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  box-shadow: none;
-}
 #american-flag-sort-demo .sort-demo__bars {
   min-height: 168px;
 }
@@ -226,10 +228,6 @@
   white-space: nowrap;
   opacity: 0.78;
 }
-#cradix-sort-demo .sort-demo__bar-stack--empty .sort-demo__bar {
-  visibility: hidden;
-  height: 0;
-}
 #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="0"] {
   background: rgba(52, 152, 219, 0.22);
 }
@@ -295,14 +293,6 @@
   align-items: center;
   justify-content: flex-end;
   box-sizing: border-box;
-}
-#burst-sort-demo .sort-demo__bar-stack--empty .sort-demo__bar {
-  visibility: hidden;
-  height: 0 !important;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  box-shadow: none;
 }
 #burst-sort-demo .burst-demo__section {
   display: flex;
@@ -536,13 +526,6 @@
   width: 100%;
   max-width: none;
   box-sizing: border-box;
-}
-#pigeonhole-sort-demo .sort-demo__bar-stack--empty .sort-demo__bar {
-  visibility: hidden;
-  height: 0 !important;
-  min-height: 0;
-  margin: 0;
-  box-shadow: none;
 }
 #pigeonhole-sort-demo .sort-demo__bar-stack .sort-demo__bar {
   width: var(--pigeonhole-bar-width, 100%);
