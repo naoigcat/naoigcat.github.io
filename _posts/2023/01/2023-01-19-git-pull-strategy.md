@@ -75,7 +75,7 @@ gitGraph
 git config pull.rebase true
 ```
 
-ローカルの変更をリベースをしてマージコミットを作成しない。
+ローカルの変更をリベースしてマージコミットを作成しない。
 
 ```mermaid
 gitGraph
