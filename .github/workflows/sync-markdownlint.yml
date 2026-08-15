@@ -64,6 +64,12 @@ jobs:
             exit 1
           fi
           sed -i "s|^markdownlint_cli2_image = \"[^\"]*\"|markdownlint_cli2_image = \"${image}\"|" "$mise_toml"
+          # Without this the sed above is a silent no-op if the key is ever
+          # renamed, and the commit step would report "nothing to commit".
+          if ! grep -qF "markdownlint_cli2_image = \"${image}\"" "$mise_toml"; then
+            echo "::error::markdownlint_cli2_image assignment not found in ${mise_toml}"
+            exit 1
+          fi
 
       - name: Commit and push if changed
         env:
