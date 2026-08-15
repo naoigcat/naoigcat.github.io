@@ -329,7 +329,7 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
     return runEl;
   }
 
-  function mountFlatView(container, values, rangeValues, rolesByIdx) {
+  function mountFlatView(container, values, rangeValues) {
     container.innerHTML = '';
     container.setAttribute('role', 'list');
     container.setAttribute(
@@ -347,9 +347,8 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
     row.className = 'sort-demo-polyphase__flat-row';
     row.setAttribute('role', 'list');
     const scale = valueSpan(rangeValues || values);
-    values.forEach(function (val, i) {
-      const role = rolesByIdx ? rolesByIdx[i] : null;
-      row.appendChild(mkBar(val, scale, role));
+    values.forEach(function (val) {
+      row.appendChild(mkBar(val, scale, null));
     });
     stage.appendChild(spacer);
     stage.appendChild(row);
