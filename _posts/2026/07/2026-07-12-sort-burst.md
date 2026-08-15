@@ -316,53 +316,6 @@ window.DemoSort && DemoSort.boot('burst-sort-demo', function (root) {
     }
   }
 
-  function appendBars(container, values, scale, opts) {
-    const options = opts || {};
-    const compact = options.compact;
-    container.innerHTML = '';
-    if (!values.length) {
-      container.removeAttribute('role');
-      container.removeAttribute('aria-label');
-      return;
-    }
-    container.setAttribute('role', 'list');
-    container.setAttribute('aria-label', options.ariaLabel || '棒グラフ');
-    let i;
-    for (i = 0; i < values.length; i++) {
-      const v = values[i];
-      const stack = document.createElement('div');
-      stack.className = 'sort-demo__bar-stack';
-      stack.setAttribute('role', 'listitem');
-      stack.setAttribute('title', String(v));
-
-      const label = document.createElement('span');
-      label.className = 'sort-demo__bar-value';
-      label.textContent = String(v);
-
-      const bar = document.createElement('div');
-      bar.className = 'sort-demo__bar';
-      bar.style.height = scaledBarHeight(v, scale, compact);
-
-      stack.appendChild(label);
-      stack.appendChild(bar);
-      container.appendChild(stack);
-    }
-    DemoSort.clearRoles(container);
-    if (options.allowHighlight !== false) {
-      if (options.cursorIdx != null && options.cursorIdx >= 0) {
-        DemoSort.assignRoles(container, [[options.cursorIdx, 'cursor']]);
-      }
-      if (options.writeIdx != null && options.writeIdx >= 0) {
-        DemoSort.assignRoles(container, [[options.writeIdx, 'write']]);
-      }
-      if (options.highlightIdx != null && options.highlightIdx >= 0) {
-        DemoSort.assignRoles(container, [
-          [options.highlightIdx, options.highlightRole || 'swap'],
-        ]);
-      }
-    }
-  }
-
   function matchBucketBarWidths(wrap, mainBars) {
     function setBucketBarWidth() {
       const sourceBar = mainBars.querySelector('.sort-demo__bar-stack');
