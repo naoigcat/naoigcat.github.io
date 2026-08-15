@@ -8,7 +8,7 @@ tags:      vscode github-copilot
 
 VSCodeで拡張機能GitHub Copilotをインストールしている場合、コミットメッセージを自動生成することができる。
 
-Gitのコミットメッセージ入力欄の右側あるGenerate Commit Messageをクリックすることで生成できる。
+Gitのコミットメッセージ入力欄の右側にあるGenerate Commit Messageをクリックすることで生成できる。
 
 -   Preferences: Open Keyboard Shortcuts (JSON)で下記のように設定することでショートカットキーで生成できる。
 
