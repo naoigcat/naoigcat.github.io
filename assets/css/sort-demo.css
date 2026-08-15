@@ -46,6 +46,13 @@
   transition: box-shadow 0.15s ease, outline-color 0.15s ease;
   transform: translateX(0);
 }
+/* A stacked bar fills its stack instead of flexing like a standalone bar. */
+.sort-demo__bar-stack .sort-demo__bar {
+  width: 100%;
+  flex: none;
+  max-width: none;
+  min-width: 0;
+}
 /* Value label above a bucket demo's bar stack. */
 .sort-demo__bar-value {
   font-size: 0.68rem;
@@ -151,12 +158,6 @@
   padding: 0;
   box-shadow: none;
 }
-#radix-sort-demo .sort-demo__bar-stack .sort-demo__bar {
-  width: 100%;
-  flex: none;
-  max-width: none;
-  min-width: 0;
-}
 #american-flag-sort-demo .sort-demo__bars {
   min-height: 168px;
 }
@@ -171,12 +172,6 @@
   border-radius: 6px;
   box-sizing: border-box;
   padding: 2px 1px 0;
-}
-#american-flag-sort-demo .sort-demo__bar-stack .sort-demo__bar {
-  width: 100%;
-  flex: none;
-  max-width: none;
-  min-width: 0;
 }
 #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="0"] {
   background: rgba(52, 152, 219, 0.22);
@@ -230,12 +225,6 @@
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
   opacity: 0.78;
-}
-#cradix-sort-demo .sort-demo__bar-stack .sort-demo__bar {
-  width: 100%;
-  flex: none;
-  max-width: none;
-  min-width: 0;
 }
 #cradix-sort-demo .sort-demo__bar-stack--empty .sort-demo__bar {
   visibility: hidden;
@@ -314,12 +303,6 @@
   margin: 0;
   padding: 0;
   box-shadow: none;
-}
-#burst-sort-demo .sort-demo__bar-stack .sort-demo__bar {
-  width: 100%;
-  flex: none;
-  max-width: none;
-  min-width: 0;
 }
 #burst-sort-demo .burst-demo__section {
   display: flex;
