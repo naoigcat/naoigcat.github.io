@@ -1,5 +1,5 @@
 ---
-title:     多段SSHをエラーメッセージ `Killed by signal 1.` を抑制する
+title:     多段SSH切断時のエラーメッセージ `Killed by signal 1.` を抑制する
 date:      2024-02-16 20:55:36 +0900
 tags:      ssh
 ---
@@ -16,7 +16,7 @@ Host target
 
 ## 多段SSHを切断するとエラーメッセージが表示される
 
-上記のようにして多段SSHにしていると切断時にエラーメッセージが表示される。
+上記のように多段SSHを構成すると、切断時にエラーメッセージが表示される。
 
 ```output
 Killed by signal 1.
