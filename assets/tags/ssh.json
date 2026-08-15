@@ -3,7 +3,7 @@
   "slug": "ssh",
   "posts": [
     {
-      "title": "多段SSHをエラーメッセージ `Killed by signal 1.` を抑制する",
+      "title": "多段SSH切断時のエラーメッセージ `Killed by signal 1.` を抑制する",
       "url": "/2024/02/16/ssh-proxy-suppressing-error.html",
       "date": "Feb 16, 2024"
     },
