@@ -22,7 +22,7 @@ If you don't want to include a polyfill, you can use an empty module like this:
 
 ## メッセージ通りに対応することでエラーは解消できる
 
-メッセージ通り、`webpack.mix.js`で
+メッセージに従って、`webpack.mix.js`に次の設定を追加する。
 
 ```js
 const mix = require('laravel-mix');
@@ -35,7 +35,9 @@ mix.webpackConfig({
 });
 ```
 
-として、Polyfillに必要なライブラリをインストールする (`npm install --save-dev buffer`) か、
+Polyfillに必要なライブラリをインストールする (`npm install --save-dev buffer`)。
+
+Polyfillが不要な場合は、次のように無効化する。
 
 ```js
 const mix = require('laravel-mix');
@@ -48,8 +50,8 @@ mix.webpackConfig({
 });
 ```
 
-とすることでエラーは解消される。
+この設定でエラーを解消できる。
 
 ## 根本的にはライブラリ側の依存関係に追加する必要がある
 
-根本的にはライブラリのコードをビルドする時に参照できないことが原因のためライブラリ側の依存関係に追加することでもエラーは解消される。
+根本的には、ライブラリのコードをビルドするときに参照できないことが原因なので、ライブラリ側の依存関係に追加するとエラーを解消できる。
