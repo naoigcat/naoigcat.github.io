@@ -41,7 +41,7 @@ $ ps x | grep pboard
 
 ## 絞り込み結果からさらにgrepコマンドを除外する
 
-さらにパイプでgrepコマンドを繋いでvオプションでgrepコマンド自身を除外することができる。
+さらにパイプでgrepコマンドを繋いで`-v`オプションを指定すると、grepコマンド自身を除外できる。
 
 ```sh
 $ ps x | grep pboard | grep -v grep
