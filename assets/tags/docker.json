@@ -3,7 +3,7 @@
   "slug": "docker",
   "posts": [
     {
-      "title": "DockerコンテナでHTTPSでのローカル開発に対応する",
+      "title": "DockerコンテナでHTTPSのローカル開発に対応する",
       "url": "/2025/01/01/docker-https-portal.html",
       "date": "Jan 1, 2025"
     },
