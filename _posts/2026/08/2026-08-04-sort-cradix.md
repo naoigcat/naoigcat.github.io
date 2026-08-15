@@ -553,9 +553,6 @@ window.DemoSort && DemoSort.boot('cradix-sort-demo', function (root) {
     dataAttr: 'data-cradix',
     initialValues: [540, 123, 381, 917, 275, 634, 458, 182, 726, 364, 509, 241],
     barClass: 'sort-demo__bar',
-    getBarsEl: function (r) {
-      return r.querySelector('[data-cradix="bars"]');
-    },
     generateSteps: generateSteps,
     afterRebuild: function (api) {
       const first = api.steps[0];
