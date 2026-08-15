@@ -6,7 +6,7 @@ tags:      xcode
 
 ## ビルド時にSwiftLintを実行する
 
-1.  SwiftLintをHomebrewを使用してインストールする。
+1.  SwiftLintをHomebrewでインストールする。
 
     ```sh
     brew install swiftlint
