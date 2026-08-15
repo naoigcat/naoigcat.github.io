@@ -10,7 +10,7 @@ tags:      objective-c
 
 ## 補正機能を無効にする
 
-補正機能はプロパティを変更することで無効にする事ができる。
+補正機能はプロパティを変更することで無効にすることができる。
 
 ```objc
 @interface UITextField (Autocorrection)
