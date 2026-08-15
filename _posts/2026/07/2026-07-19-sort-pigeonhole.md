@@ -130,14 +130,11 @@ window.DemoSort && DemoSort.boot('pigeonhole-sort-demo', function (root) {
     return bar;
   }
 
-  function mkHoleBar(value, scale, role) {
+  function mkHoleBar(value, scale) {
     const bar = document.createElement('div');
     bar.className = 'sort-demo__bar';
     bar.style.height = scaledBarHeight(value, scale);
     bar.setAttribute('aria-hidden', 'true');
-    if (role) {
-      bar.setAttribute('data-role', role);
-    }
     return bar;
   }
 
