@@ -162,6 +162,9 @@ proportion_extend:
 proxmap:
   sort_fn: proxmap_sort
 
+quad:
+  sort_fn: quad_sort
+
 quick_hoare:
   sort_fn: quick_hoare_sort
   insertion_sort: true
