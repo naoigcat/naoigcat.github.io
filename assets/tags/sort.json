@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "三点中央値型クイックソートで配列を並び替える",
+      "url": "/2026/08/16/sort-quick-median-of-three.html",
+      "date": "Aug 16, 2026"
+    },
+    {
       "title": "ランダムピボット型クイックソートで配列を並び替える",
       "url": "/2026/08/15/sort-quick-random-pivot.html",
       "date": "Aug 15, 2026"

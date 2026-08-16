@@ -173,6 +173,11 @@ quick_lumoto:
   partition: true
   quick_sort: true
 
+quick_median_of_three:
+  sort_fn: quick_median_of_three_sort
+  insertion_sort: true
+  partition_at: true
+
 quick_random_pivot:
   sort_fn: quick_random_pivot_sort
   insertion_sort: true
