@@ -9,6 +9,7 @@ config="$root/_config.yml"
 whitelist="$(cat <<'EOF'
 404.html
 apple-touch-icon-precomposed.png
+apple-touch-icon.png
 assets
 favicon.ico
 index.md
