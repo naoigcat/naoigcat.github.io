@@ -43,10 +43,59 @@ CARGO
 
 RUN cat > src/main.rs <<'RUST'
 use std::{
+    alloc::{GlobalAlloc, Layout, System},
     env,
     process::Command,
+    sync::atomic::{AtomicUsize, Ordering},
     time::{Duration, Instant},
 };
+
+/// Counts live heap bytes and the high-water mark so auxiliary sort buffers
+/// (swap Vecs, etc.) are measured as explicit heap growth during the sort.
+struct TrackingAllocator;
+
+static LIVE_BYTES: AtomicUsize = AtomicUsize::new(0);
+static PEAK_BYTES: AtomicUsize = AtomicUsize::new(0);
+
+fn record_alloc(size: usize) {
+    let live = LIVE_BYTES.fetch_add(size, Ordering::Relaxed) + size;
+    PEAK_BYTES.fetch_max(live, Ordering::Relaxed);
+}
+
+unsafe impl GlobalAlloc for TrackingAllocator {
+    unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
+        let ptr = System.alloc(layout);
+        if !ptr.is_null() {
+            record_alloc(layout.size());
+        }
+        ptr
+    }
+
+    unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
+        LIVE_BYTES.fetch_sub(layout.size(), Ordering::Relaxed);
+        System.dealloc(ptr, layout);
+    }
+
+    unsafe fn alloc_zeroed(&self, layout: Layout) -> *mut u8 {
+        let ptr = System.alloc_zeroed(layout);
+        if !ptr.is_null() {
+            record_alloc(layout.size());
+        }
+        ptr
+    }
+
+    unsafe fn realloc(&self, ptr: *mut u8, layout: Layout, new_size: usize) -> *mut u8 {
+        let new_ptr = System.realloc(ptr, layout, new_size);
+        if !new_ptr.is_null() {
+            LIVE_BYTES.fetch_sub(layout.size(), Ordering::Relaxed);
+            record_alloc(new_size);
+        }
+        new_ptr
+    }
+}
+
+#[global_allocator]
+static GLOBAL: TrackingAllocator = TrackingAllocator;
 
 {%- if max_power_override %}{% assign max_power = max_power_override %}
 {%- elsif has_quadratic_average %}{% assign max_power = 15 %}
@@ -111,28 +160,6 @@ fn shuffled(size: usize, seed: u64) -> Vec<usize> {
     v
 }
 
-fn memory_usage_kb() -> usize {
-    // VmHWM (peak RSS, KiB). Reported memory subtracts a per-size baseline that only
-    // holds the input array, so the table reflects auxiliary space during sorting.
-    let contents = std::fs::read_to_string("/proc/self/status")
-        .unwrap_or_default();
-
-    for line in contents.lines() {
-        if let Some(rest) = line.strip_prefix("VmHWM:") {
-            let kb = rest
-                .split_whitespace()
-                .next()
-                .unwrap_or("0")
-                .parse::<usize>()
-                .unwrap_or(0);
-
-            return kb;
-        }
-    }
-
-    0
-}
-
 fn micros(d: Duration) -> u128 {
     d.as_micros()
 }
@@ -141,20 +168,20 @@ fn input_array(size: usize, seed: u64) -> Vec<usize> {
     shuffled(size, seed)
 }
 
-fn run_baseline(size: usize) -> usize {
-    let _hold = input_array(size, 1);
-    memory_usage_kb()
-}
-
+/// Peak heap growth during `benchmark_sort`, in KiB (explicit buffers such as swap).
 fn run_once(size: usize, seed: usize) -> (u128, usize) {
     let mut array = input_array(size, seed as u64);
+
+    let base_bytes = LIVE_BYTES.load(Ordering::Relaxed);
+    PEAK_BYTES.store(base_bytes, Ordering::Relaxed);
 
     let start = Instant::now();
 
     benchmark_sort(&mut array);
 
     let elapsed = start.elapsed();
-    let mem = memory_usage_kb();
+    let peak_bytes = PEAK_BYTES.load(Ordering::Relaxed);
+    let aux_kb = peak_bytes.saturating_sub(base_bytes) / 1024;
 
     let expected: Vec<usize> = (1..=size).collect();
     if array != expected {
@@ -165,13 +192,7 @@ fn run_once(size: usize, seed: usize) -> (u128, usize) {
         );
     }
 
-    (micros(elapsed), mem)
-}
-
-fn run_baseline_child(args: &[String]) {
-    let size = args[2].parse::<usize>().expect("invalid size");
-    let mem = run_baseline(size);
-    println!("{}", mem);
+    (micros(elapsed), aux_kb)
 }
 
 fn run_child(args: &[String]) {
@@ -183,10 +204,6 @@ fn run_child(args: &[String]) {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    if args.get(1).is_some_and(|arg| arg == "--baseline-once") {
-        run_baseline_child(&args);
-        return;
-    }
     if args.get(1).is_some_and(|arg| arg == "--run-once") {
         run_child(&args);
         return;
@@ -214,28 +231,6 @@ fn main() {
 
     for power in MIN_POWER..=MAX_POWER {
         let size = 1usize << power;
-
-        let baseline_output = Command::new(env::current_exe().expect("failed to find current executable"))
-            .arg("--baseline-once")
-            .arg(size.to_string())
-            .output()
-            .expect("failed to run benchmark baseline process");
-
-        if !baseline_output.status.success() {
-            panic!(
-                "benchmark baseline process failed: {}",
-                String::from_utf8_lossy(&baseline_output.stderr)
-            );
-        }
-
-        let baseline_stdout = String::from_utf8(baseline_output.stdout)
-            .expect("baseline process returned non-UTF-8 output");
-        let baseline_mem = baseline_stdout
-            .split_whitespace()
-            .next()
-            .expect("missing baseline memory usage")
-            .parse::<usize>()
-            .expect("invalid baseline memory usage");
 
         let mut total_time: u128 = 0;
         let mut max_time: u128 = 0;
@@ -266,7 +261,7 @@ fn main() {
                 .expect("missing elapsed time")
                 .parse::<u128>()
                 .expect("invalid elapsed time");
-            let mem = fields
+            let aux_mem = fields
                 .next()
                 .expect("missing memory usage")
                 .parse::<usize>()
@@ -277,8 +272,6 @@ fn main() {
             if elapsed_us > max_time {
                 max_time = elapsed_us;
             }
-
-            let aux_mem = mem.saturating_sub(baseline_mem);
 
             total_mem += aux_mem;
 
