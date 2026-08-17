@@ -1,13 +1,13 @@
 ---
-title:     パターン撃退クイックソートで配列を並び替える
+title:     パターン撃退型クイックソートで配列を並び替える
 date:      2026-07-27 12:03:02 +0900
 tags:      sort
 sort_demo: true
 ---
 
-## パターン撃退クイックソートを使用する
+## パターン撃退型クイックソートを使用する
 
-パターン撃退クイックソート (`pattern-defeating quicksort`) は、[イントロソート](/2026/05/07/sort-intro.html)を拡張したハイブリッドな比較ソートである。
+パターン撃退型クイックソート (`pattern-defeating quicksort`) は、[イントロソート](/2026/05/07/sort-intro.html)を拡張したハイブリッドな比較ソートである。
 
 Rust の標準ライブラリや Go 1.19 以降の `sort` パッケージなどでも採用されている。
 
@@ -454,7 +454,7 @@ window.DemoSort && DemoSort.boot('pattern-defeating-quick-sort-demo', function (
     dataAttr: 'data-pattern-defeating-quick',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
-      'パターン撃退クイックソートのデモ（不均衡検知・等値分割・ヒープ切替を可視化）',
+      'パターン撃退型クイックソートのデモ（不均衡検知・等値分割・ヒープ切替を可視化）',
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
@@ -559,7 +559,7 @@ window.DemoSort && DemoSort.boot('pattern-defeating-quick-sort-demo', function (
 ## 類似アルゴリズムとの相違点
 
 [イントロソート](/2026/05/07/sort-intro.html)は再帰深度の上限でヒープソートへ切り替えるのに対し、
-パターン撃退クイックソートは「分割の偏り」を数え、加えて等値の片寄せや部分挿入による早期終了、
+パターン撃退型クイックソートは「分割の偏り」を数え、加えて等値の片寄せや部分挿入による早期終了、
 不均衡時の候補シャッフルで悪パターン自体を崩す。
 
 [デュアルピボットクイックソート](/2026/07/26/sort-dual-pivot-quick.html)は 1 回の走査で 3 分割する単一アルゴリズムの改良だが、
