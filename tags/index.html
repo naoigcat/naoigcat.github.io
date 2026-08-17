@@ -57,9 +57,9 @@ permalink: /tags/
 
 <script type="application/json" id="tags-data">
 {
-  "siteTitle": {{ site.title | jsonify }},
-  "tagsUrl": {{ '/tags/' | relative_url | jsonify }},
-  "tagsBase": {{ '/assets/tags/' | relative_url | jsonify }},
+  "siteTitle": {{ site.title | jsonify | replace: '<', '\u003c' }},
+  "tagsUrl": {{ '/tags/' | relative_url | jsonify | replace: '<', '\u003c' }},
+  "tagsBase": {{ '/assets/tags/' | relative_url | jsonify | replace: '<', '\u003c' }},
   "embeddedTags": [
     {%- assign sorted_tags = site.tags | sort -%}
     {%- assign embed_first = true -%}
@@ -78,8 +78,8 @@ permalink: /tags/
     {%- assign tag_name = tag[0] -%}
     {%- assign slug = tag_name | slugify -%}
     {
-      "name": {{ tag_name | jsonify }},
-      "slug": {{ slug | jsonify }},
+      "name": {{ tag_name | jsonify | replace: '<', '\u003c' }},
+      "slug": {{ slug | jsonify | replace: '<', '\u003c' }},
       "count": {{ tag[1].size }}
     }{%- unless forloop.last -%},{%- endunless -%}
     {%- endfor -%}
