@@ -83,6 +83,10 @@ flash:
   sort_fn: flash_sort
   insertion_sort: true
 
+flux:
+  sort_fn: flux_sort
+  insertion_sort: true
+
 ford_johnson:
   sort_fn: ford_johnson
   quadratic_average: true
