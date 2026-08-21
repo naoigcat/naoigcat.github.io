@@ -105,6 +105,10 @@ gnome:
 grail:
   sort_fn: grail_sort
 
+gravity:
+  sort_fn: gravity_sort
+  quadratic_average: true
+
 heap:
   sort_fn: heap_sort
   heap_sort: true

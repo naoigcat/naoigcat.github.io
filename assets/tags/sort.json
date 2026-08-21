@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "ビーズソートで配列を並び替える",
+      "url": "/2026/08/22/sort-gravity.html",
+      "date": "Aug 22, 2026"
+    },
+    {
       "title": "フラックスソートで配列を並び替える",
       "url": "/2026/08/18/sort-flux.html",
       "date": "Aug 18, 2026"
