@@ -762,7 +762,7 @@ window.DemoSort && DemoSort.boot('burst-sort-demo', function (root) {
     initialCaption:
       '挿入フェーズ: 各値をバケットへ入れます（閾値 ' +
       BURST_THRESHOLD +
-      '）。「1ステップ」で開始',
+      '）。「ステップ」で開始',
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     rebuild: function (api) {
@@ -778,7 +778,7 @@ window.DemoSort && DemoSort.boot('burst-sort-demo', function (root) {
       api.setCaption(
         '挿入フェーズ: 各値をバケットへ入れます（閾値 ' +
           BURST_THRESHOLD +
-          '）。「1ステップ」で開始'
+          '）。「ステップ」で開始'
       );
     },
     applyStep: async function (api, s) {
