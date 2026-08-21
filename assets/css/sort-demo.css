@@ -1425,3 +1425,192 @@
     background: rgba(255, 255, 255, 0.03);
   }
 }
+
+/* Conceptual gravity / bead-sort abacus illustration */
+.gravity-bead-demo {
+  margin: 1.25rem 0;
+  padding: 1rem;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  border-radius: 8px;
+  background: var(--sort-demo-background, #f9f9f9);
+}
+.gravity-bead-demo__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+.gravity-bead-demo__toolbar button {
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+.gravity-bead-demo__toolbar button:hover {
+  border-color: rgba(0, 0, 0, 0.45);
+}
+.gravity-bead-demo__toolbar button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.gravity-bead-demo__caption {
+  margin: 0 0 0.75rem;
+  min-height: 2.6em;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #444;
+}
+.gravity-bead-demo__stage {
+  --bead-size: 22px;
+  --rod-gap: 18px;
+  --level-gap: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: var(--rod-gap);
+  min-height: calc(4 * (var(--bead-size) + var(--level-gap)) + 2.5rem);
+  padding: 0.75rem 0.5rem 0.35rem;
+  overflow: hidden;
+}
+.gravity-bead-demo__rod {
+  position: relative;
+  width: var(--bead-size);
+  height: calc(4 * (var(--bead-size) + var(--level-gap)));
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(120, 120, 120, 0.18),
+    rgba(120, 120, 120, 0.08) 45%,
+    rgba(120, 120, 120, 0.22)
+  );
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+.gravity-bead-demo__rod-label {
+  position: absolute;
+  left: 50%;
+  bottom: -1.35rem;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #666;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.gravity-bead-demo__bead {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--bead-size);
+  height: var(--bead-size);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 32% 28%,
+    #7ec8ff 0%,
+    #2f80ed 55%,
+    #1b4f9c 100%
+  );
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.22),
+    inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  opacity: 0;
+  transform: translateY(var(--from-y, -120%));
+  transition:
+    transform 0.55s cubic-bezier(0.22, 0.82, 0.28, 1),
+    opacity 0.25s ease;
+  pointer-events: none;
+}
+.gravity-bead-demo__bead.is-visible {
+  opacity: 1;
+}
+.gravity-bead-demo__bead.is-fallen {
+  transform: translateY(var(--to-y, 0));
+}
+.gravity-bead-demo__bead.is-highlight {
+  background: radial-gradient(
+    circle at 32% 28%,
+    #ffe29a 0%,
+    #f0a202 55%,
+    #b36b00 100%
+  );
+  box-shadow:
+    0 0 0 2px rgba(240, 162, 2, 0.45),
+    0 1px 2px rgba(0, 0, 0, 0.22),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+.gravity-bead-demo__level-tags {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  gap: var(--level-gap);
+  min-width: 3.25rem;
+  height: calc(4 * (var(--bead-size) + var(--level-gap)));
+  padding-bottom: 0;
+  margin-left: 0.35rem;
+  box-sizing: border-box;
+}
+.gravity-bead-demo__level-tag {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: var(--bead-size);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: transparent;
+  transition: color 0.2s ease;
+}
+.gravity-bead-demo__level-tag.is-on {
+  color: #b36b00;
+  font-weight: 600;
+}
+.gravity-bead-demo__result {
+  margin: 1.1rem 0 0;
+  min-height: 1.4em;
+  text-align: center;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  color: #333;
+}
+.gravity-bead-demo__result strong {
+  font-weight: 600;
+}
+@media (max-width: 520px) {
+  .gravity-bead-demo__stage {
+    --bead-size: 18px;
+    --rod-gap: 12px;
+    --level-gap: 8px;
+  }
+  .gravity-bead-demo__level-tags {
+    min-width: 2.6rem;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .gravity-bead-demo__caption {
+    color: #ccc;
+  }
+  .gravity-bead-demo__rod-label {
+    color: #aaa;
+  }
+  .gravity-bead-demo__result {
+    color: #e0e0e0;
+  }
+  .gravity-bead-demo__level-tag.is-on {
+    color: #ffc857;
+  }
+  .gravity-bead-demo__rod {
+    background: linear-gradient(
+      90deg,
+      rgba(200, 200, 200, 0.16),
+      rgba(200, 200, 200, 0.06) 45%,
+      rgba(200, 200, 200, 0.2)
+    );
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gravity-bead-demo__bead {
+    transition: none;
+  }
+}
