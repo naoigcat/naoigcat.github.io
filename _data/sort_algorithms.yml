@@ -67,6 +67,10 @@ counting:
 cradix:
   sort_fn: cradix_sort
 
+crum:
+  sort_fn: crum_sort
+  insertion_sort: true
+
 cycle:
   sort_fn: cycle_sort
   quadratic_average: true
