@@ -162,6 +162,10 @@ pigeonhole:
 polyphase_merge:
   sort_fn: polyphase_merge_sort
 
+postman:
+  sort_fn: postman_sort
+  insertion_sort: true
+
 power:
   sort_fn: power_sort
   insertion_sort: true

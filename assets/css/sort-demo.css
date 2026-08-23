@@ -539,6 +539,138 @@
   max-width: none;
   min-width: var(--pigeonhole-bar-width, 28px);
 }
+#postman-sort-demo {
+  /* Bar width is shared. Gaps stay narrower than the bar; lower is tighter. */
+  --postman-bar-max-height: 120px;
+  --postman-bar-width: 36px;
+  --postman-array-gap: 0px;
+  --postman-bucket-gap: 4px;
+  --postman-bucket-bar-gap: 4px;
+}
+#postman-sort-demo .sort-demo__bars {
+  display: block;
+  width: 100%;
+  min-height: auto;
+  padding: 0.35rem 0;
+  overflow: visible;
+  box-sizing: border-box;
+}
+#postman-sort-demo .postman-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+#postman-sort-demo .postman-demo__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+#postman-sort-demo .postman-demo__section-label {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+}
+#postman-sort-demo .postman-demo__track {
+  display: flex;
+  flex-wrap: nowrap;
+  /* Fill the row so side margins stay small; spacing stays below bar width. */
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--postman-array-gap);
+  width: 100%;
+  min-height: calc(var(--postman-bar-max-height) + 1.35rem);
+  padding: 0;
+  overflow: visible;
+  box-sizing: border-box;
+}
+#postman-sort-demo .postman-demo__buckets {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: var(--postman-bucket-gap);
+  width: 100%;
+  min-height: calc(var(--postman-bar-max-height) + 1.1rem);
+  padding: 0.3rem 0.25rem 0.2rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  border: 1px dashed rgba(52, 152, 219, 0.45);
+  border-radius: 6px;
+  background: rgba(52, 152, 219, 0.06);
+  box-sizing: border-box;
+}
+#postman-sort-demo .postman-demo__bucket {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 0;
+  flex: none;
+  width: auto;
+  min-width: var(--postman-bar-width);
+  padding: 0.1rem 0 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+#postman-sort-demo .postman-demo__bucket--active {
+  background: rgba(52, 152, 219, 0.14);
+  outline: 1px solid rgba(52, 152, 219, 0.45);
+}
+#postman-sort-demo .postman-demo__bucket-label {
+  flex: none;
+  order: 2;
+  padding-top: 0.15rem;
+  font-size: 0.58rem;
+  line-height: 1.1;
+  color: rgba(0, 0, 0, 0.55);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: center;
+}
+#postman-sort-demo .postman-demo__bucket-stack {
+  order: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--postman-bucket-bar-gap);
+  width: auto;
+  min-width: var(--postman-bar-width);
+  height: var(--postman-bar-max-height);
+  min-height: var(--postman-bar-max-height);
+  max-height: var(--postman-bar-max-height);
+  box-sizing: border-box;
+}
+#postman-sort-demo .sort-demo__bar-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex: none;
+  width: var(--postman-bar-width);
+  min-width: var(--postman-bar-width);
+  max-width: var(--postman-bar-width);
+}
+#postman-sort-demo .sort-demo__bar-stack .sort-demo__bar {
+  width: var(--postman-bar-width);
+  flex: none;
+  max-width: none;
+  min-width: var(--postman-bar-width);
+}
+#postman-sort-demo .sort-demo__bar-value {
+  font-size: 0.62rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+#postman-sort-demo .postman-demo__bucket-stack .sort-demo__bar {
+  width: var(--postman-bar-width);
+  flex: none;
+  max-width: none;
+  min-width: var(--postman-bar-width);
+}
 @media (max-width: 520px) {
   #pigeonhole-sort-demo .pigeonhole-demo__track,
   #pigeonhole-sort-demo .pigeonhole-demo__holes {
@@ -547,6 +679,15 @@
   #pigeonhole-sort-demo .sort-demo__bar-value,
   #pigeonhole-sort-demo .pigeonhole-demo__hole-label {
     font-size: 0.58rem;
+  }
+  #postman-sort-demo {
+    --postman-bar-width: 26px;
+    --postman-bucket-gap: 3px;
+    --postman-bucket-bar-gap: 3px;
+  }
+  #postman-sort-demo .sort-demo__bar-value,
+  #postman-sort-demo .postman-demo__bucket-label {
+    font-size: 0.55rem;
   }
   .sort-demo__bars {
     gap: 3px;
@@ -876,6 +1017,20 @@
     outline-color: rgba(26, 188, 156, 0.55);
   }
   #pigeonhole-sort-demo .pigeonhole-demo__hole-label {
+    color: rgba(255, 255, 255, 0.62);
+  }
+  #postman-sort-demo .postman-demo__section-label {
+    color: #aaa;
+  }
+  #postman-sort-demo .postman-demo__buckets {
+    border-color: rgba(52, 152, 219, 0.45);
+    background: rgba(52, 152, 219, 0.12);
+  }
+  #postman-sort-demo .postman-demo__bucket--active {
+    background: rgba(52, 152, 219, 0.22);
+    outline-color: rgba(52, 152, 219, 0.55);
+  }
+  #postman-sort-demo .postman-demo__bucket-label {
     color: rgba(255, 255, 255, 0.62);
   }
 }
