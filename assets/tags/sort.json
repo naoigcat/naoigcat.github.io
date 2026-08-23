@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "ポストマンソートで配列を並び替える",
+      "url": "/2026/08/24/sort-postman.html",
+      "date": "Aug 24, 2026"
+    },
+    {
       "title": "クラムソートで配列を並び替える",
       "url": "/2026/08/23/sort-crum.html",
       "date": "Aug 23, 2026"
