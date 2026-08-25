@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "敗者木ソートで配列を並び替える",
+      "url": "/2026/08/26/sort-loser-tree.html",
+      "date": "Aug 26, 2026"
+    },
+    {
       "title": "ポストマンソートで配列を並び替える",
       "url": "/2026/08/24/sort-postman.html",
       "date": "Aug 24, 2026"
