@@ -135,6 +135,9 @@ kota:
 library:
   sort_fn: library_sort
 
+loser_tree:
+  sort_fn: loser_tree_sort
+
 merge:
   sort_fn: merge_sort
 
