@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "ビンゴソートで配列を並び替える",
+      "url": "/2026/08/27/sort-bingo.html",
+      "date": "Aug 27, 2026"
+    },
+    {
       "title": "敗者木ソートで配列を並び替える",
       "url": "/2026/08/26/sort-loser-tree.html",
       "date": "Aug 26, 2026"
