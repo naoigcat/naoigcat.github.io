@@ -26,6 +26,10 @@ binary_quick:
   sort_fn: binary_quick_sort
   insertion_sort: true
 
+bingo:
+  sort_fn: bingo_sort
+  quadratic_average: true
+
 binomial_heap:
   sort_fn: binomial_heap_sort
 
