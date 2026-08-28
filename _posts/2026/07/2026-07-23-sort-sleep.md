@@ -174,7 +174,7 @@ window.DemoSort && DemoSort.boot('sleep-sort-demo', function (root) {
 
 |       Size |    Average time |    Maximum time |  Average memory |  Maximum memory |
 |-----------:|----------------:|----------------:|----------------:|----------------:|
-|        256 |        0.034583 |        0.062741 |            2415 |            2580 |
+|        256 |        0.031983 |        0.043134 |              62 |              64 |
 
 <!-- sort-benchmark-result:end -->
 
