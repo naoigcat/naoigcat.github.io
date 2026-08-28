@@ -307,5 +307,8 @@ unshuffle:
 van_emde_boas:
   sort_fn: van_emde_boas_sort
 
+weak_heap:
+  sort_fn: weak_heap_sort
+
 wiki:
   sort_fn: wiki_sort
