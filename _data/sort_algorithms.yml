@@ -155,6 +155,9 @@ pancake:
   sort_fn: pancake_sort
   quadratic_average: true
 
+pairing_heap:
+  sort_fn: pairing_heap_sort
+
 patience:
   sort_fn: patience_sort
 
