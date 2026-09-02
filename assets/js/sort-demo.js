@@ -341,6 +341,7 @@
    * @param {Array<object>|null} roots
    * @param {object} [options]
    * @param {string|number} [options.activeId]
+   * @param {Array<string|number>} [options.activeIds]
    * @param {string} [options.ariaLabel]
    * @param {function(object):string} [options.nodeLabel]
    */
@@ -367,6 +368,16 @@
     const positions = new Map();
     let maxDepth = 0;
     const allNodes = [];
+    let activeIds = null;
+    if (config.activeIds && config.activeIds.length) {
+      activeIds = new Set(
+        config.activeIds.map(function (id) {
+          return String(id);
+        })
+      );
+    } else if (config.activeId != null) {
+      activeIds = new Set([String(config.activeId)]);
+    }
 
     function measure(node) {
       if (!node) return 0;
@@ -449,7 +460,7 @@
       const g = svgElement('g');
       const id = node.id;
       const isActive =
-        config.activeId != null && String(id) === String(config.activeId);
+        activeIds != null && id != null && activeIds.has(String(id));
       g.setAttribute(
         'class',
         'sort-demo__tree-node' +
