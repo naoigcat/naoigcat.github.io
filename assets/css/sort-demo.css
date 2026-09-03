@@ -82,7 +82,7 @@
 }
 .sort-demo__tree-canvas {
   min-height: 82px;
-  overflow-x: auto;
+  overflow-x: hidden;
   padding: 0.35rem;
   border: 1px dashed rgba(52,152,219,.42);
   border-radius: 6px;
@@ -100,6 +100,8 @@
 .sort-demo__tree-svg {
   display: block;
   margin: 0 auto;
+  max-width: 100%;
+  height: auto;
 }
 .sort-demo__tree-edge {
   stroke: rgba(52,73,94,.52);

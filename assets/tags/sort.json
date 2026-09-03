@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "左傾ヒープソートで配列を並び替える",
+      "url": "/2026/09/04/sort-leftist-heap.html",
+      "date": "Sep 4, 2026"
+    },
+    {
       "title": "ペアリングヒープソートで配列を並び替える",
       "url": "/2026/09/03/sort-pairing-heap.html",
       "date": "Sep 3, 2026"
