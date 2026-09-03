@@ -136,6 +136,9 @@ intro:
 kota:
   sort_fn: kota_sort
 
+leftist_heap:
+  sort_fn: leftist_heap_sort
+
 library:
   sort_fn: library_sort
 
