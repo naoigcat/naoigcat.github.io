@@ -87,6 +87,9 @@ exchange:
   sort_fn: exchange_sort
   quadratic_average: true
 
+fibonacci_heap:
+  sort_fn: fibonacci_heap_sort
+
 flash:
   sort_fn: flash_sort
   insertion_sort: true
