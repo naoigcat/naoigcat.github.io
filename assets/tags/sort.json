@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "フィボナッチヒープソートで配列を並び替える",
+      "url": "/2026/09/05/sort-fibonacci-heap.html",
+      "date": "Sep 5, 2026"
+    },
+    {
       "title": "左傾ヒープソートで配列を並び替える",
       "url": "/2026/09/04/sort-leftist-heap.html",
       "date": "Sep 4, 2026"
