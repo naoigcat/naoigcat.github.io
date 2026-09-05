@@ -168,7 +168,9 @@ fn input_array(size: usize, seed: u64) -> Vec<usize> {
     shuffled(size, seed)
 }
 
-/// Peak heap growth during `benchmark_sort`, in KiB (explicit buffers such as swap).
+/// Peak heap growth during `benchmark_sort`, in bytes (explicit buffers such as swap).
+/// Kept in bytes so the parent can average before rounding; converting to KiB here
+/// would truncate sub-KiB buffers to 0 in every run and hide them from the average.
 fn run_once(size: usize, seed: usize) -> (u128, usize) {
     let mut array = input_array(size, seed as u64);
 
@@ -181,7 +183,7 @@ fn run_once(size: usize, seed: usize) -> (u128, usize) {
 
     let elapsed = start.elapsed();
     let peak_bytes = PEAK_BYTES.load(Ordering::Relaxed);
-    let aux_kb = peak_bytes.saturating_sub(base_bytes) / 1024;
+    let aux_bytes = peak_bytes.saturating_sub(base_bytes);
 
     let expected: Vec<usize> = (1..=size).collect();
     if array != expected {
@@ -192,7 +194,7 @@ fn run_once(size: usize, seed: usize) -> (u128, usize) {
         );
     }
 
-    (micros(elapsed), aux_kb)
+    (micros(elapsed), aux_bytes)
 }
 
 fn run_child(args: &[String]) {
@@ -281,15 +283,17 @@ fn main() {
         }
 
         let avg_time = total_time / RUNS as u128;
-        let avg_mem = total_mem / RUNS;
+        // Memory is summed in bytes and converted to KiB once, after averaging.
+        let avg_mem_kb = total_mem / RUNS / 1024;
+        let max_mem_kb = max_mem / 1024;
 
         println!(
             "| {:>10} | {:>15} | {:>15} | {:>15} | {:>15} |",
             size,
             format!("{}.{:06}", avg_time / 1_000_000, avg_time % 1_000_000),
             format!("{}.{:06}", max_time / 1_000_000, max_time % 1_000_000),
-            avg_mem,
-            max_mem
+            avg_mem_kb,
+            max_mem_kb
         );
     }
 }

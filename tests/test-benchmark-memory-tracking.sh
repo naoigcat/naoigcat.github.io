@@ -33,4 +33,16 @@ if ! grep -qF 'peak_bytes.saturating_sub(base_bytes)' "$bench"; then
   exit 1
 fi
 
+# The child must hand back raw bytes: rounding to KiB per run truncates sub-KiB
+# buffers to 0 before the parent averages them, so the average can never show them.
+if grep -qE 'saturating_sub\(base_bytes\)[[:space:]]*/[[:space:]]*1024' "$bench"; then
+  echo "$bench rounds auxiliary memory to KiB per child run; sum bytes and convert once after averaging" >&2
+  exit 1
+fi
+
+if ! grep -qE 'total_mem[[:space:]]*/[[:space:]]*RUNS[[:space:]]*/[[:space:]]*1024' "$bench"; then
+  echo "$bench must convert the averaged auxiliary memory (total_mem / RUNS) to KiB only for display" >&2
+  exit 1
+fi
+
 echo "ok: sort-benchmark measures auxiliary memory via allocation peak tracking"
