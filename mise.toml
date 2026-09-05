@@ -12,7 +12,7 @@ container_id="$(docker run --rm --init \
   -v "$PWD:/src/site" \
   -p 127.0.0.1::4000 \
   "{{vars.github_pages_image}}" \
-  jekyll serve -w --force_polling -H 0.0.0.0 -P 4000)" \
+  jekyll serve --future -w --force_polling -H 0.0.0.0 -P 4000)" \
   || { print -r 'Failed to start container' >&2; exit 1 }
 [[ -n $container_id ]] || { print -r 'Failed to get container ID' >&2; exit 1 }
 

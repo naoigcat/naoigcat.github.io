@@ -43,11 +43,13 @@ markdown: false
 LIQUID
 
 site_out="$workdir/_site"
+# GitHub Pages builds with `future: true`, so future-dated posts are live there;
+# match it, or their tags silently vanish from (or get deleted under) assets/tags.
 docker run --rm \
   --user "$(id -u):$(id -g)" \
   -v "$workdir:/work" \
   "$pages_image" \
-  jekyll build -s /work -d /work/_site >/dev/null
+  jekyll build --future -s /work -d /work/_site >/dev/null
 
 python3 - "$site_out/export-all-tags.html" "$out_dir" <<'PY'
 import json
