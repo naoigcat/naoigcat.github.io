@@ -63,4 +63,14 @@ fn run_correctness_checks() {
             few_unique_values(32, 4, seed),
         );
     }
+    // Small-input cutoffs (insertion sort below 32 elements, etc.) hide duplicate-key
+    // bugs in the recursive path, so repeat the duplicate cases at the smallest
+    // benchmark size, which every algorithm must handle within reasonable time.
+    check_correctness_case("all_equal_len256", vec![7; 256]);
+    for seed in 1..=4 {
+        check_correctness_case(
+            &format!("few_keys_len256_seed_{seed}"),
+            few_unique_values(256, 4, seed),
+        );
+    }
 }
