@@ -11,6 +11,12 @@ fn sample_sort(a: &mut [usize]) {
         .map(|i| a[i])
         .collect();
     quick_sort(&mut splitters);
+    // A single distinct splitter sends every element to bucket 0, so recursing would
+    // never shrink the input (33+ equal keys); finish such a run with quick sort.
+    if splitters.first() == splitters.last() {
+        quick_sort(a);
+        return;
+    }
     let mut buckets = vec![Vec::new(); splitters.len() + 1];
     for &value in a.iter() {
         let bucket = splitters.partition_point(|&splitter| value > splitter);
