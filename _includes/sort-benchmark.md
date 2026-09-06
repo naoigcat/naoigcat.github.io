@@ -46,7 +46,7 @@ use std::{
     alloc::{GlobalAlloc, Layout, System},
     env,
     process::Command,
-    sync::atomic::{AtomicUsize, Ordering},
+    sync::atomic::{AtomicUsize, Ordering as AtomicOrdering},
     time::{Duration, Instant},
 };
 
@@ -58,8 +58,8 @@ static LIVE_BYTES: AtomicUsize = AtomicUsize::new(0);
 static PEAK_BYTES: AtomicUsize = AtomicUsize::new(0);
 
 fn record_alloc(size: usize) {
-    let live = LIVE_BYTES.fetch_add(size, Ordering::Relaxed) + size;
-    PEAK_BYTES.fetch_max(live, Ordering::Relaxed);
+    let live = LIVE_BYTES.fetch_add(size, AtomicOrdering::Relaxed) + size;
+    PEAK_BYTES.fetch_max(live, AtomicOrdering::Relaxed);
 }
 
 unsafe impl GlobalAlloc for TrackingAllocator {
@@ -72,7 +72,7 @@ unsafe impl GlobalAlloc for TrackingAllocator {
     }
 
     unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
-        LIVE_BYTES.fetch_sub(layout.size(), Ordering::Relaxed);
+        LIVE_BYTES.fetch_sub(layout.size(), AtomicOrdering::Relaxed);
         System.dealloc(ptr, layout);
     }
 
@@ -87,7 +87,7 @@ unsafe impl GlobalAlloc for TrackingAllocator {
     unsafe fn realloc(&self, ptr: *mut u8, layout: Layout, new_size: usize) -> *mut u8 {
         let new_ptr = System.realloc(ptr, layout, new_size);
         if !new_ptr.is_null() {
-            LIVE_BYTES.fetch_sub(layout.size(), Ordering::Relaxed);
+            LIVE_BYTES.fetch_sub(layout.size(), AtomicOrdering::Relaxed);
             record_alloc(new_size);
         }
         new_ptr
@@ -174,15 +174,15 @@ fn input_array(size: usize, seed: u64) -> Vec<usize> {
 fn run_once(size: usize, seed: usize) -> (u128, usize) {
     let mut array = input_array(size, seed as u64);
 
-    let base_bytes = LIVE_BYTES.load(Ordering::Relaxed);
-    PEAK_BYTES.store(base_bytes, Ordering::Relaxed);
+    let base_bytes = LIVE_BYTES.load(AtomicOrdering::Relaxed);
+    PEAK_BYTES.store(base_bytes, AtomicOrdering::Relaxed);
 
     let start = Instant::now();
 
     benchmark_sort(&mut array);
 
     let elapsed = start.elapsed();
-    let peak_bytes = PEAK_BYTES.load(Ordering::Relaxed);
+    let peak_bytes = PEAK_BYTES.load(AtomicOrdering::Relaxed);
     let aux_bytes = peak_bytes.saturating_sub(base_bytes);
 
     let expected: Vec<usize> = (1..=size).collect();
