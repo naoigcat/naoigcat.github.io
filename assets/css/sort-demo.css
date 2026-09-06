@@ -148,6 +148,27 @@
 #binomial-heap-sort-demo .sort-demo__bar::after {
   content: attr(title);
 }
+#multi-key-quick-sort-demo .sort-demo__bars {
+  min-height: 168px;
+  padding-top: 1.1rem;
+}
+#multi-key-quick-sort-demo .sort-demo__bar {
+  position: relative;
+  color: rgba(0, 0, 0, 0.82);
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+#multi-key-quick-sort-demo .sort-demo__bar::after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  margin-bottom: 3px;
+  white-space: nowrap;
+}
 #radix-sort-demo .sort-demo__bars {
   min-height: 168px;
 }
@@ -892,6 +913,9 @@
     fill: rgba(25,118,210,.34);
   }
   #binomial-heap-sort-demo .sort-demo__bar {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  #multi-key-quick-sort-demo .sort-demo__bar {
     color: rgba(255, 255, 255, 0.9);
   }
   #van-emde-boas-sort-demo .veb-demo__meta {
