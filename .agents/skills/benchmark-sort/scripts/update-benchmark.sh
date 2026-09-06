@@ -48,7 +48,7 @@ list_targets() {
       printf '%s\n' "$algo"
     fi
   done < <(
-    rg -o 'algorithm="[^"]+"' "$root/_posts" --no-heading 2>/dev/null \
+    rg -o --no-filename 'algorithm="[^"]+"' "$root/_posts" 2>/dev/null \
       | sed 's/algorithm="//;s/"//' \
       | sort -u
   )
