@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "マルチキークイックソートで配列を並び替える",
+      "url": "/2026/09/07/sort-multi-key-quick.html",
+      "date": "Sep 7, 2026"
+    },
+    {
       "title": "置換選択ソートで配列を並び替える",
       "url": "/2026/09/06/sort-replacement-selection.html",
       "date": "Sep 6, 2026"

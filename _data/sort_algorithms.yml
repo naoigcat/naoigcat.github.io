@@ -151,6 +151,10 @@ loser_tree:
 merge:
   sort_fn: merge_sort
 
+multi_key_quick:
+  sort_fn: multi_key_quick_sort
+  insertion_sort: true
+
 natural_merge:
   sort_fn: natural_merge_sort
 
