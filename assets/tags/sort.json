@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "置換選択ソートで配列を並び替える",
+      "url": "/2026/09/06/sort-replacement-selection.html",
+      "date": "Sep 6, 2026"
+    },
+    {
       "title": "フィボナッチヒープソートで配列を並び替える",
       "url": "/2026/09/05/sort-fibonacci-heap.html",
       "date": "Sep 5, 2026"
