@@ -36,6 +36,10 @@ binomial_heap:
 bitonic:
   sort_fn: bitonic_sort
 
+blit:
+  sort_fn: blit_sort
+  insertion_sort: true
+
 brick:
   sort_fn: brick_sort
   quadratic_average: true
