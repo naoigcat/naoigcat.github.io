@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "ブリットソートで配列を並び替える",
+      "url": "/2026/09/08/sort-blit.html",
+      "date": "Sep 8, 2026"
+    },
+    {
       "title": "マルチキークイックソートで配列を並び替える",
       "url": "/2026/09/07/sort-multi-key-quick.html",
       "date": "Sep 7, 2026"
