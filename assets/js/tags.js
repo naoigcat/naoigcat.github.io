@@ -6,6 +6,9 @@
   'use strict';
 
   const tagCache = new Map();
+  // Monotonic id so an older on-demand fetch cannot overwrite a newer selection.
+  let activeLoadId = 0;
+  let activeController = null;
 
   function readData() {
     const el = document.getElementById('tags-data');
@@ -62,12 +65,12 @@
 
   // Only reached for tags that are not embedded in #tags-data: render() returns
   // early on those, so there is no embedded entry left to short-circuit on.
-  async function loadTag(data, slug) {
+  async function loadTag(data, slug, signal) {
     if (tagCache.has(slug)) return tagCache.get(slug);
 
     const base = data.tagsBase || '/assets/tags/';
     const url = base + encodeURIComponent(slug) + '.json';
-    const response = await fetch(url, { credentials: 'same-origin' });
+    const response = await fetch(url, { credentials: 'same-origin', signal });
     if (!response.ok) return null;
 
     const tag = await response.json();
@@ -93,6 +96,11 @@
     }
 
     if (!slug) {
+      if (activeController) {
+        activeController.abort();
+        activeController = null;
+      }
+      activeLoadId += 1;
       if (pageHeader) pageHeader.hidden = false;
       listView.hidden = false;
       filterView.hidden = true;
@@ -134,12 +142,27 @@
     emptyEl.hidden = true;
     if (loadingEl) loadingEl.hidden = false;
 
+    if (activeController) {
+      activeController.abort();
+    }
+    const loadId = ++activeLoadId;
+    const controller = new AbortController();
+    activeController = controller;
+
     let tag;
     let loadFailed = false;
     try {
-      tag = await loadTag(data, slug);
-    } catch (_err) {
+      tag = await loadTag(data, slug, controller.signal);
+    } catch (err) {
+      if (err && err.name === 'AbortError') {
+        return;
+      }
       loadFailed = true;
+    }
+
+    // A newer render started while this fetch was in flight.
+    if (loadId !== activeLoadId) {
+      return;
     }
 
     if (loadingEl) loadingEl.hidden = true;
