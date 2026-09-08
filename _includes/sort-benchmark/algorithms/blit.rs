@@ -280,6 +280,45 @@ fn blit_stable_partition(a: &mut [usize], swap: &mut [usize], pivot: usize) -> u
     left
 }
 
+/// Like `blit_stable_partition`, but left keys are strictly less than `pivot`.
+/// Used for the equal-key second sweep so ranges larger than the fixed swap
+/// still stay within that buffer via half-recursion and rotate.
+fn blit_strict_partition(a: &mut [usize], swap: &mut [usize], pivot: usize) -> usize {
+    let n = a.len();
+    let swap_cap = swap.len();
+    if n == 0 {
+        return 0;
+    }
+    if n > swap_cap {
+        let h = n / 2;
+        let l = blit_strict_partition(&mut a[..h], swap, pivot);
+        let r = blit_strict_partition(&mut a[h..], swap, pivot);
+        blit_rotate(&mut a[l..h + r], h - l, swap);
+        return l + r;
+    }
+
+    swap[..n].copy_from_slice(a);
+    let mut left = 0usize;
+    for i in 0..n {
+        if swap[i] < pivot {
+            left += 1;
+        }
+    }
+    let mut l = 0usize;
+    let mut r = left;
+    for i in 0..n {
+        let x = swap[i];
+        if x < pivot {
+            a[l] = x;
+            l += 1;
+        } else {
+            a[r] = x;
+            r += 1;
+        }
+    }
+    left
+}
+
 fn blit_partition_sort(a: &mut [usize], swap: &mut [usize]) {
     let n = a.len();
     if n <= 1 {
@@ -295,28 +334,9 @@ fn blit_partition_sort(a: &mut [usize], swap: &mut [usize]) {
     let right = n - left;
 
     if right == 0 {
-        // Second sweep: gather keys strictly less than pivot.
-        swap[..n].copy_from_slice(a);
-        let mut lt = 0usize;
-        for i in 0..n {
-            if swap[i] < pivot {
-                a[lt] = swap[i];
-                lt += 1;
-            }
-        }
-        let mut eq = lt;
-        for i in 0..n {
-            if swap[i] == pivot {
-                a[eq] = swap[i];
-                eq += 1;
-            }
-        }
-        for i in 0..n {
-            if swap[i] > pivot {
-                a[eq] = swap[i];
-                eq += 1;
-            }
-        }
+        // Second sweep: gather keys strictly less than pivot. When `n` exceeds
+        // the fixed swap, recurse + rotate instead of copying the whole range.
+        let lt = blit_strict_partition(a, swap, pivot);
         if lt > 1 {
             blit_partition_sort(&mut a[..lt], swap);
         }

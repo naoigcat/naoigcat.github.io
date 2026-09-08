@@ -73,4 +73,13 @@ fn run_correctness_checks() {
             few_unique_values(256, 4, seed),
         );
     }
+    // Blit's equal-key second sweep used to copy the whole range into a fixed
+    // 512-element swap; lengths above that must still sort without panicking.
+    check_correctness_case("all_equal_len600", vec![7; 600]);
+    for seed in 1..=4 {
+        check_correctness_case(
+            &format!("few_keys_len2048_seed_{seed}"),
+            few_unique_values(2048, 4, seed),
+        );
+    }
 }
