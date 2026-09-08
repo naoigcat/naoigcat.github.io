@@ -283,6 +283,10 @@ smooth:
 splay:
   sort_fn: splay_sort
 
+spaghetti:
+  sort_fn: spaghetti_sort
+  quadratic_average: true
+
 spread:
   sort_fn: spread_sort
   insertion_sort: true
