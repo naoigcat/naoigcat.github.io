@@ -46,6 +46,11 @@
   transition: box-shadow 0.15s ease, outline-color 0.15s ease;
   transform: translateX(0);
 }
+/* Proxmap empty A2 slots: short, faded placeholders rather than valued bars. */
+.sort-demo__bar--gap {
+  height: 8px;
+  opacity: 0.35;
+}
 /* A stacked bar fills its stack instead of flexing like a standalone bar. */
 .sort-demo__bar-stack .sort-demo__bar {
   width: 100%;

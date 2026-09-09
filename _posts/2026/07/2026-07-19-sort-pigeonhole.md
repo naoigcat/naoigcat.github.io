@@ -187,7 +187,7 @@ window.DemoSort && DemoSort.boot('pigeonhole-sort-demo', function (root) {
     inputLabel.dataset.pigeonholeSection = 'input';
     inputLabel.textContent = '入力';
     const inputTrack = document.createElement('div');
-    inputTrack.className = 'pigeonhole-demo__track pigeonhole-demo__input';
+    inputTrack.className = 'pigeonhole-demo__track';
     inputTrack.dataset.pigeonholeTrack = 'input';
     inputSection.appendChild(inputLabel);
     inputSection.appendChild(inputTrack);

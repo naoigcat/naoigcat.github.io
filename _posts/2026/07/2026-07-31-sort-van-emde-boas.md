@@ -327,7 +327,7 @@ window.DemoSort && DemoSort.boot('van-emde-boas-sort-demo', function (root) {
       '現在の vEB 木（紫: 操作中のキー、緑: 取り出し直後に空いた箇所）';
 
     const canvas = document.createElement('div');
-    canvas.className = 'sort-demo__tree-canvas veb-demo__canvas';
+    canvas.className = 'sort-demo__tree-canvas';
     canvas.dataset.emptyText = 'まだ vEB 木は空です';
     canvas.setAttribute('role', 'img');
 

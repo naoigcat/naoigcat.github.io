@@ -104,8 +104,6 @@ window.DemoSort && DemoSort.boot('proxmap-sort-demo', function (root) {
       bar.setAttribute('role', 'listitem');
       if (v == null) {
         bar.classList.add('sort-demo__bar--gap');
-        bar.style.height = '8px';
-        bar.style.opacity = '0.35';
         bar.removeAttribute('title');
         bar.setAttribute(
           'aria-label',
@@ -113,7 +111,6 @@ window.DemoSort && DemoSort.boot('proxmap-sort-demo', function (root) {
         );
       } else {
         bar.style.height = 28 + ((v - min) / span) * 92 + 'px';
-        bar.style.opacity = '';
         bar.setAttribute('title', String(v));
         bar.setAttribute(
           'aria-label',
