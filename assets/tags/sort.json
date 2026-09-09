@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "スターリンソートで配列を並び替える",
+      "url": "/2026/09/10/sort-stalin.html",
+      "date": "Sep 10, 2026"
+    },
+    {
       "title": "スパゲッティソートで配列を並び替える",
       "url": "/2026/09/09/sort-spaghetti.html",
       "date": "Sep 9, 2026"
