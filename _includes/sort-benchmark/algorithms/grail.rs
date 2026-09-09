@@ -1386,11 +1386,15 @@ fn grail_lazy_stable_sort<T: Sortable, F: FnMut(&T, &T) -> Ordering>(
     let mut merge_len = 2;
     while merge_len < length {
         let mut merge_index = 0;
-        let merge_end = length - (2 * merge_len);
-
-        while merge_index <= merge_end {
-            grail_lazy_merge(set, start + merge_index, merge_len, merge_len, cmp);
-            merge_index += 2 * merge_len;
+        // length need not be a power of two; the final pass can have
+        // 2 * merge_len > length. Subtracting unchecked wraps usize and
+        // drives grail_lazy_merge past the slice (few-key / all-equal paths).
+        if length >= 2 * merge_len {
+            let merge_end = length - (2 * merge_len);
+            while merge_index <= merge_end {
+                grail_lazy_merge(set, start + merge_index, merge_len, merge_len, cmp);
+                merge_index += 2 * merge_len;
+            }
         }
 
         let left_over = length - merge_index;
