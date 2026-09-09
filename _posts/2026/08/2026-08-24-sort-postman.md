@@ -223,7 +223,7 @@ window.DemoSort && DemoSort.boot('postman-sort-demo', function (root) {
     arrayLabel.dataset.postmanSection = 'array';
     arrayLabel.textContent = '配列';
     const arrayTrack = document.createElement('div');
-    arrayTrack.className = 'postman-demo__track postman-demo__array';
+    arrayTrack.className = 'postman-demo__track';
     arrayTrack.dataset.postmanTrack = 'array';
     arraySection.appendChild(arrayLabel);
     arraySection.appendChild(arrayTrack);

@@ -275,7 +275,6 @@ window.DemoSort && DemoSort.boot('unshuffle-sort-demo', function (root) {
 
     if (s.mergePhase || (s.merged && s.merged.length > 0)) {
       const mergedBlock = document.createElement('div');
-      mergedBlock.className = 'sort-demo-unshuffle__merged-block';
 
       const mergedLab = document.createElement('span');
       mergedLab.className = 'sort-demo-unshuffle__section-label';
@@ -305,7 +304,6 @@ window.DemoSort && DemoSort.boot('unshuffle-sort-demo', function (root) {
 
     if (!s.mergePhase) {
       const incomingBlock = document.createElement('div');
-      incomingBlock.className = 'sort-demo-unshuffle__incoming-block';
 
       const incomingLab = document.createElement('span');
       incomingLab.className = 'sort-demo-unshuffle__section-label';
@@ -342,7 +340,6 @@ window.DemoSort && DemoSort.boot('unshuffle-sort-demo', function (root) {
     });
     if (hasPiles) {
       const pilesBlock = document.createElement('div');
-      pilesBlock.className = 'sort-demo-unshuffle__piles-block';
 
       const pilesLab = document.createElement('span');
       pilesLab.className = 'sort-demo-unshuffle__section-label';

@@ -466,7 +466,7 @@ window.DemoSort && DemoSort.boot('burst-sort-demo', function (root) {
 
       if (groups.tens.length) {
         const tierEl = document.createElement('div');
-        tierEl.className = 'burst-demo__tier burst-demo__tier--tens';
+        tierEl.className = 'burst-demo__tier';
         const tierLabel = document.createElement('div');
         tierLabel.className = 'burst-demo__tier-label';
         tierLabel.textContent = '10の位';
@@ -485,7 +485,7 @@ window.DemoSort && DemoSort.boot('burst-sort-demo', function (root) {
 
       if (groups.ones.length) {
         const tierEl = document.createElement('div');
-        tierEl.className = 'burst-demo__tier burst-demo__tier--ones';
+        tierEl.className = 'burst-demo__tier';
         const tierLabel = document.createElement('div');
         tierLabel.className = 'burst-demo__tier-label';
         tierLabel.textContent = '1の位';
