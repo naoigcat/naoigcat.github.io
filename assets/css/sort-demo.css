@@ -885,181 +885,6 @@
   border-radius: 6px;
   background: rgba(26, 188, 156, 0.06);
 }
-@media (prefers-color-scheme: dark) {
-  .sort-demo { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
-  .sort-demo__toolbar button { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); color: inherit; }
-  .sort-demo__caption { color: #bbb; }
-  .sort-demo__tree-label { color: #bbb; }
-  .sort-demo__tree-canvas {
-    border-color: rgba(91,192,222,.5);
-    background: rgba(52,152,219,.14);
-  }
-  .sort-demo__tree-empty { color: rgba(255,255,255,.7); }
-  .sort-demo__tree-edge { stroke: rgba(207,216,220,.6); }
-  .sort-demo__tree-node circle {
-    fill: rgba(255,255,255,.12);
-    stroke: #b0bec5;
-  }
-  .sort-demo__tree-node text { fill: #eceff1; }
-  .sort-demo__tree-node--root circle {
-    fill: rgba(25,118,210,.34);
-    stroke: #64b5f6;
-  }
-  .sort-demo__tree-node--active circle {
-    fill: rgba(142,68,173,.35);
-    stroke: #ce93d8;
-  }
-  .sort-demo__tree-node--root.sort-demo__tree-node--active circle {
-    fill: rgba(25,118,210,.34);
-  }
-  #binomial-heap-sort-demo .sort-demo__bar {
-    color: rgba(255, 255, 255, 0.9);
-  }
-  #multi-key-quick-sort-demo .sort-demo__bar {
-    color: rgba(255, 255, 255, 0.9);
-  }
-  #van-emde-boas-sort-demo .veb-demo__meta {
-    border-color: rgba(100, 181, 246, 0.45);
-    background: rgba(25, 118, 210, 0.28);
-    color: #bbdefb;
-  }
-  #van-emde-boas-sort-demo .veb-demo__meta--active {
-    border-color: rgba(206, 147, 216, 0.55);
-    background: rgba(142, 68, 173, 0.3);
-    color: #e1bee7;
-  }
-  #van-emde-boas-sort-demo .veb-demo__summary-label,
-  #van-emde-boas-sort-demo .veb-demo__cluster-title {
-    color: rgba(255, 255, 255, 0.62);
-  }
-  #van-emde-boas-sort-demo .veb-demo__chip {
-    border-color: rgba(176, 190, 197, 0.45);
-    background: rgba(255, 255, 255, 0.08);
-    color: #eceff1;
-  }
-  #van-emde-boas-sort-demo .veb-demo__chip--muted {
-    color: rgba(255, 255, 255, 0.42);
-  }
-  #van-emde-boas-sort-demo .veb-demo__chip--active {
-    border-color: #ce93d8;
-    background: rgba(142, 68, 173, 0.35);
-    color: #f3e5f5;
-  }
-  #van-emde-boas-sort-demo .veb-demo__chip--extract {
-    border-color: #4dd0e1;
-    background: rgba(0, 172, 193, 0.28);
-    color: #e0f7fa;
-  }
-  #van-emde-boas-sort-demo .veb-demo__cluster,
-  #van-emde-boas-sort-demo .veb-demo__leaf {
-    border-color: rgba(26, 188, 156, 0.4);
-    background: rgba(26, 188, 156, 0.12);
-  }
-  #van-emde-boas-sort-demo .veb-demo__cluster--empty {
-    background: rgba(255, 255, 255, 0.03);
-  }
-  #van-emde-boas-sort-demo .veb-demo__cluster--active {
-    border-color: rgba(206, 147, 216, 0.55);
-    background: rgba(142, 68, 173, 0.22);
-    outline-color: rgba(206, 147, 216, 0.35);
-  }
-  #van-emde-boas-sort-demo .veb-demo__cluster--cleared {
-    border-color: rgba(77, 208, 225, 0.55);
-    background: rgba(0, 172, 193, 0.18);
-    outline-color: rgba(77, 208, 225, 0.35);
-  }
-  #shear-sort-demo .sort-demo__bars {
-    background: rgba(52, 152, 219, 0.14);
-  }
-  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="0"] {
-    background: rgba(52, 152, 219, 0.32);
-  }
-  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="1"] {
-    background: rgba(155, 89, 182, 0.32);
-  }
-  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="2"] {
-    background: rgba(26, 188, 156, 0.32);
-  }
-  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="3"] {
-    background: rgba(230, 126, 34, 0.32);
-  }
-  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="4"] {
-    background: rgba(241, 196, 15, 0.28);
-  }
-  #american-flag-sort-demo .sort-demo__bar-stack[data-bucket-tone="5"] {
-    background: rgba(231, 76, 60, 0.32);
-  }
-  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="0"] {
-    background: rgba(52, 152, 219, 0.32);
-  }
-  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="1"] {
-    background: rgba(155, 89, 182, 0.32);
-  }
-  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="2"] {
-    background: rgba(26, 188, 156, 0.32);
-  }
-  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="3"] {
-    background: rgba(230, 126, 34, 0.32);
-  }
-  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="4"] {
-    background: rgba(241, 196, 15, 0.28);
-  }
-  #cradix-sort-demo .sort-demo__bar-stack[data-bucket-tone="5"] {
-    background: rgba(231, 76, 60, 0.32);
-  }
-  #burst-sort-demo .burst-demo__tier-label {
-    color: rgba(255, 255, 255, 0.55);
-  }
-  #burst-sort-demo .burst-demo__section-label {
-    color: #aaa;
-  }
-  #burst-sort-demo .burst-demo__bucket {
-    background: rgba(155, 89, 182, 0.14);
-  }
-  #burst-sort-demo .burst-demo__bucket--active {
-    background: rgba(155, 89, 182, 0.24);
-    outline-color: rgba(155, 89, 182, 0.45);
-  }
-  #burst-sort-demo .burst-demo__bucket--source {
-    background: rgba(230, 126, 34, 0.2);
-    outline-color: rgba(230, 126, 34, 0.55);
-  }
-  #burst-sort-demo .burst-demo__bucket--target {
-    background: rgba(0, 172, 193, 0.2);
-    outline-color: rgba(0, 172, 193, 0.55);
-  }
-  #burst-sort-demo .burst-demo__bucket-label {
-    color: rgba(255, 255, 255, 0.72);
-  }
-  #pigeonhole-sort-demo .pigeonhole-demo__section-label {
-    color: #aaa;
-  }
-  #pigeonhole-sort-demo .pigeonhole-demo__holes {
-    border-color: rgba(26, 188, 156, 0.45);
-    background: rgba(26, 188, 156, 0.12);
-  }
-  #pigeonhole-sort-demo .pigeonhole-demo__hole--active {
-    background: rgba(26, 188, 156, 0.22);
-    outline-color: rgba(26, 188, 156, 0.55);
-  }
-  #pigeonhole-sort-demo .pigeonhole-demo__hole-label {
-    color: rgba(255, 255, 255, 0.62);
-  }
-  #postman-sort-demo .postman-demo__section-label {
-    color: #aaa;
-  }
-  #postman-sort-demo .postman-demo__buckets {
-    border-color: rgba(52, 152, 219, 0.45);
-    background: rgba(52, 152, 219, 0.12);
-  }
-  #postman-sort-demo .postman-demo__bucket--active {
-    background: rgba(52, 152, 219, 0.22);
-    outline-color: rgba(52, 152, 219, 0.55);
-  }
-  #postman-sort-demo .postman-demo__bucket-label {
-    color: rgba(255, 255, 255, 0.62);
-  }
-}
 /* Bucket demos (radix / american flag / cradix / burst) mark the whole stack
    instead of the bare bar, so both carry the same role highlight. */
 .sort-demo__bar[data-role="compare"],
@@ -1247,16 +1072,6 @@
   cursor: default;
   opacity: 0.72;
 }
-@media (prefers-color-scheme: dark) {
-  .sort-demo-patience__incoming {
-    border-right-color: rgba(255,255,255,.2);
-  }
-  .sort-benchmark-code__copy {
-    border-color: rgba(255,255,255,.25);
-    background: rgba(32,32,32,.92);
-    color: inherit;
-  }
-}
 .sort-demo:has(.sort-demo-unshuffle-wrap) {
   min-width: 0;
 }
@@ -1344,12 +1159,6 @@
   text-shadow: 0 1px 1px rgba(0,0,0,.25);
   border-radius: 6px;
   box-sizing: border-box;
-}
-@media (prefers-color-scheme: dark) {
-  .sort-demo-unshuffle__pile-row--active {
-    border-color: rgba(255,255,255,.18);
-    background: rgba(255,255,255,.05);
-  }
 }
 .sort-demo:has(.sort-demo-polyphase-wrap) {
   min-width: 0;
@@ -1598,15 +1407,6 @@
     width: calc(20px + 12px);
   }
 }
-@media (prefers-color-scheme: dark) {
-  .sort-demo-polyphase__tape {
-    border-color: rgba(93, 173, 226, 0.5);
-  }
-  .sort-demo-polyphase__tape--empty {
-    background: rgba(255, 255, 255, 0.03);
-  }
-}
-
 /* Conceptual gravity / bead-sort abacus illustration */
 .gravity-bead-demo {
   margin: 1.25rem 0;
@@ -1766,28 +1566,6 @@
   }
   .gravity-bead-demo__level-tags {
     min-width: 2.6rem;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .gravity-bead-demo__caption {
-    color: #ccc;
-  }
-  .gravity-bead-demo__rod-label {
-    color: #aaa;
-  }
-  .gravity-bead-demo__result {
-    color: #e0e0e0;
-  }
-  .gravity-bead-demo__level-tag.is-on {
-    color: #ffc857;
-  }
-  .gravity-bead-demo__rod {
-    background: linear-gradient(
-      90deg,
-      rgba(200, 200, 200, 0.16),
-      rgba(200, 200, 200, 0.06) 45%,
-      rgba(200, 200, 200, 0.2)
-    );
   }
 }
 @media (prefers-reduced-motion: reduce) {
