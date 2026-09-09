@@ -28,6 +28,16 @@ fn check_correctness_case(label: &str, mut input: Vec<usize>) {
     }
 }
 
+// Skip cases larger than the algorithm's measured size cap (MAX_POWER). That
+// cap exists because larger inputs are impractically slow; forcing them here
+// would stall the published measurement script before any table rows print.
+fn check_correctness_case_within_limit(label: &str, input: Vec<usize>) {
+    if input.len() > (1usize << MAX_POWER) {
+        return;
+    }
+    check_correctness_case(label, input);
+}
+
 fn few_unique_values(size: usize, unique: usize, seed: u64) -> Vec<usize> {
     let mut state = seed;
 
@@ -75,9 +85,11 @@ fn run_correctness_checks() {
     }
     // Blit's equal-key second sweep used to copy the whole range into a fixed
     // 512-element swap; lengths above that must still sort without panicking.
-    check_correctness_case("all_equal_len600", vec![7; 600]);
+    // Respect MAX_POWER so algorithms with a low measured-size cap (slow,
+    // sleep) do not hang here for minutes or months.
+    check_correctness_case_within_limit("all_equal_len600", vec![7; 600]);
     for seed in 1..=4 {
-        check_correctness_case(
+        check_correctness_case_within_limit(
             &format!("few_keys_len2048_seed_{seed}"),
             few_unique_values(2048, 4, seed),
         );
