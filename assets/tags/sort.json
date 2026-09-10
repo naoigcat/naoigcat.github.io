@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "対称マージソートで配列を並び替える",
+      "url": "/2026/09/11/sort-sym-merge.html",
+      "date": "Sep 11, 2026"
+    },
+    {
       "title": "スターリンソートで配列を並び替える",
       "url": "/2026/09/10/sort-stalin.html",
       "date": "Sep 10, 2026"
