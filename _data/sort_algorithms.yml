@@ -300,6 +300,10 @@ strand:
   sort_fn: strand_sort
   merge_values: true
 
+sym_merge:
+  sort_fn: sym_merge_sort
+  insertion_sort: true
+
 symmetry_partition:
   sort_fn: symmetry_partition_sort
   insertion_sort: true
