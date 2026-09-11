@@ -13,7 +13,7 @@ sort_demo: true
 
 1.  **キー収集**: 配列から `2√n` 個程度の互いに異なる値を探し、回転（rotate）で先頭へ集める。一意な値が足りない場合は、回転ベースの安定マージ（Lazy Stable Sort）にフォールバックする。
 2.  **ブロック構築**: 収集したキーの半分を内部バッファとし、ボトムアップで小さな整列済みランを倍々にマージしていく。
-3.  **ブロック併合**: ランがバッファに収まらなくなると、長さ `√n` 程度のブロックに分割し、残り半分のキーで A/B ストリームを識別しながらインプレースで位置を決める。
+3.  **ブロックマージ**: ランがバッファに収まらなくなると、長さ `√n` 程度のブロックに分割し、残り半分のキーで A/B ストリームを識別しながらインプレースで位置を決める。
 4.  **キーの復元**: 最後に先頭へ退避したキー列を挿入ソートし、全体へマージして整列を完了する。
 
 ```pseudocode
@@ -201,7 +201,7 @@ window.DemoSort && DemoSort.boot('grail-sort-demo', function (root) {
     dataAttr: 'data-grail',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
-      'グレイルソートのデモ（キー候補は紫、ラン整列・併合はウィキソートと同型の可視化）',
+      'グレイルソートのデモ（キー候補は紫、ラン整列・マージはウィキソートと同型の可視化）',
     barClass: 'sort-demo__bar',
     generateSteps: generateSteps,
     applyStep: async function (api, s) {
@@ -265,7 +265,7 @@ window.DemoSort && DemoSort.boot('grail-sort-demo', function (root) {
         api.mountBars(barsEl, s.arr);
         DemoSort.clearRoles(barsEl);
         api.setCaption(
-          'ボトムアップ併合: ラン幅 ' + s.width + ' → ' + (s.width * 2)
+          'ボトムアップマージ: ラン幅 ' + s.width + ' → ' + (s.width * 2)
         );
         return;
       }
@@ -273,7 +273,7 @@ window.DemoSort && DemoSort.boot('grail-sort-demo', function (root) {
         api.mountBars(barsEl, s.arr);
         DemoSort.assignRoles(barsEl, rangePairs(s.lo, s.hi, 'range'));
         api.setCaption(
-          '併合: 左 [' + s.lo + '…' + s.mid + '] と 右 [' + (s.mid + 1) + '…' + s.hi + ']'
+          'マージ: 左 [' + s.lo + '…' + s.mid + '] と 右 [' + (s.mid + 1) + '…' + s.hi + ']'
         );
         return;
       }
@@ -292,13 +292,13 @@ window.DemoSort && DemoSort.boot('grail-sort-demo', function (root) {
       if (s.kind === 'merge_done') {
         api.mountBars(barsEl, s.arr);
         DemoSort.clearRoles(barsEl);
-        api.setCaption('区間 ' + s.lo + ' … ' + s.hi + ' の併合が完了');
+        api.setCaption('区間 ' + s.lo + ' … ' + s.hi + ' のマージが完了');
         return;
       }
       if (s.kind === 'level_done') {
         api.mountBars(barsEl, s.arr);
         DemoSort.clearRoles(barsEl);
-        api.setCaption('ラン幅 ' + s.width * 2 + ' までの併合レベルが完了');
+        api.setCaption('ラン幅 ' + s.width * 2 + ' までのマージレベルが完了');
         return;
       }
       if (s.kind === 'done') {
@@ -319,11 +319,11 @@ window.DemoSort && DemoSort.boot('grail-sort-demo', function (root) {
   script=sort_demo_js
 %}
 
-配列が大きくなり内部バッファを超えるレベルでは、本番のグレイルソートはブロック分割・回転・キータグ付けによるインプレース併合へ切り替わる。
+配列が大きくなり内部バッファを超えるレベルでは、本番のグレイルソートはブロック分割・回転・キータグ付けによるインプレースマージへ切り替わる。
 
 ## 類似アルゴリズムとの相違点
 
-[ウィキソート](/2026/05/31/sort-wiki.html)は併合時にブロック選択、[コタソート](/2026/06/07/sort-kota.html)は併合後にブロック選択する。グレイルは先頭の一意キーを内部バッファ代わりに使う。
+[ウィキソート](/2026/05/31/sort-wiki.html)はマージ時にブロック選択、[コタソート](/2026/06/07/sort-kota.html)はマージ後にブロック選択する。グレイルは先頭の一意キーを内部バッファ代わりに使う。
 
 ## 計算時間量および空間計算量を計測する
 
