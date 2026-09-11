@@ -7,7 +7,7 @@ sort_demo: true
 
 ## ポリフェーズマージソートを使用する
 
-ポリフェーズマージソート (`poly-phase merge sort`) は、複数のテープ（またはファイル）に分散した整列済みランを、フィボナッチ分布に沿って段階的に併合していく。
+ポリフェーズマージソート (`poly-phase merge sort`) は、複数のテープ（またはファイル）に分散した整列済みランを、フィボナッチ分布に沿って段階的にマージしていく。
 
 テープ本数が少ない環境でも、各パスでほぼすべてのテープを稼働させ、バランスマージよりパス数を抑えられる場合がある。
 
@@ -15,8 +15,8 @@ sort_demo: true
 
 1.  **初期ラン生成**: 配列を固定長（例: 32 要素）の区間に区切り、各区間を整列してランとする。
 2.  **フィボナッチ分布**: 3 本テープのうち 1 本を空け、残り 2 本へラン数比を連続するフィボナッチ数（例: `{2, 3}`, `{3, 5}`）に近づけるよう分配する。
-3.  **ポリフェーズ併合**: 2 本のソーステープから先頭ランを 1 組ずつ取り出し、空きテープへマージする。
-4.  **テープローテーション**: 出力テープの役割を循環させ、再び 2 本から 1 本への併合を繰り返す。
+3.  **ポリフェーズマージ**: 2 本のソーステープから先頭ランを 1 組ずつ取り出し、空きテープへマージする。
+4.  **テープローテーション**: 出力テープの役割を循環させ、再び 2 本から 1 本へのマージを繰り返す。
 5.  **完了**: 全要素が 1 本のテープ上の 1 ランにまとまったら配列へ書き戻す。
 
 ```pseudocode
@@ -41,7 +41,7 @@ procedure polyphase_merge_sort(A)
   copy final run back into A
 ```
 
-テープ本数が少ない外部整列向けで、フィボナッチ分布により併合パス数を抑えられる。
+テープ本数が少ない外部整列向けで、フィボナッチ分布によりマージパス数を抑えられる。
 
 {% capture sort_demo_js %}
 <script>
@@ -1108,7 +1108,7 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
   }
 
   const initialCaption =
-    'ポリフェーズマージソート（16要素を4ランに分け、3本のテープで併合）';
+    'ポリフェーズマージソート（16要素を4ランに分け、3本のテープでマージ）';
 
   DemoSort.attachPlayback({
     root: root,
@@ -1223,7 +1223,7 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
         );
       } else if (s.kind === 'pass_start') {
         api.setCaption(
-          'ポリフェーズ併合パス ' +
+          'ポリフェーズマージパス ' +
             s.passNo +
             ': ' +
             tapeCaption(s.tapes) +
@@ -1236,7 +1236,7 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
           tapeDisplayName(s.inputSlots[0]) +
             '・' +
             tapeDisplayName(s.inputSlots[1]) +
-            'の先頭ランを併合し、' +
+            'の先頭ランをマージし、' +
             tapeDisplayName(s.outputSlot) +
             'へ書き込みます'
         );
@@ -1270,7 +1270,7 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
         );
       } else if (s.kind === 'merge_done') {
         api.setCaption(
-          '併合完了: 新しい1ラン（' +
+          'マージ完了: 新しい1ラン（' +
             s.mergedRun.length +
             ' 要素）を' +
             tapeDisplayName(s.outputSlot) +
@@ -1278,7 +1278,7 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
             (s.consumedDummy ? '（ダミーランは消滅）' : '')
         );
       } else if (s.kind === 'pass_merge') {
-        api.setCaption('パス内併合後: ' + tapeCaption(s.tapes));
+        api.setCaption('パス内マージ後: ' + tapeCaption(s.tapes));
       } else if (s.kind === 'rotate') {
         api.setCaption(
           '出力先を' +
@@ -1307,7 +1307,7 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
 
 ## 類似アルゴリズムとの相違点
 
-[マージソート](/2026/05/03/sort-merge.html)は 2 列の併合を繰り返す。ポリフェーズはテープが少ない外部整列向きに、フィボナッチ分布で併合先を回転させる。
+[マージソート](/2026/05/03/sort-merge.html)は 2 列のマージを繰り返す。ポリフェーズはテープが少ない外部整列向きに、フィボナッチ分布でマージ先を回転させる。
 
 ## 計算時間量および空間計算量を計測する
 
