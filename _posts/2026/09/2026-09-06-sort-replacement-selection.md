@@ -7,7 +7,7 @@ sort_demo: true
 
 ## 置換選択ソートを使用する
 
-置換選択ソート (`replacement selection sort`) は、限られた大きさの最小ヒープで入力を流し、平均でヒープ容量の約 2 倍の長さの整列済みランを生成し、それらを併合して全体を昇順にする整列である。
+置換選択ソート (`replacement selection sort`) は、限られた大きさの最小ヒープで入力を流し、平均でヒープ容量の約 2 倍の長さの整列済みランを生成し、それらをマージして全体を昇順にする整列である。
 
 外部整列ではメモリに載らないファイルを扱うとき、単純にメモリ分だけ読んでクイックソートすると初期ラン長はメモリ容量 `M` に留まる。
 置換選択では、出力した直前のキー以上の入力だけをヒープへ戻す（置換する）ことで、ランダム入力でも期待ラン長がおよそ `2M` になる。
@@ -18,7 +18,7 @@ sort_demo: true
 1.  **充填**: 入力から最大 `M` 個を読み、最小ヒープを構築する。
 2.  **抽出と置換**: ヒープの最小を現在ランへ出力する。次の入力が直前の出力以上なら根へ入れて沈降（現在ランに残す）。小さければ次ラン用の待避領域へ置き、ヒープは縮む。
 3.  **ラン区切り**: ヒープが空になったら現在ランを確定し、待避していた要素でヒープを組み直して次ランを始める。入力が尽きるまで繰り返す。
-4.  **併合**: できたランをマージソート同様に併合し、1 本の昇順列にする。
+4.  **マージ**: できたランをマージし、1 本の昇順列にする。
 
 ```pseudocode
 procedure sift_down(H, i)
@@ -49,7 +49,7 @@ procedure replacement_selection_sort(A)
   A = merge_all(runs)
 ```
 
-ラン生成は各要素がヒープへ高々定数回出入りするため `O(n log M)`、併合はラン数を `R` とすると概ね `O(n log R)` で、合計は `O(n log n)` 程度になる。
+ラン生成は各要素がヒープへ高々定数回出入りするため `O(n log M)`、マージはラン数を `R` とすると概ね `O(n log R)` で、合計は `O(n log n)` 程度になる。
 ヒープと待避・ラン用に `O(M + n)` の追加領域が要り、一般に不安定である。デモでは `M = 4`、ベンチマークでは `M = 32` とする。
 
 {% capture sort_demo_js %}
@@ -389,7 +389,7 @@ window.DemoSort && DemoSort.boot('replacement-selection-sort-demo', function (ro
     });
     steps.push({
       kind: 'caption',
-      text: 'ラン生成完了（' + queue.length + ' 本）。ペアワイズ併合へ',
+      text: 'ラン生成完了（' + queue.length + ' 本）。ペアワイズマージへ',
       arr: queue.reduce(function (acc, r) {
         return acc.concat(r);
       }, []),
@@ -423,7 +423,7 @@ window.DemoSort && DemoSort.boot('replacement-selection-sort-demo', function (ro
         }
         steps.push({
           kind: 'merge',
-          text: 'ラン同士を併合（長さ ' + left.length + ' と ' + right.length + '）',
+          text: 'ラン同士をマージ（長さ ' + left.length + ' と ' + right.length + '）',
           arr: arr,
           roles: (function () {
             const pairs = [];
@@ -442,7 +442,7 @@ window.DemoSort && DemoSort.boot('replacement-selection-sort-demo', function (ro
         }
         steps.push({
           kind: 'merge-result',
-          text: '併合結果（長さ ' + merged.length + '）',
+          text: 'マージ結果（長さ ' + merged.length + '）',
           arr: afterMerge,
           roles: (function () {
             const pairs = [];
@@ -525,7 +525,7 @@ window.DemoSort && DemoSort.boot('replacement-selection-sort-demo', function (ro
   script=sort_demo_js
 %}
 
-外部整列の初期ラン生成として置換選択を使い、できたランを[ポリフェーズマージ](/2026/06/26/sort-polyphase-merge.html)などで併合するのが古典的な組み合わせである。メモリ全体をヒープに使えるならランは 1 本になり、振る舞いは最小ヒープからの連続抽出に近づく。
+外部整列の初期ラン生成として置換選択を使い、できたランを[ポリフェーズマージ](/2026/06/26/sort-polyphase-merge.html)などでマージするのが古典的な組み合わせである。メモリ全体をヒープに使えるならランは 1 本になり、振る舞いは最小ヒープからの連続抽出に近づく。
 
 ## 類似アルゴリズムとの相違点
 
@@ -533,9 +533,9 @@ window.DemoSort && DemoSort.boot('replacement-selection-sort-demo', function (ro
 
 [トーナメントソート](/2026/05/26/sort-tournament.html)や[敗者木ソート](/2026/08/26/sort-loser-tree.html)は「次の最小」を木で更新する構造が近く、外部マージの選択木としても使われる。置換選択はラン長を伸ばす生成法としての側面が強い。
 
-[ストランドソート](/2026/05/16/sort-strand.html)も単調列を切り取って併合するが、ヒープによる置換は行わず、1 回の走査で拾える非減少部分列に限る。
+[ストランドソート](/2026/05/16/sort-strand.html)も単調列を切り取ってマージするが、ヒープによる置換は行わず、1 回の走査で拾える非減少部分列に限る。
 
-[ポリフェーズマージソート](/2026/06/26/sort-polyphase-merge.html)は固定長チャンクを初期ランとする実装が多い。置換選択で長い初期ランを渡せば、併合パス数をさらに抑えられる。
+[ポリフェーズマージソート](/2026/06/26/sort-polyphase-merge.html)は固定長チャンクを初期ランとする実装が多い。置換選択で長い初期ランを渡せば、マージパス数をさらに抑えられる。
 
 ## 計算時間量および空間計算量を計測する
 
