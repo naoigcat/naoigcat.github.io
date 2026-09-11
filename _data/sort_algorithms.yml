@@ -159,6 +159,9 @@ multi_key_quick:
   sort_fn: multi_key_quick_sort
   insertion_sort: true
 
+multiway_merge:
+  sort_fn: multiway_merge_sort
+
 natural_merge:
   sort_fn: natural_merge_sort
 

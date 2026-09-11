@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "多方向マージソートで配列を並び替える",
+      "url": "/2026/09/12/sort-multiway-merge.html",
+      "date": "Sep 12, 2026"
+    },
+    {
       "title": "対称マージソートで配列を並び替える",
       "url": "/2026/09/11/sort-sym-merge.html",
       "date": "Sep 11, 2026"
