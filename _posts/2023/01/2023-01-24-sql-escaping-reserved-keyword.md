@@ -17,7 +17,7 @@ CREATE EXTERNAL TABLE `partition` (
     `id` INT,
     `date` DATE
 )
-PARTITION BY (`year` STRING)
+PARTITIONED BY (`year` STRING)
 LOCATION 's3://bucket/';
 ```
 
