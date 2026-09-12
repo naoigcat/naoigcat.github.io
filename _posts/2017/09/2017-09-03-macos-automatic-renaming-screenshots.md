@@ -35,6 +35,6 @@ macOSで保存したスクリーンショットはファイル名が`接頭辞 +
 4.  `fswatch`を利用してスクリーンショットの出力先フォルダを監視し、`rename`で名前を変更する。
 
     ```sh
-    nohup /usr/local/bin/fswatch -0 -e '/\.' ~/Library/Mobile\ Documents/com~apple~Preview/Documents/ 2>/dev/null |
-    xargs -0 -n1 /usr/local/bin/rename 's/ (\d+)-(\d+)-(\d+) (\d+)\.(\d+)\./$1$2$3T$4$5/g' 2>/dev/null 1>&2 &
+    nohup $(brew --prefix)/bin/fswatch -0 -e '/\.' ~/Library/Mobile\ Documents/com~apple~Preview/Documents/ 2>/dev/null |
+    xargs -0 -n1 $(brew --prefix)/bin/rename 's/ (\d+)-(\d+)-(\d+) (\d+)\.(\d+)\./$1$2$3T$4$5/g' 2>/dev/null 1>&2 &
     ```
