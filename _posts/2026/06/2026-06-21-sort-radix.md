@@ -427,7 +427,7 @@ window.DemoSort && DemoSort.boot('radix-sort-demo', function (root) {
 
 MSD 側の具体形は、木として組み立てる[トライソート](/2026/07/11/sort-trie.html)、インプレース多区分の[アメリカ国旗ソート](/2026/07/02/sort-american-flag.html)、キャッシュを意識した[キャッシュ効率型基数ソート](/2026/08/04/sort-cradix.html)、二進に寄せた[バイナリクイックソート](/2026/08/13/sort-binary-quick.html)などがある。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

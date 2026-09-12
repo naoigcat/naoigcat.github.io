@@ -269,7 +269,7 @@ window.DemoSort && DemoSort.boot('multiway-merge-sort-demo', function (root) {
 
 [敗者木ソート](/2026/08/26/sort-loser-tree.html)は要素全体をトーナメントにする整列本体であり、多方向マージの「`k` 本の先頭から最小を取る」部品としても使われる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

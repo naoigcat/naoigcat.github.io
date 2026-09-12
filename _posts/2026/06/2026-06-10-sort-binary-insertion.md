@@ -181,7 +181,7 @@ window.DemoSort && DemoSort.boot('binary-insertion-sort-demo', function (root) {
 
 [挿入ソート](/2026/05/05/sort-insertion.html)と同じく要素を左へシフトするが、挿入位置は二分探索で求める。比較は `O(n log n)` でも移動は二次的になりうる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

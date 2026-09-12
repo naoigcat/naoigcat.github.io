@@ -187,7 +187,7 @@ window.DemoSort && DemoSort.boot('stooge-sort-demo', function (root) {
 [ロムート分割型クイックソート](/2026/05/02/sort-quick-lumoto.html)も再帰的だが、ピボット分割で区間が実質的に縮むのに対し、
 本アルゴリズムは末尾 2/3 の整列のあと先頭 2/3 をもう一度整え直す点が特徴的である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

@@ -353,7 +353,7 @@ window.DemoSort && DemoSort.boot('strand-sort-demo', function (root) {
 
 [マージソート](/2026/05/03/sort-merge.html)と同様に昇順部分列をマージするが、入力から単調列を抜き取る段とマージを交互に行う。汎用ソートとしてはマージやティムに劣りやすい。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

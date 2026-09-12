@@ -283,7 +283,7 @@ window.DemoSort && DemoSort.boot('two-way-insertion-sort-demo', function (root) 
 
 [挿入ソート](/2026/05/05/sort-insertion.html)は左端からだけ接頭辞を伸ばす。双方向は最小なら左端、最大なら右端へ先に追記する分岐を持つ。[二分挿入ソート](/2026/06/10/sort-binary-insertion.html)は挿入位置の探索を二分に置き換える。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

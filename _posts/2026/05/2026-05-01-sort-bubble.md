@@ -105,7 +105,7 @@ window.DemoSort && DemoSort.boot('bubble-sort-demo', function (root) {
 
 [シェーカーソート](/2026/05/08/sort-shaker.html)は双方向の走査、[コムソート](/2026/05/09/sort-comb.html)は離れたペアから始めて間隔を狭める。いずれも隣接交換だが、バブルソートより実効速度が出やすいことがある。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

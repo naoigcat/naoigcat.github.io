@@ -197,7 +197,7 @@ window.DemoSort && DemoSort.boot('cycle-sort-demo', function (root) {
 
 [バブルソート](/2026/05/01/sort-bubble.html)は隣接交換を繰り返す。サイクルソートは置換で各要素を最終位置へ直接送り、書き込み回数を抑えられる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

@@ -382,7 +382,7 @@ procedure gravity_sort(A)
 
 [鳩の巣ソート](/2026/07/19/sort-pigeonhole.html)は値ごとの巣へ要素自体を入れる。[スリープソート](/2026/07/23/sort-sleep.html)も物理量（待ち時間）に値を写す比喩だが、こちらは空間上のビーズ配置を使う。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

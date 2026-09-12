@@ -368,7 +368,7 @@ window.DemoSort && DemoSort.boot('dual-pivot-quick-sort-demo', function (root) {
 [サンプルソート](/2026/05/20/sort-sample.html)も複数の分割点を使うが、標本からスプリッターを選び並列化を想定した設計であるのに対し、
 デュアルピボット版は両端 2 要素をピボットに据えるインプレースな再帰である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

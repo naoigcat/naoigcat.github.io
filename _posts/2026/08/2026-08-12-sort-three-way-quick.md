@@ -292,7 +292,7 @@ window.DemoSort && DemoSort.boot('three-way-quick-sort-demo', function (root) {
 
 三分割版は単一ピボットのまま等値帯を明示的に切り出す点が主題である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

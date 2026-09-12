@@ -340,7 +340,7 @@ window.DemoSort && DemoSort.boot('median-of-three-quick-sort-demo', function (ro
 
 [三分割クイックソート](/2026/08/12/sort-three-way-quick.html)は等値帯をその場で確定する。[デュアルピボットクイックソート](/2026/07/26/sort-dual-pivot-quick.html)はピボットを 2 つ使い 3 区間に分ける。いずれもピボット選びの三点中央値とは直交する改良である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

@@ -1001,7 +1001,7 @@ window.DemoSort && DemoSort.boot('postman-sort-demo', function (root) {
 
 [基数ソート](/2026/06/21/sort-radix.html)の記事は最下位桁優先（LSD; Least Significant Digit）中心で、ポストマンはトップダウンの最上位桁優先（MSD; Most Significant Digit）の配布である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

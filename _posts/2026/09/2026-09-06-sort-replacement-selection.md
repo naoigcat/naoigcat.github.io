@@ -537,7 +537,7 @@ window.DemoSort && DemoSort.boot('replacement-selection-sort-demo', function (ro
 
 [ポリフェーズマージソート](/2026/06/26/sort-polyphase-merge.html)は固定長チャンクを初期ランとする実装が多い。置換選択で長い初期ランを渡せば、マージパス数をさらに抑えられる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

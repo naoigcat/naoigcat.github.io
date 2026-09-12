@@ -314,7 +314,7 @@ window.DemoSort && DemoSort.boot('leftist-heap-sort-demo', function (root) {
 
 [弱ヒープソート](/2026/08/28/sort-weak-heap.html)は配列上の不完全木と逆ビットで比較回数を抑える。ヒープ同士の合併を第一級には扱わない。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

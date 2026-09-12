@@ -421,7 +421,7 @@ window.DemoSort && DemoSort.boot('fibonacci-heap-sort-demo', function (root) {
 
 [左傾ヒープソート](/2026/09/04/sort-leftist-heap.html)は単一の二分木とヌルパス長で左傾性を保つ。フィボナッチヒープは複数の根を持つ森である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

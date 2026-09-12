@@ -388,7 +388,7 @@ window.DemoSort && DemoSort.boot('sample-sort-demo', function (root) {
 
 [ロムート分割型クイックソート](/2026/05/02/sort-quick-lumoto.html)が 1 つのピボットで 2 分割するのに対し、標本から複数スプリッターを求めて同時に多分割する。並列・外部整列向きである。[バケットソート](/2026/06/23/sort-bucket.html)は値域を等分する点が異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

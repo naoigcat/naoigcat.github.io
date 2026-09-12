@@ -486,7 +486,7 @@ window.DemoSort && DemoSort.boot('franceschini-sort-demo', function (root) {
 
 [ヒープソート](/2026/05/04/sort-heap.html)の二分ヒープは移動が `Θ(n log n)` になりやすい。こちらは分岐数を大きくして高さを抑え、論文の「移動 `O(n)`」側の直感に寄せている。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

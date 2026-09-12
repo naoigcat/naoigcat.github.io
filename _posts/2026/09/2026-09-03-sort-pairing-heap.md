@@ -451,7 +451,7 @@ window.DemoSort && DemoSort.boot('pairing-heap-sort-demo', function (root) {
 
 [トーナメントソート](/2026/05/26/sort-tournament.html)も最小を繰り返し取り出すが、固定長のトーナメント木を更新する点が異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

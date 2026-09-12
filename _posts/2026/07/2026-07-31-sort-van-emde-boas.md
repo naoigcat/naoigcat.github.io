@@ -805,7 +805,7 @@ window.DemoSort && DemoSort.boot('van-emde-boas-sort-demo', function (root) {
 ここでは宇宙のビット分割が順序を決める。[トライソート](/2026/07/11/sort-trie.html) の桁トライとも「桁で空間を割る」点は近いが、
 summary による空クラスタのスキップが vEB 木の特徴である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

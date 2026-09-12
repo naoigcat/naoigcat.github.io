@@ -365,7 +365,7 @@ window.DemoSort && DemoSort.boot('sym-merge-sort-demo', function (root) {
 
 対称マージソートは対称マージ単体をボトムアップに積む古典構成で、実装は単純になる一方、最悪は `O(n log² n)` に留まる。ウィキ／グレイルの部品としての「回転ベースマージ」とは同系統だが、ブロックタグ付けまでは踏み込まない。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

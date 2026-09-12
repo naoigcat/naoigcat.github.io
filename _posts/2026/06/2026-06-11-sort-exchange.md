@@ -138,7 +138,7 @@ window.DemoSort && DemoSort.boot('exchange-sort-demo', function (root) {
 
 [選択ソート](/2026/05/11/sort-selection.html)と同じ二重ループだが、より小さい値が見つかるたびにその場で交換する。交換回数が多くなりやすい。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

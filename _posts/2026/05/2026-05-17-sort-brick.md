@@ -136,7 +136,7 @@ window.DemoSort && DemoSort.boot('brick-sort-demo', function (root) {
 
 [バブルソート](/2026/05/01/sort-bubble.html)は順方向走査だけ。ブリック（奇偶転置）は偶数・奇数インデックスのペアを交互に比較し、各組は独立して並列化できる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

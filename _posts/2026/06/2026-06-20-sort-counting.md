@@ -213,7 +213,7 @@ window.DemoSort && DemoSort.boot('counting-sort-demo', function (root) {
 
 [基数ソート](/2026/06/21/sort-radix.html)・[バケットソート](/2026/06/23/sort-bucket.html)と同様に値域に依存する。[自己インデックスソート](/2026/07/07/sort-self-indexed.html)と実装が一致することが多いが、キーをソート空間のアドレスとみなす枠組みが異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

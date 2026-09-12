@@ -251,7 +251,7 @@ window.DemoSort && DemoSort.boot('library-sort-demo', function (root) {
 
 図書館ソートは[挿入ソート](/2026/05/05/sort-insertion.html)の派生で、整列済みの値のあいだに空きマスを残して挿入し、位置の探索に二分探索を使う点が異なる。ランダム入力では比較回数が `O(n log n)` に近づきやすい。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

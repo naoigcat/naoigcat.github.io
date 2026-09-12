@@ -279,7 +279,7 @@ window.DemoSort && DemoSort.boot('natural-merge-sort-demo', function (root) {
 
 [ティムソート](/2026/05/23/sort-tim.html)や[パワーソート](/2026/05/24/sort-power.html)は、降順ランの反転・短いランの挿入ソート拡張・スタック上のマージ抑制など、自然ラン活用をさらに洗練した実用実装である。本記事の手続きは、その原型にあたる単純な自然ラン＋ペアマージに絞っている。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

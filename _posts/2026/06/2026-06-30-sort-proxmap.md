@@ -405,7 +405,7 @@ window.DemoSort && DemoSort.boot('proxmap-sort-demo', function (root) {
 
 [バケットソート](/2026/06/23/sort-bucket.html)は仕分け完了後にバケットごとに整列するが、プロックスマップは配置と挿入を同時に行い、整列後は ProxmapSearch で検索しやすい構造を残せる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

@@ -201,7 +201,7 @@ window.DemoSort && DemoSort.boot('bitonic-sort-demo', function (root) {
 
 [奇偶マージソート](/2026/05/29/sort-oddeven-merge.html)も固定距離の比較ネットワークだが、バイトニックは列を昇順・降順の 2 列に組み立ててからマージする。[マージソート](/2026/05/03/sort-merge.html)は可変長の部分列をマージする点が異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

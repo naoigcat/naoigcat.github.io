@@ -297,7 +297,7 @@ window.DemoSort && DemoSort.boot('weak-heap-sort-demo', function (root) {
 
 [トーナメントソート](/2026/05/26/sort-tournament.html)や[敗者木ソート](/2026/08/26/sort-loser-tree.html)は比較結果を木に蓄えて最小を繰り返し取り出す方式で、配列上の弱ヒープ構築＋末尾確定とは手順が異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

@@ -158,7 +158,7 @@ window.DemoSort && DemoSort.boot('shuttle-sort-demo', function (root) {
 
 [ノームソート](/2026/05/10/sort-gnome.html)は単一位置を前後へ動かす。[シェーカーソート](/2026/05/08/sort-shaker.html)は両端から未整列区間を狭める。シャトルは走査ごとに先頭側の整列済み区間を 1 つずつ広げる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

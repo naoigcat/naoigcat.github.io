@@ -215,7 +215,7 @@ window.DemoSort && DemoSort.boot('circle-sort-demo', function (root) {
 
 [コムソート](/2026/05/09/sort-comb.html)はギャップを縮小しながら遠方の要素を入れ替える点が近いが、再帰的な同心円状の分割は行わない。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

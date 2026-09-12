@@ -156,7 +156,7 @@ window.DemoSort && DemoSort.boot('lumoto-quick-sort-demo', function (root) {
 [三分割クイックソート](/2026/08/12/sort-three-way-quick.html)は `< / = / >` の 3 区間に分け等値帯をその場で確定する。
 [デュアルピボットクイックソート](/2026/07/26/sort-dual-pivot-quick.html)はピボットを 2 つ使い、1 回の走査で 3 分割する。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

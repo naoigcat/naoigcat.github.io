@@ -419,7 +419,7 @@ window.DemoSort && DemoSort.boot('spread-sort-demo', function (root) {
 
 [フラッシュソート](/2026/07/09/sort-flash.html)も値域を区分して仕分けるが、スプレッドソートはビン数を `n/c` 付近に取り、ビン内の要素数に応じて再帰を続けるか `O(n log n)` の比較ソートへ切り替える点が特徴的である。[プロックスマップソート](/2026/06/30/sort-proxmap.html)も近接写像で仕分けるが、配置と挿入を同時に行うため処理の流れが異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

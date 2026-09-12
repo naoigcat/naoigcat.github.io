@@ -654,7 +654,7 @@ window.DemoSort && DemoSort.boot('cradix-sort-demo', function (root) {
 
 [バーストソート](/2026/07/12/sort-burst.html)はキャッシュ効率をトライの遅延展開で稼ぐ別系統である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

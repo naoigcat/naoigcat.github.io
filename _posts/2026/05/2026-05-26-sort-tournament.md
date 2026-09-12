@@ -223,7 +223,7 @@ window.DemoSort && DemoSort.boot('tournament-sort-demo', function (root) {
 
 [選択ソート](/2026/05/11/sort-selection.html)と同じく最小を繰り返し確定するが、トーナメント木で比較結果を再利用する。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

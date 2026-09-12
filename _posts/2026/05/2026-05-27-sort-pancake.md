@@ -249,7 +249,7 @@ window.DemoSort && DemoSort.boot('pancake-sort-demo', function (root) {
 
 接頭辞反転だけを許す特殊な操作モデルで、一般の比較交換ソートとは前提が異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

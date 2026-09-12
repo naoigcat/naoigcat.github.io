@@ -387,7 +387,7 @@ window.DemoSort && DemoSort.boot('symmetry-partition-sort-demo', function (root)
 
 [比例拡張ソート](/2026/05/19/sort-proportion-extend.html)と同系統だが、整列済み標本を `L | U | R` と両端へ配置してから未整列部分を分割していて、分割の局所性を改善しやすい。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 
