@@ -11,7 +11,7 @@ Dockerコンテナに対して`docker stop`コマンドを実行するとデフ�
 シグナルを受け取ったタイミングでログを残すNode.jsスクリプトを作成し、
 
 ```js
-$ <<SCRIPT > main.js
+$ cat <<SCRIPT > main.js
 'use strict';
 var http = require('http');
 var server = http.createServer(function (req, res) {
@@ -29,7 +29,7 @@ SCRIPT
 Dockerコンテナのエントリポイントで実行して2秒後に`docker stop`コマンドを送ることで確認できる。
 
 ```sh
-$ <<DOCKERFILE > Dockerfile
+$ cat <<DOCKERFILE > Dockerfile
 FROM node
 COPY ./main.js ./main.js
 ENTRYPOINT ["node", "main"]

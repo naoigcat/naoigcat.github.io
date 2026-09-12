@@ -13,7 +13,7 @@ tags:      docker
 サービス起動時にプロファイルを指定しなかった場合はプロファイルが指定されていないサービスのみが起動する。
 
 ```sh
-$ <<YAML > docker-compose.yml
+$ cat <<YAML > docker-compose.yml
 version: '3.9'
 services:
   web:
