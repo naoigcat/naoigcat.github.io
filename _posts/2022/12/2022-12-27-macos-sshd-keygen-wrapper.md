@@ -10,4 +10,6 @@ macOS Catalina以降の端末にSSH接続してDocumentsディレクトリやDes
 
 ## 設定からアクセス許可を与える
 
-SSH接続の場合は`sshd-keygen-wrapper`としてアクセスすることになるためシステム設定 > セキュリティとプライバシー > プライバシー > フルディスクアクセスに`sshd-keygen-wrapper`を追加することでアクセスできるようになる。
+SSH接続の場合は`/usr/libexec/sshd-keygen-wrapper`（Finder では非表示の `/usr/libexec` 配下）としてアクセスすることになる。
+
+システム設定 > プライバシーとセキュリティ > フルディスクアクセス（macOS Ventura 以前は「セキュリティとプライバシー > プライバシー > フルディスクアクセス」）に`sshd-keygen-wrapper` を追加することでアクセスできるようになる。
