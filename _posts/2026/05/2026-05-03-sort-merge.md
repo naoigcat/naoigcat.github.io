@@ -211,7 +211,7 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
 
 ## 類似アルゴリズムとの相違点
 
-[ロムート分割型クイックソート](/2026/05/02/sort-quick-lumoto.html)はインプレースだが最悪計算量 `O(n²)` になり得る。マージは `O(n)` の追加領域を使う代わりに入力に依らず `O(n log n)` である。
+[ロムート分割型クイックソート](/2026/05/02/sort-quick-lomuto.html)はインプレースだが最悪計算量 `O(n²)` になり得る。マージは `O(n)` の追加領域を使う代わりに入力に依らず `O(n log n)` である。
 
 ## 時間計算量および空間計算量を計測する
 
