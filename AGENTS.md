@@ -52,9 +52,10 @@ The following choices are intentional or already accepted trade-offs for this si
 Unless the maintainer asks about them explicitly, **do not** raise them as review findings, nits, or
 “consider later” bullets.
 
--   **Mermaid CDN** — Loaded only when front matter sets `mermaid: true`. Do not suggest vendoring
-    under `assets` for offline or CDN resilience unless asked. Version URL and SRI in
-    `_includes/head.html` are manually maintained (Dependabot does not bump them).
+-   **Mermaid / MathJax CDN** — Loaded only when front matter sets `mermaid: true` or `mathjax: true`.
+    Do not suggest vendoring under `assets` for offline or CDN resilience unless asked. Version URL
+    and SRI in `_includes/head.html` are manually maintained (Dependabot does not bump them). Write
+    math with kramdown `$$...$$` (inline or display) on `mathjax: true` posts only.
 -   **Analytics** — `google_analytics` in `_config.yml`; theme loads it in production only. No
     EU-style consent banner in this site’s markup. Settled unless asked about jurisdictions or CMPs.
 -   **Dependabot** — `.github/dependabot.yml` targets **GitHub Actions only**. Gems stay with GitHub
