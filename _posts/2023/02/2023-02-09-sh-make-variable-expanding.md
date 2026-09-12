@@ -17,7 +17,7 @@ Makefileで変数に値を割り当てるとき最終的な結果が決まる方
 `=`を使って割り当てると変数は実行時に展開される。
 
 ```sh
-$ <<MAKEFILE > Makefile && make
+$ cat <<MAKEFILE > Makefile && make
 a = \$(b)
 b = \$(c)
 c = 1
@@ -32,7 +32,7 @@ echo 2 2 > /dev/null
 変数に何かを追加しようとして自身を参照すると無限ループになるためエラーになる。
 
 ```sh
-$ <<MAKEFILE > Makefile && make
+$ cat <<MAKEFILE > Makefile && make
 r = 1
 r = \$(r) 2
 all:; echo \$(r) > /dev/null
@@ -45,7 +45,7 @@ Makefile:2: *** Recursive variable `r' references itself (eventually).  Stop.
 
 <!-- markdownlint-disable MD010 -->
 ```sh
-$ <<MAKEFILE > Makefile && make
+$ cat <<MAKEFILE > Makefile && make
 x = \$(shell date)
 .PHONY: all
 all:
@@ -64,7 +64,7 @@ Wed Feb 9 12:06:22 JST 2023
 `:=`を使って割り当てると変数は割当時に展開される。
 
 ```sh
-$ <<MAKEFILE > Makefile && make
+$ cat <<MAKEFILE > Makefile && make
 a := \$(b)
 b := \$(c)
 c := 1
@@ -79,7 +79,7 @@ echo  1 > /dev/null
 自身を参照した場合でも割当時に展開されるためエラーにならない。
 
 ```sh
-$ <<MAKEFILE > Makefile && make
+$ cat <<MAKEFILE > Makefile && make
 r := 1
 r := \$(r) 2
 all:; echo \$(r) > /dev/null
@@ -93,7 +93,7 @@ echo 1 2 > /dev/null
 `?=`を使って割り当てると既に割り当て済みの値を上書きしない。
 
 ```sh
-$ <<MAKEFILE > Makefile && make
+$ cat <<MAKEFILE > Makefile && make
 a ?= \$(b)
 b ?= \$(c)
 c ?= 1

@@ -19,7 +19,7 @@ echo '127.0.0.1       example-app.test' | sudo tee -a /etc/hosts
 Dockerでdnsmasqサービスを立ち上げ、ローカルの/etc/hostsからマッピングを生成する。ローカルのIPアドレスが変わるたびに再ビルドが必要になる。
 
 ```sh
-> compose.yaml <<COMPOSE
+cat > compose.yaml <<COMPOSE
 services:
   dnsmasq:
     build:

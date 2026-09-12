@@ -21,11 +21,11 @@ ldap.max_links = -1
 AWSのコマンドライン設定ファイル (`~/.aws/config`, `~/.aws/credentials`) はINIファイルの形式のため特定のプロファイルの情報から環境変数を設定するコマンドを生成することができる。
 
 ```sh
-$ <<CONFIG > ~/.aws/config
+$ cat <<CONFIG > ~/.aws/config
 [default]
 region = ap-northeast-1
 CONFIG
-$ <<CREDENTIALS > ~/.aws/credentials
+$ cat <<CREDENTIALS > ~/.aws/credentials
 [default]
 aws_access_key_id = ...
 aws_secret_access_key = ...

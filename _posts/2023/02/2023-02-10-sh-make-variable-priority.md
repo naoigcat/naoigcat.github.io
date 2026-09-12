@@ -20,7 +20,7 @@ tags:      bash
 
 <!-- markdownlint-disable MD010 -->
 ```sh
-$ <<MAKEFILE > Makefile
+$ cat <<MAKEFILE > Makefile
 a := var
 b ?= var
 default:
@@ -50,7 +50,7 @@ a=arg b=arg
 
 <!-- markdownlint-disable MD010 -->
 ```sh
-$ <<MAKEFILE > ./Makefile
+$ cat <<MAKEFILE > ./Makefile
 a := var
 b ?= var
 c := var
@@ -63,7 +63,7 @@ default:
 	@\$(MAKE) -C sub
 	@\$(MAKE) -e -C sub
 MAKEFILE
-$ mkdir -p sub && <<MAKEFILE > ./sub/Makefile
+$ mkdir -p sub && cat <<MAKEFILE > ./sub/Makefile
 a := sub
 b := sub
 c ?= sub
