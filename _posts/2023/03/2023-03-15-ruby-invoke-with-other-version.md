@@ -31,7 +31,7 @@ task :default do
 end
 
 task :latest do
-  exec ". #{script} && asdf shell ruby 3.1.3 && rake" if Gem::Version.new(RUBY_VERSION) < "3.1"
+  exec ". #{script} && asdf shell ruby 3.1.3 && rake" if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("3.1")
   Rake::Task["default"].invoke
 end
 ```
