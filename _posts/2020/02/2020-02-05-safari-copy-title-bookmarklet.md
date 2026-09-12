@@ -14,11 +14,10 @@ SafariではJavaScriptでクリップボードにテキストをコピーしよ�
 
 `textarea`のテキストをコピーするため、リンク付きのテキストでコピーできず、プレーンテキストになる。
 
-```js
-javascript:
+```javascript
 (function () {
     var body = document.getElementsByTagName("body")[0];
-    var [, title=document.title] = document.title.match(/(.*#\d :.*) - .*? - Redmine for .*/) || [];
+    var [, title=document.title] = document.title.match(/(.*#\d+ :.*) - .*? - Redmine for .*/) || [];
     var textarea = document.createElement("textarea");
     textarea.textContent = title;
     body.appendChild(textarea);
