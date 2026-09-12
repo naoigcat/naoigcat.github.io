@@ -3,11 +3,6 @@
   "slug": "php",
   "posts": [
     {
-      "title": "Xcodeに付属するm4コマンドのバージョンを調べる",
-      "url": "/2024/06/23/m4-on-mac.html",
-      "date": "Jun 23, 2024"
-    },
-    {
       "title": "PHPの定義済み定数の値を確認する",
       "url": "/2024/06/11/php-syslog-defined-variables.html",
       "date": "Jun 11, 2024"

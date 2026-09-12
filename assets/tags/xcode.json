@@ -3,6 +3,11 @@
   "slug": "xcode",
   "posts": [
     {
+      "title": "Xcodeに付属するm4コマンドのバージョンを調べる",
+      "url": "/2024/06/23/m4-on-mac.html",
+      "date": "Jun 23, 2024"
+    },
+    {
       "title": "Xcodeからのデバッグ実行で実機がビジーになる",
       "url": "/2023/06/21/xcode-copying-caches-from-device.html",
       "date": "Jun 21, 2023"
@@ -26,6 +31,11 @@
       "title": "XcodeがdSYMファイルを生成した後にスクリプトを実行する",
       "url": "/2023/04/06/xcode-run-script-with-dsym.html",
       "date": "Apr 6, 2023"
+    },
+    {
+      "title": "Xcodeが対応しているSwiftのバージョンを調べる",
+      "url": "/2023/03/30/xcode-swift-versions.html",
+      "date": "Mar 30, 2023"
     },
     {
       "title": "シミュレーターでステージマネージャーを有効化する",
