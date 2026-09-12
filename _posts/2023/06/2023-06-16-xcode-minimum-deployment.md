@@ -36,5 +36,4 @@ GitHub上でXcodeから削除されたライブラリを公開しているリポ
 mkdir -p /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/arc
 cd /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/arc
 sudo git clone https://github.com/kamyarelyasi/Libarclite-Files.git .
-sudo chmod +x *
 ```
