@@ -8,7 +8,7 @@ tags:      git
 
 ```sh
 git filter-branch --prune-empty --index-filter \
-'git rm --cached --ignore-unmatch password.txt' HEAD --all
+'git rm --cached --ignore-unmatch password.txt' -- --all
 ```
 
 ## 参照ログを削除する
