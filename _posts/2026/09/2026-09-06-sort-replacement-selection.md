@@ -28,7 +28,7 @@ procedure generate_runs(input, M)
   H = first min(M, length(input)) elements; heapify_min(H)
   frozen = empty; run = empty; i = |H|
   while true
-    if H is empty
+    if H is empty then
       if run nonempty then emit run; run = empty
       if frozen empty and i >= length(input) then break
       H = frozen; frozen = empty
@@ -38,7 +38,7 @@ procedure generate_runs(input, M)
       continue
     out = extract_min(H)
     append out to run
-    if i < length(input)
+    if i < length(input) then
       next = input[i]; i = i + 1
       if next >= out then insert next into H
       else append next to frozen

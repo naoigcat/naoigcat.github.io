@@ -18,11 +18,11 @@ sort_demo: true
 
 ```pseudocode
 procedure meld(H1, H2)
-  if H1 is empty
+  if H1 is empty then
     return H2
-  if H2 is empty
+  if H2 is empty then
     return H1
-  if H1.key <= H2.key
+  if H1.key <= H2.key then
     make H2 the leftmost child of H1
     return H1
   else
@@ -34,7 +34,7 @@ procedure two_pass_meld(children)   // children は兄弟リスト
   pairs = empty list
   while children is not empty
     a = take first child
-    if children is empty
+    if children is empty then
       append a to pairs
     else
       b = take first child

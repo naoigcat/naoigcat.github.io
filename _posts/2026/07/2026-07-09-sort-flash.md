@@ -18,7 +18,7 @@ sort_demo: true
 ```pseudocode
 procedure flash_sort(A)
   n = length(A)
-  if n ≤ 1 then return
+  if n <= 1 then return
   minVal = minimum(A)
   maxVal = maximum(A)
   if minVal = maxVal then return

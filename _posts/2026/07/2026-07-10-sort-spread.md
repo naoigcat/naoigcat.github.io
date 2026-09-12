@@ -24,11 +24,11 @@ procedure spreadsort(A)
   maxVal = maximum(A)
   if minVal = maxVal then return
   m = max(MIN_BINS, floor(n / MEAN_BIN_SIZE))
-  if m ≥ (maxVal - minVal + 1) then
+  if m >= (maxVal - minVal + 1) then
     insertion_sort(A)
     return
   scatter A into m bins by value mapping
-  for each bin b with count ≥ 2
+  for each bin b with count >= 2
     if count(b) < get_max_count(logRange, n) then
       insertion_sort(bin b)
     else

@@ -36,7 +36,7 @@ procedure american_flag_sort(A, byte)
     if count[r] = 0 then continue
     while begin[r] < end[r]
       b = digit(A[begin[r]], byte)
-      if b ≠ r then
+      if b != r then
         end[b] = end[b] - 1
         swap(A[begin[r]], A[end[b]])
       else

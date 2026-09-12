@@ -21,7 +21,7 @@ sort_demo: true
 procedure adjust(A, ls, k, s)
   t = parent of leaf s   // (s + k) / 2
   while t > 0
-    if key(A, s) > key(A, ls[t])
+    if key(A, s) > key(A, ls[t]) then
       swap s and ls[t]   // loser stays in ls[t], winner continues as s
     t = t / 2
   ls[0] = s

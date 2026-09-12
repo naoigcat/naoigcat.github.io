@@ -30,7 +30,7 @@ procedure shivers_sort(A)
   S := empty stack
   while true
     h := height(S)
-    if h >= 2 and level(len(R_h)) >= level(len(R_{h-1}))
+    if h >= 2 and level(len(R_h)) >= level(len(R_{h-1})) then
       merge R_{h-1} and R_h on S
     else if runs is not empty
       push next run from runs onto S

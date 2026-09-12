@@ -31,7 +31,7 @@ procedure cycle_sort(A)
     while pos < n and A[pos] = item do
       pos = pos + 1
     swap(A[pos], item)
-    while pos ≠ start
+    while pos != start
       pos = start
       for i from start + 1 to n - 1
         if A[i] < item then

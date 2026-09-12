@@ -32,9 +32,9 @@ procedure build_cartesian_tree(A)
     last = null
     while stack not empty and A[stack.top] > A[i]
       last = stack.pop()
-    if stack not empty
+    if stack not empty then
       right[stack.top] = i
-    if last not null
+    if last not null then
       left[i] = last
     stack.push(i)
   return tree encoded by left[], right[], and stack[0] as root
@@ -47,7 +47,7 @@ procedure merge(L, R)
   // 2 つの昇順列を先頭から比較しながら連結する
 
 procedure extract_sorted(node)
-  if node is null
+  if node is null then
     return empty list
   left = extract_sorted(left[node])
   right = extract_sorted(right[node])

@@ -40,7 +40,7 @@ procedure sift_in(A, rootIdx, size)
   loop
     right = r - 1
     left = right - L[sz - 2]
-    if A[right] < A[left]
+    if A[right] < A[left] then
       candidate = left
       nsz = sz - 1
     else
