@@ -58,7 +58,7 @@ function download() {
     crossorigin="anonymous"
  referrerpolicy="no-referrer"></script>
     <script>
-      const values = JSON.parse(<?= values ?>);
+      const values = <?!= values ?>;
       const csv = Encoding.convert(Papa.unparse(values), {
         from: "UNICODE",
         to: "SJIS",
