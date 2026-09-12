@@ -8,6 +8,8 @@ tags:      ruby google
 
 サービスアカウントでGoogle Drive上に作成したファイルの所有権を移すには、API経由で所有権を移行する必要がある。
 
+個人の Google アカウント宛に移す場合は、受領側の承認（`pendingOwner`）が必要になることがある。
+
 ```rb
 require "google_drive"
 session = GoogleDrive::Session.from_service_account_key(SERVICE_ACCOUNT_KEY)
