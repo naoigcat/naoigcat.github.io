@@ -7,13 +7,13 @@ tags:      imagemagick
 ## 半透明を無視して変換する
 
 ```sh
-convert SOURCE.PNG -background white -alpha deactivate -flatten TARGET.PNG
+magick SOURCE.PNG -background white -alpha deactivate -flatten TARGET.PNG
 ```
 
 ## 半透明を考慮して変換する
 
 ```sh
-convert SOURCE.PNG \
+magick SOURCE.PNG \
     \( +clone -alpha opaque -fill white -colorize 100% \) \
     +swap -geometry +0+0 -compose Over -composite -alpha off \
     TARGET.PNG
