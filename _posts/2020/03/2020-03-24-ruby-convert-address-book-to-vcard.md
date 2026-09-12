@@ -21,13 +21,13 @@ Pathname.new("/path/to/target.vcf").open("w+b", encoding: "sjis:utf-8") do |stre
   Pathname.glob("#{ENV["HOME"]}/Library/Application Support/AddressBook/**/*.abcddb").map do |path|
     IO.popen(Shellwords.join(["/usr/bin/sqlite3", path]), "r+") do |io|
       io.write <<-SQL.undent
-        SELECT    ZLASTNAME || " " || ZFIRSTNAME, ZPHONETICLASTNAME || " " || ZPHONETICFIRSTNAME, ZFULLNUMBER, ZADDRESS
+        SELECT    ZLASTNAME || ' ' || ZFIRSTNAME, ZPHONETICLASTNAME || ' ' || ZPHONETICFIRSTNAME, ZFULLNUMBER, ZADDRESS
         FROM      ZABCDRECORD
         LEFT JOIN ZABCDPHONENUMBER ON ZABCDPHONENUMBER.ZOWNER = ZABCDRECORD.Z_PK
         LEFT JOIN ZABCDEMAILADDRESS ON ZABCDEMAILADDRESS.ZOWNER = ZABCDRECORD.Z_PK
         WHERE     (ZLASTNAME IS NOT NULL)
-        AND       (ZABCDPHONENUMBER.ZLABEL <> "_$!<Other>!$_" OR ZABCDPHONENUMBER.ZLABEL IS NULL)
-        AND       (ZABCDEMAILADDRESS.ZLABEL <> "_$!<Other>!$_" OR ZABCDEMAILADDRESS.ZLABEL IS NULL)
+        AND       (ZABCDPHONENUMBER.ZLABEL <> '_$!<Other>!$_' OR ZABCDPHONENUMBER.ZLABEL IS NULL)
+        AND       (ZABCDEMAILADDRESS.ZLABEL <> '_$!<Other>!$_' OR ZABCDEMAILADDRESS.ZLABEL IS NULL)
         ;
       SQL
       io.close_write
