@@ -21,7 +21,7 @@ procedure shuttle_sort(A)
   n = length(A)
   for i from 1 to n - 1
     j = i
-    while j > 0 and A[j - 1] > A[j] then
+    while j > 0 and A[j - 1] > A[j]
       swap(A[j - 1], A[j])
       j = j - 1
 ```

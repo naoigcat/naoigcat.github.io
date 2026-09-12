@@ -28,7 +28,7 @@ procedure adaptive_shivers_sort(A)
   S := empty stack
   while true
     h := height(S)
-    if h >= 3 and level(len(R_{h-2})) <= max(level(len(R_{h-1})), level(len(R_h)))
+    if h >= 3 and level(len(R_{h-2})) <= max(level(len(R_{h-1})), level(len(R_h))) then
       merge R_{h-2} and R_{h-1} on S
     else if runs is not empty
       push next run from runs onto S

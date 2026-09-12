@@ -32,7 +32,7 @@ procedure distinguished_ancestor(r, j)
   return j >> 1
 
 procedure join(A, r, i, j)   // i は区別祖先、最大ヒープ
-  if A[i] < A[j]
+  if A[i] < A[j] then
     flip r[j]
     swap A[i], A[j]
 

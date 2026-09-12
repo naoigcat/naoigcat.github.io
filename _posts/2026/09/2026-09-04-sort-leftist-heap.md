@@ -20,19 +20,19 @@ NPL は「その節点から、子が 2 つ揃っていない最も近い子孫�
 
 ```pseudocode
 procedure npl(H)
-  if H is empty
+  if H is empty then
     return -1
   return H.npl
 
 procedure merge(H1, H2)
-  if H1 is empty
+  if H1 is empty then
     return H2
-  if H2 is empty
+  if H2 is empty then
     return H1
-  if H1.key > H2.key
+  if H1.key > H2.key then
     swap H1, H2
   H1.right = merge(H1.right, H2)
-  if npl(H1.left) < npl(H1.right)
+  if npl(H1.left) < npl(H1.right) then
     swap H1.left, H1.right
   H1.npl = npl(H1.right) + 1
   return H1

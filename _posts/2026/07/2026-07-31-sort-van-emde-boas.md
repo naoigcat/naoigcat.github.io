@@ -40,7 +40,7 @@ procedure veb_insert(V, x)
 procedure veb_successor(V, x)
   if V.u = 2 then
     if x = 0 and V.max = 1 then return 1 else return NIL
-  if V.min ≠ NIL and x < V.min then return V.min
+  if V.min != NIL and x < V.min then return V.min
   h = high(x); l = low(x)
   if low-part of cluster h has a key > l then
     return index(h, veb_successor(V.cluster[h], l))
@@ -49,7 +49,7 @@ procedure veb_successor(V, x)
   return index(succ, V.cluster[succ].min)
 
 procedure van_emde_boas_sort(A)
-  if length(A) ≤ 1 then return
+  if length(A) <= 1 then return
   minVal = minimum(A); maxVal = maximum(A)
   span = maxVal - minVal + 1
   count[0..span-1] = 0
@@ -60,7 +60,7 @@ procedure van_emde_boas_sort(A)
   for v from 0 to span - 1
     if count[v] > 0 then veb_insert(V, v)
   idx = 0; cur = V.min
-  while cur ≠ NIL
+  while cur != NIL
     repeat count[cur] times
       A[idx] = minVal + cur; idx = idx + 1
     cur = veb_successor(V, cur)

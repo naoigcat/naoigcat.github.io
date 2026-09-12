@@ -26,7 +26,7 @@ procedure consolidate(H)
   // 次数 d ごとに高々 1 本の根が残るよう link で畳み込む
   for each root x in H
     while there is another root y with y.degree = x.degree
-      if x.key > y.key
+      if x.key > y.key then
         swap x, y
       link(y, x)
   return the new root list
