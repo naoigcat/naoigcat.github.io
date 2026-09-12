@@ -10,7 +10,7 @@ tags:      git
 
 `--abbrev-ref` オプションを付けるとコミットに対応するブランチやタグがある場合にその名前を表示する。
 
-```bash
+```sh
 $ git rev-parse --abbrev-ref HEAD
 main
 ```

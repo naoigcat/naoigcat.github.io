@@ -12,7 +12,7 @@ Bashで`Ctrl-r`を押して検索モードに入り、コマンドの一部を�
 
 `Enter`を押すと表示中のコマンドが実行され、矢印キーを押すと表示中のコマンドを入力欄に残したまま検索モードが終了する。
 
-```bash
+```sh
 $ echo 1
 $ ⌃r
 (reverse-i-search)`e': echo 1
@@ -22,7 +22,7 @@ $ ⌃r
 
 スクリーンロックに割り当てられているキーを確認する。
 
-```bash
+```sh
 stty -a
 ...
         stop = ^S; ...
@@ -30,13 +30,13 @@ stty -a
 
 `stop = ^S`であれば`Ctrl-s`が割り当てられているため下記コマンドで解除する。
 
-```bash
+```sh
 stty stop undef
 ```
 
 `= <undef>`になっていることを確認する。
 
-```bash
+```sh
 stty -a
 ...
         stop = <undef>; ...

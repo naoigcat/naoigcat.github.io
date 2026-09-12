@@ -11,7 +11,7 @@ tags:      google
 
 下記の形式のURLがコピーされる。
 
-```url
+```txt
 https://docs.google.com/spreadsheets/d/{SHEET_ID}/edit#gid={GID}&range={RANGE}
 ```
 

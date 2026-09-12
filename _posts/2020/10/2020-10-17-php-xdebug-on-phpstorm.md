@@ -18,7 +18,7 @@ RUN pecl install xdebug && \
 
 Dockerコンテナにコピーするphp.iniにXDebug用の設定を追加する。
 
-```php.ini
+```txt
 [xdebug]
 ; Xdebug 3（pecl install xdebug の既定）
 xdebug.mode = debug

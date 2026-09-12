@@ -16,7 +16,7 @@ Windowsアプリケーションで利用する場合などでShift JISでエン�
 
 メニューをクリックするとモーダルが表示されてDownloadリンクからシート名がファイル名になったCSVファイルがダウンロードできる。
 
-```js
+```javascript
 // download.gs
 function onOpen() {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();

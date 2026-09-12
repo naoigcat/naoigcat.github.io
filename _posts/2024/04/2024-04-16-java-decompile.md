@@ -8,7 +8,7 @@ tags:      java
 
 JADXはArchLinuxで簡単にインストールできるためDockerイメージに利用したいバージョンのJDKを入れてインストールすることで実行可能な環境を作れる。
 
-```yaml
+```yml
 services:
   jadx:
     build:

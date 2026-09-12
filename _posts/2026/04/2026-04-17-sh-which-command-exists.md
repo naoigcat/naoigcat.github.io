@@ -64,7 +64,7 @@ cd: shell built-in command.
 
 コマンドによってはエラーになるシェルもある。
 
-```bash
+```sh
 $ zsh -c 'which let'
 let: shell built-in command
 $ bash -c 'which let' || echo 'not found'

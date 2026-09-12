@@ -8,7 +8,7 @@ tags:      xcode
 
 Xcode 14.3以降でビルドすると、`libarclite`がなくなっているためCocoaPods経由でインストールしたライブラリのビルドが失敗するようになる場合がある。
 
-```stderr
+```txt
 File not found: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/arc/libarclite_iphoneos.a
 ```
 

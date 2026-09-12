@@ -8,7 +8,7 @@ tags:      bash
 
 組み込みコマンドの `command` はエイリアスや関数以外の指定したコマンドを実行するコマンドである。
 
-```bash
+```sh
 $ for shell in zsh bash ksh tcsh csh; do
     printf "%-5s" $shell
     $shell -c 'command date -j -f "%Y-%m-%d" "2026-04-20" +"%Y/%m/%d"'
@@ -22,7 +22,7 @@ csh  2026/04/20
 
 `-v` オプションを付けると、指定したコマンドが組み込みコマンド、実行ファイルのどれで解決されるかを表示する。
 
-```bash
+```sh
 $ for shell in zsh bash ksh tcsh csh ; do printf "%-5s" $shell ; $shell -c 'command -v cd' ; done
 zsh  cd
 bash cd
@@ -57,7 +57,7 @@ csh  not found
 
 Bashでエイリアスも見えるようにするには、 `shopt -s expand_aliases` でエイリアス展開を有効にしてから実行する必要がある。このオプションはほかのシェルにはない。
 
-```bash
+```sh
 $ printf "%-5s" bash ; bash -c 'shopt -s expand_aliases ; alias ll="ls -l" ; command -v ll'
 bash alias ll='ls -l'
 ```
@@ -66,7 +66,7 @@ bash alias ll='ls -l'
 
 `-V` オプションを付けると、指定したコマンドがどのように解決されるかを詳しく表示する。
 
-```bash
+```sh
 $ for shell in zsh bash ksh tcsh csh ; do printf "%-5s" $shell ; $shell -c 'command -V cd' ; done
 zsh  cd is a shell builtin
 bash cd is a shell builtin
@@ -107,7 +107,7 @@ bash ll is aliased to `ls -l'
 
 組み込みコマンドの `type` は指定した名前が組み込みコマンド、実行ファイルのどれで解決されるかを詳しく表示する。 `command -V` と同じ内容を出力する。
 
-```bash
+```sh
 $ for shell in zsh bash ksh tcsh csh ; do printf "%-5s" $shell ; $shell -c 'type cd' ; done
 zsh  cd is a shell builtin
 bash cd is a shell builtin

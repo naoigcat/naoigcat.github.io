@@ -22,7 +22,7 @@ xcodebuild -workspace ${WORKSPACE}.xcworkspace -scheme ${SCHEME} -showBuildSetti
 
 ## Xcode 14.2で実行する
 
-```log
+```txt
 ACTION=build
 AD_HOC_CODE_SIGNING_ALLOWED=NO
 ALLOW_TARGET_PLATFORM_SPECIALIZATION=NO

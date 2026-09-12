@@ -10,7 +10,7 @@ tags:      bash
 
 何も登録されていない状態で実行ファイルを一度呼ぶと、そのパスが記録される。
 
-```bash
+```sh
 $ bash --noprofile --norc -lc 'hash -r; hash; ls >/dev/null; hash'
 hash: hash table empty
 hits    command
@@ -28,7 +28,7 @@ $ bash --noprofile --norc -lc 'hash -r; hash git; hash -t git'
 
 ハッシュテーブルへの登録が成功するかどうか実行ファイルの存在チェックも行えるが、エイリアスや関数の存在確認が行えるかはシェルによって異なる。
 
-```bash
+```sh
 $ for shell in zsh bash ksh tcsh csh ; do printf "%-5s" $shell ; $shell -c 'hash cd && echo found' ; done
 zsh  found
 bash found

@@ -26,7 +26,7 @@ Laravelの新規プロジェクトを作成すると、
 
 この状態で`.env`ファイルを削除して`composer install`を実行すると、`post-root-package-install`が実行されないため、環境変数が定義されていない状態で`@php artisan package:discover --ansi`が実行され、
 
-```log
+```txt
 TypeError
 
   Argument 1 passed to Pusher\Pusher::__construct() must be of the type string, null given,

@@ -8,7 +8,7 @@ tags:      ssh
 
 `ProxyCommand`を利用すると目的のサーバーに接続するまでに別のサーバーを経由することができる。
 
-```config
+```txt
 Host target
   HostName hostname
   ProxyCommand ssh relay-host -W %h:%p
@@ -18,7 +18,7 @@ Host target
 
 上記のように多段SSHを構成すると、切断時にエラーメッセージが表示される。
 
-```output
+```txt
 Killed by signal 1.
 ```
 
@@ -26,12 +26,12 @@ Killed by signal 1.
 
 ### SSHコマンドのオプションを利用する
 
-```config
+```txt
 ProxyCommand ssh -q relay-host -W %h:%p
 ```
 
 ### 標準エラーを捨てる
 
-```config
+```txt
 ProxyCommand ssh relay-host -W %h:%p 2> /dev/null
 ```

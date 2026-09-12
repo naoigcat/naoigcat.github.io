@@ -8,7 +8,7 @@ tags:      xcode
 
 Xcodeでのビルド時に以下の警告が表示され、アプリが起動しない場合がある。
 
-```log
+```txt
 (lldb) warning: libobjc.A.dylib is being read from process memory.
 This indicates that LLDB could not find the on-disk shared cache for this device.
 This will likely reduce debugging performance.

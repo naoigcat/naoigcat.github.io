@@ -8,7 +8,7 @@ tags:      git
 
 Gitで過去のコミットを改変した場合、コミットの作成日時と適用日時がずれてしまう。
 
-```bash
+```sh
 diff \
 <(cat <(git log --oneline --pretty=format:'%cd' --date=format:'%Y-%m-%d %H:%M:%S') <(echo '')) \
 <(cat <(git log --oneline --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S') <(echo ''))
@@ -18,7 +18,7 @@ diff \
 
 下記コマンドを実行すると、適用日時を作成日時に書き換えて修正の痕跡を消し去ることができる。
 
-```bash
+```sh
 git rebase --committer-date-is-author-date HEAD^
 ```
 
@@ -26,7 +26,7 @@ git rebase --committer-date-is-author-date HEAD^
 
 ただし、上記の方法はInitial Commitに対しては実行できない。Initial Commitの適用日時を修正したい場合は`--root`オプションを追加して対話的リベースを始める。
 
-```bash
+```sh
 git rebase --interactive --root
 ```
 
@@ -34,13 +34,13 @@ git rebase --interactive --root
 
 ## 直前のコミットの適用日時を修正する
 
-```bash
+```sh
 export GIT_COMMITTER_DATE="2020/03/03 09:48:04 +0900" && git commit --amend --date "$GIT_COMMITTER_DATE" --reuse-message HEAD && unset GIT_COMMITTER_DATE
 ```
 
 Initial Commitを変更するとほかのコミットの適用日時も更新されるため全てのコミットの適用日時を作成日時に変更する。
 
-```bash
+```sh
 git rebase --committer-date-is-author-date $(git log --oneline --pretty=format:'%H' | tail -n 1)
 ```
 
@@ -48,7 +48,7 @@ git rebase --committer-date-is-author-date $(git log --oneline --pretty=format:'
 
 コミットの作成日時が昇順になっているかどうかは下記コマンドで確認できる。
 
-```bash
+```sh
 diff \
 <(git log --oneline --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S' | sort -r) \
 <(cat <(git log --oneline --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S') <(echo ''))
