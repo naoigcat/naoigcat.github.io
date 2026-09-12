@@ -158,6 +158,11 @@
       "date": "Nov 12, 2020"
     },
     {
+      "title": ".ipaファイルからプロビジョニングプロファイルを抽出する",
+      "url": "/2020/04/23/sh-extract-provisioning-profile-from-ipa.html",
+      "date": "Apr 23, 2020"
+    },
+    {
       "title": "grepコマンドの再帰検索で複数のディレクトリを除外する",
       "url": "/2020/03/07/sh-grep-exclude-dirs.html",
       "date": "Mar 7, 2020"

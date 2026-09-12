@@ -1,7 +1,7 @@
 ---
 title:     VSCodeでPHP拡張機能を設定する
 date:      2023-02-13 12:00:47 +0900
-tags:      vscode asdf
+tags:      vscode asdf php
 ---
 
 ## 補完機能は標準機能ではなく拡張機能を使用する
