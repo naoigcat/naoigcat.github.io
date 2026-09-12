@@ -24,7 +24,7 @@ git clean -x
 
 ```sh
 $ mkdir -p Sources/Package
-$ touch Package/Package.swift
+$ touch Sources/Package/.gitkeep
 $ echo $'.build\nPackage.resolved' > .gitignore
 $ cat <<EOS > Package.swift
 // swift-tools-version:5.7
