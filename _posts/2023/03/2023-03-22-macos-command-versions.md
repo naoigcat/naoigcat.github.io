@@ -54,8 +54,8 @@ tags:      macos
 |11.7.4 |7.64.1    |LibreSSL 2.8.3 |1.11      |8.1p1     |3.32.3    |
 |12.6.3 |7.79.1    |LibreSSL 2.8.3 |1.11      |8.6p1     |3.37.0    |
 |13.2.1 |7.86.0    |LibreSSL 3.3.6 |1.11      |9.0p1     |3.39.5    |
-|14.7   |8.7.1     |LibreSSL 3.3.6 |?         |9.7p1     |3.43.2    |
-|15.2   |8.7.1     |LibreSSL 3.3.6 |?         |9.8p1     |3.43.2    |
+|14.7   |8.7.1     |LibreSSL 3.3.6 |1.11      |9.7p1     |3.43.2    |
+|15.2   |8.7.1     |LibreSSL 3.3.6 |1.11      |9.8p1     |3.43.2    |
 
 |macOS  |make      |svn       |git       |clang     |swift     |
 |:------|:---------|:---------|:---------|:---------|:---------|
@@ -73,6 +73,8 @@ tags:      macos
 |13.2.1 |3.81      |-         |2.37.1    |14.0.0    |5.7.2     |
 |14.7   |3.81      |-         |2.39.3    |15.0.0    |5.9.2     |
 |15.2   |3.81      |-         |2.39.5    |16.0.0    |6.0.3     |
+
+表の 10.9 (Mavericks) は検証環境がなく行を省略している。14.7・15.2 は表のみ掲載で CLI 出力の詳細節はない。
 
 ## macOS毎にバージョンを調べる
 
@@ -375,8 +377,6 @@ $ sqlite3 --version
 3.19.3 2017-06-27 16:48:08 2b0954060fe10d6de6d479287dd88890f1bef6cc1beca11bc6cdb79f72e2377b
 $ xcode-select --install
 xcode-select: note: install requested for command line developer tools
-$ xcode-select --install
-xcode-select: note: install requested for command line developer tools
 $ make --version | head -n 1
 GNU Make 3.81
 $ svn --version | head -n 1
@@ -623,6 +623,8 @@ $ ssh -V
 OpenSSH_9.0p1, LibreSSL 3.3.6
 $ sqlite3 --version
 3.39.5 2022-10-14 20:58:05 554764a6e721fab307c63a4f98cd958c8428a5d9d8edfde951858d6fd02daapl
+$ xcode-select --install
+xcode-select: note: install requested for command line developer tools
 $ make --version | head -n 1
 GNU Make 3.81
 $ svn --version | head -n 1
