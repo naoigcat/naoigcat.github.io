@@ -19,7 +19,7 @@ class IO
         csv << line.unpack(lengths)
       end
     end
-    CSV.parse(string, options)
+    CSV.parse(string, **options)
   end
 end
 ```
