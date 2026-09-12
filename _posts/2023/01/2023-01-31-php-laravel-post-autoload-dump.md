@@ -37,7 +37,7 @@ composer create-project laravel/laravel example-app
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
