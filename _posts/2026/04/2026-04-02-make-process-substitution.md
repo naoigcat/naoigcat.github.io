@@ -18,9 +18,11 @@ Makefileでプロセス置換を使用する場合、シェルが`/bin/sh`であ
 
 MakefileのシェルをBashに変更することで、プロセス置換を使用できるようになる。
 
+<!-- markdownlint-disable MD010 -->
 ```makefile
 SHELL := /bin/bash
 
 target:
-    diff <(command1) <(command2) || echo "No differences"
+	diff <(command1) <(command2) || echo "No differences"
 ```
+<!-- markdownlint-enable MD010 -->
