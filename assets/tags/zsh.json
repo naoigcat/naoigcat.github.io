@@ -1,0 +1,11 @@
+{
+  "name": "zsh",
+  "slug": "zsh",
+  "posts": [
+    {
+      "title": "シェルスクリプトで配列を結合する",
+      "url": "/2023/03/24/sh-join-array.html",
+      "date": "Mar 24, 2023"
+    }
+  ]
+}
