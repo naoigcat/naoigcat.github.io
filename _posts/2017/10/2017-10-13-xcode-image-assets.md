@@ -22,6 +22,8 @@ end
 
 ## 存在しないアセットへのリンクを抽出する
 
+下記の例はソースファイルを`file.write`で**破壊的に書き換える**。実行前にバックアップを取るか、書き込みをやめて検出だけにする。
+
 ```ruby
 Pathname.glob("**/*").select do |file|
   file.file? && %w(.h .m .storyboard .xib .pbxproj .c .mm).include?(file.extname)
@@ -39,7 +41,7 @@ end.tap do
 end
 Pathname.glob("**/*").select do |file|
   file.file?
-end.select do
+end.select do |file|
   file.read.match(/\.png|\.jpe?g/) rescue nil
 end
 ```
