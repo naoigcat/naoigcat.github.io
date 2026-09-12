@@ -40,7 +40,7 @@ macOS 10.12 Sierra以前はAppleの[サポートページ](https://support.apple
 インストーラに付属している`createinstallmedia`コマンドで外部メディアを起動可能なインストーラにすることができる。
 
 ```sh
-sudo /Applications/Install\ OS\ X\ El\ Capitan.app/Contents/Resources/createinstallmedia \
+sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createinstallmedia \
   --volume /Volumes/MyVolume \
   --nointeraction
 Erasing Disk: 0%... 10%... 20%... 30%...100%...
@@ -62,10 +62,10 @@ Sierraのインストーラを作成しようとして同様に`createinstallmed
 $ sudo /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallmedia \
   --volume /Volumes/Media \
   --applicationpath /Applications/Install\ macOS\ Sierra.app
-/Volume/Media is not a valid volume mount point.
+/Volumes/Media is not a valid volume mount point.
 ```
 
-Info.plistのバージョンが違っているの原因のためバージョンを書き換えることで実行できるようになる。
+Info.plistのバージョンが違っているのが原因のためバージョンを書き換えることで実行できるようになる。
 
 ```sh
 $ sudo plutil \
@@ -144,7 +144,7 @@ Mountain Lionのインストーラを作成する場合は`createinstallmedia`�
 
 ```sh
 $ sudo asr restore \
-  --source /Applications/Install\ OS\ X\ Lion.app/Contents/SharedSupport/InstallESD.dmg \
+  --source /Applications/Install\ OS\ X\ Mountain\ Lion.app/Contents/SharedSupport/InstallESD.dmg \
   --target /Volumes/Media \
   --erase --noprompt
     Validating target...done
@@ -162,7 +162,7 @@ Lionのインストーラを作成する場合はMountain Lionと同様に`asr`�
 
 ```sh
 $ sudo asr restore \
-  --source /Applications/Install\ OS\ X\ Mountain\ Lion.app/Contents/SharedSupport/InstallESD.dmg \
+  --source /Applications/Install\ OS\ X\ Lion.app/Contents/SharedSupport/InstallESD.dmg \
   --target /Volumes/Media \
   --erase --noprompt
     Validating target...done
@@ -176,7 +176,7 @@ Expected 7425D663
 but got 84E748B9
 Could not restore - Invalid argument
 $ sudo asr restore \
-  --source /Applications/Install\ OS\ X\ Mountain\ Lion.app/Contents/SharedSupport/InstallESD.dmg \
+  --source /Applications/Install\ OS\ X\ Lion.app/Contents/SharedSupport/InstallESD.dmg \
   --target /Volumes/Media \
   --erase --noprompt --noverify
     Validating target...done
