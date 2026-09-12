@@ -7,5 +7,5 @@ tags:      bash
 ## ファイル名がユニークになるように変更する
 
 ```sh
-for file in *.*; do mv $file "$(md5 "$file" | cut -d' ' -f4).${file##*.}"; done
+for file in *.*; do mv "$file" "$(md5 -q "$file").${file##*.}"; done
 ```
