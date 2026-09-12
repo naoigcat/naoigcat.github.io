@@ -54,5 +54,5 @@ Math.trunc(0.0000005); // 0
 
 ```javascript
 Number('123a'); // NaN
-Number('0xFF'); // 256
+Number('0xFF'); // 255
 ```
