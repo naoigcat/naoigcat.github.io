@@ -8,6 +8,8 @@ tags:      bash docker
 
 Jekyllは`_plugins`ディレクトリにRubyファイルを追加することでプラグインとして動作させることができる。
 
+なお、[GitHub Pages](https://pages.github.com/)のデフォルトビルドではカスタムの`_plugins/`内のRubyは実行されない（[許可されたプラグイン](https://pages.github.com/versions/)のみ）。
+
 下記のコードを使うと、`_config.yml`の`imports_dir`で指定したディレクトリ内にある、シンボリックリンク先の別リポジトリから投稿を取り込むことができる。
 
 ```ruby
