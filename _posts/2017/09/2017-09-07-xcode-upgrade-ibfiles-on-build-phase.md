@@ -32,13 +32,11 @@ Interface Builderで編集するXib/StoryboardファイルにはXcodeのバー�
     find . -name "*.storyboard" -or -name "*.xib" |
     while read filename
     do
-        if [ "$(xml sel -t -v '//document/@toolsVersion' $filename)" -eq "$tools_version" ]; then
-            continue
-        fi
-        if [ "$(xml sel -t -v '//document/@systemVersion' $filename)" -eq "$system_version" ]; then
+        if [ "$(xml sel -t -v '//document/@toolsVersion' "$filename")" = "$tools_version" ] &&
+           [ "$(xml sel -t -v '//document/@systemVersion' "$filename")" = "$system_version" ]; then
             continue
         fi
         echo "Upgrade $filename"
-        xcrun ibtool --upgrade $filename --write $filename
+        xcrun ibtool --upgrade "$filename" --write "$filename"
     done
     ```
