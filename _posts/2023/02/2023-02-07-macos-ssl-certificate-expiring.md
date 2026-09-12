@@ -37,7 +37,7 @@ cd ~/Downloads
 open -a Safari https://curl.se/ca/cacert.pem && sleep 3
 open -a Safari https://curl.se/ca/cacert.pem.sha256 && sleep 3
 osascript -e "tell application \"Safari\" to close current tab of front window"
-if shasum -c cacert.pem.sha256
+if shasum -a 256 -c cacert.pem.sha256
 then
     sudo cp /etc/ssl/cert.pem{,.$(date +%Y%m%d%H%M%S)}
     sudo mv cacert.pem /etc/ssl/cert.pem
