@@ -14,7 +14,7 @@ Tensorflowを使用していると`Warning`や`FutureWarning`の警告メッセ�
 
 ```py
 import tensorflow as tf
-tf.logging.set_verbosity(tf.logging.ERROR)
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 ```
 
 ## FutureWarningを抑制する
