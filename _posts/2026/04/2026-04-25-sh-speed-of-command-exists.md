@@ -6,7 +6,7 @@ tags:      bash
 
 ## コマンド存在確認の速度を比較する
 
-Zshでは `hash` コマンドが最も早いが `which` コマンドも十分高速で `type` コマンド等と差がない。
+Zshでは `hash` コマンドが最も速いが `which` コマンドも十分高速で `type` コマンド等と差がない。
 
 ```sh
 $ TIMEFMT='%U user %S system %P cpu %*E total'
@@ -30,7 +30,7 @@ $ time zsh -c 'for (( i = 0 ; i < 100000 ; i++ )); do type -a ls; done >/dev/nul
 0.40s user 1.07s system 99% cpu 1.475 total
 ```
 
-`Bash` では `which` コマンドが非常に遅く、 `hash` コマンドが最も早いが `command -v` コマンドや `type` コマンドと差がない。
+`Bash` では `which` コマンドが非常に遅く、 `hash` コマンドが最も速いが `command -v` コマンドや `type` コマンドと差がない。
 
 ```sh
 $ TIMEFMT='%U user %S system %P cpu %*E total'
