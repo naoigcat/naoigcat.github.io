@@ -42,7 +42,7 @@ procedure lomuto_partition(A, lo, hi)
 
 {% capture sort_demo_js %}
 <script>
-window.DemoSort && DemoSort.boot('lumoto-quick-sort-demo', function (root) {
+window.DemoSort && DemoSort.boot('lomuto-quick-sort-demo', function (root) {
   function generateSteps(initial) {
     const a = initial.slice();
     const steps = [];
@@ -86,7 +86,7 @@ window.DemoSort && DemoSort.boot('lumoto-quick-sort-demo', function (root) {
 
   DemoSort.attachPlayback({
     root: root,
-    dataAttr: 'data-lumoto-quick',
+    dataAttr: 'data-lomuto-quick',
     initialValues: [5, 2, 8, 1, 9, 3, 6, 14, 4, 11, 7, 13, 10, 12, 15],
     initialCaption:
       'ロムート分割型クイックソートのデモ（比較はオレンジ、交換は緑、確定したピボットは紫）',
@@ -143,8 +143,8 @@ window.DemoSort && DemoSort.boot('lumoto-quick-sort-demo', function (root) {
 {% endcapture %}
 
 {% include sort-demo.html
-  id="lumoto-quick-sort-demo"
-  data_prefix="lumoto-quick"
+  id="lomuto-quick-sort-demo"
+  data_prefix="lomuto-quick"
   script=sort_demo_js
 %}
 
@@ -176,4 +176,4 @@ window.DemoSort && DemoSort.boot('lumoto-quick-sort-demo', function (root) {
 
 <!-- sort-benchmark-result:end -->
 
-{% include sort-benchmark.md algorithm="quick_lumoto" %}
+{% include sort-benchmark.md algorithm="quick_lomuto" %}
