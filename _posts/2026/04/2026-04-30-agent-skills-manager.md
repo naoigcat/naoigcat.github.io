@@ -45,5 +45,6 @@ npx skills update
 npx skills experimental_install
 
 # スキルを削除する
-npx skills remove find-skills && rm skills-lock.json && npx skills update
+# スキルを削除する（skills-lock.json も更新される）
+npx skills remove find-skills
 ```
