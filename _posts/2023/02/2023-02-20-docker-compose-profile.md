@@ -62,5 +62,5 @@ $ docker compose --profile web --profile admin up
 
 ```sh
 $ COMPOSE_PROFILES=web,admin docker compose up
-# => start `web`, `admin, `database`
+# => start `web`, `admin`, `database`
 ```
