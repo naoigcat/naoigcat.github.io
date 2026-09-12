@@ -48,7 +48,7 @@ Xcodeのバージョンが変わると破壊的な変更が行われていたり
 1.  シミュレーターを終了させていた場合は起動させる。
 
     ```sh
-    open /Applications/Xcode-X.Y.Z.app/Contents/Developer/Applications/iOS\ Simulator.app
+    open /Applications/Xcode-X.Y.Z.app/Contents/Developer/Applications/Simulator.app
     ```
 
     -   `Xcode-X.Y.Z.app`は新バージョンのXcode
