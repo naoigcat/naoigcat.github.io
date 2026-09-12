@@ -38,4 +38,4 @@ YAML
 docker compose up
 ```
 
-SSL証明書はLet's Encryptから自動的に取得・更新されていて、詳細な説明は[GitHubリポジトリ](https://github.com/SteveLTN/https-portal)にある。
+SSL証明書は`STAGE: "local"`のため自己署名証明書になる。詳細は[GitHubリポジトリ](https://github.com/SteveLTN/https-portal)にある。
