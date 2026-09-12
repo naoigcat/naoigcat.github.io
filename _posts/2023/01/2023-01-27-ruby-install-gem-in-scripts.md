@@ -11,7 +11,7 @@ Rubyスクリプト内でGemをインストールして直後にロードしよ�
 ```rb
 sh "gem", "install", "--no-document", "bundler"
 require "bundler"
-# => in `require': cannot load such file -- minitest (LoadError)
+# => in `require': cannot load such file -- bundler (LoadError)
 ```
 
 ## 読み込みパスをクリアするとロードできるようになる
