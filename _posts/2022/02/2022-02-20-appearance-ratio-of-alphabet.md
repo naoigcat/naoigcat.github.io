@@ -13,6 +13,7 @@ tags:      knowledge
 ### 1文字
 
 |Character             |Appearance Ratio|
+|----------------------|----------------|
 |E                     |13%             |
 |T, A, O, N, I, R, S, H| 9% ~  6%       |
 |D, L, U, C, M         | 4% ~  3%       |
