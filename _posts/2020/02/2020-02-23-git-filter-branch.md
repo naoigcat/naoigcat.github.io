@@ -7,13 +7,13 @@ tags:      git
 ## コミットを対話的に書き換える
 
 ```sh
-git rebase --interactive HEAD
+git rebase --interactive HEAD^
 ```
 
 ## コミットの適用日時を作成日時に合わせる
 
 ```sh
-git rebase --committer-date-is-author-date HEAD
+git rebase --committer-date-is-author-date HEAD^
 ```
 
 ## 名前とメールアドレスを変更する
@@ -30,7 +30,7 @@ git filter-branch --force --env-filter \
 
 ```sh
 git filter-branch --tree-filter \
-"find . -name *.txt -print0 | xargs -0 perl -pi -e 's/as-is/to-be/g'" HEAD
+"find . -name '*.txt' -print0 | xargs -0 perl -pi -e 's/as-is/to-be/g'" HEAD
 ```
 
 `--tree-filter`は各コミットをチェックアウトしてからコマンドを実行し、コミットし直す。
@@ -44,7 +44,7 @@ git filter-branch --index-filter \
 
 ## 書き換える範囲を指定する
 
-`filter-branch`で書き換える範囲は`HEAD`やハッシュでの指定ができず、ブランチで指定する。
+`filter-branch`で書き換える範囲はリビジョン範囲やブランチで指定する。`HEAD`だけを渡すとその祖先すべてが対象になる。
 
 変更を適用したい直前のコミットに対してブランチを作成し、ブランチ間のコミットを指定する。
 
