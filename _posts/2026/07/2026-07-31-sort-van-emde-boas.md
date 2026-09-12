@@ -801,7 +801,7 @@ window.DemoSort && DemoSort.boot('van-emde-boas-sort-demo', function (root) {
 
 [カウンティングソート](/2026/06/20/sort-counting.html) や [鳩の巣ソート](/2026/07/19/sort-pigeonhole.html) は値域 `k` に対し
 `O(n + k)` で直接バケットを走査する。本アルゴリズムはバケット配列を線形走査する代わりに、vEB 木の
-`O(log log U)` 操作で「次に小さいキー」だけをたどる。[ツリーソート](/2026/05/12/sort-tree.html) が比較で二分探索木を育てるのに対し、
+`O(log log U)` 操作で「次に小さいキー」だけをたどる。[二分木ソート](/2026/05/12/sort-tree.html) が比較で二分探索木を育てるのに対し、
 ここでは宇宙のビット分割が順序を決める。[トライソート](/2026/07/11/sort-trie.html) の桁トライとも「桁で空間を割る」点は近いが、
 summary による空クラスタのスキップが vEB 木の特徴である。
 
