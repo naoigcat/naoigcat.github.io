@@ -10,7 +10,7 @@ tags:      opencv ios
 
 しかし、arm64でNEONが有効化されていないためiOSの実機 (arm64) 向けにビルドすると、下記のエラーでビルドできない。
 
-```stderr
+```txt
 Undefined symbols for architecture arm64:
   "_png_init_filter_functions_neon", referenced from:
       _png_read_filter_row in opencv2(pngrutil.o)

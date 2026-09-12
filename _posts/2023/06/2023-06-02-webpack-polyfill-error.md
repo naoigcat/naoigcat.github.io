@@ -24,7 +24,7 @@ If you don't want to include a polyfill, you can use an empty module like this:
 
 メッセージに従って、`webpack.mix.js`に次の設定を追加する。
 
-```js
+```javascript
 const mix = require('laravel-mix');
 mix.webpackConfig({
     resolve: {
@@ -39,7 +39,7 @@ Polyfillに必要なライブラリをインストールする (`npm install --s
 
 Polyfillが不要な場合は、次のように無効化する。
 
-```js
+```javascript
 const mix = require('laravel-mix');
 mix.webpackConfig({
     resolve: {

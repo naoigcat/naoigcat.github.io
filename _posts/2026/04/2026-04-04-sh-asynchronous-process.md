@@ -8,13 +8,13 @@ tags:      bash
 
 シェルスクリプトでコマンドをバックグラウンドで実行するには、コマンドの末尾に`&`を付ける。
 
-```bash
+```sh
 command &
 ```
 
 バックグラウンドで実行したプロセスの終了を待つには、`wait`コマンドを使用する。
 
-```bash
+```sh
 wait
 ```
 
@@ -22,7 +22,7 @@ wait
 
 標準出力や標準エラーを受け取るには、プロセスの出力をファイルにリダイレクトしておき、`wait`の後でそのファイルを読み取る必要がある。
 
-```bash
+```sh
 command > output.txt 2>&1 &
 wait
 cat output.txt
@@ -30,7 +30,7 @@ cat output.txt
 
 もしくは、名前付きパイプ（FIFO）を使用して、リアルタイムで出力を受け取ることもできる。
 
-```bash
+```sh
 mkfifo mypipe
 command > mypipe 2>&1 &
 while read line; do
@@ -43,7 +43,7 @@ wait
 
 プロセス置換と`exec`を組み合わせることで、非同期処理の出力を直接受け取ることもできる。
 
-```bash
+```sh
 exec 3< <(command)
 while read -u 3 line; do
     echo "Output: $line"

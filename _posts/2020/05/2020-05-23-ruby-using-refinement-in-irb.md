@@ -14,7 +14,7 @@ irb
 
 Refinementを使用しようとすると、
 
-```rb
+```ruby
 module Double
   refine Integer do
     def doubled

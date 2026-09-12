@@ -8,6 +8,6 @@ tags:      google
 
 Google SheetsでCustom number formatsに以下を入れることでバイトサイズに単位を付けることができる。
 
-```text
+```txt
 [<1000000]0.00," KB";[<1000000000]0.00,," MB";0.00,,," GB"
 ```

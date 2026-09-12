@@ -34,7 +34,7 @@ clasp login --no-localhost
 
 `curl`コマンドのレスポンスが返ってくるとプロセスが終了してしまうため`wait`コマンドでバックグラウンドプロセスの終了を待つ必要がある。
 
-```docker
+```dockerfile
 FROM node:18-alpine3.16
 RUN apk add curl && \
     npm -v && \

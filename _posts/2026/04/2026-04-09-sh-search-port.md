@@ -14,14 +14,14 @@ tags:      bash
 
 Linuxでは`/proc/sys/net/ipv4/ip_local_port_range`でエフェメラルポートの範囲を取得できる。
 
-```bash
+```sh
 $ docker run -it debian:bookworm cat /proc/sys/net/ipv4/ip_local_port_range
 32768   60999
 ```
 
 macOSでは`sysctl`コマンドでエフェメラルポートの範囲を取得できる。
 
-```bash
+```sh
 $ sysctl net.inet.ip.portrange.first net.inet.ip.portrange.last
 net.inet.ip.portrange.first: 49152
 net.inet.ip.portrange.last: 65535
@@ -31,14 +31,14 @@ net.inet.ip.portrange.last: 65535
 
 Linuxでは`shuf`コマンドでランダムなポートを取得できる。
 
-```bash
+```sh
 $ docker run -it debian:bookworm sh -c "shuf -i \$(cat /proc/sys/net/ipv4/ip_local_port_range | awk '{print \$1 \"-\" \$2}') -n 1"
 51234
 ```
 
 macOSでは`jot`コマンドでランダムなポートを取得できる。
 
-```bash
+```sh
 $ jot -r 1 $(sysctl net.inet.ip.portrange.first | awk '{print $2}') $(sysctl net.inet.ip.portrange.last | awk '{print $2}')
 51234
 ```
@@ -47,7 +47,7 @@ $ jot -r 1 $(sysctl net.inet.ip.portrange.first | awk '{print $2}') $(sysctl net
 
 `ss`コマンドはソケットの統計情報を表示するコマンドで`netstat`コマンドと同様の情報を表示でき、使用中のソケットが返されるため空きポートの検索に使用できる。
 
-```bash
+```sh
 $ docker run -it debian:bookworm sh -c "\
     apt-get update && apt-get install -y --no-install-recommends iproute2 ; \
     for port in \$(shuf -i \$(cat /proc/sys/net/ipv4/ip_local_port_range | awk '{print \$1 \"-\" \$2}') -n 100) ; \
@@ -58,7 +58,7 @@ $ docker run -it debian:bookworm sh -c "\
 
 `nc`コマンドはネットワーク診断ツールでポートが使用中かどうかを確認できる。
 
-```bash
+```sh
 $ docker run -it debian:bookworm sh -c "\
     apt-get update && apt-get install -y --no-install-recommends netcat-openbsd ; \
     for port in \$(shuf -i \$(cat /proc/sys/net/ipv4/ip_local_port_range | awk '{print \$1 \"-\" \$2}') -n 100) ; \
@@ -69,7 +69,7 @@ $ docker run -it debian:bookworm sh -c "\
 
 macOSでは`netstat`コマンドと`nc`コマンドが標準搭載されているため空きポートの検索に使用できる。
 
-```bash
+```sh
 for port in $(jot -r 100 $(sysctl net.inet.ip.portrange.first | awk '{print $2}') $(sysctl net.inet.ip.portrange.last | awk '{print $2}'))
 do
     netstat -a -n | grep "\*\.$port.*LISTEN" > /dev/null || break
@@ -77,7 +77,7 @@ done
 echo $port
 ```
 
-```bash
+```sh
 for port in $(jot -r 100 $(sysctl net.inet.ip.portrange.first | awk '{print $2}') $(sysctl net.inet.ip.portrange.last | awk '{print $2}'))
 do
     nc -z localhost $port > /dev/null || break

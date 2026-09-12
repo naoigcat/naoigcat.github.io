@@ -14,7 +14,7 @@ Gitリポジトリに巨大なファイルをコミットするとクローン�
 
 下記コマンドを実行して`packfile`を作成する。クローン直後であれば必要ない。
 
-```bash
+```sh
 cd /path/to/repository
 git gc
 ```
@@ -23,7 +23,7 @@ git gc
 
 下記コマンドを実行するとサイズが大きい順に100件表示する。
 
-```bash
+```sh
 git verify-pack -v .git/objects/pack/pack-*.idx |
 grep blob |
 sort -k3nr |
@@ -33,7 +33,7 @@ ruby -ane 'IO.popen("git rev-list --all --objects | grep #{$F[0]}", &:read).spli
 
 `git verify-pack`は`packfile`内のオブジェクトの情報を表示するコマンドで下記のフォーマットで出力する。
 
-```output
+```txt
 SHA-1 type size size-in-packfile offset-in-packfile
 ```
 

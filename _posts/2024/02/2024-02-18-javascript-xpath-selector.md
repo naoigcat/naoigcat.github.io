@@ -8,7 +8,7 @@ tags:      javascript
 
 ES5で登場した`querySelector`により、jQuery等のライブラリを使用しなくてもセレクターによるDOM指定が行えるようになった。
 
-```js
+```javascript
 let node = document.querySelector('div > a');
 ```
 
@@ -16,7 +16,7 @@ let node = document.querySelector('div > a');
 
 `evaluate`を使用すると第一引数がXPathのためXPathで要素を取得できる。
 
-```js
+```javascript
 let node = document.evaluate(
     '//a[text() = ">"]',
     document,

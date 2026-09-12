@@ -8,7 +8,7 @@ tags:      bash
 
 `head`コマンドを使用して、コマンドの結果の先頭行を取得する。
 
-```bash
+```sh
 seq 1 10 | head -n 1
 ```
 
@@ -16,7 +16,7 @@ seq 1 10 | head -n 1
 
 `tail`コマンドを使用して、コマンドの結果の末尾行を取得する。
 
-```bash
+```sh
 seq 1 10 | tail -n 1
 ```
 
@@ -24,19 +24,19 @@ seq 1 10 | tail -n 1
 
 `awk`コマンドを使用して、コマンドの結果の先頭行と末尾行を同時に取得する。
 
-```bash
+```sh
 seq 1 10 | awk 'NR==1 {first=$0} {last=$0} END {print "First line: " first; print "Last line: " last}'
 ```
 
 `sed`コマンドを使用して、コマンドの結果の先頭行と末尾行を同時に取得する。
 
-```bash
+```sh
 seq 1 10 | sed -n '1s/^/First line: /p; $s/^/Last line: /p'
 ```
 
 `read`と`tail`を組み合わせて、コマンドの結果の先頭行と末尾行を同時に取得する。
 
-```bash
+```sh
 seq 1 10 | { read first; last=$(tail -n 1); echo "First line: $first"; echo "Last line: $last"; }
 ```
 
@@ -44,6 +44,6 @@ seq 1 10 | { read first; last=$(tail -n 1); echo "First line: $first"; echo "Las
 
 `head`と`tail`を組み合わせた場合は`head`コマンドが全ての入力を読み込みバッファに保持してしまうため末尾行が取得できない。
 
-```bash
+```sh
 seq 1 10 | head -n 1 | tail -n 1
 ```

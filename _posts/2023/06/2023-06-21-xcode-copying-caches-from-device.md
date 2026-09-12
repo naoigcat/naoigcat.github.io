@@ -8,7 +8,7 @@ tags:      xcode
 
 実機でデバッグ実行しようとしたときに下記のエラーでいつまで経ってもアプリが起動しないことがある。
 
-```stderr
+```txt
 Error: <デバイス名> is busy: Copying cache files from device. Xcode will continue when <デバイス名> is finished. (code -10)
 ```
 

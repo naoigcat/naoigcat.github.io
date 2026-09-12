@@ -10,7 +10,7 @@ tags:      ruby google
 
 個人の Google アカウント宛に移す場合は、受領側の承認（`pendingOwner`）が必要になることがある。
 
-```rb
+```ruby
 require "google_drive"
 session = GoogleDrive::Session.from_service_account_key(SERVICE_ACCOUNT_KEY)
 session.spreadsheets.select(&:owned_by_me?).each do |spreadsheet|

@@ -10,7 +10,7 @@ Dockerコンテナに対して`docker stop`コマンドを実行するとデフ�
 
 シグナルを受け取ったタイミングでログを残すNode.jsスクリプトを作成し、
 
-```js
+```sh
 $ cat <<SCRIPT > main.js
 'use strict';
 var http = require('http');

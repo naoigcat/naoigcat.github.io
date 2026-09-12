@@ -25,7 +25,7 @@ App Store Connect distribution optionからManage Version and Build Numberをオ
 
 xcodebuildコマンドを使用する場合は`exportOption`に`manageAppVersionAndBuildNumber: NO`を指定することで無効化できる。
 
-```rb
+```ruby
 gym(
   export_options: {
     manageAppVersionAndBuildNumber: false,

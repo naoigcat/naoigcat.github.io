@@ -24,7 +24,7 @@ Xcodeでファイルを新規作成するとヘッダーが自動的に挿入さ
 
 これはアプリケーションのロケールを英語に変更することで回避できる。
 
-```bash
+```sh
 defaults write com.apple.dt.Xcode AppleLocale en_JP
 ```
 

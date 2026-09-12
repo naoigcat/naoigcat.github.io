@@ -8,7 +8,7 @@ tags:      docker
 
 Docker HubにはAPIが用意されていて
 
-```url
+```txt
 https://registry.hub.docker.com/v2/repositories/{USER}/{IMAGE}/tags
 ```
 

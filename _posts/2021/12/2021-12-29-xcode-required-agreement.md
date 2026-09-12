@@ -8,7 +8,7 @@ tags:      xcode fastlane
 
 Fastlane sighで証明書をダウンロードするとき、下記のようなエラーが発生する場合がある。
 
-```log
+```txt
 A required agreement is missing or has expired. - This request requires an in-effect agreement that has not been signed or has expired.
 ```
 

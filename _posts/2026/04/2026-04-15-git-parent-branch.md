@@ -8,7 +8,7 @@ tags:      git
 
 検証用のリポジトリを作成して `show-branch` コマンドでブランチとコミットの一覧を表示する。
 
-```bash
+```sh
 $ git -c init.defaultBranch=main init test
 Initialized empty Git repository in test/.git/
 $ cd test
@@ -18,7 +18,7 @@ $ git config user.email "naoigcat@example.com"
 
 チェックアウトしているブランチのコミットは `*` が表示され、別ブランチのコミットは `+` が表示される。そのため、出力結果から `*` が付いているコミットのうち、現在のブランチに存在しないコミットを探すことで親ブランチを特定できる。
 
-```bash
+```sh
 $ git commit --allow-empty --message "Initial commit"
 [main (root-commit) 71395af] Initial commit
 $ git commit --allow-empty --message "Second commit"
@@ -40,7 +40,7 @@ $ git show-branch | grep '*' | grep -v "\[$(git rev-parse --abbrev-ref HEAD)[]~^
 main
 ```
 
-```bash
+```sh
 $ git checkout -b feature2 main
 Switched to a new branch 'feature2'
 $ git commit --allow-empty --message "Fifth commit"
@@ -58,7 +58,7 @@ $ git show-branch | grep '*' | grep -v "\[$(git rev-parse --abbrev-ref HEAD)[]~^
 main
 ```
 
-```bash
+```sh
 $ git switch feature1
 Switched to branch 'feature1'
 $ git commit --allow-empty --message "Sixth commit"
@@ -77,7 +77,7 @@ $ git show-branch | grep '*' | grep -v "\[$(git rev-parse --abbrev-ref HEAD)[]~^
 main
 ```
 
-```bash
+```sh
 $ git checkout -b feature3 feature2
 Switched to a new branch 'feature3'
 $ git commit --allow-empty --message "Seventh commit"
@@ -98,7 +98,7 @@ $ git show-branch | grep '*' | grep -v "\[$(git rev-parse --abbrev-ref HEAD)[]~^
 feature2
 ```
 
-```bash
+```sh
 $ git switch feature2
 Switched to branch 'feature2'
 $ git commit --allow-empty --message "Eighth commit"
@@ -145,13 +145,13 @@ feature3
 
 カレントブランチのコミットでほかのブランチにも存在する一番近いコミットが所属しているブランチ名を返す。
 
-```bash
+```sh
 git show-branch | grep '*' | grep -v "\[$(git rev-parse --abbrev-ref HEAD)[]~^]" | head -1 | awk -F'[]~^[]' '{print $2}'
 ```
 
 マージコミットが混ざっている場合、マージ済みのブランチが選択されやすくなってしまうため除外する。
 
-```bash
+```sh
 git show-branch $(git branch --no-merged | sed 's/^..//') $(git rev-parse --abbrev-ref HEAD) | \
 grep '*' | grep -v "\[$(git rev-parse --abbrev-ref HEAD)[]~^]" | head -1 | awk -F'[]~^[]' '{print $2}'
 main

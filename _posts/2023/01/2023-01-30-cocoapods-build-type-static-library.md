@@ -10,7 +10,7 @@ tags:      xcode
 
 `:linkage`オプションで`:dynamic`か`:static`かを選択することもできる。
 
-```rb
+```ruby
 use_frameworks! :linkage => :static
 ```
 
@@ -32,7 +32,7 @@ CocoaPodsでは上記のように`use_frameworks!`でライブラリ全てをフ
 
 個別のライブラリがダイナミックかスタティックか、フレームワークかライブラリかは`build_type`プロパティで決められているためこれを上書きすることで挙動を変えられる。
 
-```rb
+```ruby
 Module.new do
   def static_libraries
     @static_libraries ||= []

@@ -8,7 +8,7 @@ tags:      ruby
 
 Rubyスクリプト内でGemをインストールして直後にロードしようとしても`LoadError`になる。
 
-```rb
+```ruby
 sh "gem", "install", "--no-document", "bundler"
 require "bundler"
 # => in `require': cannot load such file -- bundler (LoadError)
@@ -18,7 +18,7 @@ require "bundler"
 
 `Gem.clear_paths`で読み込みパスをクリアするとロードできるようになる。
 
-```rb
+```ruby
 begin
   require "bundler"
 rescue LoadError
@@ -32,7 +32,7 @@ end
 
 `gem`メソッドを使用すればバージョンも指定してロードできる。
 
-```rb
+```ruby
 begin
   gem "bundler", "2.4.5"
 rescue Gem::MissingSpecError

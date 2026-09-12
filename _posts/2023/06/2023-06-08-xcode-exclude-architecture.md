@@ -8,7 +8,7 @@ tags:      xcode
 
 外部ライブラリを含むプロジェクトをシミュレーター向けにビルドする時、下記のエラーが発生する場合がある。
 
-```log
+```txt
 Building for iOS Simulator, but linking in object file built for iOS
 ```
 

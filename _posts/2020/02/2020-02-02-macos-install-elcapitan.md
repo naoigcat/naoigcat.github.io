@@ -8,7 +8,7 @@ tags:      macos
 
 古いアプリケーションを使用するためmacOSのバージョンを落とそうとしてEl Capitanをインストールしようとすると、
 
-```message
+```txt
 No packages were eligible for install.
 ```
 
