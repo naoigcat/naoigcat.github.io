@@ -47,7 +47,7 @@ end.tap(&singleton_class.method(:prepend))
 use_frameworks! :linkage => :static
 
 pod "StaticFramework"
-pod "StaticLibrary" :static_library => true
+pod "StaticLibrary", :static_library => true
 
 pre_install do |installer|
   installer.pod_targets.select do |pod|
