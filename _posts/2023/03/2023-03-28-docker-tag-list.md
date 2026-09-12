@@ -14,6 +14,8 @@ https://registry.hub.docker.com/v2/repositories/{USER}/{IMAGE}/tags
 
 の形式のURLにGETリクエストを送ると利用可能なタグ一覧がJSON形式で返ってくる。
 
+1ページあたりの件数はデフォルトで10件で、レスポンスの`next` URL（またはクエリの`page_size`）で続きを取得する。
+
 ```sh
 $ export REPOSITORIES=https://registry.hub.docker.com/v2/repositories
 $ curl -s $REPOSITORIES/library/alpine/tags | jq -r '.results[].name'
