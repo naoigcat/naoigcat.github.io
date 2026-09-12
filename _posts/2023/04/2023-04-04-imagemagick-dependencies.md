@@ -6,7 +6,7 @@ tags:      imagemagick
 
 ## 依存ライブラリの一覧を出力する
 
-Debian Bullseye上の`apt-cache depends`コマンドでImageMagickをインストールするの必要なライブラリを出力する。
+Debian Bullseye上の`apt-cache depends`コマンドでImageMagickをインストールするのに必要なライブラリを出力する。
 
 ```sh
 $ docker run --rm debian:bullseye-slim bash -c 'apt-get update && apt-cache depends imagemagick'
