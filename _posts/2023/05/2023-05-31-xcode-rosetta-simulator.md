@@ -20,4 +20,4 @@ Xcode 14.3 でRosettaのサポートがなくなっているためRosettaを有�
 
 > You can now boot simulator devices using universal runtimes as x86_64 on a Mac with Apple silicon by using the new --arch command-line argument to simctl boot.
 
-Product > Destination > Destination Architectures でRosettaを有効になっているシミュレーターと無効になっているシミュレーターをそれぞれの表示を切り替えられる。
+Product > Destination > Destination Architectures でRosettaが有効になっているシミュレーターと無効になっているシミュレーターをそれぞれの表示を切り替えられる。
