@@ -115,13 +115,15 @@ tags:      {tag}
 ---
 ```
 
-When adding optional scalar keys (`mermaid`, `sort_demo`), include only keys the post needs. If multiple optional keys are
-present, list them **in alphabetical order** (`mermaid` before `sort_demo`), using the spacing reference.
+When adding optional scalar keys (`mathjax`, `mermaid`, `sort_demo`), include only keys the post needs. If multiple
+optional keys are present, list them **in alphabetical order** (`mathjax` before `mermaid` before `sort_demo`), using the
+spacing reference.
 
 ```markdown
 title:     …
 date:      …
 tags:      …
+mathjax:   true
 mermaid:   true
 sort_demo: true
 ```
@@ -133,11 +135,13 @@ Spacing reference (**ASCII spaces** after colon before each value):
 -   `title`: 5 spaces.
 -   `date`: 6 spaces.
 -   `tags`: 6 spaces.
+-   `mathjax`: 3 spaces.
 -   `mermaid`: 3 spaces.
 -   `sort_demo`: 1 space.
 
 Optional front matter keys (semantics reminder):
 
+-   **`mathjax: true`** — `head.html` loads the MathJax CDN script so kramdown `$$...$$` math renders.
 -   **`mermaid: true`** — `head.html` loads the Mermaid CDN script so Mermaid fenced code blocks render.
 -   **`sort_demo: true`** — `head.html` loads sort-demo CSS and `sort-demo.js` when using `{% include sort-demo.html %}`.
 
