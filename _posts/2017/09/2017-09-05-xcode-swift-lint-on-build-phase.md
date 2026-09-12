@@ -22,4 +22,4 @@ tags:      xcode
     fi
     ```
 
-3.  末尾のスペースの削除など簡単なものは自動修正させたい場合は`swiftlint`の前に`swiftlint autocorrect`を入れる。
+3.  末尾のスペースの削除など簡単なものは自動修正させたい場合は`swiftlint`の前に`swiftlint --fix`を入れる。
