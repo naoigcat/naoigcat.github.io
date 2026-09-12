@@ -10,9 +10,9 @@ Bashは多くのUnix系システムでデフォルトのシェルとして採用
 
 -   1990 [Zsh](https://www.zsh.org/) - Bourne Shellベースに拡張したシェル
 -   1989 [Bash](https://www.gnu.org/software/bash/) - GNUプロジェクトによって開発されたシェル
--   1983 [Ksh](https://www.kornshell.com/) - Korn Shellとも呼ばれ、Bashの前身となったシェル
+-   1983 [Ksh](https://www.kornshell.com/) - Korn Shellとも呼ばれ、Bash にも影響を与えた別系統のシェル
 -   1983 [Tcsh](https://www.tcsh.org/) - Cshをベースに拡張したシェル
--   1977 [Csh](https://www.cse.yorku.ca/~oz/csh.html) - C言語の構文に似たシェル
+-   1978 [Csh](https://www.cse.yorku.ca/~oz/csh.html) - C言語の構文に似たシェル
 
 ## 実行ファイルの場所を調べる
 
