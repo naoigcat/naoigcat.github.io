@@ -20,12 +20,13 @@ Dockerコンテナにコピーするphp.iniにXDebug用の設定を追加する�
 
 ```php.ini
 [xdebug]
+; Xdebug 3（pecl install xdebug の既定）
+xdebug.mode = debug
+xdebug.start_with_request = yes
+xdebug.client_host = host.docker.internal
+xdebug.client_port = 9003
 xdebug.idekey = www-data
 xdebug.max_nesting_level = 512
-xdebug.remote_enable = On
-xdebug.remote_autostart = On
-xdebug.remote_host = host.docker.internal
-xdebug.remote_port = 9000
 ```
 
 ## Dockerコンテナを起動する
