@@ -38,11 +38,6 @@
       "date": "Feb 6, 2023"
     },
     {
-      "title": "Jekyllに別リポジトリの投稿を取り込むプラグインを追加する",
-      "url": "/2021/12/19/jekyll-plugins.html",
-      "date": "Dec 19, 2021"
-    },
-    {
       "title": "イメージ名からコンテナを停止する",
       "url": "/2021/12/18/sh-stop-docker-container.html",
       "date": "Dec 18, 2021"

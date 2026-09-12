@@ -1,0 +1,11 @@
+{
+  "name": "jekyll",
+  "slug": "jekyll",
+  "posts": [
+    {
+      "title": "Jekyllに別リポジトリの投稿を取り込むプラグインを追加する",
+      "url": "/2021/12/19/jekyll-plugins.html",
+      "date": "Dec 19, 2021"
+    }
+  ]
+}

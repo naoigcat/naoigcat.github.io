@@ -98,11 +98,6 @@
       "date": "Apr 19, 2023"
     },
     {
-      "title": "Xcodeが対応しているSwiftのバージョンを調べる",
-      "url": "/2023/03/30/xcode-swift-versions.html",
-      "date": "Mar 30, 2023"
-    },
-    {
       "title": "仮想端末なしでsudoを実行する",
       "url": "/2023/03/17/sudo-require-tty.html",
       "date": "Mar 17, 2023"
@@ -151,11 +146,6 @@
       "title": "macOSで指定したサイズのダミーファイルを作成する",
       "url": "/2022/01/17/macos-file-with-specified-size.html",
       "date": "Jan 17, 2022"
-    },
-    {
-      "title": "Jekyllに別リポジトリの投稿を取り込むプラグインを追加する",
-      "url": "/2021/12/19/jekyll-plugins.html",
-      "date": "Dec 19, 2021"
     },
     {
       "title": "イメージ名からコンテナを停止する",

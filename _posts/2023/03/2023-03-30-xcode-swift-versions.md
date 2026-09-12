@@ -1,7 +1,7 @@
 ---
 title:     Xcodeが対応しているSwiftのバージョンを調べる
 date:      2023-03-30 12:13:10 +0900
-tags:      bash
+tags:      xcode
 ---
 
 ## SwiftのバージョンはXcodeに対応している
