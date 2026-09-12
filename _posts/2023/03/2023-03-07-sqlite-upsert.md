@@ -16,8 +16,8 @@ SELECT * FROM users;
 REPLACE INTO users (id, name) VALUES (2, 'developer');
 REPLACE INTO users (id, name) VALUES (1, 'manager');
 SELECT * FROM users;
--- 2|developer|2023-03-07 03:11:00
 -- 1|manager|2023-03-07 03:11:00
+-- 2|developer|2023-03-07 03:11:00
 ```
 
 ## 主キーが重複する場合は更新する
