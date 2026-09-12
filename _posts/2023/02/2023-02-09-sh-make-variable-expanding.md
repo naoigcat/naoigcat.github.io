@@ -10,7 +10,7 @@ Makefileで変数に値を割り当てるとき最終的な結果が決まる方
 
 > [6.2 The Two Flavors of Variables](https://ftp.gnu.org/old-gnu/Manuals/make-3.80/html_chapter/make_6.html#SEC67)
 
-[GNU Make 4.4](https://lists.gnu.org/archive/html/info-gnu/2022-10/msg00008.html)で `:::-` (Immediate Assignment) が導入されているがmacOSに付属しているバージョンが3.81で固定されているためここでは触れない。
+[GNU Make 4.4](https://lists.gnu.org/archive/html/info-gnu/2022-10/msg00008.html)で `:::=` (Immediate Assignment) が導入されているがmacOSに付属しているバージョンが3.81で固定されているためここでは触れない。
 
 ### Recursive Assignment
 
