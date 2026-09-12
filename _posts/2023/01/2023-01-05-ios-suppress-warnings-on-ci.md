@@ -10,7 +10,9 @@ CIでビルドするとき警告メッセージが大量に表示されるとロ
 
 ## オプションで警告を抑制する
 
-`xcargs`で`-suppress-warnings`を渡すことで警告を抑制することができる。
+`xcargs`で`OTHER_SWIFT_FLAGS`に`-suppress-warnings`を渡すことで、Swift コンパイラ（フロントエンド）の警告を抑制できる。
+
+CocoaPods 由来の Objective-C / C の警告は対象外なので、ログが見づらい場合は Pod 側のビルド設定など別途対応が必要になる。
 
 ```ruby
 # Fastfile
