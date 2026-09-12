@@ -20,8 +20,12 @@ npm config set min-release-age 3 --location=project
 min-release-age=3
 ```
 
-## `before`とは併用できない
+## `before`との併用
 
-`min-release-age`は相対的な日数で制限する設定で、特定日時以前のバージョンだけを使う`before`とは併用できない。
+`min-release-age`は相対的な日数で制限する設定で、特定日時以前のバージョンだけを使う`before`と併用できる。同じ設定源で両方を指定した場合は`before`が優先される。
+
+パッケージ名や glob を`min-release-age-exclude`に列挙すると、そのパッケージだけ公開直後のバージョンも選ばれる。
+
+`min-release-age`（や`before`）の窓のせいで`npm audit fix`がパッチ版を入れられないときは、脆弱な版のまま警告して非ゼロ終了する。直すには対象を`min-release-age-exclude`に入れるか、窓を緩める。
 
 指定した条件を満たすバージョンが存在しない場合、`npm install`はエラーになる。
