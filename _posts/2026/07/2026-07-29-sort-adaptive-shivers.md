@@ -540,7 +540,7 @@ window.DemoSort && DemoSort.boot('adaptive-shivers-sort-demo', function (root) {
 
 [ナチュラルマージソート](/2026/07/28/sort-natural-merge.html)は自然ランを使うが、マージ順は単純なペアマージにとどまる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

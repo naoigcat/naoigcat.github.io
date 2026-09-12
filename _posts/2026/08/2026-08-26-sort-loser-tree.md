@@ -245,7 +245,7 @@ window.DemoSort && DemoSort.boot('loser-tree-sort-demo', function (root) {
 
 [ファンネルソート](/2026/08/08/sort-funnel.html)の k 入力マージャも多入力マージだが、本稿の敗者木は固定長のトーナメント構造そのものを整列の本体にする。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

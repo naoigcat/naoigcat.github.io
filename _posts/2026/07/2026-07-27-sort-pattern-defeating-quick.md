@@ -565,7 +565,7 @@ window.DemoSort && DemoSort.boot('pattern-defeating-quick-sort-demo', function (
 [デュアルピボットクイックソート](/2026/07/26/sort-dual-pivot-quick.html)は 1 回の走査で 3 分割する単一アルゴリズムの改良だが、
 パターン撃退版は単一ピボットのままハイブリッド戦略で最悪ケースと現実的な入力パターンの両方に備える。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

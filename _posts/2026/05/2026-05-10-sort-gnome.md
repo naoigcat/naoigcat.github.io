@@ -116,7 +116,7 @@ window.DemoSort && DemoSort.boot('gnome-sort-demo', function (root) {
 
 [シャトルソート](/2026/06/29/sort-shuttle.html)は走査ごとに整列済み接頭辞を広げる。ノームソートは単一の位置を前後に動かすだけで、不整合が見つかるたびにその場で直す。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

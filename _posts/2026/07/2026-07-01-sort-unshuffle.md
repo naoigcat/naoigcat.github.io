@@ -497,7 +497,7 @@ window.DemoSort && DemoSort.boot('unshuffle-sort-demo', function (root) {
 
 [ペイシェンスソート](/2026/05/15/sort-patience.html)もパイルへ載せるが、両端キューに先頭・末尾へ載せられる点と、理想マージによる統合が異なる。載せる条件も山の一番上だけに厳密に大きい値、というルールが違う。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

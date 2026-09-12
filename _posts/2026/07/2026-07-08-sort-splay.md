@@ -385,7 +385,7 @@ window.DemoSort && DemoSort.boot('splay-sort-demo', function (root) {
 
 [ツリーソート](/2026/05/12/sort-tree.html)と同様に挿入後に中順走査するが、スプレイ木は触れたノードを根へ回転する。辞書向きの局所性があり、一度きりの全整列では回転コストが重い。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

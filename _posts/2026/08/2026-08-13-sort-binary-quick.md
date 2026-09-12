@@ -321,7 +321,7 @@ window.DemoSort && DemoSort.boot('binary-quick-sort-demo', function (root) {
 
 [アメリカ国旗ソート](/2026/07/02/sort-american-flag.html)は記号集合が大きい（例: 1 バイトで 256 通り）最上位桁優先のインプレース分割である。バイナリクイックソートはその記号幅を 2 に固定した極端な場合とみなせる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

@@ -228,7 +228,7 @@ window.DemoSort && DemoSort.boot('shear-sort-demo', function (root) {
 
 [バブルソート](/2026/05/01/sort-bubble.html)や[ロムート分割型クイックソート](/2026/05/02/sort-quick-lumoto.html)は一次元配列を直接変更する。シアソートは二次元格子の行・列整列だけが許され、並列通信モデルが前提である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

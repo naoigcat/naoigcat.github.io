@@ -369,7 +369,7 @@ window.DemoSort && DemoSort.boot('ford-johnson-sort-demo', function (root) {
 
 [挿入ソート](/2026/05/05/sort-insertion.html)の `O(n²)` 比較を、ペアリングと主系列への二分挿入で抑える。実装は複雑だが比較回数の最小化が目的である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

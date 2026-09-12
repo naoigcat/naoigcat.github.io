@@ -507,7 +507,7 @@ window.DemoSort && DemoSort.boot('funnel-sort-demo', function (root) {
 
 [ファンエンデボアスソート](/2026/07/31/sort-van-emde-boas.html)もファンエンデボアスレイアウトと名前が近いが、整数宇宙上の非比較構造であり、比較ベースのキャッシュ忘却マージとは目的が違う。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

@@ -780,7 +780,7 @@ window.DemoSort && DemoSort.boot('pigeonhole-sort-demo', function (root) {
 
 [バケットソート](/2026/06/23/sort-bucket.html)は値域を等幅の区間に分割するのに対し、鳩の巣ソートは取りうる各値に 1 巣ずつ割り当てる。[自己インデックスソート](/2026/07/07/sort-self-indexed.html)はキーをソート空間のアドレスとみなす枠組みが異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

@@ -1309,7 +1309,7 @@ window.DemoSort && DemoSort.boot('polyphase-merge-sort-demo', function (root) {
 
 [マージソート](/2026/05/03/sort-merge.html)は 2 列のマージを繰り返す。ポリフェーズはテープが少ない外部整列向きに、フィボナッチ分布でマージ先を回転させる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

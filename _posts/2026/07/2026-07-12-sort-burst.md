@@ -976,7 +976,7 @@ window.DemoSort && DemoSort.boot('burst-sort-demo', function (root) {
 
 [トライソート](/2026/07/11/sort-trie.html)は全キーを最初から桁ごとの木へ挿入する。[基数ソート](/2026/06/21/sort-radix.html)の最上位桁優先版と区分は同型で、バーストソートはバケットが閾値を超えたときだけ下位桁へ展開する点が異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

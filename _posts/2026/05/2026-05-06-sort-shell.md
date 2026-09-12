@@ -121,7 +121,7 @@ window.DemoSort && DemoSort.boot('shell-sort-demo', function (root) {
 
 [挿入ソート](/2026/05/05/sort-insertion.html)は隣接だけを見る。シェルはギャップを取った部分列に挿入ソートを繰り返し、ギャップ 1 で挿入ソートに収束する。[コムソート](/2026/05/09/sort-comb.html)もギャップを使うが交換だけで進む。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

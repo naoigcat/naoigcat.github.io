@@ -197,7 +197,7 @@ window.DemoSort && DemoSort.boot('oddeven-merge-sort-demo', function (root) {
 
 [ブリックソート](/2026/05/17/sort-brick.html)（奇偶転置）は隣接ペアの更新だけで、奇偶マージは分割整列後に奇数・偶数列をマージする 2 段構造である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

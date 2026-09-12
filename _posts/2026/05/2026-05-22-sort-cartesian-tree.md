@@ -458,7 +458,7 @@ window.DemoSort && DemoSort.boot('cartesian-tree-sort-demo', function (root) {
 
 [ツリーソート](/2026/05/12/sort-tree.html)は挿入順で木の形が変わる。デカルト木は値と添字から一意に定まり、`O(n)` で構築できる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

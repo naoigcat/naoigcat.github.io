@@ -287,7 +287,7 @@ window.DemoSort && DemoSort.boot('smooth-sort-demo', function (root) {
 
 [ヒープソート](/2026/05/04/sort-heap.html)と同様にインプレースで最悪計算量 `O(n log n)` だが、レオナルド木の森により整列済み入力では `O(n)` に近づく適応型ソートである。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

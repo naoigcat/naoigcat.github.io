@@ -326,7 +326,7 @@ window.DemoSort && DemoSort.boot('cascade-merge-sort-demo', function (root) {
 
 [マージソート](/2026/05/03/sort-merge.html)は `O(n)` の補助配列でマージする。カスケードは配列内の未整列区間を作業領域に使い、交換でマージするインプレース版である。外部記憶向けの多段テープマージとは目的が異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

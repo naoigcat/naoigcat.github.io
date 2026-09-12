@@ -310,7 +310,7 @@ window.DemoSort && DemoSort.boot('intro-sort-demo', function (root) {
 
 クイックソート単体の最悪計算量 `O(n²)` を避けつつ、平均性能を維持しようとする設計である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

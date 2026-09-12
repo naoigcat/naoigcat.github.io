@@ -236,7 +236,7 @@ window.DemoSort && DemoSort.boot('self-indexed-sort-demo', function (root) {
 
 [カウンティングソート](/2026/06/20/sort-counting.html)と実装が一致することが多い。キーをソート空間内の相対オフセットとして明示する 3 フェーズの枠組みが異なる。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

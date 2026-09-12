@@ -512,7 +512,7 @@ window.DemoSort && DemoSort.boot('power-sort-demo', function (root) {
 
 [マージソート](/2026/05/03/sort-merge.html)の下界に近い適応性を目指すしていて既存ラン長の分布に応じてマージ順を選ぶ。[ポリフェーズマージソート](/2026/06/26/sort-polyphase-merge.html)はテープ本数が少ない外部整列向きである。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

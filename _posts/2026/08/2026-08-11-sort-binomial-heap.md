@@ -450,7 +450,7 @@ window.DemoSort && DemoSort.boot('binomial-heap-sort-demo', function (root) {
 
 [二分木ソート](/2026/05/12/sort-tree.html)は探索木への挿入と中順走査で、ヒープ条件ではなく探索木条件を使う。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

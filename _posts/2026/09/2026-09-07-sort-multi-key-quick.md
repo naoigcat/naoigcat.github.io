@@ -375,7 +375,7 @@ window.DemoSort && DemoSort.boot('multi-key-quick-sort-demo', function (root) {
 
 [トライソート](/2026/07/11/sort-trie.html)や[バーストソート](/2026/07/12/sort-burst.html)も桁で分岐する点は近いが、木やバケット構造を育てる。マルチキークイックソートは配列上の交換中心である。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

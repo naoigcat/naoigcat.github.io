@@ -634,7 +634,7 @@ window.DemoSort && DemoSort.boot('american-flag-sort-demo', function (root) {
 
 [基数ソート](/2026/06/21/sort-radix.html)の最上位桁優先版に近いが、各桁（記号）ごとにインプレースでバケット境界へ集める。カウンティング配列 `O(σ)` だけで済ませやすい。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

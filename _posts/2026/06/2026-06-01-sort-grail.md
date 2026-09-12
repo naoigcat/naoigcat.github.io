@@ -325,7 +325,7 @@ window.DemoSort && DemoSort.boot('grail-sort-demo', function (root) {
 
 [ウィキソート](/2026/05/31/sort-wiki.html)はマージ時にブロック選択、[コタソート](/2026/06/07/sort-kota.html)はマージ後にブロック選択する。グレイルは先頭の一意キーを内部バッファ代わりに使う。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 

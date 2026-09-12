@@ -170,7 +170,7 @@ window.DemoSort && DemoSort.boot('shaker-sort-demo', function (root) {
 
 [バブルソート](/2026/05/01/sort-bubble.html)は一方向の走査だけなところシェーカーソートは左右交互に走査し、逆順に近い入力では小さな値が左へ運ばれやすくなっている。
 
-## 計算時間量および空間計算量を計測する
+## 時間計算量および空間計算量を計測する
 
 <!-- sort-benchmark-result:start -->
 
