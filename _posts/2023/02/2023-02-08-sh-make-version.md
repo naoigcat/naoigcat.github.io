@@ -8,8 +8,8 @@ tags:      bash
 
 |Release Date|OS          |make |
 |:-----------|:-----------|:----|
-|2017-06-05  |macos 10.13 |3.81 |
-|2021-06-07  |macos 12    |3.81 |
+|2017-09-25  |macos 10.13 |3.81 |
+|2021-10-25  |macos 12    |3.81 |
 |2011-07-10  |centos 6    |3.81 |
 |2014-07-07  |centos 7    |3.82 |
 |2019-09-24  |centos 8    |4.2.1|
@@ -80,7 +80,7 @@ apt-get update >/dev/null 2>&1
 apt-get install --force-yes -y make >/dev/null 2>&1
 make --version | head -n1
 SCRIPT
-GNU MAKE 3.81
+GNU Make 3.81
 $ docker run --rm -i debian:wheezy bash <<SCRIPT
 {
     echo 'deb http://archive.debian.org/debian/ wheezy main non-free' ;
@@ -90,7 +90,7 @@ apt-get update >/dev/null 2>&1
 apt-get install --force-yes -y make >/dev/null 2>&1
 make --version | head -n1
 SCRIPT
-GNU MAKE 3.81
+GNU Make 3.81
 $ docker run --rm debian:jessie bash -c 'apt update >/dev/null 2>&1 ; apt install --force-yes -y make >/dev/null 2>&1 ; make --version | head -n1'
 GNU Make 4.0
 $ docker run --rm debian:stretch bash -c 'apt update >/dev/null 2>&1 ; apt install -y make >/dev/null 2>&1 ; make --version | head -n1'
