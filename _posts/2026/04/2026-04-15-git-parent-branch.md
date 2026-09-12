@@ -146,7 +146,7 @@ feature3
 カレントブランチのコミットでほかのブランチにも存在する一番近いコミットが所属しているブランチ名を返す。
 
 ```bash
-git show-branch --all | grep '*' | grep -v "\[$(git rev-parse --abbrev-ref HEAD)[]~^]" | head -1 | awk -F'[]~^[]' '{print $2}'
+git show-branch | grep '*' | grep -v "\[$(git rev-parse --abbrev-ref HEAD)[]~^]" | head -1 | awk -F'[]~^[]' '{print $2}'
 ```
 
 マージコミットが混ざっている場合、マージ済みのブランチが選択されやすくなってしまうため除外する。
