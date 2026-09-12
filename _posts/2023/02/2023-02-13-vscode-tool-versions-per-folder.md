@@ -29,7 +29,7 @@ brew install jq moreutils
 PHPではXdebugを用いたデバッグを行うことになるため[PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug)を使用する。
 
 ```sh
-code --install-extension debug.php-debug
+code --install-extension xdebug.php-debug
 ```
 
 PHP DebugはPHPの実行ファイルのパスを設定に指定する必要がある。
