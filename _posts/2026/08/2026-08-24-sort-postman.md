@@ -1000,7 +1000,7 @@ window.DemoSort && DemoSort.boot('postman-sort-demo', function (root) {
 
 [アメリカ国旗ソート](/2026/07/02/sort-american-flag.html)は同じ最上位桁優先の多区分だが、補助リストではなくインプレースでバケット境界へ集める。
 
-[基数ソート](/2026/06/21/sort-radix.html)の記事は最下位桁優先（LSD; Least Significant Digit）中心で、ポストマンはトップダウンの最上位桁優先（MSD; Most Significant Digit）の配布である。
+[基数ソート](/2026/06/21/sort-radix.html)は同じ桁バケットへの配布と回収を扱う。ポストマンは最上位桁優先の配布を郵便の仕分けに例える点と、小さな区間を挿入ソートで締める点が異なる。
 
 ## 時間計算量および空間計算量を計測する
 
