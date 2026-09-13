@@ -730,6 +730,7 @@
    * @param {number|function(api):number} [o.stepPauseMs=280]
    * @param {function({playing:boolean,busy:boolean}):boolean} [o.shuffleWhen] Return true if shuffle allowed.
    * @param {function(api,Error):void} [o.onStepError]
+   * @returns {{rebuild: function(number[]=):void}|undefined}
    */
   DemoSort.attachPlayback = function (o) {
     if (!o || !o.root || !o.dataAttr) return;
@@ -879,6 +880,12 @@
     });
 
     rebuild(values);
+
+    return {
+      rebuild: function (nextValues) {
+        rebuild(nextValues != null ? nextValues : values);
+      },
+    };
   };
 
   global.DemoSort = DemoSort;
