@@ -32,19 +32,38 @@ Do not reintroduce tag generators or other custom plugins without an explicit de
 If a feature needs a generator, prefer committed Liquid/JS or ask the maintainer about changing how
 Pages is built.
 
-## Do not create sort-algorithm test scripts
+## Do not create tests for article body content
 
-Do **not** add standalone test or regression scripts for sort algorithms (for example under
-`tests/test-*-sort-*`, `tests/test-*-shivers-*`, or similar Node/shell harnesses that extract demo JS
-from posts or recompile benchmark Rust). That includes creating them while fixing review findings,
-“for completeness,” or because another skill asks for a regression test.
+Do **not** add regression or assertion scripts that verify the prose, code samples, examples, or
+explanatory claims inside `_posts/` — for example grepping a post for a corrected phrase, re-running a
+shell / Ruby / SQL fragment published in an article, or asserting benchmark captions and stability
+wording. Editorial copy is maintained by hand; it is **not** covered by `tests/`.
 
-Correctness for the committed Rust path is already exercised by `verify_correctness` inside the
-sort-benchmark harness (`_includes/sort-benchmark/helpers/verify_correctness.rs`). Article demos are
-illustrative; do not grow a parallel test suite around them.
+That includes creating such scripts while fixing review findings, satisfying a skill that asks for a
+regression test, or “for completeness.”
 
-Only create such scripts if the maintainer **explicitly** asks for them. Do not recommend adding them
-in reviews or audits unless asked.
+**Sort algorithms** fall under the same rule. Do not add standalone harnesses (for example under
+`tests/test-*-sort-*`, `tests/test-*-shivers-*`, or similar Node/shell scripts that extract demo JS from
+posts or recompile benchmark Rust). Correctness for the committed Rust path is already exercised by
+`verify_correctness` inside the sort-benchmark harness
+(`_includes/sort-benchmark/helpers/verify_correctness.rs`). Article demos are illustrative; do not grow
+a parallel suite around them.
+
+Site infrastructure checks remain appropriate — tags JSON, demo CSS helpers, Jekyll config, Mermaid
+SRI, benchmark memory accounting in `_includes/sort-benchmark/**`, and similar.
+
+Only create tests of article body content if the maintainer **explicitly** asks for them. Do not
+recommend adding them in reviews or audits unless asked.
+
+## Keep post paragraphs on one source line
+
+In `_posts/` (and other reader-facing site Markdown), do **not** insert soft line breaks inside a
+paragraph. A lone newline is not a visible break in the rendered HTML — CommonMark / kramdown turn it
+into a space — so wrapping only makes the source length diverge from the paragraph readers see. Use a
+blank line for a new paragraph, or two trailing spaces only when a hard line break is intentional.
+
+Apply this when writing or editing posts, including while resolving review findings. Do not suggest
+reflowing post prose to a fixed column width in reviews unless the maintainer asks.
 
 ## Do not volunteer these topics in reviews
 
