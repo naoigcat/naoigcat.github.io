@@ -10,7 +10,7 @@ sort_demo: true
 
 三分割クイックソート (`3-way quick sort`) は、単一のピボットを基準に部分配列を `< pivot`・`= pivot`・`> pivot` の 3 区間へ一度で分け、等値区間を確定させたうえで両外側だけを再帰する。
 
-Dijkstra のオランダ国旗問題（Dutch National Flag）と同じ 3 色分割が原型で、Bentley と McIlroy の工学的なクイックソート改良でも同値の扱いに使われる。
+オランダ国旗ソート (`dutch national flag sort`) とも呼ばれ、Dijkstra のオランダ国旗問題（Dutch National Flag）と同じ 3 色分割が原型で、Bentley と McIlroy の工学的なクイックソート改良でも同値の扱いに使われる。
 
 [ロムート分割型クイックソート](/2026/05/02/sort-quick-lomuto.html)が 2 分割だけだと等値キーが多いときに再帰が深くなるのに対し、こちらは等値帯をその場で確定できるため、重複の多い入力で有利になりやすい。
 
