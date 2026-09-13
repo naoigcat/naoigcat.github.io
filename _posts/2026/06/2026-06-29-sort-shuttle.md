@@ -2,6 +2,7 @@
 title:     シャトルソートで配列を並び替える
 date:      2026-06-29 08:11:17 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -26,7 +27,7 @@ procedure shuttle_sort(A)
       j = j - 1
 ```
 
-整列済みに近い入力では `O(n)` に近づき、安定ソートである。
+整列済みに近い入力では $$O(n)$$ に近づき、安定ソートである。
 
 {% capture sort_demo_js %}
 <script>

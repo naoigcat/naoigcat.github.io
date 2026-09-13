@@ -2,6 +2,7 @@
 title:     交換ソートで配列を並び替える
 date:      2026-06-11 07:11:14 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -25,7 +26,7 @@ procedure exchange_sort(A)
         swap(A[i], A[j])
 ```
 
-選択ソートと同じ `O(n²)` 比較だが、見つけ次第交換するため交換回数も `O(n²)` になりうる。一般に不安定である。
+選択ソートと同じ $$O(n^2)$$ 比較だが、見つけ次第交換するため交換回数も $$O(n^2)$$ になりうる。一般に不安定である。
 
 {% capture sort_demo_js %}
 <script>
