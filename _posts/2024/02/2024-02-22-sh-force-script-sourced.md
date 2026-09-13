@@ -37,7 +37,7 @@ TEST=1
 
 ## スクリプトを実行したときはメッセージを表示する
 
-Shebangに`sed`を指定することで直接実行した場合はメッセージを表示することができる。ただし、`bash script.sh`のように新しいシェルを実行した場合はそのまま実行される。
+Shebangに`sed`を指定することで直接実行した場合はメッセージを表示することができる。ただし、`bash script.sh`のように新しいシェルを実行した場合はそのまま実行される。 `\x23` / `\x20` は `#` / 空白の hex 表記で、shebang 行に直書きの `#` を置くとそこで行が切れるため使っている。
 
 ```sh
 $ unset TEST
@@ -76,13 +76,13 @@ sed: argument2: No such file or directory
 
 ## BashとZshで実行されたときのみチェックする
 
-macOSで使われるシェルは主にBashとZshのためこの2つだけチェックを行う。
+macOSで使われるシェルは主にBashとZshのためこの2つだけチェックを行う。 bash で `source` したときは `ZSH_EVAL_CONTEXT` が未定義なので、zsh 側の判定は `[[ -n "$ZSH_EVAL_CONTEXT" && ... ]]` のように囲まないと誤ってエラー終了する。
 
 ```sh
 $ unset TEST
 $ cat << EOS > script.sh
 #!/bin/bash
-if [[ "\$BASH_SOURCE" = "\$0" || ! "\$ZSH_EVAL_CONTEXT" =~ :file\$ ]] ; then
+if [[ ( -n "\$BASH_VERSION" && "\$BASH_SOURCE" = "\$0" ) || ( -n "\$ZSH_EVAL_CONTEXT" && ! "\$ZSH_EVAL_CONTEXT" =~ :file\$ ) ]]; then
   echo "This script must be sourced from within a shell"
   echo ""
   echo "Usage:"
@@ -111,5 +111,7 @@ Usage:
 $ . ./script.sh
 TEST=1
 $ env | grep TEST || echo NOT FOUND
+TEST=1
+$ bash -c '. ./script.sh'
 TEST=1
 ```
