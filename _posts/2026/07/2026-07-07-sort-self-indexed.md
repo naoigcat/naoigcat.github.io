@@ -2,6 +2,7 @@
 title:     自己インデックスソートで配列を並び替える
 date:      2026-07-07 08:03:11 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -29,7 +30,7 @@ procedure self_indexed_sort(A)
       idx = idx + 1
 ```
 
-値域 m が入力長と同程度なら `O(n + m)` となり、比較ソートの `Ω(n log n)` 下界を超えられる。
+値域 m が入力長と同程度なら $$O(n + m)$$ となり、比較ソートの $$\Omega(n \log n)$$ 下界を超えられる。
 
 {% capture sort_demo_js %}
 <script>
