@@ -2,6 +2,7 @@
 title:     バブルソートで配列を並び替える
 date:      2026-05-01 00:56:20 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -29,7 +30,7 @@ procedure bubble_sort(A)
       break
 ```
 
-最悪計算量は `O(n²)` だが、すでに整列済みなら `O(n)` で済み、安定ソートである。
+最悪計算量は $$O(n^2)$$ だが、すでに整列済みなら $$O(n)$$ で済み、安定ソートである。
 
 {% capture sort_demo_js %}
 <script>

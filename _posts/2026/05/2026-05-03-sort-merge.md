@@ -2,6 +2,7 @@
 title:     マージソートで配列を並び替える
 date:      2026-05-03 08:31:07 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -38,7 +39,7 @@ procedure merge(A, lo, mid, hi)
   copy B back into A[lo .. hi]
 ```
 
-分割の深さが `O(log n)` で、マージが線形時間なので最悪計算量は `O(n log n)` で安定して動作する。
+分割の深さが $$O(\log n)$$ で、マージが線形時間なので最悪計算量は $$O(n \log n)$$ で安定して動作する。
 
 {% capture sort_demo_js %}
 <script>
@@ -211,7 +212,7 @@ window.DemoSort && DemoSort.boot('merge-sort-demo', function (root) {
 
 ## 類似アルゴリズムとの相違点
 
-[ロムート分割型クイックソート](/2026/05/02/sort-quick-lomuto.html)はインプレースだが最悪計算量 `O(n²)` になり得る。マージは `O(n)` の追加領域を使う代わりに入力に依らず `O(n log n)` である。
+[ロムート分割型クイックソート](/2026/05/02/sort-quick-lomuto.html)はインプレースだが最悪計算量 $$O(n^2)$$ になり得る。マージは $$O(n)$$ の追加領域を使う代わりに入力に依らず $$O(n \log n)$$ である。
 
 ## 時間計算量および空間計算量を計測する
 
