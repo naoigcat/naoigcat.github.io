@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "トポロジカルソートで頂点を整列する",
+      "url": "/2026/09/13/sort-topological.html",
+      "date": "Sep 13, 2026"
+    },
+    {
       "title": "多方向マージソートで配列を並び替える",
       "url": "/2026/09/12/sort-multiway-merge.html",
       "date": "Sep 12, 2026"
