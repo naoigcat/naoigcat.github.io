@@ -42,8 +42,8 @@ seq 1 10 | { read first; last=$(tail -n 1); echo "First line: $first"; echo "Las
 
 ## 読み込みバッファに注意する
 
-`head`と`tail`を組み合わせた場合は`head`コマンドが全ての入力を読み込みバッファに保持してしまうため末尾行が取得できない。
+先の例の `read` を `head` に置き換えると、`head` が必要以上に入力を読み込みバッファへ取り込むため、後続の `tail` では末尾行を取得できない。
 
 ```sh
-seq 1 10 | head -n 1 | tail -n 1
+seq 1 10 | { head -n 1; tail -n 1; }
 ```
