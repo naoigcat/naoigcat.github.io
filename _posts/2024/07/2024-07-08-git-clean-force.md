@@ -6,16 +6,16 @@ tags:      git
 
 ## Gitの管理対象外ファイルを削除する
 
-Gitリポジトリ内でGitに登録されていないファイルを削除するには下記のコマンドを実行する。
+Gitリポジトリ内でGitに登録されていないファイルを削除するには下記のコマンドを実行する。既定では `clean.requireForce` が true のため、削除には `-f` が必要である。ディレクトリも削除する場合は `-d` を併用する。
 
 ```sh
-git clean
+git clean -fd
 ```
 
 .gitignoreで無視しているファイルも削除したい場合は`-x`オプションを追加する。
 
 ```sh
-git clean -x
+git clean -fdx
 ```
 
 ## Gitディレクトリも削除できる
