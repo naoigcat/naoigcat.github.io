@@ -6,7 +6,7 @@ tags:      ruby
 
 ## vMessage形式のメールをアップロードする
 
-vMessage形式のメールをIMAPでGmailにアップロードする。
+vMessage形式のメールをIMAPでGmailにアップロードする。 Gmail は 2022 年にパスワード認証（安全性の低いアプリ）を廃止しているため、現在は OAuth2 かアプリパスワードが必要である。
 
 ```ruby
 class String
@@ -15,6 +15,7 @@ class String
   end
 end
 
+require "English"
 require "io/console"
 require "net/imap"
 require "pathname"
@@ -57,8 +58,7 @@ imap.login(target, pass)
 imap.select("Messages")
 imap.expunge
 mbox = Pathname.glob("/path/to/*.VMG")
-mbox = mbox.each_with_object(encoding: "sjis:utf-8", universal_newline: true, invalid: :replace)
-mbox = mbox.map(&:read)
+mbox = mbox.map { |p| p.read(encoding: "sjis:utf-8", universal_newline: true, invalid: :replace) }
 mbox = mbox.join
 mbox = mbox.force_encoding("utf-8")
 mbox = mbox.gsub(/\u{22 ff61 30 fffd}.*\u{fffd 20 20 e39e}/, target)
@@ -95,7 +95,7 @@ mbox = mbox.scan(/(?<=^BEGIN:VMSG\n).+?(?=END:VMSG)/m).map do |mail|
       #{body.gsub(/\r?\n/, "\\n")}
     MESSAGE
   else
-    mail = mail.scan(/(?<=^BEGIN:VBODY\n).+?(?=END:VBODY)/m)
+    mail = mail.scan(/(?<=^BEGIN:VBODY\n).+?(?=END:VBODY)/m).first || ""
     case mail
     when /FR0\/TO/
       mail.gsub!(/(?:(?:From):.+\n)+/, "\\&To: #{source}\n")
