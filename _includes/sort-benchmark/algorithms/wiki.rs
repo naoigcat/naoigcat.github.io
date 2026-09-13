@@ -189,6 +189,117 @@ fn merge_external(a: &mut [usize], a_range: Range, b: Range, cache: &mut [usize]
     a[insert..insert + a_last - a_index].copy_from_slice(&cache[a_index..a_last]);
 }
 
+/// Backward merge when the right run fits in `cache`.
+fn merge_external_right(a: &mut [usize], a_range: Range, b: Range, cache: &mut [usize]) {
+    let right_len = b.len();
+    cache[..right_len].copy_from_slice(&a[b.start..b.end]);
+    let mut i = a_range.end;
+    let mut j = right_len;
+    let mut k = b.end;
+    while i > a_range.start && j > 0 {
+        if a[i - 1] > cache[j - 1] {
+            k -= 1;
+            i -= 1;
+            a[k] = a[i];
+        } else {
+            k -= 1;
+            j -= 1;
+            a[k] = cache[j];
+        }
+    }
+    while j > 0 {
+        k -= 1;
+        j -= 1;
+        a[k] = cache[j];
+    }
+}
+
+/// First index `i` in `a[start..start+length)` with `a[i] >= target`.
+fn binary_search_left(a: &[usize], start: usize, length: usize, target: usize) -> usize {
+    let mut left = 0;
+    let mut right = length;
+    while left < right {
+        let middle = left + ((right - left) / 2);
+        if a[start + middle] < target {
+            left = middle + 1;
+        } else {
+            right = middle;
+        }
+    }
+    left
+}
+
+/// Stable in-place merge via binary search + rotate, using the fixed cache when
+/// either run fits (no O(n) heap buffer).
+fn merge_in_place(
+    a: &mut [usize],
+    a_range: Range,
+    b: Range,
+    cache: &mut [usize],
+    cache_size: usize,
+) {
+    let left_len = a_range.len();
+    let right_len = b.len();
+    if left_len == 0 || right_len == 0 {
+        return;
+    }
+    if a[a_range.end - 1] <= a[b.start] {
+        return;
+    }
+
+    if left_len <= cache_size {
+        merge_external(a, a_range, b, cache);
+        return;
+    }
+    if right_len <= cache_size {
+        merge_external_right(a, a_range, b, cache);
+        return;
+    }
+
+    let rblock = left_len / 2;
+    let lblock = left_len - rblock;
+    let center = a[a_range.start + lblock];
+    let left = binary_search_left(a, b.start, right_len, center);
+    let right = right_len - left;
+
+    if left > 0 {
+        // [ lblock | rblock | left | right ] → rotate middle band
+        rotate(
+            a,
+            rblock,
+            Range::new(a_range.start + lblock, a_range.start + lblock + rblock + left),
+            cache,
+            cache_size,
+        );
+        // Now: [ lblock | left | rblock | right ]
+        merge_in_place(
+            a,
+            Range::new(a_range.start, a_range.start + lblock),
+            Range::new(a_range.start + lblock, a_range.start + lblock + left),
+            cache,
+            cache_size,
+        );
+        merge_in_place(
+            a,
+            Range::new(a_range.start + lblock + left, a_range.start + lblock + left + rblock),
+            Range::new(
+                a_range.start + lblock + left + rblock,
+                a_range.start + lblock + left + rblock + right,
+            ),
+            cache,
+            cache_size,
+        );
+    } else if right > 0 {
+        merge_in_place(
+            a,
+            Range::new(a_range.start + lblock, a_range.end),
+            b,
+            cache,
+            cache_size,
+        );
+    }
+}
+
 fn merge_pair(
     a: &mut [usize],
     a_range: Range,
@@ -205,24 +316,10 @@ fn merge_pair(
             cache_size,
         );
     } else if a[b.start] < a[a_range.end - 1] {
-        if a_range.len() + b.len() <= cache_size {
-            cache[..a_range.len()].copy_from_slice(&a[a_range.start..a_range.end]);
+        if a_range.len() <= cache_size {
             merge_external(a, a_range, b, cache);
         } else {
-            let mut merged = Vec::with_capacity(a_range.len() + b.len());
-            let (mut i, mut j) = (a_range.start, b.start);
-            while i < a_range.end && j < b.end {
-                if a[i] <= a[j] {
-                    merged.push(a[i]);
-                    i += 1;
-                } else {
-                    merged.push(a[j]);
-                    j += 1;
-                }
-            }
-            merged.extend_from_slice(&a[i..a_range.end]);
-            merged.extend_from_slice(&a[j..b.end]);
-            a[a_range.start..b.end].copy_from_slice(&merged);
+            merge_in_place(a, a_range, b, cache, cache_size);
         }
     }
 }
