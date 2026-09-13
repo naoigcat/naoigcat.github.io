@@ -9,7 +9,7 @@ tags:      objective-c
 Objective-Cで`@property`ディレクティブを用いるとセッターとゲッターが自動生成されるため、
 セッターをオーバーライドする場合は自動生成されている処理を実装する必要がある。
 
-自動生成されるセッターは以下のようになる。
+自動生成されるセッターは以下のようになる（いずれも `nonatomic` 相当の実装である）。
 
 ### MRC
 
@@ -28,8 +28,10 @@ Objective-Cで`@property`ディレクティブを用いるとセッターとゲ�
 
 ```objc
 - (void)setObject:(Object *)object {
-    [_object release];
-    _object = [object copy];
+    if (_object != object) {
+        [_object release];
+        _object = [object copy];
+    }
 }
 ```
 
