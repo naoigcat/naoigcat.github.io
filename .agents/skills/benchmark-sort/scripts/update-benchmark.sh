@@ -180,8 +180,8 @@ end_idx = text.find(end)
 if start_idx == -1 or end_idx == -1 or end_idx <= start_idx:
     raise SystemExit(f"Missing {start} / {end} markers in {post_path}")
 
-header = """|       Size |    Average time |    Maximum time |  Average memory |  Maximum memory |
-|-----------:|----------------:|----------------:|----------------:|----------------:|"""
+header = """|       Size | Average time (s) | Maximum time (s) | Average memory (KiB) | Maximum memory (KiB) |
+|-----------:|-----------------:|-----------------:|---------------------:|---------------------:|"""
 
 block = "\n".join(
     [

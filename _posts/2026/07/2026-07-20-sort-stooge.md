@@ -192,12 +192,12 @@ window.DemoSort && DemoSort.boot('stooge-sort-demo', function (root) {
 
 <!-- sort-benchmark-result:start -->
 
-|       Size |    Average time |    Maximum time |  Average memory |  Maximum memory |
-|-----------:|----------------:|----------------:|----------------:|----------------:|
-|        256 |        0.003979 |        0.006489 |               0 |               0 |
-|        512 |        0.033008 |        0.055551 |               0 |               0 |
-|       1024 |        0.094145 |        0.137719 |               0 |               0 |
-|       2048 |        0.751892 |        1.579949 |               0 |               0 |
+|       Size | Average time (s) | Maximum time (s) | Average memory (KiB) | Maximum memory (KiB) |
+|-----------:|-----------------:|-----------------:|---------------------:|---------------------:|
+|        256 |         0.003979 |         0.006489 |                    0 |                    0 |
+|        512 |         0.033008 |         0.055551 |                    0 |                    0 |
+|       1024 |         0.094145 |         0.137719 |                    0 |                    0 |
+|       2048 |         0.751892 |         1.579949 |                    0 |                    0 |
 
 <!-- sort-benchmark-result:end -->
 
