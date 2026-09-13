@@ -2,6 +2,7 @@
 title:     置換選択ソートで配列を並び替える
 date:      2026-09-06 09:10:39 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -49,8 +50,8 @@ procedure replacement_selection_sort(A)
   A = merge_all(runs)
 ```
 
-ラン生成は各要素がヒープへ高々定数回出入りするため `O(n log M)`、マージはラン数を `R` とすると概ね `O(n log R)` で、合計は `O(n log n)` 程度になる。
-ヒープと待避・ラン用に `O(M + n)` の追加領域が要り、一般に不安定である。デモでは `M = 4`、ベンチマークでは `M = 32` とする。
+ラン生成は各要素がヒープへ高々定数回出入りするため $$O(n \log M)$$、マージはラン数を `R` とすると概ね $$O(n \log R)$$ で、合計は $$O(n \log n)$$ 程度になる。
+ヒープと待避・ラン用に $$O(M + n)$$ の追加領域が要り、一般に不安定である。デモでは `M = 4`、ベンチマークでは `M = 32` とする。
 
 {% capture sort_demo_js %}
 <script>
