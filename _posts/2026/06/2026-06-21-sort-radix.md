@@ -73,7 +73,6 @@ window.DemoSort && DemoSort.boot('radix-sort-demo', function (root) {
   let mode = 'lsd';
   let demoScale = null;
 
-
   function prefersReducedMotion() {
     if (!window.matchMedia) {
       return false;
