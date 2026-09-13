@@ -2,6 +2,7 @@
 title:     双方向挿入ソートで配列を並び替える
 date:      2026-06-24 05:48:33 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -47,7 +48,7 @@ procedure two_way_insertion_sort(A)
       last = last + 1
 ```
 
-整列済みに近い入力では右端への追記が多く、逆順に近いと左端への挿入が多くなる。最悪計算量 `O(n²)` となる。
+整列済みに近い入力では右端への追記が多く、逆順に近いと左端への挿入が多くなる。最悪計算量 $$O(n^2)$$ となる。
 
 {% capture sort_demo_js %}
 <script>
