@@ -2,6 +2,7 @@
 title:     挿入ソートで配列を並び替える
 date:      2026-05-05 06:04:02 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -26,7 +27,7 @@ procedure insertion_sort(A)
       j = j - 1
 ```
 
-整列済みに近い入力では計算量は `O(n)` に近づき、安定ソートである。
+整列済みに近い入力では計算量は $$O(n)$$ に近づき、安定ソートである。
 
 {% capture sort_demo_js %}
 <script>
@@ -126,7 +127,7 @@ window.DemoSort && DemoSort.boot('insertion-sort-demo', function (root) {
 
 ## 類似アルゴリズムとの相違点
 
-[バブルソート](/2026/05/01/sort-bubble.html)同様に単純だが、整列済みに近い入力では `O(n)` に近づく。大きな配列では[ロムート分割型クイックソート](/2026/05/02/sort-quick-lomuto.html)や[ティムソート](/2026/05/23/sort-tim.html)の小区間処理として使われることが多い。
+[バブルソート](/2026/05/01/sort-bubble.html)同様に単純だが、整列済みに近い入力では $$O(n)$$ に近づく。大きな配列では[ロムート分割型クイックソート](/2026/05/02/sort-quick-lomuto.html)や[ティムソート](/2026/05/23/sort-tim.html)の小区間処理として使われることが多い。
 
 ## 時間計算量および空間計算量を計測する
 

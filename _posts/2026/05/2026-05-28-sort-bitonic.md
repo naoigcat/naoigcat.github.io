@@ -2,6 +2,7 @@
 title:     バイトニックソートで配列を並び替える
 date:      2026-05-28 00:35:10 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -39,7 +40,7 @@ procedure bitonic_sort(A, lo, cnt, dir_up)
   bitonic_merge(A, lo, cnt, dir_up)
 ```
 
-並列比較ネットワーク向けで、逐次実行では `O(n log² n)` となり、要素数は 2 の冪を前提とする実装が多い。
+並列比較ネットワーク向けで、逐次実行では $$O(n \log^2 n)$$ となり、要素数は 2 の冪を前提とする実装が多い。
 
 {% capture sort_demo_js %}
 <script>

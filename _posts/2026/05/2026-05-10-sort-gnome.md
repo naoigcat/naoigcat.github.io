@@ -2,6 +2,7 @@
 title:     ノームソートで配列を並び替える
 date:      2026-05-10 07:42:56 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -29,7 +30,7 @@ procedure gnome_sort(A)
       pos = pos - 1
 ```
 
-整列済みなら `O(n)`、逆順に近いと `O(n²)` になり、安定ソートである。
+整列済みなら $$O(n)$$、逆順に近いと $$O(n^2)$$ になり、安定ソートである。
 
 {% capture sort_demo_js %}
 <script>

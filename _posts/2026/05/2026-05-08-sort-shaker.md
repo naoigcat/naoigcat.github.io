@@ -2,6 +2,7 @@
 title:     シェーカーソートで配列を並び替える
 date:      2026-05-08 06:16:01 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -39,7 +40,7 @@ procedure shaker_sort(A)
       break
 ```
 
-最悪計算量 `O(n²)` だが、双方向走査でバブルソートの「タートル問題」を緩和しやすく、安定ソートである。
+最悪計算量 $$O(n^2)$$ だが、双方向走査でバブルソートの「タートル問題」を緩和しやすく、安定ソートである。
 
 {% capture sort_demo_js %}
 <script>

@@ -2,6 +2,7 @@
 title:     選択ソートで配列を並び替える
 date:      2026-05-11 20:49:36 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -26,7 +27,7 @@ procedure selection_sort(A)
       swap(A[i], A[minIdx])
 ```
 
-比較回数は常に `O(n²)` だが、交換回数は高々 `O(n)` で、一般に不安定である。
+比較回数は常に $$O(n^2)$$ だが、交換回数は高々 $$O(n)$$ で、一般に不安定である。
 
 {% capture sort_demo_js %}
 <script>
