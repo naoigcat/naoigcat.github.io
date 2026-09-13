@@ -34,11 +34,11 @@ Markdown source.
 
 Accept any of these as `{algorithm}`:
 
-| User input | Resolves to |
-| --- | --- |
-| YAML key (`bubble`, `polyphase_merge`, …) | used as-is |
+| User input                                               | Resolves to                         |
+| -------------------------------------------------------- | ----------------------------------- |
+| YAML key (`bubble`, `polyphase_merge`, …)                | used as-is                          |
 | Post slug suffix (`sort-bubble`, `sort-polyphase-merge`) | hyphens after `sort-` → underscores |
-| Post filename fragment (`2026-05-01-sort-bubble`) | read `algorithm="…"` from that post |
+| Post filename fragment (`2026-05-01-sort-bubble`)        | read `algorithm="…"` from that post |
 
 List all sort posts:
 
@@ -135,12 +135,12 @@ If the helper scripts fail, follow the same steps by hand:
 
 ## Related files
 
-| File | Role |
-| --- | --- |
-| `_includes/sort-benchmark.md` | Generates the Docker/Rust benchmark script (`rust:1.95.0`, `RUNS = 8192`) |
-| `_data/sort_algorithms.yml` | `sort_fn`, helper flags, `quadratic_average` (caps max size at `2^15`) |
-| `_includes/sort-benchmark/algorithms/<id>.rs` | Per-algorithm Rust implementation |
-| `_includes/sort-benchmark/helpers/*.rs` | Shared helpers included when YAML flags are set |
+| File                                          | Role                                                                      |
+| --------------------------------------------- | ------------------------------------------------------------------------- |
+| `_includes/sort-benchmark.md`                 | Generates the Docker/Rust benchmark script (`rust:1.95.0`, `RUNS = 8192`) |
+| `_data/sort_algorithms.yml`                   | `sort_fn`, helper flags, `quadratic_average` (caps max size at `2^15`)    |
+| `_includes/sort-benchmark/algorithms/<id>.rs` | Per-algorithm Rust implementation                                         |
+| `_includes/sort-benchmark/helpers/*.rs`       | Shared helpers included when YAML flags are set                           |
 
 When adding a **new** algorithm, finish YAML + Rust first (see comments in `sort_algorithms.yml`), create the post
 with an empty data table, then run this skill to fill numbers.
