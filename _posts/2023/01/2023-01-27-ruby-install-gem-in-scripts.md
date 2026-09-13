@@ -6,10 +6,10 @@ tags:      ruby
 
 ## インストール直後はロードできない
 
-Rubyスクリプト内でGemをインストールして直後にロードしようとしても`LoadError`になる。
+Rubyスクリプト内でGemをインストールして直後にロードしようとしても`LoadError`になる。（`system` で `gem install` を呼ぶ例。Rake の `sh` でも同様。）
 
 ```ruby
-sh "gem", "install", "--no-document", "bundler"
+system("gem", "install", "--no-document", "bundler")
 require "bundler"
 # => in `require': cannot load such file -- bundler (LoadError)
 ```
@@ -22,7 +22,7 @@ require "bundler"
 begin
   require "bundler"
 rescue LoadError
-  sh "gem", "install", "--no-document", "bundler"
+  system("gem", "install", "--no-document", "bundler") or raise
   Gem.clear_paths
   retry
 end
@@ -36,7 +36,7 @@ end
 begin
   gem "bundler", "2.4.5"
 rescue Gem::MissingSpecError
-  sh "gem", "install", "--no-document", "bundler", "-v", "2.4.5"
+  system("gem", "install", "--no-document", "bundler", "-v", "2.4.5") or raise
   Gem.clear_paths
   retry
 end
