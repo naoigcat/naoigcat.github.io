@@ -19,6 +19,9 @@
             "ul_multi": 3,
             "ul_single": 3
         },
+        "table-column-style": {
+            "style": "aligned"
+        },
         "no-inline-html": false
     }
 }
