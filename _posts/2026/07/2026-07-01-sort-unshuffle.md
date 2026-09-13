@@ -18,9 +18,9 @@ sort_demo: true
 ```pseudocode
 procedure unshuffle_distribute(elements)
   piles = sequence of piles, initially empty deques
-  for each x in elements then
+  for each x in elements
     placed = false
-    for each pile p in piles left to right then
+    for each pile p in piles left to right
       if x <= front(p) then
         push_front x onto p
         placed = true

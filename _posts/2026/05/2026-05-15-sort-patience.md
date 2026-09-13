@@ -20,17 +20,17 @@ sort_demo: true
 ```pseudocode
 procedure patience_deal(elements)
   piles = sequence of piles, initially empty lists
-  for each x in elements then
+  for each x in elements
     i = smallest index where piles[i] is non-empty AND top(piles[i]) > x
            (otherwise i = undefined)
     if i is undefined then
       piles.append([x])
-    else then
+    else
       push x onto piles[i]
 
 procedure patience_collect(piles)
   result = []
-  until all piles empty then
+  until all piles empty
     p = pile index minimizing top(piles[p]), breaking ties arbitrarily
     y = pop top from piles[p]
     append y to result
