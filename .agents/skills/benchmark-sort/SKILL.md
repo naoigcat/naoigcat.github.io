@@ -116,8 +116,8 @@ If the helper scripts fail, follow the same steps by hand:
     ```markdown
     <!-- sort-benchmark-result:start -->
 
-    |       Size |    Average time |    Maximum time |  Average memory |  Maximum memory |
-    |-----------:|----------------:|----------------:|----------------:|----------------:|
+    |       Size | Average time (s) | Maximum time (s) | Average memory (KiB) | Maximum memory (KiB) |
+    |-----------:|-----------------:|-----------------:|---------------------:|---------------------:|
     |        … data rows … |
 
     <!-- sort-benchmark-result:end -->
@@ -127,8 +127,8 @@ If the helper scripts fail, follow the same steps by hand:
 
 ## Table format rules
 
--   Keep the **exact** header and separator rows already used in sibling posts (column widths differ from the
-    benchmark program’s stdout header — only data rows come from Docker output).
+-   Keep the **exact** header and separator rows already used in sibling posts, including `(s)` / `(KiB)` units
+    (column widths differ from the benchmark program’s stdout header — only data rows come from Docker output).
 -   Leave one blank line after `<!-- sort-benchmark-result:start -->` and before `<!-- sort-benchmark-result:end -->`
     (matches existing posts).
 -   Do not edit the `{% include sort-benchmark.md algorithm="…" %}` line unless the YAML key changed.

@@ -214,16 +214,16 @@ fn main() {
     run_correctness_checks();
 
     println!(
-        "| {:>10} | {:>15} | {:>15} | {:>15} | {:>15} |",
+        "| {:>10} | {:>16} | {:>16} | {:>20} | {:>20} |",
         "Size",
-        "Average time",
-        "Maximum time",
-        "Average memory",
-        "Maximum memory"
+        "Average time (s)",
+        "Maximum time (s)",
+        "Average memory (KiB)",
+        "Maximum memory (KiB)"
     );
 
     println!(
-        "|{:-<11}:|{:-<16}:|{:-<16}:|{:-<16}:|{:-<16}:|",
+        "|{:-<11}:|{:-<17}:|{:-<17}:|{:-<21}:|{:-<21}:|",
         "",
         "",
         "",
@@ -288,7 +288,7 @@ fn main() {
         let max_mem_kb = max_mem / 1024;
 
         println!(
-            "| {:>10} | {:>15} | {:>15} | {:>15} | {:>15} |",
+            "| {:>10} | {:>16} | {:>16} | {:>20} | {:>20} |",
             size,
             format!("{}.{:06}", avg_time / 1_000_000, avg_time % 1_000_000),
             format!("{}.{:06}", max_time / 1_000_000, max_time % 1_000_000),
