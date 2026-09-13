@@ -2,6 +2,7 @@
 title:     ビンゴソートで配列を並び替える
 date:      2026-08-27 07:37:28 +0900
 tags:      sort
+mathjax:   true
 sort_demo: true
 ---
 
@@ -36,7 +37,7 @@ procedure bingo_sort(A)
     nextBingo = largest
 ```
 
-最悪・平均は相異なる値の個数を `m` として `Θ(n m)`（すべて相異なれば選択ソートと同じ `Θ(n²)`）、最良は `Θ(n + m²)` とされる。追加配列は不要（インプレース）で、一般に不安定である。
+最悪・平均は相異なる値の個数を `m` として $$\Theta(n m)$$（すべて相異なれば選択ソートと同じ $$\Theta(n^2)$$）、最良は $$\Theta(n + m^2)$$ とされる。追加配列は不要（インプレース）で、一般に不安定である。
 
 {% capture sort_demo_js %}
 <script>
