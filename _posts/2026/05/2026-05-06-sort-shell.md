@@ -29,7 +29,7 @@ procedure shell_sort(A)
     gap = floor(gap / 2)
 ```
 
-ギャップ列次第だが、単純な $$O(n^2)$$ 系より速いことが多く、一般に不安定である。
+ギャップ列次第だが、単純な $$O(n^2)$$ 系より速いことが多く、不安定である。
 
 {% capture sort_demo_js %}
 <script>

@@ -42,7 +42,7 @@ procedure three_way_quick_sort(A, lo, hi)
   three_way_quick_sort(A, gt + 1, hi)
 ```
 
-平均計算量は $$O(n \log n)$$ で、キーの種類が定数個なら線形に近づく。ピボットが偏ると最悪計算量は $$O(n^2)$$ になり得る。一般に不安定である。
+平均計算量は $$O(n \log n)$$ で、キーの種類が定数個なら線形に近づく。ピボットが偏ると最悪計算量は $$O(n^2)$$ になり得る。不安定である。
 
 {% capture sort_demo_js %}
 <script>

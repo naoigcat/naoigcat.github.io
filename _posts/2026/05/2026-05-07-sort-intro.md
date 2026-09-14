@@ -34,7 +34,7 @@ procedure sort(A)
   introsort(A, 0, length(A) - 1, max(2 * floor(log2(length(A))), 1))
 ```
 
-この切り替えにより最悪計算量は $$O(n \log n)$$ に保たれるが、ピボット型の分割や挿入ソートの交換が相対順序を変えうるため、一般に不安定である。
+この切り替えにより最悪計算量は $$O(n \log n)$$ に保たれるが、ピボット型の分割や挿入ソートの交換が相対順序を変えうるため、不安定である。
 
 {% capture sort_demo_js %}
 <script>

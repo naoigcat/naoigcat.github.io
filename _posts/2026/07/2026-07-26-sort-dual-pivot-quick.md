@@ -55,7 +55,7 @@ procedure dual_pivot_quick_sort(A, lo, hi)
   dual_pivot_quick_sort(A, great + 2, hi)
 ```
 
-平均計算量は $$O(n \log n)$$ だが、ピボットの偏り次第で最悪計算量 $$O(n^2)$$ になり得る。一般に不安定である。
+平均計算量は $$O(n \log n)$$ だが、ピボットの偏り次第で最悪計算量 $$O(n^2)$$ になり得る。不安定である。
 
 {% capture sort_demo_js %}
 <script>
