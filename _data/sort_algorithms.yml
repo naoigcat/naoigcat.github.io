@@ -211,6 +211,10 @@ proxmap:
 quad:
   sort_fn: quad_sort
 
+quick_block:
+  sort_fn: quick_block_sort
+  insertion_sort: true
+
 quick_hoare:
   sort_fn: quick_hoare_sort
   insertion_sort: true
