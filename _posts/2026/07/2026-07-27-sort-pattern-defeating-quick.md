@@ -52,7 +52,7 @@ procedure sort(A)
     pdqsort(A, 0, length(A) - 1, floor(log2(length(A))), true)
 ```
 
-平均計算量は $$O(n \log n)$$、最悪もヒープソートへの切り替えにより $$O(n \log n)$$ に抑えられる。一般に不安定である。
+平均計算量は $$O(n \log n)$$、最悪もヒープソートへの切り替えにより $$O(n \log n)$$ に抑えられる。不安定である。
 
 {% capture sort_demo_js %}
 <script>
