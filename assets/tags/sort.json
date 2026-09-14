@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "オクトソートで配列を並び替える",
+      "url": "/2026/09/14/sort-octo.html",
+      "date": "Sep 14, 2026"
+    },
+    {
       "title": "トポロジカルソートで頂点を整列する",
       "url": "/2026/09/13/sort-topological.html",
       "date": "Sep 13, 2026"

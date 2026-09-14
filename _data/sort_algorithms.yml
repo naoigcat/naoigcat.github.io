@@ -168,6 +168,9 @@ natural_merge:
 oddeven_merge:
   sort_fn: odd_even_merge_sort
 
+octo:
+  sort_fn: octo_sort
+
 pancake:
   sort_fn: pancake_sort
   quadratic_average: true
