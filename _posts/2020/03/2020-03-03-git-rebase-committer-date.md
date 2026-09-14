@@ -10,8 +10,8 @@ Gitで過去のコミットを改変した場合、コミットの作成日時�
 
 ```sh
 diff \
-<(cat <(git log --oneline --pretty=format:'%cd' --date=format:'%Y-%m-%d %H:%M:%S') <(echo '')) \
-<(cat <(git log --oneline --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S') <(echo ''))
+<(cat <(git log --oneline --pretty=format:'%cd' --date=format-local:'%Y-%m-%d %H:%M:%S') <(echo '')) \
+<(cat <(git log --oneline --pretty=format:'%ad' --date=format-local:'%Y-%m-%d %H:%M:%S') <(echo ''))
 ```
 
 ## 適用日時を作成日時に書き換える
@@ -50,6 +50,6 @@ git rebase --committer-date-is-author-date $(git log --oneline --pretty=format:'
 
 ```sh
 diff \
-<(git log --oneline --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S' | sort -r) \
-<(cat <(git log --oneline --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S') <(echo ''))
+<(git log --oneline --pretty=format:'%ad' --date=format-local:'%Y-%m-%d %H:%M:%S' | sort -r) \
+<(cat <(git log --oneline --pretty=format:'%ad' --date=format-local:'%Y-%m-%d %H:%M:%S') <(echo ''))
 ```
