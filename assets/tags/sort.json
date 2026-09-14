@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "ブロッククイックソートで配列を並び替える",
+      "url": "/2026/09/15/sort-quick-block.html",
+      "date": "Sep 15, 2026"
+    },
+    {
       "title": "オクトソートで配列を並び替える",
       "url": "/2026/09/14/sort-octo.html",
       "date": "Sep 14, 2026"
