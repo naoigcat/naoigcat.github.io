@@ -23,289 +23,234 @@ WORKDIR="$(mktemp -d)"
 trap 'rm -rf "$WORKDIR"' EXIT
 
 cat > "$WORKDIR/Dockerfile" <<'EOF'
-FROM rust:1.95.0
+FROM swift:6.0
 
 WORKDIR /app
 
-RUN mkdir -p src
+RUN cat > alloc_track.c <<'ALLOC'
+{% include sort-benchmark/helpers/alloc_track.c %}
+ALLOC
 
-RUN cat > Cargo.toml <<'CARGO'
-[package]
-name = "rust-benchmark"
-version = "0.1.0"
-edition = "2021"
+RUN cat > main.swift <<'SWIFT'
+import Foundation
+#if canImport(Glibc)
+import Glibc
+#elseif canImport(Darwin)
+import Darwin
+#endif
 
-[profile.release]
-lto = true
-codegen-units = 1
-panic = "abort"
-CARGO
-
-RUN cat > src/main.rs <<'RUST'
-use std::{
-    alloc::{GlobalAlloc, Layout, System},
-    env,
-    process::Command,
-    sync::atomic::{AtomicUsize, Ordering as AtomicOrdering},
-    time::{Duration, Instant},
-};
-
-/// Counts live heap bytes and the high-water mark so auxiliary sort buffers
-/// (swap Vecs, etc.) are measured as explicit heap growth during the sort.
-struct TrackingAllocator;
-
-static LIVE_BYTES: AtomicUsize = AtomicUsize::new(0);
-static PEAK_BYTES: AtomicUsize = AtomicUsize::new(0);
-
-fn record_alloc(size: usize) {
-    let live = LIVE_BYTES.fetch_add(size, AtomicOrdering::Relaxed) + size;
-    PEAK_BYTES.fetch_max(live, AtomicOrdering::Relaxed);
-}
-
-unsafe impl GlobalAlloc for TrackingAllocator {
-    unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
-        let ptr = System.alloc(layout);
-        if !ptr.is_null() {
-            record_alloc(layout.size());
-        }
-        ptr
-    }
-
-    unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
-        LIVE_BYTES.fetch_sub(layout.size(), AtomicOrdering::Relaxed);
-        System.dealloc(ptr, layout);
-    }
-
-    unsafe fn alloc_zeroed(&self, layout: Layout) -> *mut u8 {
-        let ptr = System.alloc_zeroed(layout);
-        if !ptr.is_null() {
-            record_alloc(layout.size());
-        }
-        ptr
-    }
-
-    unsafe fn realloc(&self, ptr: *mut u8, layout: Layout, new_size: usize) -> *mut u8 {
-        let new_ptr = System.realloc(ptr, layout, new_size);
-        if !new_ptr.is_null() {
-            LIVE_BYTES.fetch_sub(layout.size(), AtomicOrdering::Relaxed);
-            record_alloc(new_size);
-        }
-        new_ptr
-    }
-}
-
-#[global_allocator]
-static GLOBAL: TrackingAllocator = TrackingAllocator;
+{% include sort-benchmark/helpers/alloc_track.swift %}
+{% include sort-benchmark/helpers/buffer_swap.swift %}
 
 {%- if max_power_override %}{% assign max_power = max_power_override %}
 {%- elsif has_quadratic_average %}{% assign max_power = 15 %}
 {%- else %}{% assign max_power = 18 %}
 {%- endif %}
-const MIN_POWER: u32 = 8;
-const MAX_POWER: u32 = {{ max_power }};
-const RUNS: usize = 8192;
+let MIN_POWER: Int = 8
+let MAX_POWER: Int = {{ max_power }}
+let RUNS: Int = 8192
 
 {%- if needs_insertion_sort %}
-{% include sort-benchmark/helpers/insertion_sort.rs %}
+{% include sort-benchmark/helpers/insertion_sort.swift %}
 {%- endif %}
 
 {%- if needs_partition_at %}
-{% include sort-benchmark/helpers/partition_at.rs %}
+{% include sort-benchmark/helpers/partition_at.swift %}
 {%- endif %}
 
 {%- if needs_partition %}
-{% include sort-benchmark/helpers/partition.rs %}
+{% include sort-benchmark/helpers/partition.swift %}
 {%- endif %}
 
 {%- if needs_quick_sort %}
-{% include sort-benchmark/helpers/quick_sort.rs %}
+{% include sort-benchmark/helpers/quick_sort.swift %}
 {%- endif %}
 
 {%- if needs_heap_sort %}
-{% include sort-benchmark/helpers/heap_sort.rs %}
+{% include sort-benchmark/helpers/heap_sort.swift %}
 {%- endif %}
 
 {%- if needs_merge_values %}
-{% include sort-benchmark/helpers/merge_values.rs %}
+{% include sort-benchmark/helpers/merge_values.swift %}
 {%- endif %}
 
-{% capture sort_benchmark_algo %}sort-benchmark/algorithms/{{ sort_algorithm }}.rs{% endcapture %}
+{% capture sort_benchmark_algo %}sort-benchmark/algorithms/{{ sort_algorithm }}.swift{% endcapture %}
 {% include {{ sort_benchmark_algo }} %}
 
-fn benchmark_sort(array: &mut [usize]) {
+func benchmark_sort(_ array: inout [Int]) {
 {% if algo.sort_fn %}
-    {{ algo.sort_fn }}(array);
+    {{ algo.sort_fn }}(&array)
 {% else %}
-    panic!("unknown algorithm: {{ sort_algorithm }}");
+    fatalError("unknown algorithm: {{ sort_algorithm }}")
 {% endif %}
 }
 
-{% include sort-benchmark/helpers/verify_correctness.rs %}
+{% include sort-benchmark/helpers/verify_correctness.swift %}
 
-fn shuffled(size: usize, seed: u64) -> Vec<usize> {
-    let mut v: Vec<usize> = (1..=size).collect();
+func shuffled(_ size: Int, seed: UInt64) -> [Int] {
+    guard size > 0 else { return [] }
 
-    let mut state = seed;
+    var v = Array(1...size)
+    var state = seed
 
-    for i in (1..size).rev() {
-        state ^= state << 13;
-        state ^= state >> 7;
-        state ^= state << 17;
+    if size > 1 {
+        for i in stride(from: size - 1, through: 1, by: -1) {
+            state ^= state << 13
+            state ^= state >> 7
+            state ^= state << 17
 
-        let j = (state as usize) % (i + 1);
-
-        v.swap(i, j);
+            let j = Int(state % UInt64(i + 1))
+            v.swapAt(i, j)
+        }
     }
 
-    v
+    return v
 }
 
-fn micros(d: Duration) -> u128 {
-    d.as_micros()
+func micros(_ d: Duration) -> UInt64 {
+    let c = d.components
+    let fromSeconds = UInt64(c.seconds) * 1_000_000
+    let fromAttos = UInt64(max(0, c.attoseconds / 1_000_000_000_000))
+    return fromSeconds + fromAttos
 }
 
-fn input_array(size: usize, seed: u64) -> Vec<usize> {
-    shuffled(size, seed)
+func padLeft(_ value: String, _ width: Int) -> String {
+    if value.count >= width {
+        return value
+    }
+    return String(repeating: " ", count: width - value.count) + value
+}
+
+func formatSeconds(_ micros: UInt64) -> String {
+    let whole = micros / 1_000_000
+    let frac = micros % 1_000_000
+    let fracStr = padLeft(String(frac), 6).replacingOccurrences(of: " ", with: "0")
+    return "\(whole).\(fracStr)"
+}
+
+func input_array(_ size: Int, seed: UInt64) -> [Int] {
+    shuffled(size, seed: seed)
 }
 
 /// Peak heap growth during `benchmark_sort`, in bytes (explicit buffers such as swap).
 /// Kept in bytes so the parent can average before rounding; converting to KiB here
 /// would truncate sub-KiB buffers to 0 in every run and hide them from the average.
-fn run_once(size: usize, seed: usize) -> (u128, usize) {
-    let mut array = input_array(size, seed as u64);
+func run_once(size: Int, seed: Int) -> (UInt64, Int) {
+    var array = input_array(size, seed: UInt64(seed))
 
-    let base_bytes = LIVE_BYTES.load(AtomicOrdering::Relaxed);
-    PEAK_BYTES.store(base_bytes, AtomicOrdering::Relaxed);
+    let baseBytes = alloc_track_live()
+    alloc_track_reset_peak()
 
-    let start = Instant::now();
+    let start = ContinuousClock.now
 
-    benchmark_sort(&mut array);
+    benchmark_sort(&array)
 
-    let elapsed = start.elapsed();
-    let peak_bytes = PEAK_BYTES.load(AtomicOrdering::Relaxed);
-    let aux_bytes = peak_bytes.saturating_sub(base_bytes);
+    let elapsed = ContinuousClock.now - start
+    let peakBytes = alloc_track_peak()
+    let auxBytes = max(0, peakBytes - baseBytes)
 
-    let expected: Vec<usize> = (1..=size).collect();
+    let expected: [Int] = size > 0 ? Array(1...size) : []
     if array != expected {
-        panic!(
-            "sort failed with seed {} for size {}",
-            seed,
-            size
-        );
+        fatalError("sort failed with seed \(seed) for size \(size)")
     }
 
-    (micros(elapsed), aux_bytes)
+    return (micros(elapsed), auxBytes)
 }
 
-fn run_child(args: &[String]) {
-    let size = args[2].parse::<usize>().expect("invalid size");
-    let seed = args[3].parse::<usize>().expect("invalid seed");
-    let (elapsed_us, mem) = run_once(size, seed);
-    println!("{} {}", elapsed_us, mem);
+func run_child(_ args: [String]) {
+    let size = Int(args[2])!
+    let seed = Int(args[3])!
+    let (elapsedUs, mem) = run_once(size: size, seed: seed)
+    print("\(elapsedUs) \(mem)")
 }
 
-fn main() {
-    let args: Vec<String> = env::args().collect();
-    if args.get(1).is_some_and(|arg| arg == "--run-once") {
-        run_child(&args);
-        return;
-    }
+let args = CommandLine.arguments
+if args.count > 1 && args[1] == "--run-once" {
+    run_child(args)
+} else {
+    run_correctness_checks()
 
-    run_correctness_checks();
+    print(
+        "| \(padLeft("Size", 10)) | \(padLeft("Average time (s)", 16)) | \(padLeft("Maximum time (s)", 16)) | \(padLeft("Average memory (KiB)", 20)) | \(padLeft("Maximum memory (KiB)", 20)) |"
+    )
+    print("|----------:|----------------:|----------------:|--------------------:|--------------------:|")
 
-    println!(
-        "| {:>10} | {:>16} | {:>16} | {:>20} | {:>20} |",
-        "Size",
-        "Average time (s)",
-        "Maximum time (s)",
-        "Average memory (KiB)",
-        "Maximum memory (KiB)"
-    );
+    for power in MIN_POWER...MAX_POWER {
+        let size = 1 << power
 
-    println!(
-        "|{:-<11}:|{:-<17}:|{:-<17}:|{:-<21}:|{:-<21}:|",
-        "",
-        "",
-        "",
-        "",
-        ""
-    );
+        var totalTime: UInt64 = 0
+        var maxTime: UInt64 = 0
 
-    for power in MIN_POWER..=MAX_POWER {
-        let size = 1usize << power;
+        var totalMem = 0
+        var maxMem = 0
 
-        let mut total_time: u128 = 0;
-        let mut max_time: u128 = 0;
+        for seed in 1...RUNS {
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: args[0])
+            process.arguments = ["--run-once", "\(size)", "\(seed)"]
+            let stdout = Pipe()
+            let stderr = Pipe()
+            process.standardOutput = stdout
+            process.standardError = stderr
 
-        let mut total_mem: usize = 0;
-        let mut max_mem: usize = 0;
+            do {
+                try process.run()
+            } catch {
+                fatalError("failed to run benchmark child process: \(error)")
+            }
+            process.waitUntilExit()
 
-        for seed in 1..=RUNS {
-            let output = Command::new(env::current_exe().expect("failed to find current executable"))
-                .arg("--run-once")
-                .arg(size.to_string())
-                .arg(seed.to_string())
-                .output()
-                .expect("failed to run benchmark child process");
-
-            if !output.status.success() {
-                panic!(
-                    "benchmark child process failed: {}",
-                    String::from_utf8_lossy(&output.stderr)
-                );
+            if process.terminationStatus != 0 {
+                let err = String(data: stderr.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+                fatalError("benchmark child process failed: \(err)")
             }
 
-            let stdout = String::from_utf8(output.stdout)
-                .expect("child process returned non-UTF-8 output");
-            let mut fields = stdout.split_whitespace();
-            let elapsed_us = fields
-                .next()
-                .expect("missing elapsed time")
-                .parse::<u128>()
-                .expect("invalid elapsed time");
-            let aux_mem = fields
-                .next()
-                .expect("missing memory usage")
-                .parse::<usize>()
-                .expect("invalid memory usage");
-
-            total_time += elapsed_us;
-
-            if elapsed_us > max_time {
-                max_time = elapsed_us;
+            let data = stdout.fileHandleForReading.readDataToEndOfFile()
+            let stdoutText = String(data: data, encoding: .utf8) ?? ""
+            let fields = stdoutText.split(whereSeparator: \.isWhitespace)
+            guard fields.count >= 2,
+                  let elapsedUs = UInt64(fields[0]),
+                  let auxMem = Int(fields[1]) else {
+                fatalError("invalid child process output: \(stdoutText)")
             }
 
-            total_mem += aux_mem;
+            totalTime += elapsedUs
+            if elapsedUs > maxTime {
+                maxTime = elapsedUs
+            }
 
-            if aux_mem > max_mem {
-                max_mem = aux_mem;
+            totalMem += auxMem
+            if auxMem > maxMem {
+                maxMem = auxMem
             }
         }
 
-        let avg_time = total_time / RUNS as u128;
+        let avgTime = totalTime / UInt64(RUNS)
         // Memory is summed in bytes and converted to KiB once, after averaging.
-        let avg_mem_kb = total_mem / RUNS / 1024;
-        let max_mem_kb = max_mem / 1024;
+        let avgMemKb = totalMem / RUNS / 1024
+        let maxMemKb = maxMem / 1024
 
-        println!(
-            "| {:>10} | {:>16} | {:>16} | {:>20} | {:>20} |",
-            size,
-            format!("{}.{:06}", avg_time / 1_000_000, avg_time % 1_000_000),
-            format!("{}.{:06}", max_time / 1_000_000, max_time % 1_000_000),
-            avg_mem_kb,
-            max_mem_kb
-        );
+        print(
+            "| \(padLeft(String(size), 10)) | \(padLeft(formatSeconds(avgTime), 16)) | \(padLeft(formatSeconds(maxTime), 16)) | \(padLeft(String(avgMemKb), 20)) | \(padLeft(String(maxMemKb), 20)) |"
+        )
     }
 }
-RUST
+SWIFT
 
-RUN cargo build --release
+RUN clang -O2 -fPIC -shared alloc_track.c -o liballoc_track.so -ldl
 
-CMD ["./target/release/rust-benchmark"]
+RUN swiftc -Ounchecked -whole-module-optimization \
+    main.swift \
+    -o swift-benchmark \
+    -L. -lalloc_track \
+    -Xlinker -rpath -Xlinker /app
+
+ENV LD_PRELOAD=/app/liballoc_track.so
+CMD ["./swift-benchmark"]
 EOF
 
-docker build -t rust-benchmark "$WORKDIR"
-docker run --rm --init rust-benchmark
+docker build -t swift-benchmark "$WORKDIR"
+docker run --rm --init swift-benchmark
 ```
 
 </div>

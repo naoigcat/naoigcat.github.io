@@ -44,9 +44,9 @@ regression test, or “for completeness.”
 
 **Sort algorithms** fall under the same rule. Do not add standalone harnesses (for example under
 `tests/test-*-sort-*`, `tests/test-*-shivers-*`, or similar Node/shell scripts that extract demo JS from
-posts or recompile benchmark Rust). Correctness for the committed Rust path is already exercised by
+posts or recompile benchmark Swift). Correctness for the committed Swift path is already exercised by
 `verify_correctness` inside the sort-benchmark harness
-(`_includes/sort-benchmark/helpers/verify_correctness.rs`). Article demos are illustrative; do not grow
+(`_includes/sort-benchmark/helpers/verify_correctness.swift`). Article demos are illustrative; do not grow
 a parallel suite around them.
 
 Site infrastructure checks remain appropriate — tags JSON, demo CSS helpers, Jekyll config, Mermaid

@@ -1,10 +1,10 @@
 ---
 name: benchmark-sort
 description: >-
-    Re-runs the Rust/Docker sort benchmark for one or all sort posts and replaces the committed table between
+    Re-runs the Swift/Docker sort benchmark for one or all sort posts and replaces the committed table between
     `<!-- sort-benchmark-result:start -->` and `<!-- sort-benchmark-result:end -->`. Use when the user asks to
     remeasure, refresh, or update sort benchmark tables, after changing `_includes/sort-benchmark/**`,
-    `_data/sort_algorithms.yml`, or the Rust version in `_includes/sort-benchmark.md`.
+    `_data/sort_algorithms.yml`, or the Swift version in `_includes/sort-benchmark.md`.
 ---
 
 # benchmark-sort
@@ -16,18 +16,18 @@ Markdown source.
 
 -   **In scope:** posts under `_posts/` that contain `{% include sort-benchmark.md algorithm="…" %}` and a
     `<!-- sort-benchmark-result:start -->` … `<!-- sort-benchmark-result:end -->` block.
--   **Out of scope:** changing benchmark methodology (`RUNS`, size range, Docker/Rust versions) unless the user
+-   **Out of scope:** changing benchmark methodology (`RUNS`, size range, Docker/Swift versions) unless the user
     explicitly asks — those live in `_includes/sort-benchmark.md` and `_data/sort_algorithms.yml`.
 -   **Excluded algorithms:** `bogo` and `bozo` are intentionally skipped (factorial expected time makes the standard
     benchmark harness impractical). Do not run this skill for `bogo` or `bozo`, and omit them from bulk refreshes.
 
 ## Prerequisites
 
--   **Docker** running locally (`docker info` succeeds). The benchmark script pulls `rust:1.95.0` and builds inside
+-   **Docker** running locally (`docker info` succeeds). The benchmark script pulls `swift:6.0` and builds inside
     a container.
 -   **Time:** one algorithm typically needs **10–30+ minutes** (`quadratic_average: true` → 8 sizes × 8192 runs;
     otherwise 11 sizes × 8192 runs). Do not interrupt a running benchmark.
--   **Memory:** if `docker build` fails during LTO, raise Docker Desktop memory to **4 GB+** and retry.
+-   **Memory:** if `docker build` fails during optimization, raise Docker Desktop memory to **4 GB+** and retry.
 -   Run commands from the **repository root**.
 
 ## Resolve the target
@@ -72,13 +72,13 @@ The script:
 
 1.  Renders the same bash script shown on the live post (`render-benchmark-script.sh` → Jekyll include → extract
     `<pre><code>` from `.sort-benchmark-code`).
-2.  Executes that script (Docker build + `docker run --rm --init rust-benchmark`).
+2.  Executes that script (Docker build + `docker run --rm --init swift-benchmark`).
 3.  Replaces only the **data rows** inside the `sort-benchmark-result` markers, keeping the fixed header row and
     marker comments.
 4.  Runs `mise run lint -- "<post-path>"`.
 
 On failure, read stderr from the benchmark container (`sort failed`, `benchmark child process failed`, compile
-errors). Fix `_includes/sort-benchmark/algorithms/{algorithm}.rs` or `_data/sort_algorithms.yml` helper flags
+errors). Fix `_includes/sort-benchmark/algorithms/{algorithm}.swift` or `_data/sort_algorithms.yml` helper flags
 before retrying.
 
 ### 3. Report
@@ -87,13 +87,13 @@ Tell the user:
 
 -   algorithm id and post path updated
 -   row count (8 for `quadratic_average: true`, 11 otherwise)
--   that numbers reflect the current committed benchmark sources and `rust:1.95.0`
+-   that numbers reflect the current committed benchmark sources and `swift:6.0`
 
 Do **not** commit unless the user asks.
 
 ## Workflow (all sort posts)
 
-When the user wants every sort table refreshed (for example after bumping Rust in `_includes/sort-benchmark.md`):
+When the user wants every sort table refreshed (for example after bumping Swift in `_includes/sort-benchmark.md`):
 
 ```bash
 while IFS= read -r algo; do
@@ -135,12 +135,13 @@ If the helper scripts fail, follow the same steps by hand:
 
 ## Related files
 
-| File                                          | Role                                                                      |
-| --------------------------------------------- | ------------------------------------------------------------------------- |
-| `_includes/sort-benchmark.md`                 | Generates the Docker/Rust benchmark script (`rust:1.95.0`, `RUNS = 8192`) |
-| `_data/sort_algorithms.yml`                   | `sort_fn`, helper flags, `quadratic_average` (caps max size at `2^15`)    |
-| `_includes/sort-benchmark/algorithms/<id>.rs` | Per-algorithm Rust implementation                                         |
-| `_includes/sort-benchmark/helpers/*.rs`       | Shared helpers included when YAML flags are set                           |
+| File                                             | Role                                                                       |
+| ------------------------------------------------ | -------------------------------------------------------------------------- |
+| `_includes/sort-benchmark.md`                    | Generates the Docker/Swift benchmark script (`swift:6.0`, `RUNS = 8192`)   |
+| `_data/sort_algorithms.yml`                      | `sort_fn`, helper flags, `quadratic_average` (caps max size at `2^15`)     |
+| `_includes/sort-benchmark/algorithms/<id>.swift` | Per-algorithm Swift implementation                                         |
+| `_includes/sort-benchmark/helpers/*.swift`       | Shared helpers included when YAML flags are set                            |
+| `_includes/sort-benchmark/helpers/alloc_track.c` | `LD_PRELOAD` malloc interceptor for live/peak tracking          |
 
-When adding a **new** algorithm, finish YAML + Rust first (see comments in `sort_algorithms.yml`), create the post
+When adding a **new** algorithm, finish YAML + Swift first (see comments in `sort_algorithms.yml`), create the post
 with an empty data table, then run this skill to fill numbers.
