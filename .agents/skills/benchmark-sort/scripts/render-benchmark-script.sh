@@ -52,7 +52,6 @@ docker run --rm \
   jekyll build -s /work -d /work/_site >/dev/null
 
 python3 - "$workdir/_site/render.html" <<'PY'
-import html
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -89,7 +88,9 @@ if not path.is_file():
 
 parser = CodeExtractor()
 parser.feed(path.read_text(encoding="utf-8"))
-script = html.unescape("".join(parser.chunks)).strip()
+# HTMLParser already unescapes entities in handle_data; do not html.unescape again
+# (e.g. "&current_…" would become "¤t_…" via the &curren character reference).
+script = "".join(parser.chunks).strip()
 if not script.startswith("set -euo pipefail"):
     raise SystemExit("Failed to extract benchmark shell script from rendered HTML")
 print(script)
