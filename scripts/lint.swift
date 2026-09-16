@@ -95,7 +95,10 @@ func projectConfigValue(_ key: String, root: URL) throws -> String {
     return value
 }
 
-let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+let root = URL(fileURLWithPath: #filePath)
+    .standardizedFileURL
+    .deletingLastPathComponent()
+    .deletingLastPathComponent()
 
 do {
     let image = try projectConfigValue("markdownlint-cli2-image", root: root)
