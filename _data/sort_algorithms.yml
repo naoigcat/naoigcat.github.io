@@ -83,6 +83,13 @@ cycle:
   sort_fn: cycle_sort
   quadratic_average: true
 
+drop_merge:
+  sort_fn: drop_merge_sort
+  insertion_sort: true
+  partition_at: true
+  partition: true
+  quick_sort: true
+
 dual_pivot_quick:
   sort_fn: dual_pivot_quick_sort
   insertion_sort: true
