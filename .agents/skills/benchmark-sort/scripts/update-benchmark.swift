@@ -122,7 +122,10 @@ func runAndTee(
     process.standardOutput = outputPipe
     process.standardError = FileHandle.standardError
 
-    guard let savedOutput = FileHandle(forWritingAtPath: outputFile.path) else {
+    // FileHandle(forWritingAtPath:) does not create missing files; the temp
+    // output path is new each run, so create it before opening for writing.
+    guard FileManager.default.createFile(atPath: outputFile.path, contents: nil),
+          let savedOutput = FileHandle(forWritingAtPath: outputFile.path) else {
         throw ScriptError("Could not open benchmark output: \(outputFile.path)")
     }
     do {
