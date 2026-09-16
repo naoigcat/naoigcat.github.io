@@ -130,7 +130,10 @@ func stopServeContainer(root: URL) {
     )
 }
 
-let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+let root = URL(fileURLWithPath: #filePath)
+    .standardizedFileURL
+    .deletingLastPathComponent()
+    .deletingLastPathComponent()
 
 do {
     let image = try projectConfigValue("github-pages-image", root: root)

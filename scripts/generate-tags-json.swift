@@ -11,24 +11,19 @@ struct ScriptError: Error, CustomStringConvertible {
 }
 
 func repoRoot() throws -> URL {
-  let proc = Process()
-  proc.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-  proc.arguments = ["git", "rev-parse", "--show-toplevel"]
-  let pipe = Pipe()
-  proc.standardOutput = pipe
-  proc.standardError = FileHandle.nullDevice
-  try proc.run()
-  proc.waitUntilExit()
-  if proc.terminationStatus == 0 {
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    if let path = String(data: data, encoding: .utf8)?
-      .trimmingCharacters(in: .whitespacesAndNewlines),
-      !path.isEmpty
-    {
-      return URL(fileURLWithPath: path)
+  // Prefer the script location over cwd/git so subdirectory invocations still
+  // find the Jekyll site root.
+  var directory = URL(fileURLWithPath: #filePath).standardizedFileURL.deletingLastPathComponent()
+  while true {
+    if FileManager.default.fileExists(atPath: directory.appendingPathComponent("_config.yml").path) {
+      return directory
     }
+    let parent = directory.deletingLastPathComponent()
+    if parent.path == directory.path {
+      return directory
+    }
+    directory = parent
   }
-  return URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
 }
 
 @discardableResult

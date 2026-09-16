@@ -88,15 +88,20 @@ func requireCommand(
 }
 
 func repositoryRoot() -> URL {
-    let current = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-    if let result = try? runCommand("git", ["rev-parse", "--show-toplevel"], currentDirectory: current),
-       result.status == 0 {
-        let path = result.stdout.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !path.isEmpty {
-            return URL(fileURLWithPath: path)
+    // Walk up from this script so nested skill paths and scripts/ both work
+    // without depending on cwd or a git checkout.
+    var directory = URL(fileURLWithPath: #filePath).standardizedFileURL.deletingLastPathComponent()
+    while true {
+        let marker = directory.appendingPathComponent("_config.yml")
+        if FileManager.default.fileExists(atPath: marker.path) {
+            return directory
         }
+        let parent = directory.deletingLastPathComponent()
+        if parent.path == directory.path {
+            return directory
+        }
+        directory = parent
     }
-    return current
 }
 
 func projectConfigValue(_ key: String, root: URL) throws -> String {
