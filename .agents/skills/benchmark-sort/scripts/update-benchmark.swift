@@ -39,21 +39,51 @@ func runCommand(
     }
     process.currentDirectoryURL = currentDirectory
 
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    process.standardOutput = discardStdout ? FileHandle.nullDevice : stdoutPipe
-    process.standardError = stderrPipe
+    // Capture via files instead of pipes.  Waiting on a full pipe buffer before
+    // reading can deadlock when the child writes more than ~64 KiB (render
+    // output for large algorithms already approaches that limit).
+    let temporaryDirectory = FileManager.default.temporaryDirectory
+        .appendingPathComponent("run-command-\(UUID().uuidString)")
+    try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
+
+    let stderrFile = temporaryDirectory.appendingPathComponent("stderr")
+    guard FileManager.default.createFile(atPath: stderrFile.path, contents: nil),
+          let stderrHandle = FileHandle(forWritingAtPath: stderrFile.path) else {
+        throw ScriptError("Could not open stderr capture file")
+    }
+
+    let stdoutFile = temporaryDirectory.appendingPathComponent("stdout")
+    let stdoutHandle: FileHandle
+    if discardStdout {
+        stdoutHandle = .nullDevice
+    } else {
+        guard FileManager.default.createFile(atPath: stdoutFile.path, contents: nil),
+              let handle = FileHandle(forWritingAtPath: stdoutFile.path) else {
+            throw ScriptError("Could not open stdout capture file")
+        }
+        stdoutHandle = handle
+    }
+
+    process.standardOutput = stdoutHandle
+    process.standardError = stderrHandle
     do {
         try process.run()
     } catch {
+        if !discardStdout {
+            try? stdoutHandle.close()
+        }
+        try? stderrHandle.close()
         throw ScriptError("Could not start \(executable): \(error)")
     }
     process.waitUntilExit()
+    if !discardStdout {
+        try? stdoutHandle.close()
+    }
+    try? stderrHandle.close()
 
-    let stdout = discardStdout
-        ? ""
-        : (String(data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "")
-    let stderr = String(data: stderrPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+    let stdout = discardStdout ? "" : (try String(contentsOf: stdoutFile, encoding: .utf8))
+    let stderr = try String(contentsOf: stderrFile, encoding: .utf8)
     return CommandResult(status: process.terminationStatus, stdout: stdout, stderr: stderr)
 }
 
