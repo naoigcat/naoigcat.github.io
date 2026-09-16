@@ -54,12 +54,15 @@ do {
     ]
 
     var errors: [String] = []
+    // Enumerate posts once; watched class names only need content scans.
+    let posts = markdownFiles(under: postsDirectory).map { path -> (String, String) in
+        let relative = path.path.replacingOccurrences(of: root.path + "/", with: "")
+        let text = (try? String(contentsOf: path, encoding: .utf8)) ?? ""
+        return (relative, text)
+    }
     for className in watched {
-        let hits = markdownFiles(under: postsDirectory).compactMap { path -> String? in
-            let text = try? String(contentsOf: path, encoding: .utf8)
-            return text?.contains(className) == true
-                ? path.path.replacingOccurrences(of: root.path + "/", with: "")
-                : nil
+        let hits = posts.compactMap { relative, text -> String? in
+            text.contains(className) ? relative : nil
         }
         if !hits.isEmpty && !cssDefines(className, in: css) {
             errors.append("\(className): assigned in \(hits.joined(separator: ", ")) but missing from sort-demo.css")
