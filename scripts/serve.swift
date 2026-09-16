@@ -118,10 +118,30 @@ func projectConfigValue(_ key: String, root: URL) throws -> String {
     return value
 }
 
+let serveContainerName = "learnings-serve"
+
+/// Stops the named serve container.  Used from defer and from signal handlers
+/// because defer does not run when the process is killed by SIGINT/SIGTERM.
+func stopServeContainer(root: URL) {
+    _ = try? runCommand(
+        "docker",
+        ["stop", serveContainerName],
+        currentDirectory: root
+    )
+}
+
 let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
 
 do {
     let image = try projectConfigValue("github-pages-image", root: root)
+
+    // A fixed name caps leftovers at one container and lets the next serve
+    // (or a signal handler) address it without remembering a random id.
+    _ = try? runCommand(
+        "docker",
+        ["rm", "-f", serveContainerName],
+        currentDirectory: root
+    )
 
     // Detached mode lets this process poll the container until Jekyll is ready;
     // the old task used the same pattern so the browser opens only after the
@@ -130,6 +150,7 @@ do {
         "docker",
         [
             "run", "--rm", "--init", "-d",
+            "--name", serveContainerName,
             "-v", "\(root.path):/src/site",
             "-p", "127.0.0.1::4000",
             image,
@@ -150,13 +171,24 @@ do {
 
     // `defer` covers normal errors, including a timeout or a missing port.  It
     // is deliberately harmless when Docker has already removed the container.
-    defer {
-        _ = try? runCommand(
-            "docker",
-            ["stop", containerID],
-            currentDirectory: root
-        )
+    defer { stopServeContainer(root: root) }
+
+    // Ctrl-C during `docker attach` is the usual exit path; ignore the default
+    // disposition so DispatchSource can stop the container first.
+    signal(SIGINT, SIG_IGN)
+    signal(SIGTERM, SIG_IGN)
+    let signalQueue = DispatchQueue(label: "learnings.serve.signals")
+    let signalSources: [DispatchSourceSignal] = [SIGINT, SIGTERM].map { sig in
+        let source = DispatchSource.makeSignalSource(signal: sig, queue: signalQueue)
+        source.setEventHandler {
+            stopServeContainer(root: root)
+            Darwin.exit(128 + sig)
+        }
+        source.resume()
+        return source
     }
+    // Keep sources retained until attach returns or the process exits.
+    defer { _ = signalSources }
 
     let timeoutSeconds = 300
     var elapsed = 0
