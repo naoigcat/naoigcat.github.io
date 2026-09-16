@@ -178,6 +178,9 @@ oddeven_merge:
 octo:
   sort_fn: octo_sort
 
+oscillating_merge:
+  sort_fn: oscillating_merge_sort
+
 pancake:
   sort_fn: pancake_sort
   quadratic_average: true

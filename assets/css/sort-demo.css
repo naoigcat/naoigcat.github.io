@@ -1699,3 +1699,105 @@
     transition: none;
   }
 }
+
+/* Oscillating merge: level0 (upper) / level1 (lower) two-row stage */
+.sort-demo:has(.sort-demo-oscillating-wrap) {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+.sort-demo:has(.sort-demo-oscillating-wrap) .sort-demo__bars {
+  align-items: stretch;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  min-height: auto;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding-block: 6px;
+  box-sizing: border-box;
+}
+.sort-demo-oscillating-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.sort-demo-oscillating__row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.65rem;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.sort-demo-oscillating__label {
+  flex: none;
+  width: 4.2rem;
+  padding-bottom: 0.35rem;
+  font-size: 0.78rem;
+  opacity: 0.8;
+  text-align: right;
+  white-space: nowrap;
+}
+.sort-demo-oscillating__track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 6px;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 128px;
+  padding: 0.45rem 0.55rem;
+  border: 1px dashed rgba(128, 128, 128, 0.45);
+  border-radius: 6px;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.sort-demo-oscillating__track--empty {
+  background: rgba(128, 128, 128, 0.04);
+}
+.sort-demo-oscillating__run {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 3px;
+  flex: 0 0 auto;
+  padding: 0.15rem 0.15rem;
+  border-radius: 4px;
+  background: rgba(128, 128, 128, 0.06);
+  box-sizing: border-box;
+}
+.sort-demo-oscillating__track .sort-demo__bar {
+  flex: 0 0 auto;
+  width: 16px;
+  min-width: 16px;
+  max-width: 16px;
+}
+@media (max-width: 600px) {
+  .sort-demo-oscillating__label {
+    width: 3.2rem;
+    font-size: 0.72rem;
+  }
+  .sort-demo-oscillating__track {
+    gap: 4px;
+    min-height: 110px;
+    padding: 0.35rem 0.4rem;
+  }
+  .sort-demo-oscillating__run {
+    gap: 1px;
+  }
+  .sort-demo-oscillating__track .sort-demo__bar {
+    width: 8px;
+    min-width: 8px;
+    max-width: 8px;
+  }
+}
+
