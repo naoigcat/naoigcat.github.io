@@ -7,7 +7,6 @@ github_username: naoigcat
 description: >-
   It takes all the running you can do, to keep in the same place.
 exclude:
-  - .mise.toml
   - AGENTS.md
   - LICENSE.md
   - README.md
