@@ -31,12 +31,10 @@ $on-large:              800px;
 
 @import "minima";
 
-a {
-  &:visited {
-    blockquote, pre, code {
-      border: 1px solid #e8e8e8 !important;
-    }
-  }
+// Minima's link/visited cascade must not wrap these; the borders belong on the
+// elements themselves (anchors never contain blockquote/pre/code here).
+blockquote, pre, code {
+  border: 1px solid #e8e8e8 !important;
 }
 
 .footer-col-1 {
