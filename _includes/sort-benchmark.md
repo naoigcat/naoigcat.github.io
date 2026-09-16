@@ -219,7 +219,7 @@ if args.count > 1 && args[1] == "--run-once" {
         "\(padLeft("Average memory (KiB)", 20)) | " +
         "\(padLeft("Maximum memory (KiB)", 20)) |"
     print(tableHeader)
-    print("|----------:|----------------:|----------------:|--------------------:|--------------------:|")
+    print("|-----------:|-----------------:|-----------------:|---------------------:|---------------------:|")
 
     for power in MIN_POWER...MAX_POWER {
         let size = 1 << power
