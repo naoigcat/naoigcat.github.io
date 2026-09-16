@@ -32,14 +32,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      - name: Setup Swift
+        uses: swift-actions/setup-swift@7ca6abe6b3b0e8b5421b88be48feee39cbf52c6a # v2.4.0
+        with:
+          swift-version: "6.0.3"
+
       - name: Verify tag JSON is up to date
-        run: |
-          set -euo pipefail
-          bash scripts/generate-tags-json.sh
-          # git diff ignores untracked files; intent-to-add makes new tag JSON visible.
-          git add --intent-to-add assets/tags/
-          if ! git diff --exit-code -- assets/tags/; then
-            echo "::error::assets/tags/ is out of date. Run: mise run tags"
-            git diff --stat -- assets/tags/
-            exit 1
-          fi
+        run: swift scripts/verify-tags-json.swift

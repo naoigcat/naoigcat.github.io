@@ -168,7 +168,7 @@ After markdownlint passes, regenerate committed tag metadata under `assets/tags/
 mise run tags
 ```
 
-This task runs `scripts/generate-tags-json.sh` (Docker + Jekyll export). **Docker must be running**; if the command fails,
+This task runs `scripts/generate-tags-json.swift` (Docker + Jekyll export). **Docker must be running**; if the command fails,
 report the exit code and stderr and do not commit until tag JSON is updated successfully.
 
 When the command succeeds, stage any created, updated, or removed files under `assets/tags/` together with the new post in

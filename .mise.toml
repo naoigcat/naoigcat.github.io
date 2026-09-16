@@ -1,97 +1,16 @@
-[vars]
-github_pages_image = "naoigcat/github-pages:232"
-markdownlint_cli2_image = "davidanson/markdownlint-cli2:v0.23.2"
-
 [tasks.serve]
 description = "Run Jekyll in Docker (GitHub Pages dependency image)"
 interactive = true
-run = '''
-#!/usr/bin/env zsh
-container_id="$(docker run --rm --init \
-  -d \
-  -v "$PWD:/src/site" \
-  -p 127.0.0.1::4000 \
-  "{{vars.github_pages_image}}" \
-  jekyll serve --future -w --force_polling -H 0.0.0.0 -P 4000)" \
-  || { print -r 'Failed to start container' >&2; exit 1 }
-[[ -n $container_id ]] || { print -r 'Failed to get container ID' >&2; exit 1 }
-
-trap "docker stop ${container_id} >/dev/null 2>&1 || :" EXIT INT TERM
-
-typeset -i timeout=300 elapsed=0
-while true; do
-  logs="$(docker logs "$container_id" 2>&1)"
-  if print -r -- "$logs" | grep -q 'Error response from daemon'; then
-    print -r -- "$logs" >&2
-    print -r 'Docker daemon error while waiting for server' >&2
-    exit 1
-  fi
-  if print -r -- "$logs" | grep -q 'Server running'; then
-    break
-  fi
-  sleep 1
-  elapsed+=1
-  if (( elapsed >= timeout )); then
-    docker logs "$container_id"
-    print -r 'Timeout waiting for server' >&2
-    exit 1
-  fi
-done
-
-port="$(docker port "$container_id" 4000/tcp | awk -F: 'NR == 1 { print $NF }')"
-[[ -n $port ]] || { print -r 'Failed to resolve host port' >&2; exit 1 }
-
-open "http://localhost:${port}"
-docker attach "$container_id" || :
-'''
+run = "swift scripts/serve.swift"
 
 [tasks.lint]
 description = "Lint Markdown files with markdownlint-cli2 (Docker)"
-usage = '''
-flag "--fix" help="Apply auto-fixes where supported"
-arg "[path]..." help="Markdown paths or globs (default: **/*.md)" var=#true
-'''
-run = '''
-#!/usr/bin/env bash
-set -euo pipefail
-
-cli_args=(--config .markdownlint-cli2.jsonc)
-
-if [[ -n "${usage_fix:-}" ]]; then
-  cli_args+=(--fix)
-fi
-
-{% if usage.path | default(value=[]) | length > 0 %}
-paths=(
-{% for p in usage.path %}
-  {{ p | quote }}
-{% endfor %}
-)
-cli_args+=("${paths[@]}")
-{% else %}
-cli_args+=("**/*.md")
-{% endif %}
-
-docker run --rm \
-  --user "$(id -u):$(id -g)" \
-  --volume "${PWD}:/workdir" \
-  --workdir /workdir \
-  "{{ vars.markdownlint_cli2_image }}" \
-  "${cli_args[@]}"
-'''
+run = "swift scripts/lint.swift"
 
 [tasks.tags]
 description = "Regenerate per-tag JSON under assets/tags/ (Docker Jekyll export)"
-run = '''
-#!/usr/bin/env bash
-set -euo pipefail
-exec bash scripts/generate-tags-json.sh
-'''
+run = "swift scripts/generate-tags-json.swift"
 
 [tasks.test]
 description = "Run repository regression tests"
-run = '''
-#!/usr/bin/env bash
-set -euo pipefail
-exec bash tests/run.sh
-'''
+run = "swift tests/run.swift"

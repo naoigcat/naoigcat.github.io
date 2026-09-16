@@ -16,11 +16,11 @@ including the policy of **not** suggesting an extra CI job just to duplicate tha
 ## Local preview
 
 For development, `mise run serve` runs Jekyll in Docker using an image (`naoigcat/github-pages`) that mirrors GitHub’s published Pages dependency set.
-The image ref lives in `mise.toml` under `[vars] github_pages_image` so we can bump it when refreshing against GitHub’s stack.
+The image ref lives in `scripts/config.swift` as `ProjectConfig.githubPagesImage` so we can bump it when refreshing against GitHub’s stack.
 It is not duplicated here: production builds stay tied to GitHub’s hosted environment, which can change without updates to this repo.
 
 Requires Docker and [mise](https://mise.jdx.dev/). The first time you work in this repo, run `mise trust` in the project
-root so mise will load `mise.toml` (see [mise trust](https://mise.jdx.dev/cli/trust.html)).
+root so mise will load `.mise.toml` (see [mise trust](https://mise.jdx.dev/cli/trust.html)).
 
 ```sh
 mise run serve

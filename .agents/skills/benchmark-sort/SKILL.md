@@ -56,23 +56,23 @@ rg '^[a-z_]+:' _data/sort_algorithms.yml
 
 ### 1. Optional dry run
 
-Verify Jekyll can render the benchmark shell script for the algorithm:
+Verify Jekyll can render the standalone benchmark Swift program for the algorithm:
 
 ```bash
-.agents/skills/benchmark-sort/scripts/update-benchmark.sh {algorithm} --dry-run
+swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift {algorithm} --dry-run
 ```
 
 ### 2. Run benchmark and update the post
 
 ```bash
-.agents/skills/benchmark-sort/scripts/update-benchmark.sh {algorithm}
+swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift {algorithm}
 ```
 
 The script:
 
-1.  Renders the same bash script shown on the live post (`render-benchmark-script.sh` → Jekyll include → extract
+1.  Renders the same Swift program shown on the live post (`render-benchmark-script.swift` → Jekyll include → extract
     `<pre><code>` from `.sort-benchmark-code`).
-2.  Executes that script (Docker build + `docker run --rm --init swift-benchmark`).
+2.  Executes that program (Docker build + `docker run --rm --init swift-benchmark`).
 3.  Replaces only the **data rows** inside the `sort-benchmark-result` markers, keeping the fixed header row and
     marker comments.
 4.  Runs `mise run lint -- "<post-path>"`.
@@ -97,8 +97,8 @@ When the user wants every sort table refreshed (for example after bumping Swift 
 
 ```bash
 while IFS= read -r algo; do
-  .agents/skills/benchmark-sort/scripts/update-benchmark.sh "$algo"
-done < <(.agents/skills/benchmark-sort/scripts/update-benchmark.sh --list-targets)
+  swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift "$algo"
+done < <(swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift --list-targets)
 ```
 
 Run sequentially — parallel runs contend for Docker and CPU. Expect **many hours** for all benchmarked algorithms
@@ -106,11 +106,11 @@ Run sequentially — parallel runs contend for Docker and CPU. Expect **many hou
 
 ## Manual fallback
 
-If the helper scripts fail, follow the same steps by hand:
+If the Swift helper scripts fail, follow the same steps by hand:
 
 1.  `mise run serve` (or build once with the GitHub Pages Docker image), open the post, expand **計測に使用したコードを表示する**,
-    copy the bash script, run it locally.
-2.  From stdout, take lines matching `^\| *[0-9]` (data rows only).
+    copy the Swift program, and run it locally with `swift`.
+2.  From stdout of the Swift program, take lines matching `^\| *[0-9]` (data rows only).
 3.  Replace the block between the HTML comment markers, preserving:
 
     ```markdown
@@ -137,11 +137,11 @@ If the helper scripts fail, follow the same steps by hand:
 
 | File                                             | Role                                                                       |
 | ------------------------------------------------ | -------------------------------------------------------------------------- |
-| `_includes/sort-benchmark.md`                    | Generates the Docker/Swift benchmark script (`swift:6.0`, `RUNS = 8192`)   |
+| `_includes/sort-benchmark.md`                    | Generates the Docker/Swift benchmark program (`swift:6.0`, `RUNS = 8192`)  |
 | `_data/sort_algorithms.yml`                      | `sort_fn`, helper flags, `quadratic_average` (caps max size at `2^15`)     |
 | `_includes/sort-benchmark/algorithms/<id>.swift` | Per-algorithm Swift implementation                                         |
 | `_includes/sort-benchmark/helpers/*.swift`       | Shared helpers included when YAML flags are set                            |
-| `_includes/sort-benchmark/helpers/alloc_track.c` | `LD_PRELOAD` malloc interceptor for live/peak tracking          |
+| `_includes/sort-benchmark/helpers/alloc_track.c` | `LD_PRELOAD` malloc interceptor for live/peak tracking                     |
 
 When adding a **new** algorithm, finish YAML + Swift first (see comments in `sort_algorithms.yml`), create the post
 with an empty data table, then run this skill to fill numbers.
