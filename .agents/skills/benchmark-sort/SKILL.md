@@ -100,6 +100,7 @@ while IFS= read -r algo; do
   swift scripts/swift-run.swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift scripts/support.swift "$algo"
 done < <(swift scripts/swift-run.swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift scripts/support.swift --list-targets)
 ```
+
 Run sequentially — parallel runs contend for Docker and CPU. Expect **many hours** for all benchmarked algorithms
 (`bogo` and `bozo` excluded).
 
