@@ -16,13 +16,55 @@
 <div class="sort-benchmark-code" data-sort-benchmark-code markdown="1">
 <button type="button" class="sort-benchmark-code__copy" data-sort-benchmark-copy aria-label="計測コードをコピー">コピー</button>
 
-```bash
-set -euo pipefail
+```swift
+#!/usr/bin/env swift
+import Foundation
 
-WORKDIR="$(mktemp -d)"
-trap 'rm -rf "$WORKDIR"' EXIT
+// This standalone Swift driver creates the same temporary Docker build
+// context as the former shell wrapper.  The benchmark program itself remains
+// embedded below so readers can copy one complete, reproducible file.
+struct BenchmarkError: Error, CustomStringConvertible {
+    let message: String
 
-cat > "$WORKDIR/Dockerfile" <<'EOF'
+    var description: String { message }
+
+    init(_ message: String) {
+        self.message = message
+    }
+}
+
+func runCommand(_ executable: String, _ arguments: [String]) throws {
+    let process = Process()
+    process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
+    process.arguments = [executable] + arguments
+    process.standardInput = FileHandle.standardInput
+    process.standardOutput = FileHandle.standardOutput
+    process.standardError = FileHandle.standardError
+
+    do {
+        try process.run()
+    } catch {
+        throw BenchmarkError("Could not start \(executable): \(error)")
+    }
+    process.waitUntilExit()
+    guard process.terminationStatus == 0 else {
+        throw BenchmarkError(
+            "Command failed (\(process.terminationStatus)): " +
+            "\(executable) \(arguments.joined(separator: " "))"
+        )
+    }
+}
+
+do {
+    // The UUID avoids collisions when two benchmark copies are run at once.
+    let workdir = FileManager.default.temporaryDirectory
+        .appendingPathComponent("swift-sort-benchmark-\(UUID().uuidString)")
+    try FileManager.default.createDirectory(at: workdir, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: workdir) }
+
+    // A raw Swift string is used so the nested main.swift keeps its own
+    // interpolation expressions such as \(seed) until Docker compiles it.
+    let dockerfile = #"""
 FROM swift:6.0
 
 WORKDIR /app
@@ -170,9 +212,13 @@ if args.count > 1 && args[1] == "--run-once" {
 } else {
     run_correctness_checks()
 
-    print(
-        "| \(padLeft("Size", 10)) | \(padLeft("Average time (s)", 16)) | \(padLeft("Maximum time (s)", 16)) | \(padLeft("Average memory (KiB)", 20)) | \(padLeft("Maximum memory (KiB)", 20)) |"
-    )
+    let tableHeader =
+        "| \(padLeft("Size", 10)) | " +
+        "\(padLeft("Average time (s)", 16)) | " +
+        "\(padLeft("Maximum time (s)", 16)) | " +
+        "\(padLeft("Average memory (KiB)", 20)) | " +
+        "\(padLeft("Maximum memory (KiB)", 20)) |"
+    print(tableHeader)
     print("|----------:|----------------:|----------------:|--------------------:|--------------------:|")
 
     for power in MIN_POWER...MAX_POWER {
@@ -230,9 +276,13 @@ if args.count > 1 && args[1] == "--run-once" {
         let avgMemKb = totalMem / RUNS / 1024
         let maxMemKb = maxMem / 1024
 
-        print(
-            "| \(padLeft(String(size), 10)) | \(padLeft(formatSeconds(avgTime), 16)) | \(padLeft(formatSeconds(maxTime), 16)) | \(padLeft(String(avgMemKb), 20)) | \(padLeft(String(maxMemKb), 20)) |"
-        )
+        let tableRow =
+            "| \(padLeft(String(size), 10)) | " +
+            "\(padLeft(formatSeconds(avgTime), 16)) | " +
+            "\(padLeft(formatSeconds(maxTime), 16)) | " +
+            "\(padLeft(String(avgMemKb), 20)) | " +
+            "\(padLeft(String(maxMemKb), 20)) |"
+        print(tableRow)
     }
 }
 SWIFT
@@ -247,10 +297,21 @@ RUN swiftc -Ounchecked -whole-module-optimization \
 
 ENV LD_PRELOAD=/app/liballoc_track.so
 CMD ["./swift-benchmark"]
-EOF
+"""#
+    try dockerfile.write(
+        to: workdir.appendingPathComponent("Dockerfile"),
+        atomically: true,
+        encoding: .utf8
+    )
 
-docker build -t swift-benchmark "$WORKDIR"
-docker run --rm --init swift-benchmark
+    // Keeping build and run as separate child processes preserves Docker's
+    // normal output and the original image tag used by the benchmark skill.
+    try runCommand("docker", ["build", "-t", "swift-benchmark", workdir.path])
+    try runCommand("docker", ["run", "--rm", "--init", "swift-benchmark"])
+} catch {
+    fputs("\(error)\n", stderr)
+    exit(1)
+}
 ```
 
 </div>

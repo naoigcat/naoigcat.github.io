@@ -47,5 +47,5 @@ Every `DemoSort.attachPlayback({ ... })` options object **must** include
 `attachPlayback`’s default `mountBars` uses that class; omitting it leaves bars without width/background
 (invisible). Custom `rebuild` / `renderBars` paths still pass it so the shared helper stays consistent.
 
-Regression: `tests/test-demo-bar-class.sh` (via `mise run test`) fails when any attachPlayback call
+Regression: `tests/test-demo-bar-class.swift` (via `mise run test`) fails when any attachPlayback call
 lacks `barClass`.

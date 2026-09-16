@@ -80,8 +80,8 @@ Unless the maintainer asks about them explicitly, **do not** raise them as revie
 -   **Dependabot** — `.github/dependabot.yml` targets **GitHub Actions only**. Gems stay with GitHub
     Pages’ build environment. Do not widen to RubyGems/npm “for completeness” unless those ecosystems
     gain first-class use here.
--   **Sync workflows (`contents: write`)** — `sync-markdownlint.yml` and `sync-githubpages.yml` push
-    narrow commits when their target pins change. Do not flag `contents: write`, automated `git push`,
+-   **Sync workflow (`contents: write`)** — `sync.yml` pushes narrow commits when its
+    target pins change. Do not flag `contents: write`, automated `git push`,
     or “commit only the touched lines” as review findings unless asked to change them. Do not recycle
     generic “write access increases blast radius” nits unless the maintainer explicitly asks.
 -   **Site metadata** — `lang: ja` with Japanese bodies and an Irish-language–style `title` (and
