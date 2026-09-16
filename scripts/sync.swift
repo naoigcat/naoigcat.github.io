@@ -72,6 +72,19 @@ func isASCIIInteger(_ value: String) -> Bool {
     }
 }
 
+/// Accepts `1`, `0.19`, `1.2.3`, … — digits separated by single dots.
+/// Rejects quotes, spaces, leading `v`, empty segments, and other noise that
+/// would break the Swift string literal written into config.swift.
+func isDottedVersion(_ value: String) -> Bool {
+    let parts = value.split(separator: ".", omittingEmptySubsequences: false)
+    guard !parts.isEmpty else { return false }
+    return parts.allSatisfy { part in
+        !part.isEmpty && part.unicodeScalars.allSatisfy { scalar in
+            scalar.value >= 48 && scalar.value <= 57
+        }
+    }
+}
+
 func parseImageReference(from text: String) throws -> DockerImageReference {
     let linePattern = #"^\s*static\s+let\s+githubPagesImage\s*=\s*"([^"]+)"\s*$"#
     let regex = try NSRegularExpression(pattern: linePattern)
@@ -288,10 +301,20 @@ func markdownlintVersion(ref: String, root: URL) throws -> String {
           !version.isEmpty else {
         throw ScriptError("Could not read dependencies.markdownlint-cli2 from action package.json")
     }
+    guard isDottedVersion(version) else {
+        throw ScriptError(
+            "dependencies.markdownlint-cli2 must match ^[0-9]+(\\.[0-9]+)*$, got \(version.debugDescription)"
+        )
+    }
     return version
 }
 
 func updateMarkdownlintImage(root: URL, version: String) throws {
+    guard isDottedVersion(version) else {
+        throw ScriptError(
+            "VERSION must match ^[0-9]+(\\.[0-9]+)*$, got \(version.debugDescription)"
+        )
+    }
     let configPath = root.appendingPathComponent("scripts/config.swift")
     guard FileManager.default.isReadableFile(atPath: configPath.path) else {
         throw ScriptError("\(configPath.path) missing")
@@ -304,9 +327,6 @@ func updateMarkdownlintImage(root: URL, version: String) throws {
         replacement: replacement
     )
     try updated.write(to: configPath, atomically: true, encoding: .utf8)
-    guard updated.contains(replacement) else {
-        throw ScriptError("markdownlintCLI2Image assignment not found in \(configPath.path)")
-    }
 }
 
 let root = repositoryRoot()
