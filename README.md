@@ -28,6 +28,19 @@ mise run serve
 
 The command starts the server, maps port 4000 to localhost, and opens the site in your default browser (macOS).
 
+## Lint and test
+
+Markdown linting and repository regression tests are also mise tasks:
+
+```sh
+mise run lint
+mise run test
+```
+
+`mise run lint` runs markdownlint-cli2 in Docker (image from `ProjectConfig.markdownlintCLI2Image`).
+`mise run test` runs the Swift/Node suite under `tests/` and does not require Docker for most cases
+(`test-mermaid-sri` needs the network and skips when unreachable).
+
 ## Tags
 
 Tag navigation uses a **single page** at `/tags/`. Each tag links to `/tags/?tag={slug}` (for example `/tags/?tag=sort`).
