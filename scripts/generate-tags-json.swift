@@ -2,75 +2,16 @@
 import Foundation
 
 // Regenerates assets/tags/*.json from a Docker Jekyll export.
-// No Package.swift — run via `swift scripts/generate-tags-json.swift` (mise task `tags`).
-
-struct ScriptError: Error, CustomStringConvertible {
-  let message: String
-  var description: String { message }
-  init(_ message: String) { self.message = message }
-}
-
-func repoRoot() throws -> URL {
-  // Prefer the script location over cwd/git so subdirectory invocations still
-  // find the Jekyll site root.
-  var directory = URL(fileURLWithPath: #filePath).standardizedFileURL.deletingLastPathComponent()
-  while true {
-    if FileManager.default.fileExists(atPath: directory.appendingPathComponent("_config.yml").path) {
-      return directory
-    }
-    let parent = directory.deletingLastPathComponent()
-    if parent.path == directory.path {
-      return directory
-    }
-    directory = parent
-  }
-}
-
-@discardableResult
-func run(
-  _ executable: String,
-  _ arguments: [String],
-  currentDirectory: URL? = nil,
-  environment: [String: String]? = nil,
-  discardStdout: Bool = false
-) throws -> String {
-  let proc = Process()
-  if executable.hasPrefix("/") {
-    proc.executableURL = URL(fileURLWithPath: executable)
-    proc.arguments = arguments
-  } else {
-    proc.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    proc.arguments = [executable] + arguments
-  }
-  proc.currentDirectoryURL = currentDirectory
-  if let environment {
-    proc.environment = ProcessInfo.processInfo.environment.merging(environment) { _, new in new }
-  }
-  let out = Pipe()
-  let err = Pipe()
-  proc.standardOutput = discardStdout ? FileHandle.nullDevice : out
-  proc.standardError = err
-  try proc.run()
-  proc.waitUntilExit()
-  let errData = err.fileHandleForReading.readDataToEndOfFile()
-  let outData = discardStdout ? Data() : out.fileHandleForReading.readDataToEndOfFile()
-  if proc.terminationStatus != 0 {
-    let message = String(data: errData, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines)
-    throw ScriptError(
-      message?.isEmpty == false
-        ? message!
-        : "Command failed (\(proc.terminationStatus)): \(executable) \(arguments.joined(separator: " "))"
-    )
-  }
-  return String(data: outData, encoding: .utf8) ?? ""
-}
+// No Package.swift — run via
+// `swift scripts/swift-run.swift scripts/generate-tags-json.swift scripts/support.swift`
+// (mise task `tags`).
 
 func projectConfigValue(_ key: String, root: URL) throws -> String {
   // Standalone scripts cannot share declarations through a package import.
   // config.swift therefore exposes the two typed constants through a tiny CLI.
   let config = root.appendingPathComponent("scripts/config.swift")
-  let value = try run("swift", [config.path, key], currentDirectory: root)
-    .trimmingCharacters(in: .whitespacesAndNewlines)
+  let value = try requireCommand("swift", [config.path, key], currentDirectory: root)
+    .stdout.trimmingCharacters(in: .whitespacesAndNewlines)
   guard !value.isEmpty else {
     throw ScriptError("config.swift returned an empty value for \(key)")
   }
@@ -78,8 +19,10 @@ func projectConfigValue(_ key: String, root: URL) throws -> String {
 }
 
 func posixUserGroup() throws -> String {
-  let uid = try run("/usr/bin/id", ["-u"]).trimmingCharacters(in: .whitespacesAndNewlines)
-  let gid = try run("/usr/bin/id", ["-g"]).trimmingCharacters(in: .whitespacesAndNewlines)
+  let uid = try requireCommand("/usr/bin/id", ["-u"])
+    .stdout.trimmingCharacters(in: .whitespacesAndNewlines)
+  let gid = try requireCommand("/usr/bin/id", ["-g"])
+    .stdout.trimmingCharacters(in: .whitespacesAndNewlines)
   guard !uid.isEmpty, !gid.isEmpty else {
     throw ScriptError("Failed to resolve uid:gid")
   }
@@ -262,13 +205,13 @@ func writeTagFiles(exportFile: URL, destDir: URL) throws {
 }
 
 func generateTags() throws {
-  let root = try repoRoot()
+  let root = repositoryRoot()
   let pagesImage = try projectConfigValue("github-pages-image", root: root)
 
   let outDir = root.appendingPathComponent("assets/tags")
 
   do {
-    try run("docker", ["info"], discardStdout: true)
+    try requireCommand("docker", ["info"], discardStdout: true)
   } catch {
     throw ScriptError("Docker is not available. Start Docker and retry.")
   }
@@ -278,7 +221,7 @@ func generateTags() throws {
   try FileManager.default.createDirectory(at: workdir, withIntermediateDirectories: true)
   defer { try? FileManager.default.removeItem(at: workdir) }
 
-  try run(
+  try requireCommand(
     "rsync",
     [
       "-a",
@@ -321,7 +264,7 @@ func generateTags() throws {
   let userGroup = try posixUserGroup()
   // GitHub Pages builds with `future: true`, so future-dated posts are live there;
   // match it, or their tags silently vanish from (or get deleted under) assets/tags.
-  try run(
+  try requireCommand(
     "docker",
     [
       "run", "--rm",
@@ -342,7 +285,7 @@ func generateTags() throws {
 
 // MARK: - Entry
 
-let args = Array(CommandLine.arguments.dropFirst())
+let args = scriptArguments()
 do {
   if args.isEmpty {
     try generateTags()

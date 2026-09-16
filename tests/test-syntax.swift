@@ -5,42 +5,7 @@ import Foundation
 // written in JavaScript.  Parse both sets directly so a typo is caught before
 // a mise task or a browser loads it.
 
-struct CommandResult {
-    let status: Int32
-    let output: String
-}
-
-struct TestError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-func runCommand(_ executable: String, _ arguments: [String], currentDirectory: URL) throws -> CommandResult {
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    process.arguments = [executable] + arguments
-    process.currentDirectoryURL = currentDirectory
-
-    let outputPipe = Pipe()
-    process.standardOutput = outputPipe
-    process.standardError = outputPipe
-    do {
-        try process.run()
-    } catch {
-        throw TestError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-    let output = String(
-        data: outputPipe.fileHandleForReading.readDataToEndOfFile(),
-        encoding: .utf8
-    ) ?? ""
-    return CommandResult(status: process.terminationStatus, output: output)
-}
+typealias TestError = ScriptError
 
 func regularFiles(under directory: URL, fileExtension: String) -> [URL] {
     (FileManager.default.enumerator(
@@ -52,8 +17,7 @@ func regularFiles(under directory: URL, fileExtension: String) -> [URL] {
         .sorted { $0.path < $1.path }
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 
 do {
     let swiftScriptDirectories = [
@@ -79,7 +43,7 @@ do {
         for path in regularFiles(under: directory, fileExtension: "swift") {
             let result = try runCommand("swiftc", ["-parse", path.path], currentDirectory: root)
             if result.status != 0 {
-                failures.append("swiftc -parse failed: \(path.path)\n\(result.output)")
+                failures.append("swiftc -parse failed: \(path.path)\n\(result.stdout)\(result.stderr)")
             }
         }
     }
@@ -87,7 +51,7 @@ do {
     for path in regularFiles(under: root.appendingPathComponent("assets/js"), fileExtension: "js") {
         let result = try runCommand("node", ["--check", path.path], currentDirectory: root)
         if result.status != 0 {
-            failures.append("node --check failed: \(path.path)\n\(result.output)")
+            failures.append("node --check failed: \(path.path)\n\(result.stdout)\(result.stderr)")
         }
     }
 

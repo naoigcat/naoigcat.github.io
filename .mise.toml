@@ -1,16 +1,16 @@
 [tasks.serve]
 description = "Run Jekyll in Docker (GitHub Pages dependency image)"
 interactive = true
-run = "swift scripts/serve.swift"
+run = "swift scripts/swift-run.swift scripts/serve.swift scripts/support.swift"
 
 [tasks.lint]
 description = "Lint Markdown files with markdownlint-cli2 (Docker)"
-run = "swift scripts/lint.swift"
+run = "swift scripts/swift-run.swift scripts/lint.swift scripts/support.swift"
 
 [tasks.tags]
 description = "Regenerate per-tag JSON under assets/tags/ (Docker Jekyll export)"
-run = "swift scripts/generate-tags-json.swift"
+run = "swift scripts/swift-run.swift scripts/generate-tags-json.swift scripts/support.swift"
 
 [tasks.test]
 description = "Run repository regression tests"
-run = "swift tests/run.swift"
+run = "swift scripts/swift-run.swift tests/run.swift scripts/support.swift"

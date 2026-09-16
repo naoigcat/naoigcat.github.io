@@ -5,58 +5,6 @@ import Foundation
 // narrow path that a workflow has just updated, just as the former shell
 // blocks did, then pushes the resulting commit.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: String
-    let stderr: String
-}
-
-struct ScriptError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-func runCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL,
-    inheritIO: Bool = false
-) throws -> CommandResult {
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    process.arguments = [executable] + arguments
-    process.currentDirectoryURL = currentDirectory
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    if inheritIO {
-        process.standardInput = FileHandle.standardInput
-        process.standardOutput = FileHandle.standardOutput
-        process.standardError = FileHandle.standardError
-    } else {
-        process.standardOutput = stdoutPipe
-        process.standardError = stderrPipe
-    }
-    do {
-        try process.run()
-    } catch {
-        throw ScriptError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-    guard !inheritIO else {
-        return CommandResult(status: process.terminationStatus, stdout: "", stderr: "")
-    }
-    return CommandResult(
-        status: process.terminationStatus,
-        stdout: String(data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "",
-        stderr: String(data: stderrPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
-    )
-}
-
 func pagesTag(from config: String) -> String? {
     // The scheduled image-sync job updates the Swift configuration rather
     // than TOML, so derive the commit message from the same source file.
@@ -78,9 +26,8 @@ func pagesTag(from config: String) -> String? {
     return nil
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
-let arguments = Array(CommandLine.arguments.dropFirst())
+let root = repositoryRoot()
+let arguments = scriptArguments()
 
 do {
     let path: String

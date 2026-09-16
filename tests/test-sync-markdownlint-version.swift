@@ -5,49 +5,12 @@ import Foundation
 // before rewriting scripts/config.swift.  A quote or newline in VERSION would
 // otherwise break every mise task that reads the shared Swift config.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: String
-    let stderr: String
-}
+typealias TestError = ScriptError
 
-struct TestError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-func runCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL,
-    environment: [String: String]
-) throws -> CommandResult {
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    process.arguments = [executable] + arguments
-    process.currentDirectoryURL = currentDirectory
-    process.environment = environment
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    process.standardOutput = stdoutPipe
-    process.standardError = stderrPipe
-    try process.run()
-    process.waitUntilExit()
-    return CommandResult(
-        status: process.terminationStatus,
-        stdout: String(data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "",
-        stderr: String(data: stderrPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
-    )
-}
-
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let syncPath = root.appendingPathComponent("scripts/sync.swift")
+let supportPath = root.appendingPathComponent("scripts/support.swift")
+let swiftRunPath = root.appendingPathComponent("scripts/swift-run.swift")
 let configPath = root.appendingPathComponent("scripts/config.swift")
 
 do {
@@ -59,7 +22,7 @@ do {
         environment["VERSION"] = bad
         let result = try runCommand(
             "swift",
-            [syncPath.path, "markdownlint", "update"],
+            [swiftRunPath.path, syncPath.path, supportPath.path, "markdownlint", "update"],
             currentDirectory: root,
             environment: environment
         )

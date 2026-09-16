@@ -164,8 +164,7 @@ func markdownFiles(under directory: URL) -> [URL] {
         .sorted { $0.path < $1.path }
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let postsDirectory = root.appendingPathComponent("_posts")
 
 do {

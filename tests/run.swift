@@ -6,43 +6,6 @@ import Foundation
 // Swift program (with the existing JavaScript fixture retained as Node code),
 // so Bash is no longer needed to orchestrate the suite.
 
-struct CommandResult {
-    let status: Int32
-}
-
-struct RunnerError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-func runInherited(_ executable: String, _ arguments: [String], currentDirectory: URL) throws -> CommandResult {
-    let process = Process()
-    if executable.hasPrefix("/") {
-        process.executableURL = URL(fileURLWithPath: executable)
-        process.arguments = arguments
-    } else {
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        process.arguments = [executable] + arguments
-    }
-    process.currentDirectoryURL = currentDirectory
-    process.standardInput = FileHandle.standardInput
-    process.standardOutput = FileHandle.standardOutput
-    process.standardError = FileHandle.standardError
-
-    do {
-        try process.run()
-    } catch {
-        throw RunnerError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-    return CommandResult(status: process.terminationStatus)
-}
-
 func writeLine(_ line: String) {
     // FileHandle writes immediately, so the discovery header appears before
     // the child test's output even when mise captures the runner's stdout.
@@ -50,10 +13,10 @@ func writeLine(_ line: String) {
     FileHandle.standardOutput.write(data)
 }
 
-let testsDirectory = URL(fileURLWithPath: #filePath)
-    .standardizedFileURL
-    .deletingLastPathComponent()
-let root = testsDirectory.deletingLastPathComponent()
+let root = repositoryRoot()
+let testsDirectory = root.appendingPathComponent("tests")
+let support = root.appendingPathComponent("scripts/support.swift")
+let swiftRun = root.appendingPathComponent("scripts/swift-run.swift")
 
 do {
     let entries = try FileManager.default.contentsOfDirectory(
@@ -69,18 +32,30 @@ do {
         .sorted { $0.lastPathComponent < $1.lastPathComponent }
 
     guard !testFiles.isEmpty else {
-        throw RunnerError("No test scripts found under \(testsDirectory.path)")
+        throw ScriptError("No test scripts found under \(testsDirectory.path)")
     }
 
     var failed = false
     for testFile in testFiles {
         writeLine("==> \(testFile.lastPathComponent)")
-        let interpreter = testFile.pathExtension == "mjs" ? "node" : "swift"
-        let result = try runInherited(
-            interpreter,
-            [testFile.path],
-            currentDirectory: root
-        )
+        let result: CommandResult
+        if testFile.pathExtension == "mjs" {
+            result = try runCommand(
+                "node",
+                [testFile.path],
+                currentDirectory: root,
+                inheritIO: true
+            )
+        } else {
+            // Inherit IO and tolerate non-zero so one failing test does not abort
+            // the suite before the remaining files run.
+            result = try runCommand(
+                "swift",
+                [swiftRun.path, testFile.path, support.path],
+                currentDirectory: root,
+                inheritIO: true
+            )
+        }
         if result.status != 0 {
             failed = true
         }

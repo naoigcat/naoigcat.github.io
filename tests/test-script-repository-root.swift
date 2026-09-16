@@ -1,26 +1,18 @@
 #!/usr/bin/env swift
 import Foundation
 
-// Regression: lint/serve must resolve the repo root from #filePath, not cwd,
-// so `swift scripts/lint.swift` from a subdirectory still mounts the site root.
+// Regression: lint/serve must resolve the repo root via repositoryRoot()
+// (from scripts/support.swift), not cwd, so subdirectory invocations still
+// mount the site root.
 
-struct TestError: Error, CustomStringConvertible {
-    let message: String
+typealias TestError = ScriptError
 
-    var description: String { message }
+let root = repositoryRoot()
 
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
-
-func assertFilePathRoot(in path: URL) throws {
+func assertUsesSharedRepositoryRoot(in path: URL) throws {
     let source = try String(contentsOf: path, encoding: .utf8)
-    guard source.contains("#filePath") else {
-        throw TestError("\(path.path) must derive the repository root from #filePath")
+    guard source.contains("repositoryRoot(") else {
+        throw TestError("\(path.path) must call repositoryRoot() from scripts/support.swift")
     }
     if source.contains("FileManager.default.currentDirectoryPath") {
         // Allow currentDirectoryPath only inside helpers that are not the root binding.
@@ -35,9 +27,16 @@ func assertFilePathRoot(in path: URL) throws {
 }
 
 do {
-    try assertFilePathRoot(in: root.appendingPathComponent("scripts/lint.swift"))
-    try assertFilePathRoot(in: root.appendingPathComponent("scripts/serve.swift"))
-    print("ok: lint.swift and serve.swift resolve the repository root from #filePath")
+    try assertUsesSharedRepositoryRoot(in: root.appendingPathComponent("scripts/lint.swift"))
+    try assertUsesSharedRepositoryRoot(in: root.appendingPathComponent("scripts/serve.swift"))
+    let support = try String(
+        contentsOf: root.appendingPathComponent("scripts/support.swift"),
+        encoding: .utf8
+    )
+    guard support.contains("#filePath") else {
+        throw TestError("scripts/support.swift must walk upward from #filePath")
+    }
+    print("ok: lint.swift and serve.swift resolve the repository root via support.swift")
 } catch {
     fputs("\(error)\n", stderr)
     exit(1)

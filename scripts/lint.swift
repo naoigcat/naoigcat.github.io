@@ -7,78 +7,6 @@ import Foundation
 // The default glob and --fix flag are parsed here rather than delegated to
 // mise, keeping `.mise.toml` as a thin task dispatcher.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: String
-    let stderr: String
-}
-
-struct ScriptError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-func runCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL? = nil
-) throws -> CommandResult {
-    let process = Process()
-    if executable.hasPrefix("/") {
-        process.executableURL = URL(fileURLWithPath: executable)
-        process.arguments = arguments
-    } else {
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        process.arguments = [executable] + arguments
-    }
-    process.currentDirectoryURL = currentDirectory
-
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    process.standardOutput = stdoutPipe
-    process.standardError = stderrPipe
-
-    do {
-        try process.run()
-    } catch {
-        throw ScriptError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-
-    let stdout = String(
-        data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(),
-        encoding: .utf8
-    ) ?? ""
-    let stderr = String(
-        data: stderrPipe.fileHandleForReading.readDataToEndOfFile(),
-        encoding: .utf8
-    ) ?? ""
-    return CommandResult(status: process.terminationStatus, stdout: stdout, stderr: stderr)
-}
-
-@discardableResult
-func requireCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL? = nil
-) throws -> CommandResult {
-    let result = try runCommand(executable, arguments, currentDirectory: currentDirectory)
-    guard result.status == 0 else {
-        let detail = result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)
-        throw ScriptError(
-            detail.isEmpty
-                ? "Command failed (\(result.status)): \(executable) \(arguments.joined(separator: " "))"
-                : detail
-        )
-    }
-    return result
-}
-
 func projectConfigValue(_ key: String, root: URL) throws -> String {
     // Swift scripts are intentionally standalone, so the shared constants
     // are exposed through config.swift's small CLI instead of a package import.
@@ -95,17 +23,14 @@ func projectConfigValue(_ key: String, root: URL) throws -> String {
     return value
 }
 
-let root = URL(fileURLWithPath: #filePath)
-    .standardizedFileURL
-    .deletingLastPathComponent()
-    .deletingLastPathComponent()
+let root = repositoryRoot()
 
 do {
     let image = try projectConfigValue("markdownlint-cli2-image", root: root)
 
     // Task arguments are parsed here for both `mise` and direct Swift
     // invocations, keeping the two entry points behaviorally identical.
-    var arguments = Array(CommandLine.arguments.dropFirst())
+    var arguments = scriptArguments()
     if arguments.first == "--" {
         arguments.removeFirst()
     }
@@ -138,17 +63,14 @@ do {
 
     // Markdownlint output is user-facing, so inherit it directly rather than
     // buffering it.  The command still has no shell layer around it.
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    process.arguments = ["docker"] + dockerArguments
-    process.currentDirectoryURL = root
-    process.standardInput = FileHandle.standardInput
-    process.standardOutput = FileHandle.standardOutput
-    process.standardError = FileHandle.standardError
-    try process.run()
-    process.waitUntilExit()
-    guard process.terminationStatus == 0 else {
-        exit(process.terminationStatus)
+    let status = try runCommand(
+        "docker",
+        dockerArguments,
+        currentDirectory: root,
+        inheritIO: true
+    ).status
+    guard status == 0 else {
+        exit(status)
     }
 } catch {
     fputs("\(error)\n", stderr)

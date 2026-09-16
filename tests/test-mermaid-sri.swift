@@ -5,52 +5,7 @@ import Foundation
 // integrity value belonging to Mermaid itself.  The test skips only the
 // network-dependent part when the CDN cannot be reached.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: Data
-    let stderr: Data
-
-    var stdoutText: String {
-        String(data: stdout, encoding: .utf8) ?? ""
-    }
-
-    var stderrText: String {
-        String(data: stderr, encoding: .utf8) ?? ""
-    }
-}
-
-struct TestError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-func runCommand(_ executable: String, _ arguments: [String], currentDirectory: URL) throws -> CommandResult {
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    process.arguments = [executable] + arguments
-    process.currentDirectoryURL = currentDirectory
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    process.standardOutput = stdoutPipe
-    process.standardError = stderrPipe
-
-    do {
-        try process.run()
-    } catch {
-        throw TestError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-    return CommandResult(
-        status: process.terminationStatus,
-        stdout: stdoutPipe.fileHandleForReading.readDataToEndOfFile(),
-        stderr: stderrPipe.fileHandleForReading.readDataToEndOfFile()
-    )
-}
+typealias TestError = ScriptError
 
 func firstCapture(_ pattern: String, in text: String) -> String? {
     guard let regex = try? NSRegularExpression(pattern: pattern, options: [.dotMatchesLineSeparators]) else {
@@ -65,8 +20,7 @@ func firstCapture(_ pattern: String, in text: String) -> String? {
     return String(text[swiftRange])
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let headPath = root.appendingPathComponent("_includes/head.html")
 
 do {
@@ -102,6 +56,7 @@ do {
     try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true)
     defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
     let body = temporaryDirectory.appendingPathComponent("mermaid.min.js")
+    let digestFile = temporaryDirectory.appendingPathComponent("mermaid.sha512")
 
     // curl is launched directly as a child process.  It is used only for HTTP
     // transfer; no shell pipeline or command interpolation is involved.
@@ -115,17 +70,17 @@ do {
         exit(0)
     }
 
-    // openssl emits the raw digest bytes, which Swift can encode exactly as
-    // standard Base64 without relying on a platform-specific crypto module.
+    // Write binary digest to a file so UTF-8 String capture cannot corrupt it.
     let digest = try runCommand(
         "openssl",
-        ["dgst", "-sha512", "-binary", body.path],
+        ["dgst", "-sha512", "-binary", "-out", digestFile.path, body.path],
         currentDirectory: root
     )
     guard digest.status == 0 else {
-        throw TestError("Could not calculate SHA-512 for \(source): \(digest.stderrText)")
+        throw TestError("Could not calculate SHA-512 for \(source): \(digest.stderr)")
     }
-    let actual = "sha512-\(digest.stdout.base64EncodedString())"
+    let digestBytes = try Data(contentsOf: digestFile)
+    let actual = "sha512-\(digestBytes.base64EncodedString())"
     guard actual == expected else {
         throw TestError(
             "Mermaid SRI mismatch for \(source)\nhead.html: \(expected)\ncomputed:  \(actual)"

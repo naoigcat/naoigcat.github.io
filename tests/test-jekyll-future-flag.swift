@@ -15,8 +15,7 @@ struct TestError: Error, CustomStringConvertible {
     }
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 
 do {
     let checks: [(URL, [String], String)] = [
