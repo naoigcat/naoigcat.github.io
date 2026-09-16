@@ -6,104 +6,6 @@ import Foundation
 // with an embedded Python HTML parser; keeping the whole adapter in Swift
 // makes it usable from the Swift benchmark updater as well.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: String
-    let stderr: String
-}
-
-struct ScriptError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-func runCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL? = nil,
-    discardStdout: Bool = false
-) throws -> CommandResult {
-    let process = Process()
-    if executable.hasPrefix("/") {
-        process.executableURL = URL(fileURLWithPath: executable)
-        process.arguments = arguments
-    } else {
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        process.arguments = [executable] + arguments
-    }
-    process.currentDirectoryURL = currentDirectory
-
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    process.standardOutput = discardStdout ? FileHandle.nullDevice : stdoutPipe
-    process.standardError = stderrPipe
-
-    do {
-        try process.run()
-    } catch {
-        throw ScriptError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-
-    let stdout = discardStdout
-        ? ""
-        : (String(
-            data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(),
-            encoding: .utf8
-        ) ?? "")
-    let stderr = String(
-        data: stderrPipe.fileHandleForReading.readDataToEndOfFile(),
-        encoding: .utf8
-    ) ?? ""
-    return CommandResult(status: process.terminationStatus, stdout: stdout, stderr: stderr)
-}
-
-@discardableResult
-func requireCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL? = nil,
-    discardStdout: Bool = false
-) throws -> CommandResult {
-    let result = try runCommand(
-        executable,
-        arguments,
-        currentDirectory: currentDirectory,
-        discardStdout: discardStdout
-    )
-    guard result.status == 0 else {
-        let detail = result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)
-        throw ScriptError(
-            detail.isEmpty
-                ? "Command failed (\(result.status)): \(executable) \(arguments.joined(separator: " "))"
-                : detail
-        )
-    }
-    return result
-}
-
-func repositoryRoot() -> URL {
-    // Walk up from this script so nested skill paths and scripts/ both work
-    // without depending on cwd or a git checkout.
-    var directory = URL(fileURLWithPath: #filePath).standardizedFileURL.deletingLastPathComponent()
-    while true {
-        let marker = directory.appendingPathComponent("_config.yml")
-        if FileManager.default.fileExists(atPath: marker.path) {
-            return directory
-        }
-        let parent = directory.deletingLastPathComponent()
-        if parent.path == directory.path {
-            return directory
-        }
-        directory = parent
-    }
-}
-
 func projectConfigValue(_ key: String, root: URL) throws -> String {
     // Standalone scripts cannot import another script as a module.  The shared
     // config file therefore exposes its typed constants through a tiny CLI.
@@ -203,7 +105,7 @@ func extractCode(from html: String) throws -> String {
     return source
 }
 
-let arguments = Array(CommandLine.arguments.dropFirst())
+let arguments = scriptArguments()
 let root = repositoryRoot()
 
 do {

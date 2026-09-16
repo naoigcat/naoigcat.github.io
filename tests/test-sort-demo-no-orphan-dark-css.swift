@@ -4,8 +4,7 @@ import Foundation
 // Regression: the site chrome is light-only, so sort-demo.css must not add
 // an isolated prefers-color-scheme: dark override that inverts only demos.
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let cssPath = root.appendingPathComponent("assets/css/sort-demo.css")
 
 do {

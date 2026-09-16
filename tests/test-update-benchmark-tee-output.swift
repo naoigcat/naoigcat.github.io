@@ -15,8 +15,7 @@ struct TestError: Error, CustomStringConvertible {
     }
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let updateScript = root.appendingPathComponent(
     ".agents/skills/benchmark-sort/scripts/update-benchmark.swift"
 )

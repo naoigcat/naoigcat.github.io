@@ -15,8 +15,7 @@ struct TestError: Error, CustomStringConvertible {
     }
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let benchmarkPath = root.appendingPathComponent("_includes/sort-benchmark.md")
 
 do {

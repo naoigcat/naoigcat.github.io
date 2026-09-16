@@ -42,8 +42,7 @@ func topLevelExcludeEntries(from text: String) -> [String] {
     return result
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let configPath = root.appendingPathComponent("_config.yml")
 
 do {

@@ -59,13 +59,13 @@ rg '^[a-z_]+:' _data/sort_algorithms.yml
 Verify Jekyll can render the standalone benchmark Swift program for the algorithm:
 
 ```bash
-swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift {algorithm} --dry-run
+swift scripts/swift-run.swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift scripts/support.swift {algorithm} --dry-run
 ```
 
 ### 2. Run benchmark and update the post
 
 ```bash
-swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift {algorithm}
+swift scripts/swift-run.swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift scripts/support.swift {algorithm}
 ```
 
 The script:
@@ -97,10 +97,9 @@ When the user wants every sort table refreshed (for example after bumping Swift 
 
 ```bash
 while IFS= read -r algo; do
-  swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift "$algo"
-done < <(swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift --list-targets)
+  swift scripts/swift-run.swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift scripts/support.swift "$algo"
+done < <(swift scripts/swift-run.swift .agents/skills/benchmark-sort/scripts/update-benchmark.swift scripts/support.swift --list-targets)
 ```
-
 Run sequentially — parallel runs contend for Docker and CPU. Expect **many hours** for all benchmarked algorithms
 (`bogo` and `bozo` excluded).
 

@@ -5,101 +5,6 @@ import Foundation
 // in Swift makes the task independent of the user's login shell while leaving
 // Docker and Jekyll as the actual site runtime.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: String
-    let stderr: String
-}
-
-struct ScriptError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-/// Runs one executable without passing the command through a shell.
-///
-/// Using an argument array is important here: paths and container ids remain
-/// individual arguments even when they contain characters meaningful to a
-/// shell.  This is the Swift equivalent of the old quoted zsh invocations.
-func runCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL? = nil,
-    inheritIO: Bool = false
-) throws -> CommandResult {
-    let process = Process()
-    if executable.hasPrefix("/") {
-        process.executableURL = URL(fileURLWithPath: executable)
-        process.arguments = arguments
-    } else {
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        process.arguments = [executable] + arguments
-    }
-    process.currentDirectoryURL = currentDirectory
-
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    if inheritIO {
-        process.standardInput = FileHandle.standardInput
-        process.standardOutput = FileHandle.standardOutput
-        process.standardError = FileHandle.standardError
-    } else {
-        process.standardOutput = stdoutPipe
-        process.standardError = stderrPipe
-    }
-
-    do {
-        try process.run()
-    } catch {
-        throw ScriptError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-
-    guard !inheritIO else {
-        return CommandResult(status: process.terminationStatus, stdout: "", stderr: "")
-    }
-
-    let stdout = String(
-        data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(),
-        encoding: .utf8
-    ) ?? ""
-    let stderr = String(
-        data: stderrPipe.fileHandleForReading.readDataToEndOfFile(),
-        encoding: .utf8
-    ) ?? ""
-    return CommandResult(status: process.terminationStatus, stdout: stdout, stderr: stderr)
-}
-
-/// Fails with the command's stderr, which is usually more useful than a bare
-/// non-zero status when Docker cannot start or Jekyll exits early.
-@discardableResult
-func requireCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL? = nil,
-    inheritIO: Bool = false
-) throws -> CommandResult {
-    let result = try runCommand(
-        executable,
-        arguments,
-        currentDirectory: currentDirectory,
-        inheritIO: inheritIO
-    )
-    guard result.status == 0 else {
-        let detail = result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)
-        if detail.isEmpty {
-            throw ScriptError("Command failed (\(result.status)): \(executable) \(arguments.joined(separator: " "))")
-        }
-        throw ScriptError(detail)
-    }
-    return result
-}
-
 /// Reads one value from the shared Swift configuration.
 ///
 /// Standalone Swift scripts cannot import another script as a module, so the
@@ -130,10 +35,7 @@ func stopServeContainer(root: URL) {
     )
 }
 
-let root = URL(fileURLWithPath: #filePath)
-    .standardizedFileURL
-    .deletingLastPathComponent()
-    .deletingLastPathComponent()
+let root = repositoryRoot()
 
 do {
     let image = try projectConfigValue("github-pages-image", root: root)

@@ -35,8 +35,7 @@ func cssDefines(_ className: String, in css: String) -> Bool {
     return regex.firstMatch(in: css, range: range) != nil
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let cssPath = root.appendingPathComponent("assets/css/sort-demo.css")
 let postsDirectory = root.appendingPathComponent("_posts")
 

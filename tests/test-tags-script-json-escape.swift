@@ -5,60 +5,7 @@ import Foundation
 // less-than sign.  Otherwise a title containing </script> could terminate the
 // JSON element before the browser's JSON parser sees it.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: Data
-    let stderr: Data
-
-    var stdoutText: String {
-        String(data: stdout, encoding: .utf8) ?? ""
-    }
-
-    var stderrText: String {
-        String(data: stderr, encoding: .utf8) ?? ""
-    }
-}
-
-struct TestError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-func runCommand(_ executable: String, _ arguments: [String], currentDirectory: URL) throws -> CommandResult {
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    process.arguments = [executable] + arguments
-    process.currentDirectoryURL = currentDirectory
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    process.standardOutput = stdoutPipe
-    process.standardError = stderrPipe
-
-    do {
-        try process.run()
-    } catch {
-        throw TestError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-    return CommandResult(
-        status: process.terminationStatus,
-        stdout: stdoutPipe.fileHandleForReading.readDataToEndOfFile(),
-        stderr: stderrPipe.fileHandleForReading.readDataToEndOfFile()
-    )
-}
-
-func requireCommand(_ executable: String, _ arguments: [String], currentDirectory: URL) throws -> CommandResult {
-    let result = try runCommand(executable, arguments, currentDirectory: currentDirectory)
-    guard result.status == 0 else {
-        throw TestError(result.stderrText.trimmingCharacters(in: .whitespacesAndNewlines))
-    }
-    return result
-}
+typealias TestError = ScriptError
 
 func regularFiles(under directory: URL) -> [URL] {
     (FileManager.default.enumerator(
@@ -120,8 +67,7 @@ func firstCapture(_ pattern: String, in text: String) -> (String, NSRange)? {
     return (String(text[capture]), match.range)
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let headFiles = ["tags/index.html", "_includes/tags-tag-json-full.html"]
 
 do {
@@ -150,7 +96,7 @@ do {
         [projectConfigPath.path, "github-pages-image"],
         currentDirectory: root
     )
-    let image = imageResult.stdoutText.trimmingCharacters(in: .whitespacesAndNewlines)
+    let image = imageResult.stdout.trimmingCharacters(in: .whitespacesAndNewlines)
     guard !image.isEmpty else {
         throw TestError("Could not read githubPagesImage from scripts/config.swift")
     }
@@ -196,9 +142,9 @@ do {
     try config.write(to: configPath, atomically: true, encoding: .utf8)
 
     let uid = try requireCommand("id", ["-u"], currentDirectory: root)
-        .stdoutText.trimmingCharacters(in: .whitespacesAndNewlines)
+        .stdout.trimmingCharacters(in: .whitespacesAndNewlines)
     let gid = try requireCommand("id", ["-g"], currentDirectory: root)
-        .stdoutText.trimmingCharacters(in: .whitespacesAndNewlines)
+        .stdout.trimmingCharacters(in: .whitespacesAndNewlines)
     _ = try requireCommand(
         "docker",
         [

@@ -38,4 +38,4 @@ jobs:
           swift-version: "6.0.3"
 
       - name: Verify tag JSON is up to date
-        run: swift scripts/verify-tags-json.swift
+        run: swift scripts/swift-run.swift scripts/verify-tags-json.swift scripts/support.swift

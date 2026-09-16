@@ -5,133 +5,7 @@ import Foundation
 // The workflow keeps argument parsing, post editing, and process orchestration
 // in Swift so no shell wrapper is needed.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: String
-    let stderr: String
-}
-
-struct ScriptError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
 let excludedAlgorithms: Set<String> = ["bogo", "bozo"]
-
-func runCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL,
-    discardStdout: Bool = false
-) throws -> CommandResult {
-    let process = Process()
-    if executable.hasPrefix("/") {
-        process.executableURL = URL(fileURLWithPath: executable)
-        process.arguments = arguments
-    } else {
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        process.arguments = [executable] + arguments
-    }
-    process.currentDirectoryURL = currentDirectory
-
-    // Capture via files instead of pipes.  Waiting on a full pipe buffer before
-    // reading can deadlock when the child writes more than ~64 KiB (render
-    // output for large algorithms already approaches that limit).
-    let temporaryDirectory = FileManager.default.temporaryDirectory
-        .appendingPathComponent("run-command-\(UUID().uuidString)")
-    try FileManager.default.createDirectory(at: temporaryDirectory, withIntermediateDirectories: true)
-    defer { try? FileManager.default.removeItem(at: temporaryDirectory) }
-
-    let stderrFile = temporaryDirectory.appendingPathComponent("stderr")
-    guard FileManager.default.createFile(atPath: stderrFile.path, contents: nil),
-          let stderrHandle = FileHandle(forWritingAtPath: stderrFile.path) else {
-        throw ScriptError("Could not open stderr capture file")
-    }
-
-    let stdoutFile = temporaryDirectory.appendingPathComponent("stdout")
-    let stdoutHandle: FileHandle
-    if discardStdout {
-        stdoutHandle = .nullDevice
-    } else {
-        guard FileManager.default.createFile(atPath: stdoutFile.path, contents: nil),
-              let handle = FileHandle(forWritingAtPath: stdoutFile.path) else {
-            throw ScriptError("Could not open stdout capture file")
-        }
-        stdoutHandle = handle
-    }
-
-    process.standardOutput = stdoutHandle
-    process.standardError = stderrHandle
-    do {
-        try process.run()
-    } catch {
-        if !discardStdout {
-            try? stdoutHandle.close()
-        }
-        try? stderrHandle.close()
-        throw ScriptError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-    if !discardStdout {
-        try? stdoutHandle.close()
-    }
-    try? stderrHandle.close()
-
-    let stdout = discardStdout ? "" : (try String(contentsOf: stdoutFile, encoding: .utf8))
-    let stderr = try String(contentsOf: stderrFile, encoding: .utf8)
-    return CommandResult(status: process.terminationStatus, stdout: stdout, stderr: stderr)
-}
-
-@discardableResult
-func requireCommand(
-    _ executable: String,
-    _ arguments: [String],
-    currentDirectory: URL,
-    discardStdout: Bool = false
-) throws -> CommandResult {
-    let result = try runCommand(
-        executable,
-        arguments,
-        currentDirectory: currentDirectory,
-        discardStdout: discardStdout
-    )
-    guard result.status == 0 else {
-        let detail = result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)
-        throw ScriptError(
-            detail.isEmpty
-                ? "Command failed (\(result.status)): \(executable) \(arguments.joined(separator: " "))"
-                : detail
-        )
-    }
-    return result
-}
-
-func runInherited(_ executable: String, _ arguments: [String], currentDirectory: URL) throws -> Int32 {
-    let process = Process()
-    if executable.hasPrefix("/") {
-        process.executableURL = URL(fileURLWithPath: executable)
-        process.arguments = arguments
-    } else {
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-        process.arguments = [executable] + arguments
-    }
-    process.currentDirectoryURL = currentDirectory
-    process.standardInput = FileHandle.standardInput
-    process.standardOutput = FileHandle.standardOutput
-    process.standardError = FileHandle.standardError
-    do {
-        try process.run()
-    } catch {
-        throw ScriptError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-    return process.terminationStatus
-}
 
 /// Streams a benchmark's stdout both to the terminal and to a file.
 ///
@@ -178,23 +52,6 @@ func runAndTee(
 
     guard process.terminationStatus == 0 else {
         throw ScriptError("Benchmark failed with exit status \(process.terminationStatus)")
-    }
-}
-
-func repositoryRoot() -> URL {
-    // Walk up from this script so nested skill paths and scripts/ both work
-    // without depending on cwd or a git checkout.
-    var directory = URL(fileURLWithPath: #filePath).standardizedFileURL.deletingLastPathComponent()
-    while true {
-        let marker = directory.appendingPathComponent("_config.yml")
-        if FileManager.default.fileExists(atPath: marker.path) {
-            return directory
-        }
-        let parent = directory.deletingLastPathComponent()
-        if parent.path == directory.path {
-            return directory
-        }
-        directory = parent
     }
 }
 
@@ -310,8 +167,10 @@ func updatePost(_ post: URL, with benchmarkOutput: String) throws -> Int {
     return rows.count
 }
 
-let arguments = Array(CommandLine.arguments.dropFirst())
+let arguments = scriptArguments()
 let root = repositoryRoot()
+let support = root.appendingPathComponent("scripts/support.swift")
+let swiftRun = root.appendingPathComponent("scripts/swift-run.swift")
 
 do {
     if arguments == ["--list-targets"] {
@@ -361,7 +220,7 @@ do {
     )
     let rendered = try requireCommand(
         "swift",
-        [renderScript.path, algorithm],
+        [swiftRun.path, renderScript.path, support.path, algorithm],
         currentDirectory: root
     )
 
@@ -391,14 +250,11 @@ do {
     fputs("Updated \(post.path) (\(rowCount) rows)\n", stderr)
 
     fputs("Running markdownlint…\n", stderr)
-    let lintStatus = try runInherited(
+    try runInherited(
         "mise",
         ["run", "lint", "--", relativePost],
         currentDirectory: root
     )
-    guard lintStatus == 0 else {
-        throw ScriptError("Markdownlint failed with exit status \(lintStatus)")
-    }
 } catch {
     fputs("\(error)\n", stderr)
     exit(1)

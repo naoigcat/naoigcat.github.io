@@ -61,8 +61,7 @@ func relativePath(_ path: URL, from root: URL) -> String {
     path.path.replacingOccurrences(of: root.path + "/", with: "")
 }
 
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 let postsDirectory = root.appendingPathComponent("_posts")
 let tagsDirectory = root.appendingPathComponent("assets/tags")
 let embedPath = root.appendingPathComponent("_data/tags_embed.yml")

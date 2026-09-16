@@ -6,64 +6,14 @@ import Foundation
 // outputs and failure boundaries remain explicit while the implementation has
 // one source file.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: Data
-    let stderr: Data
-
-    var stdoutText: String {
-        String(data: stdout, encoding: .utf8) ?? ""
-    }
-
-    var stderrText: String {
-        String(data: stderr, encoding: .utf8) ?? ""
-    }
-}
-
-struct ScriptError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
 struct DockerImageReference {
     let displayRepository: String
     let hubSlug: String
     let currentTag: String
 }
 
-func runCommand(_ executable: String, _ arguments: [String], currentDirectory: URL) throws -> CommandResult {
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    process.arguments = [executable] + arguments
-    process.currentDirectoryURL = currentDirectory
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    process.standardOutput = stdoutPipe
-    process.standardError = stderrPipe
-    do {
-        try process.run()
-    } catch {
-        throw ScriptError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-    return CommandResult(
-        status: process.terminationStatus,
-        stdout: stdoutPipe.fileHandleForReading.readDataToEndOfFile(),
-        stderr: stderrPipe.fileHandleForReading.readDataToEndOfFile()
-    )
-}
-
-func repositoryRoot() -> URL {
-    let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-    let sourceRoot = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
-    return URL(
-        fileURLWithPath: ProcessInfo.processInfo.environment["GITHUB_WORKSPACE"] ?? sourceRoot.path
-    ).standardizedFileURL
+func syncRepositoryRoot() -> URL {
+    repositoryRoot()
 }
 
 func isASCIIInteger(_ value: String) -> Bool {
@@ -143,13 +93,16 @@ func numericTagsFromDockerHub(slug: String, root: URL) throws -> Set<Int> {
             currentDirectory: root
         )
         guard result.status == 0 else {
-            let detail = result.stderrText.trimmingCharacters(in: .whitespacesAndNewlines)
+            let detail = result.stderr.trimmingCharacters(in: .whitespacesAndNewlines)
             throw ScriptError("Docker Hub fetch failed (\(url)): \(detail)")
         }
 
         let body: Any
         do {
-            body = try JSONSerialization.jsonObject(with: result.stdout, options: [.fragmentsAllowed])
+            body = try JSONSerialization.jsonObject(
+                with: Data(result.stdout.utf8),
+                options: [.fragmentsAllowed]
+            )
         } catch {
             throw ScriptError("Invalid Docker Hub JSON: \(error)")
         }
@@ -286,12 +239,15 @@ func markdownlintVersion(ref: String, root: URL) throws -> String {
     print("Fetching \(url)")
     let package = try runCommand("curl", ["-fsSL", url], currentDirectory: root)
     guard package.status == 0 else {
-        throw ScriptError("Could not fetch package.json: \(package.stderrText)")
+        throw ScriptError("Could not fetch package.json: \(package.stderr)")
     }
 
     let json: Any
     do {
-        json = try JSONSerialization.jsonObject(with: package.stdout, options: [.fragmentsAllowed])
+        json = try JSONSerialization.jsonObject(
+            with: Data(package.stdout.utf8),
+            options: [.fragmentsAllowed]
+        )
     } catch {
         throw ScriptError("Invalid action package.json: \(error)")
     }
@@ -329,8 +285,8 @@ func updateMarkdownlintImage(root: URL, version: String) throws {
     try updated.write(to: configPath, atomically: true, encoding: .utf8)
 }
 
-let root = repositoryRoot()
-let arguments = Array(CommandLine.arguments.dropFirst())
+let root = syncRepositoryRoot()
+let arguments = scriptArguments()
 let usage = "usage: sync.swift github-pages-image|markdownlint resolve-ref|fetch-version|update"
 
 do {

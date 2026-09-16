@@ -37,33 +37,33 @@ jobs:
 
       - name: Bump ProjectConfig.githubPagesImage from Docker Hub
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
-        run: swift scripts/sync.swift github-pages-image
+        run: swift scripts/swift-run.swift scripts/sync.swift scripts/support.swift github-pages-image
 
       - name: Resolve markdownlint-cli2-action ref from lint workflow
         if: github.event_name == 'push'
         id: action_ref
-        run: swift scripts/sync.swift markdownlint resolve-ref
+        run: swift scripts/swift-run.swift scripts/sync.swift scripts/support.swift markdownlint resolve-ref
 
       - name: Fetch markdownlint-cli2 version from action package.json
         if: github.event_name == 'push'
         id: cli2
         env:
           ACTION_REF: ${{ steps.action_ref.outputs.ref }}
-        run: swift scripts/sync.swift markdownlint fetch-version
+        run: swift scripts/swift-run.swift scripts/sync.swift scripts/support.swift markdownlint fetch-version
 
       - name: Update Swift config
         if: github.event_name == 'push'
         env:
           VERSION: ${{ steps.cli2.outputs.version }}
-        run: swift scripts/sync.swift markdownlint update
+        run: swift scripts/swift-run.swift scripts/sync.swift scripts/support.swift markdownlint update
 
       - name: Commit GitHub Pages image if changed
         if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
-        run: swift scripts/commit-and-push.swift --github-pages-image
+        run: swift scripts/swift-run.swift scripts/commit-and-push.swift scripts/support.swift --github-pages-image
 
       - name: Commit markdownlint image if changed
         if: github.event_name == 'push'
         env:
           COMMIT_PATH: scripts/config.swift
           COMMIT_MESSAGE: Sync ProjectConfig.markdownlintCLI2Image with markdownlint-cli2-action (${{ steps.cli2.outputs.version }})
-        run: swift scripts/commit-and-push.swift
+        run: swift scripts/swift-run.swift scripts/commit-and-push.swift scripts/support.swift

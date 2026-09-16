@@ -4,47 +4,9 @@ import Foundation
 // Regression: Docker image constants belong to the shared Swift config, while
 // mise remains a task dispatcher with no duplicated values or flag schema.
 
-struct CommandResult {
-    let status: Int32
-    let stdout: String
-    let stderr: String
-}
+typealias TestError = ScriptError
 
-struct TestError: Error, CustomStringConvertible {
-    let message: String
-
-    var description: String { message }
-
-    init(_ message: String) {
-        self.message = message
-    }
-}
-
-func runCommand(_ executable: String, _ arguments: [String], currentDirectory: URL) throws -> CommandResult {
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
-    process.arguments = [executable] + arguments
-    process.currentDirectoryURL = currentDirectory
-    let stdoutPipe = Pipe()
-    let stderrPipe = Pipe()
-    process.standardOutput = stdoutPipe
-    process.standardError = stderrPipe
-
-    do {
-        try process.run()
-    } catch {
-        throw TestError("Could not start \(executable): \(error)")
-    }
-    process.waitUntilExit()
-    return CommandResult(
-        status: process.terminationStatus,
-        stdout: String(data: stdoutPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "",
-        stderr: String(data: stderrPipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
-    )
-}
-
-let scriptURL = URL(fileURLWithPath: #filePath).standardizedFileURL
-let root = scriptURL.deletingLastPathComponent().deletingLastPathComponent()
+let root = repositoryRoot()
 do {
     let config = root.appendingPathComponent("scripts/config.swift")
     let configText = try String(contentsOf: config, encoding: .utf8)
@@ -82,10 +44,10 @@ do {
         throw TestError(".mise.toml still contains variables or usage flags")
     }
     let expectedRuns = [
-        "run = \"swift scripts/serve.swift\"",
-        "run = \"swift scripts/lint.swift\"",
-        "run = \"swift scripts/generate-tags-json.swift\"",
-        "run = \"swift tests/run.swift\"",
+        "run = \"swift scripts/swift-run.swift scripts/serve.swift scripts/support.swift\"",
+        "run = \"swift scripts/swift-run.swift scripts/lint.swift scripts/support.swift\"",
+        "run = \"swift scripts/swift-run.swift scripts/generate-tags-json.swift scripts/support.swift\"",
+        "run = \"swift scripts/swift-run.swift tests/run.swift scripts/support.swift\"",
     ]
     let runLines = mise.components(separatedBy: .newlines)
         .map { $0.trimmingCharacters(in: .whitespaces) }
