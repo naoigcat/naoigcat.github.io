@@ -20,8 +20,8 @@ hits    command
 明示的に登録したり、登録済みのパスを表示したり、キャッシュを消したりできる。 `-t` オプションで登録済みのパスを表示できる（macOS 同梱の Bash 3.2 でも利用できる）。
 
 ```sh
-$ bash --noprofile --norc -lc 'hash -r; hash git; hash -t git'
-/usr/bin/git
+$ bash --noprofile --norc -lc 'hash -r; hash ls; hash -t ls'
+/bin/ls
 ```
 
 ## 実行ファイルの存在チェックも行える
