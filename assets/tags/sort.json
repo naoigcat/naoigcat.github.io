@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "キューブソートで配列を並び替える",
+      "url": "/2026/09/18/sort-cube.html",
+      "date": "Sep 18, 2026"
+    },
+    {
       "title": "振動ソートで配列を並び替える",
       "url": "/2026/09/17/sort-oscillating-merge.html",
       "date": "Sep 17, 2026"
