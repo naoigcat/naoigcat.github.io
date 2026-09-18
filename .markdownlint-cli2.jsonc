@@ -4,7 +4,8 @@
         "**/*.md"
     ],
     "ignores": [
-        "node_modules/**"
+        "node_modules/**",
+        ".review.md"
     ],
     "config": {
         "ul-indent": {

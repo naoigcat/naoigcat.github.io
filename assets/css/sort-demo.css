@@ -1801,3 +1801,112 @@
   }
 }
 
+/* Cubesort: X rows of Y buckets (Z bars). */
+.sort-demo:has(.sort-demo-cube-wrap) {
+  overflow-x: auto;
+}
+.sort-demo:has(.sort-demo-cube-wrap) .sort-demo__bars {
+  display: block;
+  min-height: 0;
+  padding: 0;
+}
+.sort-demo-cube-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.sort-demo-cube__incoming {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 48px;
+  padding: 0.35rem 0.4rem;
+  border: 1px dashed rgba(128, 128, 128, 0.45);
+  border-radius: 6px;
+}
+.sort-demo-cube__incoming::before {
+  content: '未挿入';
+  flex: 0 0 auto;
+  align-self: center;
+  margin-right: 0.35rem;
+  font-size: 0.72rem;
+  color: rgba(0, 0, 0, 0.55);
+}
+.sort-demo-cube__x {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.4rem 0.45rem;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.sort-demo-cube__x-label {
+  font-size: 0.72rem;
+  color: rgba(0, 0, 0, 0.55);
+}
+.sort-demo-cube__y-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+.sort-demo-cube__z {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  min-width: 2.5rem;
+  padding: 0.25rem 0.3rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.04);
+}
+.sort-demo-cube__z--active {
+  outline: 2px solid rgba(0, 0, 0, 0.35);
+  outline-offset: 1px;
+}
+.sort-demo-cube__z-label {
+  font-size: 0.65rem;
+  line-height: 1.1;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.sort-demo-cube__z-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  min-height: 72px;
+}
+.sort-demo-cube__z-bars .sort-demo__bar {
+  width: 14px;
+  min-width: 14px;
+  max-width: 14px;
+  flex: none;
+}
+.sort-demo-cube__done {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 48px;
+  padding: 0.35rem 0.4rem;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  border-radius: 6px;
+}
+.sort-demo-cube__done::before {
+  content: '出力';
+  flex: 0 0 auto;
+  align-self: center;
+  margin-right: 0.35rem;
+  font-size: 0.72rem;
+  color: rgba(0, 0, 0, 0.55);
+}
+@media (max-width: 600px) {
+  .sort-demo-cube__z-bars .sort-demo__bar {
+    width: 10px;
+    min-width: 10px;
+    max-width: 10px;
+  }
+}
+
