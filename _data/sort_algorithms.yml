@@ -135,6 +135,10 @@ gravity:
   sort_fn: gravity_sort
   quadratic_average: true
 
+grid:
+  sort_fn: grid_sort
+  insertion_sort: true
+
 heap:
   sort_fn: heap_sort
   heap_sort: true

@@ -1912,3 +1912,104 @@
   }
 }
 
+/* Gridsort: one axis of Y buckets. */
+.sort-demo:has(.sort-demo-grid-wrap) {
+  overflow-x: auto;
+}
+.sort-demo:has(.sort-demo-grid-wrap) .sort-demo__bars {
+  display: block;
+  min-height: 0;
+  padding: 0;
+}
+.sort-demo-grid-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.sort-demo-grid-wrap .sort-demo__bar {
+  width: 28px;
+  min-width: 28px;
+  max-width: 28px;
+  flex: none;
+  transition: none;
+}
+.sort-demo-grid__incoming,
+.sort-demo-grid__done {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  gap: 5px;
+  height: 120px;
+  min-height: 120px;
+  max-height: 120px;
+  padding: 0.35rem 0.4rem;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.sort-demo-grid__incoming {
+  border: 1px dashed rgba(128, 128, 128, 0.45);
+}
+.sort-demo-grid__incoming::before {
+  content: '未挿入';
+  flex: 0 0 auto;
+  align-self: center;
+  margin-right: 0.35rem;
+  font-size: 0.72rem;
+  color: rgba(0, 0, 0, 0.55);
+}
+.sort-demo-grid__done {
+  border: 1px solid rgba(128, 128, 128, 0.35);
+}
+.sort-demo-grid__done::before {
+  content: '出力';
+  flex: 0 0 auto;
+  align-self: center;
+  margin-right: 0.35rem;
+  font-size: 0.72rem;
+  color: rgba(0, 0, 0, 0.55);
+}
+.sort-demo-grid__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding: 0.4rem 0.45rem;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.sort-demo-grid__y {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  min-width: 2.5rem;
+  padding: 0.25rem 0.3rem 0.3rem;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.04);
+}
+.sort-demo-grid__y--active {
+  outline: 2px solid rgba(0, 0, 0, 0.35);
+  outline-offset: 1px;
+}
+.sort-demo-grid__y-label {
+  font-size: 0.65rem;
+  line-height: 1.1;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.sort-demo-grid__y-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  min-height: 92px;
+}
+@media (max-width: 600px) {
+  .sort-demo-grid-wrap .sort-demo__bar {
+    width: 20px;
+    min-width: 20px;
+    max-width: 20px;
+  }
+}
+
