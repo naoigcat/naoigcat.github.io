@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "グリッドソートで配列を並び替える",
+      "url": "/2026/09/19/sort-grid.html",
+      "date": "Sep 19, 2026"
+    },
+    {
       "title": "キューブソートで配列を並び替える",
       "url": "/2026/09/18/sort-cube.html",
       "date": "Sep 18, 2026"
