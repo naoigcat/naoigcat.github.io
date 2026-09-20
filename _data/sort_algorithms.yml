@@ -155,6 +155,11 @@ intro:
   partition: true
   heap_sort: true
 
+interpolation:
+  sort_fn: interpolation_sort
+  insertion_sort: true
+  quadratic_average: true
+
 kota:
   sort_fn: kota_sort
 
