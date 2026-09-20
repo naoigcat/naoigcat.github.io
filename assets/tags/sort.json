@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "補間ソートで配列を並び替える",
+      "url": "/2026/09/20/sort-interpolation.html",
+      "date": "Sep 20, 2026"
+    },
+    {
       "title": "グリッドソートで配列を並び替える",
       "url": "/2026/09/19/sort-grid.html",
       "date": "Sep 19, 2026"
