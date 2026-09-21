@@ -160,6 +160,12 @@ interpolation:
   insertion_sort: true
   quadratic_average: true
 
+iterative_quick:
+  sort_fn: iterative_quick_sort
+  insertion_sort: true
+  partition_at: true
+  partition: true
+
 kota:
   sort_fn: kota_sort
 
