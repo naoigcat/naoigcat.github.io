@@ -3,6 +3,11 @@
   "slug": "sort",
   "posts": [
     {
+      "title": "反復型クイックソートで配列を並び替える",
+      "url": "/2026/09/22/sort-iterative-quick.html",
+      "date": "Sep 22, 2026"
+    },
+    {
       "title": "補間ソートで配列を並び替える",
       "url": "/2026/09/20/sort-interpolation.html",
       "date": "Sep 20, 2026"
