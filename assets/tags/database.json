@@ -1,0 +1,11 @@
+{
+  "name": "database",
+  "slug": "database",
+  "posts": [
+    {
+      "title": "関係データベースの非正規形を扱う",
+      "url": "/2026/09/23/database-normalization-unf.html",
+      "date": "Sep 23, 2026"
+    }
+  ]
+}
