@@ -16,6 +16,10 @@ the file.
 -   **Display title and body**: Write the front matter `title` value (`{display_title}`) and all article body content (the
     Markdown after the closing front matter `---`) **in Japanese**. The user may still supply an ASCII/kebab-style slug for
     `{filename_slug}`; only the human-facing title and prose must be Japanese.
+-   **Present-tense sentence headings**: `{display_title}` and every Markdown section heading (`## …`) must be a **Japanese
+    present-tense sentence** in dictionary (plain) form whose predicate is a verb. Do not use a noun phrase or a `〜とは`
+    label. Phrase the heading as what the post or section does or shows. Do not reverse the topic’s meaning when turning
+    a slug or a concept into that sentence.
 
 ## 1. Determine the filename slug
 
@@ -36,9 +40,9 @@ when generating it:
 
 ## 2. Prepare fields
 
--   **Display title**: Use a separate variable `{display_title}` for front matter and display. It must be **Japanese**
-    phrasing appropriate for the post (if the user gives an ASCII slug like `bash-random-number`, expand it to a natural
-    Japanese title such as `Bashでの乱数生成`).
+-   **Display title**: Use a separate variable `{display_title}` for front matter and display. It must be a **Japanese
+    present-tense sentence** appropriate for the post, including when the user supplies only an ASCII slug. Follow the
+    present-tense sentence rule above.
 -   **Tags**: Split `{filename_slug}` on hyphens (`-`) and resolve `{tag}` from those segments.
     -   The **first segment is always the leading tag** (this is the primary category, e.g. `git`, `sort`, `yaml`). It
         comes first in the final list.
@@ -146,7 +150,8 @@ Optional front matter keys (semantics reminder):
 -   **`sort_demo: true`** — `head.html` loads sort-demo CSS and `sort-demo.js` when using `{% include sort-demo.html %}`.
 
 Set `title` to `{display_title}` and `tags` to `{tag}` (the space-separated list resolved in step 2, always starting with
-the first segment of `{filename_slug}`). Write the **article body in Japanese**.
+the first segment of `{filename_slug}`). Write the **article body in Japanese**. Structure the body with `##` section
+headings that follow the same present-tense sentence rule as `{display_title}`.
 
 ## 4. Run markdownlint
 
