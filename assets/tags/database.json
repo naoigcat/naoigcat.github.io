@@ -3,6 +3,11 @@
   "slug": "database",
   "posts": [
     {
+      "title": "関係データベースの第二正規形を扱う",
+      "url": "/2026/09/25/database-normalization-2nf.html",
+      "date": "Sep 25, 2026"
+    },
+    {
       "title": "関係データベースの第一正規形を扱う",
       "url": "/2026/09/24/database-normalization-1nf.html",
       "date": "Sep 24, 2026"
