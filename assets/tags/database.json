@@ -3,6 +3,11 @@
   "slug": "database",
   "posts": [
     {
+      "title": "関係データベースのボイス・コッド正規形を扱う",
+      "url": "/2026/10/02/database-normalization-bcnf.html",
+      "date": "Oct 2, 2026"
+    },
+    {
       "title": "関係データベースの初等キー正規形を扱う",
       "url": "/2026/09/27/database-normalization-eknf.html",
       "date": "Sep 27, 2026"
