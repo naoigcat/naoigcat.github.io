@@ -3,6 +3,11 @@
   "slug": "database",
   "posts": [
     {
+      "title": "関係データベースの本質タプル正規形を扱う",
+      "url": "/2026/10/05/database-normalization-etnf.html",
+      "date": "Oct 5, 2026"
+    },
+    {
       "title": "関係データベースの第四正規形を扱う",
       "url": "/2026/10/04/database-normalization-4nf.html",
       "date": "Oct 4, 2026"
