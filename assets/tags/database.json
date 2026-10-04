@@ -3,6 +3,11 @@
   "slug": "database",
   "posts": [
     {
+      "title": "関係データベースの第四正規形を扱う",
+      "url": "/2026/10/04/database-normalization-4nf.html",
+      "date": "Oct 4, 2026"
+    },
+    {
       "title": "関係データベースのボイス・コッド正規形を扱う",
       "url": "/2026/10/02/database-normalization-bcnf.html",
       "date": "Oct 2, 2026"
