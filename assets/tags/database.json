@@ -3,6 +3,11 @@
   "slug": "database",
   "posts": [
     {
+      "title": "関係データベースのドメイン・キー正規形を扱う",
+      "url": "/2026/10/17/database-normalization-dknf.html",
+      "date": "Oct 17, 2026"
+    },
+    {
       "title": "関係データベースの第五正規形を扱う",
       "url": "/2026/10/07/database-normalization-5nf.html",
       "date": "Oct 7, 2026"
