@@ -12,7 +12,7 @@ enum ProjectConfig {
 
     // The pinned CLI image keeps local linting reproducible and matches the
     // markdownlint action version synchronized by CI.
-    static let markdownlintCLI2Image = "davidanson/markdownlint-cli2:v0.23.2"
+    static let markdownlintCLI2Image = "davidanson/markdownlint-cli2:v0.24.0"
 }
 
 struct ConfigError: Error, CustomStringConvertible {
