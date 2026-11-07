@@ -1,0 +1,3 @@
+interface:
+  display_name: "Sort Data"
+  short_description: "Keep repository YAML data keys and lists alphabetically sorted"

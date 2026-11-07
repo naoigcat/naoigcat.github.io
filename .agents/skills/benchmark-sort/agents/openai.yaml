@@ -1,0 +1,3 @@
+interface:
+  display_name: "Sort Benchmarks"
+  short_description: "Rerun Swift/Docker sort benchmarks and refresh post tables"

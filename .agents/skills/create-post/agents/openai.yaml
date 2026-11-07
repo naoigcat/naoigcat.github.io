@@ -1,0 +1,3 @@
+interface:
+  display_name: "Create Post"
+  short_description: "Create Japanese posts with aligned front matter and tag JSON"
