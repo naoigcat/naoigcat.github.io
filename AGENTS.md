@@ -3,6 +3,10 @@
 Always-on project constraints. Task-specific workflows live under `.agents/skills/`
 (see [Cursor Skills](https://cursor.com/docs/skills.md)); load those when the work matches.
 
+## Commit messages
+
+Use Conventional Commits format for commit messages in this repository (for example, `docs: add a post` or `fix: correct tag loading`).
+
 ## GitHub Pages already runs Jekyll
 
 This repository is published with **GitHub Pages**. Pushing to the branch that Pages uses triggers
