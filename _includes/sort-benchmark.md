@@ -304,10 +304,11 @@ CMD ["./swift-benchmark"]
         encoding: .utf8
     )
 
-    // Keeping build and run as separate child processes preserves Docker's
-    // normal output and the original image tag used by the benchmark skill.
-    try runCommand("docker", ["build", "-t", "swift-benchmark", workdir.path])
-    try runCommand("docker", ["run", "--rm", "--init", "swift-benchmark"])
+    // Separate tags keep another build from replacing this run's image.
+    let imageTag = "swift-benchmark:\(UUID().uuidString.lowercased())"
+    try runCommand("docker", ["build", "-t", imageTag, workdir.path])
+    defer { try? runCommand("docker", ["image", "rm", imageTag]) }
+    try runCommand("docker", ["run", "--rm", "--init", imageTag])
 } catch {
     fputs("\(error)\n", stderr)
     exit(1)

@@ -72,7 +72,7 @@ The script:
 
 1.  Renders the same Swift program shown on the live post (`render-benchmark-script.swift` → Jekyll include → extract
     `<pre><code>` from `.sort-benchmark-code`).
-2.  Executes that program (Docker build + `docker run --rm --init swift-benchmark`).
+2.  Executes that program using a unique Docker image tag, then removes that tag.
 3.  Replaces only the **data rows** inside the `sort-benchmark-result` markers, keeping the fixed header row and
     marker comments.
 4.  Runs `mise run lint -- "<post-path>"`.
