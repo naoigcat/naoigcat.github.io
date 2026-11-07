@@ -191,7 +191,7 @@ If everything is fine, commit with:
 
 ```bash
 git add _posts/{year}/{month}/{year}-{month}-{day}-{filename_slug}.md assets/tags/
-git commit -m "Add post \`{year}-{month}-{day}-{filename_slug}\`"
+git commit -m "docs(posts): add post \`{year}-{month}-{day}-{filename_slug}\`"
 ```
 
 ## 7. Report completion
